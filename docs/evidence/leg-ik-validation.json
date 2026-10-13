@@ -37,11 +37,54 @@
   "correctedBuild": {
     "build": "build-leg-ik-support",
     "offlineEvidence": "leg-ik-offline.json",
-    "liveValidated": false,
-    "liveAttempt": "Windows UAC canceled; corrected DLL not loaded",
+    "liveValidated": true,
+    "liveAttempt": "completed after user requested reopening UAC",
     "commonRootFrameZeroOrigin": true,
     "flatSupportReachCompensation": true,
-    "terrainRaycast": false
+    "terrainRaycast": false,
+    "liveEvidence": "genshin-7.1-leg-ik-support.json",
+    "evidenceAssertionsPassed": true,
+    "elapsedMs": 23469,
+    "restoredBoneCount": 52,
+    "legIk": {
+      "enabled": true,
+      "status": "playing-two-bone-foot-ik",
+      "solvedLegSamples": 1866,
+      "reachClampedSamples": 47,
+      "disabledOrMissingSamples": 0,
+      "maximumReachableTargetResidual": 3.9319022e-07,
+      "maximumRequestedTargetMiss": 0.0663168356,
+      "maximumLiveReferenceGeometryError": 1.25169754e-06,
+      "maximumVisualRootLowering": 0.0574911833,
+      "footPositionFrameZeroAnchored": false,
+      "commonRootFrameZeroOrigin": true,
+      "flatSupportReachCompensation": true,
+      "terrainRaycast": false,
+      "footRotationApplied": true,
+      "toeIkApplied": false,
+      "sourcePmxCalibrated": false
+    },
+    "performance": {
+      "sharedPathResolution": true,
+      "batches": 933,
+      "averageBatchMs": 4.17783301,
+      "maxBatchMs": 5.64769998,
+      "totalResolveAndSampleMs": 3890.0703,
+      "totalWriteMs": 7.84790036,
+      "uniqueNodesValidated": 54114,
+      "sharedPrefixesReused": 576594
+    },
+    "playerSession": {
+      "enabled": true,
+      "commandsRead": 0,
+      "audioLoaded": true,
+      "audioError": 0,
+      "audioRequeues": 1,
+      "positionChecks": 1124,
+      "maxReportedAudioOffsetMs": 31.6875,
+      "audioClosed": true
+    },
+    "userFeedback": "明显改善，整体自然流畅"
   },
   "sourcePmxCalibrated": false,
   "toeIkImplemented": false
