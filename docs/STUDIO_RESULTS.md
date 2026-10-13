@@ -91,3 +91,8 @@ python .\scripts\generate-camera-fixture.py .\build-studio-next\camera-fixture.v
 152/84（首轮）和 148/82（最终构建）的“保留/被游戏改写”采样说明游戏相机控制器仍在运行。本实现会重新施加轨道，数值验证确认的是写后姿态与恢复，**尚未确认最终渲染帧的持有时序、抖动或构图效果**，不将其报告为完整自由相机。后续需要更合适的最终相机更新阶段或驱动租约。
 
 证据：[自动命令链](evidence/camera-playback-live-validation.json)、[完整实机报告](evidence/genshin-7.1-camera-playback.json)。此轮无需用户视觉反馈。
+
+
+## Windows 启动修复
+
+双击入口改为 `powershell.exe -NoProfile -ExecutionPolicy Bypass`，仅对启动进程设置执行策略，不修改系统配置。PowerShell 启动脚本使用纯 ASCII，避免 Windows PowerShell 5.1 对无 BOM UTF-8 中文按本地代码页解析而报“字符串缺少终止符”。入口失败时保留终端，Python 标准错误/输出保存至 `logs/gui-<随机标识>.stderr.log` 与 `.stdout.log`；启动后 1.5 秒内退出且非零会明确报告日志路径。已在实际桌面确认 `pythonw` 的“GIMMD · 创作控制台”窗口启动成功。日志目录不纳入 Git。
