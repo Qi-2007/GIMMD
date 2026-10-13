@@ -85,6 +85,12 @@ for source,target in definitions:
 lines += ['};','struct Reference { int parent; float position[3], rotation[4], scale[3]; };','inline constexpr Reference AvatarReference[] = {']
 for item in snapshot['animatorObserver']['bindPose']['avatarReference']['localTrs']:
     lines.append('    {'+str(item['parentIndex'])+','+array(item['position'])+','+array(item['rotation'])+','+array(item['scale'])+'},')
+target_leg = sum(math.dist(position('Bip001 '+side+' '+a),position('Bip001 '+side+' '+b))
+                 for side in ('L','R') for a,b in (('Thigh','Calf'),('Calf','Foot')))/2
+lines += ['};','inline constexpr float RootMotionScale = '+number(target_leg/10.62420198)+';',
+          'inline constexpr const char* RootTrackNames[] = {']
+for name in ('全ての親','センター','グルーブ'):
+    lines.append('    "'+''.join('\\x%02x'%b for b in name.encode('cp932'))+'",')
 lines += ['};','}']
 (root/'src/generated/fk_profile.h').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 (root/'docs/evidence/fk-binding-profile.json').write_text(json.dumps({'sourcePreset':'EIEM canonical Tda approximation',

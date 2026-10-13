@@ -14,6 +14,7 @@ struct Track {
 };
 static Track tracks[Capacity];
 static unsigned source_used = 0;
+#include "root_motion.h"
 static size_t source_tracks = 0, source_morphs = 0, source_cameras = 0, source_ik = 0;
 static uint32_t last_frame = 0;
 static const char* state = "disabled";
@@ -34,6 +35,7 @@ static double precise_ms() {
     LARGE_INTEGER now{}; QueryPerformanceCounter(&now); return double(now.QuadPart)*1000/frequency;
 }
 static void reset() {
+    root_motion::reset();
     for (auto& track : tracks) track = {};
     TrackCount = full_mode ? Capacity : 10; source_used = 0;
     source_tracks = source_morphs = source_cameras = source_ik = 0; last_frame = 0;
@@ -61,6 +63,7 @@ static bool prepare(const vmd::Motion& motion) {
     }
     if (full_mode && (source_used < 16 || tracks[0].keys.empty() || tracks[1].keys.empty() ||
         tracks[7].keys.empty() || tracks[8].keys.empty() || tracks[30].keys.empty() || tracks[31].keys.empty())) return false;
+    if (!root_motion::prepare(motion)) return false;
     source_tracks = motion.bones.size(); source_morphs = motion.morphs.size();
     source_cameras = motion.cameras.size(); source_ik = motion.ik.size(); last_frame = motion.last_frame;
     clock = gimmd::Timeline(double(last_frame)/30);
@@ -111,6 +114,7 @@ static bool bind(int actor) {
         track.length = length;
         for (unsigned n = 0; n < length; ++n) track.steps[n] = reverse[length - n - 1];
     }
+    if (!root_motion::bind(model_node)) { state = "root-motion-binding-refused"; return false; }
     state = "all-targets-bound"; return true;
 }
 static void restore_all() {
@@ -130,6 +134,7 @@ static void restore_all() {
             result.restore_error = std::max(result.restore_error, roundtrip::error(track.baseline, observed));
         } else pending = true;
     }
+    if (!root_motion::restore(&batch)) pending = true;
     dirty.store(pending);
     if (pending) {
         animator_lease::release(); state = "pose-restoration-pending"; result.status = state; stop_requested.store(true); return;
@@ -204,6 +209,9 @@ static void tick(ULONGLONG now) {
         }
     }
     if (stop_requested.load()) { restore_all(); return; }
+    if (!root_motion::preflight(&batch,source_seconds*30,entry_blend_seconds/0.5)) {
+        stop_requested.store(true); restore_all(); return;
+    }
     const double write_start = precise_ms();
     for (unsigned i = 0; i < TrackCount; ++i) {
         auto& track = tracks[i]; track.applied = sampled[i]; track.dirty = true; dirty.store(true);
@@ -213,6 +221,7 @@ static void tick(ULONGLONG now) {
         }
         ++track.writes;
     }
+    if (!root_motion::apply(&batch)) { dirty.store(root_motion::dirty || dirty.load()); stop_requested.store(true); restore_all(); return; }
     const double batch_end = precise_ms(); ++performance.batches;
     performance.total_ms += batch_end-batch_start; performance.max_ms = std::max(performance.max_ms,batch_end-batch_start);
     performance.resolve_ms += write_start-batch_start; performance.write_ms += batch_end-write_start;
@@ -227,7 +236,7 @@ static void report(std::ostream& out, bool complete) {
             << ",\"sourceLastFrame\":" << last_frame << ",\"sourceTracksUsed\":" << source_used
             << ",\"ignoredBoneTracks\":" << (source_tracks >= source_used ? source_tracks - source_used : 0)
             << ",\"ignoredMorphTracks\":" << source_morphs << ",\"ignoredCameraKeys\":" << source_cameras << ",\"ignoredIkTracks\":" << source_ik
-            << ",\"positionsApplied\":false,\"targetRestValidated\":" << (full_mode ? "true" : "false")
+            << ",\"positionsApplied\":" << (root_mode ? "true" : "false") << ",\"targetRestValidated\":" << (full_mode ? "true" : "false")
             << ",\"fullBodyFk\":" << (full_mode ? "true" : "false") << ",\"sourcePmxCalibrated\":false,\"relativeToSourceFrame\":"
             << (full_mode ? "null" : "0") << ",\"tracks\":[";
         for (unsigned i = 0; i < TrackCount; ++i) {
@@ -240,7 +249,8 @@ static void report(std::ostream& out, bool complete) {
                 << ",\"restoreAttempts\":" << t.attempts << ",\"restored\":" << (t.restored ? "true" : "false")
                 << ",\"cleanupPending\":" << (t.dirty ? "true" : "false") << '}';
         }
-        out << "],\"performance\":{\"sharedPathResolution\":" << (gimmd::player_session::legacy_resolver ? "false" : "true")
+        out << "],\"rootMotion\":"; root_motion::report(out);
+        out << ",\"performance\":{\"sharedPathResolution\":" << (gimmd::player_session::legacy_resolver ? "false" : "true")
             << ",\"batches\":" << performance.batches << ",\"averageBatchMs\":" << (performance.batches ? performance.total_ms/performance.batches : 0)
             << ",\"maxBatchMs\":" << performance.max_ms << ",\"totalResolveAndSampleMs\":" << performance.resolve_ms
             << ",\"totalWriteMs\":" << performance.write_ms << ",\"uniqueNodesValidated\":" << performance.unique_nodes

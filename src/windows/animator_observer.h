@@ -16,10 +16,12 @@ static int owner_node = -1;
 static DWORD exception = 0;
 #include "animator_metadata.h"
 #include "bind_pose_observer.h"
+#include "position_metadata.h"
 #include "animator_toggle.h"
 static void configure(uintptr_t base) {
     metadata::reset(base);
     bind_pose::configure(base);
+    position_metadata::reset();
     toggle::configure(base);
     ready.store(false); queries = matches = mismatches = 0; owner_node = -1; exception = 0;
     result = Enabled ? "not-attempted" : "disabled";
@@ -72,6 +74,7 @@ static void capture() {
             metadata::capture(expected_class); metadata::observe_component(unique_component); toggle::run(unique_component);
             bind_pose::capture(unique_component);
             bind_pose::capture_skins(owner_node);
+            position_metadata::capture(owner_node);
         }
         ready.store(true);
     } __except (EXCEPTION_EXECUTE_HANDLER) { exception = GetExceptionCode(); result = "component-read-exception"; ready.store(true); }
@@ -83,7 +86,8 @@ static void report(std::ostream& out) {
     if (complete) out << ",\"status\":\"" << result << "\",\"queryCount\":" << queries << ",\"matchingAnimatorCount\":" << matches
         << ",\"classOrOwnerMismatchCount\":" << mismatches << ",\"ownerNodeId\":" << owner_node << ",\"exception\":" << exception;
     if (complete) { out << ",\"metadata\":"; metadata::report(out); out << ",\"toggle\":"; toggle::report(out);
-        out << ",\"bindPose\":"; bind_pose::report(out); }
+        out << ",\"bindPose\":"; bind_pose::report(out);
+        out << ",\"positionMetadata\":"; position_metadata::report(out); }
     out << '}';
 }
 }

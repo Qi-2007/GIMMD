@@ -3,6 +3,7 @@
 #include "core/player_transport.h"
 #include "core/rotation_preview.h"
 #include "core/fk_retarget.h"
+#include "core/root_translation.h"
 #include <bit>
 #include <filesystem>
 #include <fstream>
@@ -145,6 +146,12 @@ int wmain(int argc, wchar_t** argv) {
         const gimmd::fk_retarget::Binding reflected_parent{{0,0,0,1},{-1,0,0,0,-1,0,0,0,1}};
         const auto reflected_turn = gimmd::fk_retarget::evaluate(reflected_parent,{0.70710678f,0,0,0.70710678f});
         check(near(reflected_turn.x,-0.70710678f),"signed-parent pseudovector transport wrong");
+        const auto anchored = gimmd::root_translation::offset({3,4,5},{3,4,5},0.1f,{0,0,0,1},{1,1,1});
+        check(near(anchored.x,0) && near(anchored.y,0) && near(anchored.z,0),"root reference anchoring wrong");
+        const auto moved = gimmd::root_translation::offset({1,2,3},{0,0,0},0.1f,{0,0,0,1},{1,1,1});
+        check(near(moved.x,-0.1) && near(moved.y,0.2) && near(moved.z,-0.3),"root units or source basis wrong");
+        const auto model_space = gimmd::root_translation::offset({1,2,3},{0,0,0},0.1f,{0,0.70710678f,0,0.70710678f},{2,2,2});
+        check(near(model_space.x,-0.6) && near(model_space.y,0.4) && near(model_space.z,0.2),"mesh-to-model root translation wrong");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));

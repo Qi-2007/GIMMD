@@ -56,3 +56,5 @@ python .\scripts\prepare-motion.py "testmmd/It's me x mosi mosi" .\build-full-ne
 本轮 668 项核心检查和 134 项运行时检查通过。新增检查集中于轴转换/乘法顺序、缺失源轨道、全身应用与恢复、参考不匹配、半批异常和初始过渡的暂停/继续。性能实测对应 `build-full-body-fast`；最终 `build-full-body-final` 仅追加了初始半秒过渡随暂停冻结的修正，并通过上述检查，没有额外重复完整实机播放。
 
 下一步先接 Root/Center 位移，再处理脚部 IK。离线 17 点采样显示，该素材 Center 相对首帧位移约 7.16 个 MMD 单位，左右足 IK 位移也明显变化；这些位置通道尚未应用。源腿部 FK 本身含大幅旋转，不能简单把所有脚部问题归因于缺少 FK。
+
+后续进展：[Root/Center 视觉骨架位移](ROOT_MOTION_RESULTS.md) 已完成实机播放和恢复，用户确认基本自然、流畅；本页保留全身 FK 阶段的测量记录。

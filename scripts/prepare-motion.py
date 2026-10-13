@@ -54,8 +54,11 @@ if __name__ == '__main__':
     parser.add_argument('--author-notified', action='store_true')
     parser.add_argument('--player-session', action='store_true', help='Stage one WAV for the controlled full-source preview')
     parser.add_argument('--full-body-fk', action='store_true', help='Admit canonical full-body FK with target rest fallback for absent tracks')
+    parser.add_argument('--root-motion', action='store_true', help='Enable first-frame-anchored visual root translation')
     args = parser.parse_args()
     result = inspect(args.folder, args.inspector, args.choreography, args.motion_author, args.author_notified)
+    if args.root_motion and not args.full_body_fk:
+        raise SystemExit('--root-motion requires --full-body-fk')
     if args.full_body_fk:
         mappings = result['mappings']
         for item in mappings:
@@ -64,6 +67,10 @@ if __name__ == '__main__':
         result['preview'].update({'targets':52, 'maxRelativeAngleDegrees':None, 'sourceReferenceFrame':None,
             'rotationMode':'absolute-canonical-FK', 'sourcePreset':'EIEM canonical Tda approximation',
             'sourcePmxCalibrated':False, 'targetRestProfile':'src/generated/fk_profile.h', 'entryBlendSeconds':0.5})
+        if args.root_motion:
+            result['preview'].update({'positions':True, 'positionScope':'visual skeleton Bip001 only',
+                'rootControls':['全ての親','センター','グルーブ'], 'rootRotationsSupported':False,
+                'positionReferenceFrame':0, 'positionUnits':'target/source reference leg-length ratio'})
     if args.player_session:
         if not args.stage or len(result['audio']) != 1:
             raise SystemExit('--player-session requires --stage and exactly one WAV file')

@@ -37,7 +37,12 @@ entries = [('NameA', 0x14389f0), ('NameB', 0x1438b70),
            ('MeshBindPosesArrayCopy', 0x1724230),
            ('AvatarBoneIndexGet', 0x19c89470), ('AvatarBoneIndexGetNative', 0x11a5b60),
            ('AvatarBoneIndexLookup', 0x11f9f50), ('AvatarDefaultPoseStorage', 0x11f9fd0),
-           ('AvatarDefaultPositionWalk', 0x11fa040)]
+           ('AvatarDefaultPositionWalk', 0x11fa040),
+           ('LocalPositionGet', 0x19cb37c0), ('LocalPositionGetNative', 0x1436d90),
+           ('LocalPositionRead', 0x15c6410), ('LocalPositionSet', 0x19cb3880),
+           ('LocalPositionSetNative', 0x1436de0), ('LocalPositionStore', 0x15c5990),
+           ('LocalScaleGet', 0x19cb6e90), ('LocalScaleGetNative', 0x1436f70),
+           ('LocalScaleRead', 0x15c64a0)]
 lines = ['#pragma once', '#include <cstdint>', '// Generated from locally reviewed, build-pinned interface entries.',
          '// See docs/HIERARCHY_OBSERVER_RESULTS.md for semantic evidence and limitations.',
          'namespace gimmd::hierarchy_profile {', 'struct Entry { const char* name; uint32_t rva; uint8_t bytes[32]; };',

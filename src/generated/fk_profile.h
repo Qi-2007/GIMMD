@@ -200,4 +200,10 @@ inline constexpr Reference AvatarReference[] = {
     {0,{0.0f,0.0f,0.0f},{2.18556941e-08f,0.0f,0.0f,1.0f},{1.0f,1.0f,1.0f}},
     {0,{0.0f,0.0f,0.0f},{2.18556941e-08f,0.0f,0.0f,1.0f},{1.0f,1.0f,1.0f}},
 };
+inline constexpr float RootMotionScale = 0.0748706888f;
+inline constexpr const char* RootTrackNames[] = {
+    "\x91\x53\x82\xc4\x82\xcc\x90\x65",
+    "\x83\x5a\x83\x93\x83\x5e\x81\x5b",
+    "\x83\x4f\x83\x8b\x81\x5b\x83\x75",
+};
 }

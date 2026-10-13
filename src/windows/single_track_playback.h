@@ -13,6 +13,12 @@ inline constexpr bool FullBodyEnabled = true;
 inline constexpr bool FullBodyEnabled = false;
 #endif
 static bool full_mode = FullBodyEnabled;
+#ifdef GIMMD_ROOT_MOTION
+inline constexpr bool RootMotionEnabled = true;
+#else
+inline constexpr bool RootMotionEnabled = false;
+#endif
+static bool root_mode = RootMotionEnabled;
 #ifdef GIMMD_SINGLE_TRACK_PLAYBACK
 inline constexpr bool Enabled = true;
 #else
@@ -40,6 +46,7 @@ struct Result {
 };
 static Result result;
 namespace multi {
+static void configure_root(uintptr_t base);
 static void reset();
 static bool prepare(const vmd::Motion& motion);
 static bool bind(int actor);
@@ -49,7 +56,8 @@ static void report(std::ostream& out, bool complete);
 static void configure(uintptr_t base) {
     done.store(!Enabled); started.store(false); dirty.store(false); stop_requested.store(false);
     setter_calls.store(0); result = {}; path_size = model_path_size = 0; loaded = false; keys.clear();
-    multi_mode = MultiEnabled; full_mode = FullBodyEnabled; multi::reset();
+    multi_mode = MultiEnabled; full_mode = FullBodyEnabled; root_mode = RootMotionEnabled; multi::reset();
+    multi::configure_root(base);
     set_local = Enabled ? reinterpret_cast<roundtrip::SetLocalFn>(entry("SetLocalRotation", base)) : nullptr;
     profile_verified = set_local && entry("SetLocalRotationNative", base) && entry("LocalRotationStore", base);
     result.status = Enabled ? "waiting-for-fixture" : "disabled";

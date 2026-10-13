@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-13",
+  "build": "build-root-motion",
+  "pid": 6020,
+  "mode": "canonical-full-body-root-motion",
+  "coreChecksPassed": 671,
+  "runtimeChecksPassed": 140,
+  "evidenceAssertionsPassed": true,
+  "restoredBoneCount": 52,
+  "rotationMotionWrites": 48516,
+  "rootMotion": {
+    "enabled": true,
+    "status": "visual-root-restored",
+    "visualRootOnly": true,
+    "sourceFrameZeroAnchored": true,
+    "motionScale": 0.0748706907,
+    "writeCount": 933,
+    "setterCalls": 934,
+    "retainedChecks": 932,
+    "overwrites": 0,
+    "maximumOffsetLocalUnits": 0.59664517,
+    "restored": true,
+    "cleanupPending": false,
+    "restoreAttempts": 1,
+    "restoreComponentError": 0
+  },
+  "performance": {
+    "sharedPathResolution": true,
+    "batches": 933,
+    "averageBatchMs": 2.94103312,
+    "maxBatchMs": 5.58549997,
+    "totalResolveAndSampleMs": 2735.4846,
+    "totalWriteMs": 8.49929988,
+    "uniqueNodesValidated": 54114,
+    "sharedPrefixesReused": 576594
+  },
+  "elapsedMs": 23469,
+  "userFeedback": "基本自然、流畅",
+  "sourcePmxCalibrated": false,
+  "footIkImplemented": false,
+  "evidence": "genshin-7.1-root-motion.json"
+}

@@ -16,6 +16,7 @@
 #include "vmd.h"
 #include "core/rotation_preview.h"
 #include "generated/fk_profile.h"
+#include "core/root_translation.h"
 #include "windows/player_session.h"
 #include "MinHook.h"
 #include "generated/gi_profile.h"
@@ -356,7 +357,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         std::ofstream report(output, std::ios::trunc);
         if (!report) { busy.store(false); return ERROR_WRITE_FAULT; }
         report << "{\n  \"schemaVersion\": 5,\n  \"pid\": " << GetCurrentProcessId()
-            << ",\n  \"mode\": \"" << (hierarchy::playback::FullBodyEnabled ? "canonical-full-body-fk" : gimmd::player_session::Enabled ? "controlled-multi-track-preview" : hierarchy::playback::MultiEnabled ? "bounded-multi-track-preview" : hierarchy::playback::Enabled ? "bounded-single-track-playback" :
+            << ",\n  \"mode\": \"" << (hierarchy::playback::RootMotionEnabled ? "canonical-full-body-root-motion" : hierarchy::playback::FullBodyEnabled ? "canonical-full-body-fk" : gimmd::player_session::Enabled ? "controlled-multi-track-preview" : hierarchy::playback::MultiEnabled ? "bounded-multi-track-preview" : hierarchy::playback::Enabled ? "bounded-single-track-playback" :
                 hierarchy::animator_observer::toggle::Enabled ? "bounded-animator-toggle" : "bounded-camera-observer")
             << "\",\n  \"executableSha256\": \"" << sha
             << "\",\n  \"buildMatch\": " << (build_match ? "true" : "false")
@@ -455,6 +456,7 @@ struct MockNode {
     MockNode* children[128]{};
     bool active = true;
     hierarchy::Quat local{0,0,0,1};
+    gimmd::root_translation::Vec3 position{}, scale{1,1,1};
 };
 struct MockString { void* klass; void* monitor; int length; wchar_t text[hierarchy::MaxName]; };
 static_assert(offsetof(MockNode, native) == 16 && offsetof(MockString, text) == 20);
@@ -602,7 +604,7 @@ static void mock_play_fixture() {
     mock_time = 1.25f; time_fault = 0; message_callback_count.store(3);
 #endif
     namespace p = hierarchy::playback;
-    p::multi_mode = false; p::full_mode = false; // Exercise the legacy strategy in its existing tests.
+    p::multi_mode = false; p::full_mode = false; p::root_mode = false; // Exercise the legacy strategy in its existing tests.
     p::consumed.store(false); p::profile_verified = true; p::set_local = mock_play_set;
     p::done.store(false); p::loaded = true;
     p::keys.resize(3);
@@ -641,11 +643,23 @@ static void mock_write_vmd(const std::filesystem::path& file) {
     if (!out) throw std::runtime_error("cannot write playback test fixture");
 }
 #ifdef GIMMD_MULTI_TRACK_PLAYBACK
-static void mock_multi_fixture(bool full = false) {
+static unsigned root_fault = 0;
+static gimmd::root_translation::Vec3* __fastcall mock_local_position(gimmd::root_translation::Vec3* out,void* object) {
+    *out = static_cast<MockNode*>(object)->position; return out;
+}
+static gimmd::root_translation::Vec3* __fastcall mock_local_scale(gimmd::root_translation::Vec3* out,void* object) {
+    *out = static_cast<MockNode*>(object)->scale; return out;
+}
+static void __fastcall mock_set_position(void* object,const gimmd::root_translation::Vec3* value) {
+    static_cast<MockNode*>(object)->position = *value;
+    if (root_fault == 1 && hierarchy::playback::multi::root_motion::calls == 1) RaiseException(0xe0060001,0,0,nullptr);
+}
+static void mock_multi_fixture(bool full = false,bool root = false) {
     mock_hierarchy_reset();
     namespace p = hierarchy::playback;
     p::multi_mode = true; p::consumed.store(false); p::profile_verified = true; p::set_local = mock_play_set;
     p::full_mode = full;
+    p::root_mode = root; root_fault = 0;
     p::done.store(false); playback_fault = 0;
     mock_nodes[1].name = mock_nodes[2].name = L"Avatar_Test(Clone)"; mock_nodes[2].active = false;
     mock_nodes[1].count = full ? 52 : 10;
@@ -669,7 +683,27 @@ static void mock_multi_fixture(bool full = false) {
             keys[n].frame = n * 30; keys[n].rotation = {0,0,n == 1 ? 0.0436193874f : 0.0f,n == 1 ? 0.9990482216f : 1.0f};
         }
     }
+    if (root) {
+        mock_nodes[1].count = 2; mock_nodes[1].children[0] = &mock_nodes[55]; mock_nodes[1].children[1] = &mock_nodes[56];
+        mock_nodes[55].name = L"Bip001"; mock_nodes[55].parent = &mock_nodes[1]; mock_nodes[55].count = 52;
+        mock_nodes[55].position = {0.2f,0.3f,0.4f}; mock_nodes[56].name = L"Body"; mock_nodes[56].parent = &mock_nodes[1];
+        for (unsigned i = 0; i < 52; ++i) { mock_nodes[55].children[i] = &mock_nodes[3+i]; mock_nodes[3+i].parent = &mock_nodes[55]; }
+        auto& control = motion.bones[gimmd::fk_profile::RootTrackNames[1]]; control.resize(3);
+        for (unsigned i = 0; i < 3; ++i) { control[i].frame = i*30; control[i].position.y = i == 1 ? 10.0f : 0.0f; }
+    }
     p::loaded = p::multi::prepare(motion); mock_lease_prepare(); find_object = mock_find_root;
+    if (root) {
+        namespace rm = hierarchy::playback::multi::root_motion;
+        namespace pm = hierarchy::animator_observer::position_metadata;
+        rm::get = mock_local_position; rm::set = mock_set_position; rm::get_scale = mock_local_scale; rm::verified = true;
+        pm::method_count = 3;
+        strcpy_s(pm::methods[0].name,"get_localPosition"); pm::methods[0].parameters = 0;
+        pm::methods[0].code = reinterpret_cast<uintptr_t>(mock_local_position)-hierarchy::animator_observer::metadata::image_base;
+        strcpy_s(pm::methods[1].name,"set_localPosition"); pm::methods[1].parameters = 1;
+        pm::methods[1].code = reinterpret_cast<uintptr_t>(mock_set_position)-hierarchy::animator_observer::metadata::image_base;
+        strcpy_s(pm::methods[2].name,"get_localScale"); pm::methods[2].parameters = 0;
+        pm::methods[2].code = reinterpret_cast<uintptr_t>(mock_local_scale)-hierarchy::animator_observer::metadata::image_base;
+    }
     hierarchy::capture(&mock_nodes[0], 1000); hierarchy::rotation_local = mock_play_local;
 }
 #endif
@@ -1103,6 +1137,26 @@ int main() {
         gimmd::player_session::command.store(gimmd::parse_player_command("2 play")); mp::tick(2040); mp::tick(2440);
         check(mp::multi::entry_blend_seconds == 0.5, "entry blend did not resume");
         mp::stop_requested.store(true); mp::tick(2500); gimmd::player_session::active = false;
+#ifdef GIMMD_ROOT_MOTION
+        namespace rm = hierarchy::playback::multi::root_motion;
+        mock_multi_fixture(true,true);
+        check(mp::started.load() && rm::bound, "visual root binding failed");
+        mp::tick(1000); mp::tick(2000);
+        check(rm::writes == 2 && std::abs(mock_nodes[55].position.y-(0.3f+10*gimmd::fk_profile::RootMotionScale)) < 0.00001f,
+            "scaled Center translation not applied");
+        mp::tick(3000);
+        check(mp::done.load() && rm::restored && !rm::dirty && rm::error(mock_nodes[55].position,{0.2f,0.3f,0.4f}) == 0 &&
+            hierarchy::animator_lease::restored, "visual root position did not restore");
+        mock_multi_fixture(true,true); mp::tick(1000); mock_nodes[55].position.y += 0.01f; mp::tick(2000);
+        check(mp::done.load() && rm::overwrites == 1 && rm::restored && mp::result.restored,
+            "external visual root write did not stop and restore playback");
+        mock_multi_fixture(true,true); root_fault = 1; mp::tick(1000);
+        check(mp::done.load() && mp::result.exception && rm::restored && mp::result.restored && hierarchy::animator_lease::restored,
+            "partial position write exception left state dirty");
+        rm::reset(); BetterEndfieldNext::Vmd::Motion rotated_control;
+        auto& control = rotated_control.bones[gimmd::fk_profile::RootTrackNames[1]]; control.resize(1); control[0].rotation = {0.1f,0,0,0.9949874f};
+        check(!rm::prepare(rotated_control), "unsupported rotated Center control silently accepted");
+#endif
 #endif
 #endif
         mock_animator_fixture(); hierarchy::capture(&mock_nodes[0], 1000);
