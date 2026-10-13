@@ -82,7 +82,9 @@ static void load(const std::filesystem::path& file) {
     if (!profile_verified || consumed.load()) { done.store(true); return; }
     std::ifstream input(file, std::ios::binary | std::ios::ate);
     const auto size = input ? input.tellg() : std::streampos(-1);
-    if (size <= 0 || size > (multi_mode ? (16 << 20) : 4096)) { done.store(true); return; }
+    if (size <= 0 || size > (multi_mode ? static_cast<std::streamoff>(vmd::Limits{}.file_bytes) : 4096)) {
+        result.status="source-file-size-rejected"; done.store(true); return;
+    }
     std::vector<uint8_t> bytes(static_cast<size_t>(size));
     input.seekg(0); input.read(reinterpret_cast<char*>(bytes.data()), static_cast<std::streamsize>(bytes.size()));
     vmd::Motion motion; std::string error;
@@ -109,7 +111,7 @@ static void load(const std::filesystem::path& file) {
     loaded = true; result.status = "waiting-for-complete-hierarchy";
 }
 static void finish(const char* status_text) {
-    result.status = status_text;
+    result.status = status_text; gimmd::player_session::holding_end.store(false);
     const bool time_ok = time_control::release(), animator_ok = animator_lease::release();
     if (time_ok && animator_ok) done.store(true);
     else { result.status = time_ok ? "animator-restoration-pending" : "time-restoration-pending"; stop_requested.store(true); }
@@ -223,7 +225,11 @@ static void restore(void* bone) {
     result.status = "restoration-pending"; stop_requested.store(true);
 }
 static void tick(ULONGLONG now) {
-    if (!Enabled || !started.load() || done.load()) return;
+    if (!Enabled || done.load()) return;
+    if (!started.load()) {
+        if (stop_requested.load()) finish("cancelled-before-binding");
+        return;
+    }
     if (multi_mode) { multi::tick(now); return; }
     if (!stop_requested.load() && !animator_lease::begin()) {
         if (!animator_lease::refused) return;
@@ -273,7 +279,7 @@ static void report(std::ostream& out) {
     out << "{\"enabled\":" << (Enabled ? "true" : "false") << ",\"published\":" << (complete ? "true" : "false")
         << ",\"setterCallCount\":" << setter_calls.load() << ",\"cleanupPending\":" << (dirty.load() ? "true" : "false")
         << ",\"durationMs\":" << (gimmd::player_session::Enabled && multi_mode ? double(multi::last_frame)*1000/30 : 2000)
-        << ",\"wallTimeLimitMs\":" << (gimmd::player_session::Enabled ? 90000 : 5000)
+        << ",\"wallTimeLimitMs\":" << (gimmd::player_session::hold_at_end ? "null":gimmd::player_session::Enabled ? "600000":"5000")
         << ",\"maxAngleDegrees\":" << (full_mode ? "null" : "5") << ",\"multiTrack\":" << (multi_mode ? "true" : "false");
     if (complete) out << ",\"status\":\"" << result.status << "\",\"sampleCount\":" << result.samples
         << ",\"poseRetainedCount\":" << result.persisted << ",\"animationOverwriteCount\":" << result.overwritten

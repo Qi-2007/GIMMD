@@ -108,7 +108,7 @@ static void inject(DWORD pid, const fs::path& dll) {
     const auto base = module_base(pid, dll.wstring(), true);
     if (!base) throw std::runtime_error("LoadLibrary completed but probe DLL was not found");
     bool finished = false;
-    const auto result = run_thread(process.value, base + probe_rva, nullptr, finished, 95000);
+    const auto result = run_thread(process.value, base + probe_rva, nullptr, finished, fs::exists(dll.parent_path()/L"hold-end.flag") ? INFINITE:605000);
     if (result) throw std::runtime_error("probe report failed (Win32 " + std::to_string(result) + ")");
     std::wcout << L"Probe report: " << (dll.parent_path() / (L"gimmd-" + std::to_wstring(pid) + L".probe.json")) << L'\n';
 }

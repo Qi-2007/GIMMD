@@ -1,3 +1,4 @@
+#include "core/root_controls.h"
 #include "core/camera_control.h"
 #include "vmd.h"
 #include "core/timeline.h"
@@ -95,6 +96,14 @@ int wmain(int argc, wchar_t** argv) {
         check(!vmd::Parse(invalid,m,error),"invalid signature accepted");
         invalid=bytes.data;invalid.push_back(99);
         check(!vmd::Parse(invalid,m,error),"trailing data accepted");
+        auto unnamed=bytes;
+        std::fill(unnamed.data.begin()+54,unnamed.data.begin()+69,uint8_t(0));
+        vmd::Motion unnamed_motion;
+        check(vmd::Parse(unnamed.data,unnamed_motion,error)&&unnamed_motion.ignored_empty_bone_keys==1,
+            "valid unnamed bone record rejected rather than counted/skipped");
+        const auto unnamed_nan=std::bit_cast<uint32_t>(std::numeric_limits<float>::quiet_NaN());
+        for (unsigned n=0;n<4;++n) unnamed.data[73+n]=uint8_t(unnamed_nan>>(n*8));
+        check(!vmd::Parse(unnamed.data,unnamed_motion,error),"unnamed bone bypassed numeric validation");
         vmd::Limits limits;limits.bone_keys=1;
         check(!vmd::Parse(bytes.data,m,error,limits),"key count limit ignored");
         invalid=bytes.data;
@@ -242,6 +251,23 @@ int wmain(int argc, wchar_t** argv) {
             "1 nan 0 0 0 0 0 0","1 0 0 0 0 0 0 0 extra","4294967296 0 0 0 0 0 0 0"})
             check(!gimmd::parse_camera_control(invalid_camera_command,&camera_control),"invalid camera control accepted");
         check(gimmd::parse_camera_control("2 0 0 0 0 0 0 0",&camera_control)&&camera_control.fov==0,"camera reset command failed");
+        check(camera_control.fov_multiplier==1,"legacy camera command did not default to unit multiplier");
+        check(gimmd::parse_camera_control("3 1 2 3 0 0 0 0 0.75",&camera_control)&&near(camera_control.fov_multiplier,.75f),"FOV multiplier command rejected");
+        for (const char* invalid_multiplier:{"3 0 0 0 0 0 0 0 0","3 0 0 0 0 0 0 0 4.1","3 0 0 0 0 0 0 0 nan","3 0 0 0 0 0 0 0 1 extra"})
+            check(!gimmd::parse_camera_control(invalid_multiplier,&camera_control),"invalid multiplier command accepted");
+        std::vector<vmd::BoneKey> root_controls[3]; root_controls[1].resize(1); root_controls[2].resize(1);
+        root_controls[1][0].rotation={0,0.70710678f,0,0.70710678f}; root_controls[2][0].position={1,0,0};
+        vmd::Vec3 root_position{}; vmd::Quaternion center_yaw{};
+        check(gimmd::root_controls::sample(root_controls,0,&root_position,&center_yaw)&&near(root_position.z,-1)&&near(root_position.x,0),"Center yaw did not rotate child Groove translation");
+        check(gimmd::root_controls::supported(1,center_yaw)&&!gimmd::root_controls::supported(0,center_yaw)&&
+            gimmd::root_controls::supported(1,{.1f,0,0,.9949874f}),"root rotation capability boundary wrong");
+        const auto relative_torso=gimmd::fk_retarget::compensate_parent({},{0,1,0,0},{0,1,0,0});
+        check(near(relative_torso.x,0)&&near(relative_torso.y,0)&&near(relative_torso.z,0)&&near(std::abs(relative_torso.w),1),
+            "parallel 180-degree torso rotations were doubled");
+        const auto torso_lower=vmd::Normalize({.2f,.3f,-.1f,.9f}),torso_upper=vmd::Normalize({-.1f,.6f,.2f,.7f});
+        const auto torso_reconstructed=rp::multiply(torso_lower,gimmd::fk_retarget::compensate_parent({},torso_lower,torso_upper));
+        check(std::abs(torso_reconstructed.x*torso_upper.x+torso_reconstructed.y*torso_upper.y+torso_reconstructed.z*torso_upper.z+torso_reconstructed.w*torso_upper.w)>.99999f,
+            "parent times relative torso did not recover source upper-body rotation");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));
@@ -254,4 +280,3 @@ int wmain(int argc, wchar_t** argv) {
         return 1;
     }
 }
-

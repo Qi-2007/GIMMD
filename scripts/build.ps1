@@ -75,7 +75,7 @@ try {
     }
     $taskManifest = [ordered]@{
         schemaVersion=1; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
-        cameraPlayback=[bool]$CameraPlayback; cameraFov=[bool]$CameraPlayback; manualCamera=[bool]$CameraPlayback; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
+        holdAtEnd=[bool]$PlayerSession; cameraAdjustments=[bool]$CameraPlayback; cameraPlayback=[bool]$CameraPlayback; cameraFov=[bool]$CameraPlayback; manualCamera=[bool]$CameraPlayback; braidStabilization=[bool]$RootMotion; bgmPause=[bool]$PlayerSession; uidText=[bool]$PlayerSession; clothStabilization=[bool]$RootMotion; centerYaw=[bool]$RootMotion; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
         dllSha256=(Get-FileHash -LiteralPath './gimmd-probe.dll' -Algorithm SHA256).Hash
         loaderSha256=(Get-FileHash -LiteralPath './gimmd-inject-probe.exe' -Algorithm SHA256).Hash
     }

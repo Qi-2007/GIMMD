@@ -11,7 +11,7 @@ expected = '7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E'
 if fingerprint != expected:
     raise SystemExit('Unreviewed executable: refuse to generate hierarchy profile')
 # These are reviewed native wrappers, not offsets inferred solely from adjacency.
-entries = [('NameA', 0x14389f0), ('NameB', 0x1438b70),
+entries = [('UITextGet',0x19d9abc0),('UITextSet',0x19d9abd0),('UITextStore',0x19d9ac1a),('NameA', 0x14389f0), ('NameB', 0x1438b70),
            ('ChildCount', 0x1437d10), ('GetChild', 0x1438070),
            ('GetParent', 0x14374b0), ('GameObjectTransform', 0x1452440),
            ('ComponentGameObject', 0x1453c60), ('GetActive', 0x1452eb0),

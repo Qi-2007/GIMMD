@@ -1,0 +1,36 @@
+{
+  "source": "E:\\code\\gimmd\\testmmd\\天天天国地獄国配布用\\初始右-173cm.vmd",
+  "sourceSummary": {
+    "vmdVersion": 2,
+    "durationSeconds": 30.8,
+    "boneTracks": 164,
+    "boneKeys": 4390,
+    "morphTracks": 122,
+    "cameraKeys": 0,
+    "ikTracks": 0,
+    "duplicateKeys": 0,
+    "ignoredEmptyBoneKeys": 0,
+    "zeroQuaternions": 0,
+    "rootControlCompatibility": "supported",
+    "centerYawRequired": false,
+    "sampleSeconds": 0
+  },
+  "sourceLowerFrameZero": [
+    0,
+    0.999941706657,
+    0,
+    0.0107962526381
+  ],
+  "sourceUpperFrameZero": [
+    0,
+    0.999815642834,
+    0,
+    -0.0192022863775
+  ],
+  "oldTorsoWorldAngularErrorDegrees": 178.76281652862602,
+  "correctedTorsoWorldAngularErrorDegrees": 0.0,
+  "coreChecksPassed": 711,
+  "runtimeChecksPassed": 170,
+  "liveTested": false,
+  "clothPhysicsChanged": false
+}

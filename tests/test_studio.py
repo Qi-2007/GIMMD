@@ -21,6 +21,8 @@ class TransportTests(unittest.TestCase):
         self.write(); self.controller=Controller(self.directory); self.controller.poll()
 
     def tearDown(self):
+        import gc
+        gc.collect()  # Destroy withdrawn Tk fixtures on their owning thread.
         assert self.directory.resolve().is_relative_to((ROOT/'build-studio').resolve())
         self.temporary.cleanup()
     def write(self): atomic_json(self.directory/'player.status.json',self.status)
@@ -71,6 +73,19 @@ class TransportTests(unittest.TestCase):
         self.assertEqual((a/'multi-track.vmd').read_bytes(),original)
         self.assertFalse((b/'multi-track.wav').exists()); self.assertFalse((a/'player.command').exists())
 
+    def test_shooting_staging_and_validation(self):
+        from session import validate_uid_text
+        for invalid in ['x'*65,'bad\nline','bad\0value',42]:
+            with self.assertRaises(ValueError): validate_uid_text(invalid)
+        build=ROOT/'build-studio-shooting'
+        directory=stage_session(build,ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',
+            stabilize_braid=True,pause_bgm=True,uid_text='MMD 创作中')
+        self.assertTrue((directory/'braid-static.flag').exists())
+        self.assertTrue((directory/'pause-bgm.flag').exists())
+        self.assertEqual((directory/'uid-text.txt').read_text(encoding='utf-8'),'MMD 创作中')
+        with self.assertRaises(ValueError):
+            stage_session(ROOT/'build-studio',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',pause_bgm=True)
+
     def test_tampered_build_is_rejected_before_execution(self):
         build=self.directory/'bad-build'; build.mkdir(); (build/'gimmd-probe.dll').write_bytes(b'wrong')
         atomic_json(build/'build-manifest.json',{'schemaVersion':1,'playerSession':True,'fullBodyFK':True,'dllSha256':'0'*64})
@@ -100,6 +115,47 @@ class TransportTests(unittest.TestCase):
         directory=stage_session(ROOT/'build-studio-camera-fov',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',manual_camera=True)
         self.assertTrue((directory/'manual-camera.flag').exists()); self.assertFalse((directory/'camera.vmd').exists())
         self.assertTrue(json.loads((directory/'session.json').read_text())['manualCamera'])
+
+    def test_camera_adjustments_staging_transport_and_project(self):
+        from session import validate_camera_adjustments
+        from unittest.mock import patch
+        import tkinter as tk
+        from player_gui import Studio
+        for multiplier in [0,4.1,math.nan,True]:
+            with self.assertRaises(ValueError): validate_camera_adjustments([0]*7,multiplier)
+        directory=stage_session(ROOT/'build-studio-camera-adjust',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',
+            camera=ROOT/'build-studio/camera-fixture.vmd',camera_values=[1,2,3,0,0,0,0],fov_multiplier=.75)
+        self.assertEqual((directory/'camera-initial.txt').read_text(),'1 1 2 3 0 0 0 0 0.75')
+        self.status.update(cameraEnabled=True,cameraAcknowledgedSequence=0); atomic_json(directory/'player.status.json',self.status)
+        controller=Controller(directory); controller.poll(); controller.camera([0]*7,.5)
+        self.assertEqual((directory/'camera.command').read_text(),'1 0 0 0 0 0 0 0 0.5')
+        root=tk.Tk(); root.withdraw()
+        try:
+            app=Studio(root,test=True); app.camera_values[0].set('2'); app.fov_multiplier.set('.75'); app.hold_at_end.set(True)
+            path=self.directory/'adjust-project.json'
+            with patch('player_gui.filedialog.asksaveasfilename',return_value=str(path)): app.save_project()
+            self.assertFalse(app.last_error); app.camera_values[0].set('0'); app.fov_multiplier.set('1'); app.hold_at_end.set(False); app.load_project(path)
+            self.assertTrue(app.hold_at_end.get())
+            self.assertEqual(float(app.camera_values[0].get()),2); self.assertEqual(float(app.fov_multiplier.get()),.75)
+            project=json.loads(path.read_text(encoding='utf-8')); project['fovMultiplier']=0; atomic_json(path,project); app.load_project(path)
+            self.assertEqual(float(app.fov_multiplier.get()),.75); self.assertTrue(app.last_error)
+        finally: root.destroy()
+
+    def test_hold_end_session_flag_and_status(self):
+        directory=stage_session(ROOT/'build-studio-hold-end',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',hold_at_end=True)
+        self.assertTrue((directory/'hold-end.flag').exists())
+        self.assertTrue(json.loads((directory/'session.json').read_text())['holdAtEnd'])
+        with self.assertRaises(ValueError):
+            stage_session(ROOT/'build-studio-camera-adjust',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',hold_at_end=True)
+        import tkinter as tk
+        from player_gui import Studio
+        root=tk.Tk(); root.withdraw()
+        try:
+            self.status.update(state=3,holdingEnd=True); self.write()
+            app=Studio(root,test=True); app.controller=self.controller; app.poll()
+            self.assertIn('末帧保持中',app.state.get()); self.assertFalse(app.buttons['stop'].instate(['disabled']))
+            app.buttons['stop'].invoke(); self.assertEqual((self.directory/'player.command').read_text(),'1 stop')
+        finally: root.destroy()
 
     def test_camera_key_authoring_export_roundtrip(self):
         import tkinter as tk
@@ -146,6 +202,13 @@ class TransportTests(unittest.TestCase):
                 self.assertEqual(stream.readframes(stream.getnframes()),expected)
             self.assertEqual(json.loads((directory/'session.json').read_text())['audioOffset'],offset)
         self.assertEqual(source.read_bytes(),original)
+
+    def test_cloth_static_session_flag_and_build_capability(self):
+        with self.assertRaises(ValueError):
+            stage_session(ROOT/'build-studio-camera-fov',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',stabilize_cloth=True)
+        directory=stage_session(ROOT/'build-studio-cloth-static',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',stabilize_cloth=True)
+        self.assertEqual((directory/'cloth-static.flag').read_text(),'1')
+        self.assertTrue(json.loads((directory/'session.json').read_text())['stabilizeCloth'])
 
     def test_real_buttons_and_layout(self):
         import tkinter as tk

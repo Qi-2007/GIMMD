@@ -53,6 +53,7 @@ struct Motion {
     uint32_t last_frame = 0;
     size_t duplicate_keys = 0;
     size_t zero_quaternions = 0;
+    size_t ignored_empty_bone_keys = 0;
 };
 struct Limits {
     size_t file_bytes = 64u << 20;
@@ -179,6 +180,9 @@ inline bool Parse(std::span<const uint8_t> bytes, Motion& output, std::string& e
             auto ip = r.take(64);
             std::copy(ip.begin(), ip.end(), k.interpolation.begin());
             for (size_t j = 0; j < 16; ++j) if (ip[j] > 127) r.fail("invalid bone Bezier control");
+            // Some exporters emit unnamed bone records. Validate their complete
+            // payload above, then discard: they cannot identify a target bone.
+            if (name.empty()) { ++m.ignored_empty_bone_keys; continue; }
             detail::append(m.bones, std::move(name), k, limits, r);
         }
         for (uint32_t i = 0, n = r.count("morphs", 23, limits.morph_keys); i < n; ++i) {

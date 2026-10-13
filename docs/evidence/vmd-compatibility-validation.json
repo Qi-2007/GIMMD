@@ -1,0 +1,41 @@
+{
+  "coreChecks": 709,
+  "runtimeChecks": 170,
+  "liveTested": false,
+  "files": [
+    {
+      "vmdVersion": 2,
+      "durationSeconds": 17.8,
+      "boneTracks": 63,
+      "boneKeys": 26328,
+      "morphTracks": 8,
+      "cameraKeys": 0,
+      "ikTracks": 0,
+      "duplicateKeys": 0,
+      "ignoredEmptyBoneKeys": 2,
+      "zeroQuaternions": 0,
+      "rootControlCompatibility": "supported",
+      "centerYawRequired": true,
+      "sampleSeconds": 0,
+      "source": "E:\\code\\gimmd\\testmmd\\say no\\sayso.vmd",
+      "runtimePreparationPassed": true
+    },
+    {
+      "vmdVersion": 2,
+      "durationSeconds": 122.433,
+      "boneTracks": 50,
+      "boneKeys": 183700,
+      "morphTracks": 0,
+      "cameraKeys": 0,
+      "ikTracks": 0,
+      "duplicateKeys": 0,
+      "ignoredEmptyBoneKeys": 0,
+      "zeroQuaternions": 0,
+      "rootControlCompatibility": "supported",
+      "centerYawRequired": false,
+      "sampleSeconds": 0,
+      "source": "E:\\code\\gimmd\\testmmd\\人是猫动作\\人是猫60.vmd",
+      "runtimePreparationPassed": true
+    }
+  ]
+}

@@ -9,6 +9,8 @@ static Setter set;
 static bool verified = false, bound = false, captured = false, dirty = false, restored = false;
 static unsigned writes = 0, calls = 0, retained = 0, overwrites = 0, attempts = 0;
 static double maximum_offset = 0;
+static bool waist_translation=false;
+static unsigned yaw_samples=0; static float maximum_yaw_degrees=0;
 static float restore_error = 0;
 static const char* status = "disabled";
 static Step root_steps[MaxDepth+1]{}, body_steps[MaxDepth+1]{};
@@ -20,6 +22,8 @@ static Quat root_rotation{0,0,0,1};
 static std::vector<vmd::BoneKey> controls[3];
 static void reset() {
     bound = captured = dirty = restored = false; writes = calls = retained = overwrites = attempts = 0;
+    waist_translation=false;
+    yaw_samples=0; maximum_yaw_degrees=0;
     maximum_offset = 0; restore_error = 0; root_length = body_length = 0;
     baseline = applied = pending = source_zero = body_position = {}; body_scale = {1,1,1}; body_rotation = {0,0,0,1};
     for (auto& control_track : controls) control_track.clear();
@@ -43,12 +47,8 @@ static bool write(void* object,Vec value,Vec* observed) {
     __except (EXCEPTION_EXECUTE_HANDLER) { result.exception = GetExceptionCode(); return false; }
 }
 static bool sample(double frame, Vec* out) {
-    *out = {};
-    for (const auto& control_track : controls) if (!control_track.empty()) {
-        vmd::BoneSample value{}; if (!vmd::SampleBone(control_track,frame,value)) return false;
-        out->x += value.position.x; out->y += value.position.y; out->z += value.position.z;
-    }
-    return finite(*out);
+    vmd::Quaternion center{};
+    return gimmd::root_controls::sample(controls,frame,out,&center);
 }
 static bool prepare(const vmd::Motion& motion) {
     if (!root_mode) return true;
@@ -57,12 +57,20 @@ static bool prepare(const vmd::Motion& motion) {
         const auto found = motion.bones.find(gimmd::fk_profile::RootTrackNames[i]);
         if (found == motion.bones.end()) continue;
         controls[i] = found->second;
-        // Rotation/pivot composition is separate work. Do not silently sum rotated controls.
-        for (const auto& key : controls[i]) if (std::abs(key.rotation.x)+std::abs(key.rotation.y)+std::abs(key.rotation.z) > 0.00001f) {
-            status = "rotated-root-controls-unsupported"; return false;
+        for (const auto& key : controls[i]) if (!gimmd::root_controls::supported(i,key.rotation)) {
+            status = i==1 ? "center-pitch-roll-unsupported":"rotated-master-or-groove-unsupported"; return false;
         }
     }
-    if (controls[1].empty() || !sample(0,&source_zero)) return false;
+    if (controls[1].empty()) {
+        const auto waist=motion.bones.find("\x8d\x98");
+        if (waist!=motion.bones.end()&&!motion.bones.contains(gimmd::motion_profile::Mappings[0].cp932)) {
+            controls[1]=waist->second; waist_translation=true;
+            // Waist rotation is already applied by FK. Only its translation
+            // substitutes for the missing Center; never apply it a second time.
+            for (auto& key:controls[1]) key.rotation={};
+        }
+    }
+    if (controls[1].empty() || !sample(0,&source_zero)) { status="center-or-baked-waist-track-missing"; return false; }
     status = "root-source-prepared"; return true;
 }
 static bool bind(int model_node) {
@@ -139,8 +147,10 @@ static bool restore(ResolutionBatch* batch) {
 }
 static void report(std::ostream& out) {
     out << "{\"enabled\":" << (root_mode ? "true" : "false") << ",\"status\":\"" << status << "\",\"visualRootOnly\":true"
-        << ",\"sourceFrameZeroAnchored\":true,\"motionScale\":" << gimmd::fk_profile::RootMotionScale
+        << ",\"centerRotationPivot\":\"pelvis-approximation-without-source-pmx\",\"centerYawAppliedToPelvis\":true,\"sourceFrameZeroAnchored\":true,\"motionScale\":" << gimmd::fk_profile::RootMotionScale
         << ",\"writeCount\":" << writes << ",\"setterCalls\":" << calls << ",\"retainedChecks\":" << retained << ",\"overwrites\":" << overwrites
+        << ",\"bakedWaistTranslation\":" << (waist_translation ? "true":"false")
+        << ",\"centerYawSamples\":" << yaw_samples << ",\"maximumCenterYawDegrees\":" << maximum_yaw_degrees
         << ",\"maximumOffsetLocalUnits\":" << maximum_offset << ",\"restored\":" << (restored ? "true" : "false")
         << ",\"cleanupPending\":" << (dirty ? "true" : "false") << ",\"restoreAttempts\":" << attempts << ",\"restoreComponentError\":" << restore_error << '}';
 }

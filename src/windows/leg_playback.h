@@ -59,7 +59,7 @@ static bool prepare(const vmd::Motion& motion) {
             }
         }
     }
-    if (!present) return false;
+    if (!present) { status="fk-only-no-foot-ik"; return true; }
     status="foot-ik-prepared"; return true;
 }
 static bool check_geometry(unsigned mapping,void* bone) {
@@ -94,6 +94,7 @@ static bool check_geometry(unsigned mapping,void* bone) {
 }
 static bool evaluate(double frame,vmd::Quaternion* rotations,void* const* bones,double blend) {
     if (!leg_mode) return true;
+    if (foot_keys[0].empty()&&foot_keys[1].empty()) { status="fk-only-no-foot-ik"; return true; }
     namespace lp=gimmd::leg_pose;
     namespace li=gimmd::leg_ik;
     namespace rm=root_motion;

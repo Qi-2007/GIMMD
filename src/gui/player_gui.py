@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from work_import import import_work
 from camera_authoring import validate_keys, encode_vmd, atomic_bytes, load_keys
-from session import Controller, atomic_json, game_processes, run_tool, stage_session, start_loader
+from session import Controller, atomic_json, game_processes, run_tool, stage_session, start_loader, validate_uid_text, validate_camera_adjustments
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -27,12 +27,17 @@ class Studio:
         style = ttk.Style(root); style.theme_use('clam')
         style.configure('TFrame', background='#f4f6f9'); style.configure('TLabel', background='#f4f6f9', font=('Microsoft YaHei UI', 10))
         style.configure('TButton', font=('Microsoft YaHei UI', 10), padding=(12, 7))
-        self.build = tk.StringVar(value=str(ROOT / 'build-studio-camera-fov'))
+        self.build = tk.StringVar(value=str(ROOT / 'build-studio-hold-end'))
         self.motion = tk.StringVar(); self.audio = tk.StringVar(); self.camera = tk.StringVar()
         self.camera_enabled = tk.BooleanVar(value=False)
         self.camera_manual = tk.BooleanVar(value=False)
+        self.braid_static=tk.BooleanVar(value=False); self.pause_bgm=tk.BooleanVar(value=False)
+        self.uid_enabled=tk.BooleanVar(value=False); self.uid_text=tk.StringVar(value='MMD 创作中')
+        self.cloth_static=tk.BooleanVar(value=False)
         self.audio_offset=tk.StringVar(value="0"); self.imported_work={}
         self.camera_keys=[]; self.key_time=tk.StringVar(value="0")
+        self.hold_at_end=tk.BooleanVar(value=False)
+        self.fov_multiplier=tk.StringVar(value="1")
         self.camera_values=[tk.StringVar(value="0") for _ in range(7)]
         self.pid = tk.StringVar(); self.position = tk.StringVar(value='0.000')
         self.state = tk.StringVar(value='选择动作和构建目录，或连接正在运行的会话。')
@@ -42,10 +47,19 @@ class Studio:
         ttk.Label(container, text='GIMMD', font=('Segoe UI', 22, 'bold')).pack(anchor='w')
         ttk.Label(container, text='动作、时间轴与拍摄素材 · 当前角色支持男主').pack(anchor='w', pady=(0, 12))
         notebook = ttk.Notebook(container); notebook.pack(fill='both', expand=True)
-        playback = ttk.Frame(notebook, padding=14); camera_tab = ttk.Frame(notebook, padding=14)
+        playback = ttk.Frame(notebook, padding=14); camera_tab = ttk.Frame(notebook, padding=8)
         authoring=ttk.Frame(notebook,padding=14)
         notebook.add(playback, text='动作与播放'); notebook.add(camera_tab, text='相机轨道')
         notebook.add(authoring,text='运镜编排')
+        shooting=ttk.Frame(notebook,padding=14); notebook.add(shooting,text='拍摄辅助')
+        ttk.Checkbutton(shooting,text='播放结束后保持最后一帧（点击停止并恢复才结束）',variable=self.hold_at_end).pack(anchor='w',pady=10)
+        ttk.Checkbutton(shooting,text='固定辫子（男主后脑辫子骨骼）',variable=self.braid_static).pack(anchor='w',pady=10)
+        ttk.Checkbutton(shooting,text='尝试暂停游戏背景音乐',variable=self.pause_bgm).pack(anchor='w',pady=10)
+        ttk.Label(shooting,text='实验功能：仅暂停已识别的音乐分类；未找到接口时不生效，动作音频继续播放。',wraplength=650).pack(anchor='w')
+        ttk.Checkbutton(shooting,text='替换右下角 UID 区域显示文字',variable=self.uid_enabled).pack(anchor='w',pady=(20,8))
+        ttk.Entry(shooting,textvariable=self.uid_text,width=60).pack(anchor='w',fill='x')
+        ttk.Label(shooting,text='最多 64 字；留空可清空文字。仅修改画面文字，不修改账号 UID。以上设置从新会话生效，停止时恢复。',wraplength=650).pack(anchor='w',pady=10)
+
         ttk.Label(authoring,text='从相机页的手动参数添加关键帧，保存运镜工程或导出可播放的相机 VMD。',wraplength=650).pack(anchor='w',pady=8)
         timing=ttk.Frame(authoring); timing.pack(anchor='w',pady=8)
         ttk.Label(timing,text='关键帧时间（秒）').pack(side='left')
@@ -84,6 +98,7 @@ class Studio:
             button = ttk.Button(commands, text=title, command=lambda o=op: self.send(o)); button.pack(side='left', padx=(0, 8)); self.buttons[op] = button
         self.loop_box = ttk.Checkbutton(commands, text='循环', variable=self.loop, command=lambda: self.send('loop-on' if self.loop.get() else 'loop-off'))
         self.loop_box.pack(side='left', padx=5)
+        ttk.Checkbutton(commands,text='披风静态稳定（新会话）',variable=self.cloth_static).pack(side='right')
         seek_row = ttk.Frame(playback); seek_row.grid(row=7, column=0, columnspan=3, sticky='ew')
         ttk.Entry(seek_row, textvariable=self.position, width=12).pack(side='left')
         self.seek = ttk.Button(seek_row, text='跳转（秒）', command=self.seek_text); self.seek.pack(side='left', padx=8)
@@ -105,10 +120,12 @@ class Studio:
             r,c=divmod(i,2)
             ttk.Label(manual,text=title).grid(row=r,column=c*2,sticky='w',padx=(0,8),pady=2)
             ttk.Entry(manual,textvariable=self.camera_values[i],width=12).grid(row=r,column=c*2+1,padx=(0,18))
+        ttk.Label(manual,text='FOV 倍率').grid(row=3,column=2,sticky='w',padx=(0,8),pady=2)
+        ttk.Entry(manual,textvariable=self.fov_multiplier,width=12).grid(row=3,column=3,padx=(0,18))
         controls=ttk.Frame(camera_tab); controls.pack(anchor='w')
         self.camera_apply=ttk.Button(controls,text='应用机位',command=self.apply_camera); self.camera_apply.pack(side='left')
         self.camera_reset=ttk.Button(controls,text='复位偏移',command=self.reset_camera); self.camera_reset.pack(side='left',padx=8)
-        ttk.Label(camera_tab,text='位移沿初始机位的右/上/前方向，单位为游戏世界单位；FOV=0 使用轨道值或初始值。',wraplength=650).pack(anchor='w',pady=6)
+        ttk.Label(camera_tab,text='偏移沿初始机位右/上/前方向，单位为游戏世界单位。FOV=0 跟随轨道；倍率 <1 拉近、>1 变广（限 1–179°）。支持预设和播放中应用，停止恢复。',wraplength=650).pack(anchor='w',pady=6)
         time_row=ttk.Frame(camera_tab); time_row.pack(anchor='w',pady=8)
         ttk.Label(time_row,text='时间（秒）').pack(side='left')
         ttk.Entry(time_row,textvariable=self.position,width=12).pack(side='left',padx=8)
@@ -157,13 +174,20 @@ class Studio:
             audio = Path(self.audio.get()) if self.audio.get().strip() else None
             if self.camera_enabled.get() and not self.camera_manual.get() and not self.camera.get().strip():
                 raise ValueError('请选择相机 VMD')
+            stabilize_cloth=self.cloth_static.get()
+            stabilize_braid=self.braid_static.get(); pause_bgm=self.pause_bgm.get()
+            uid_text=validate_uid_text(self.uid_text.get()) if self.uid_enabled.get() else None
+            camera_values=validate_camera_adjustments([float(v.get()) for v in self.camera_values],float(self.fov_multiplier.get()))
+            fov_multiplier=float(self.fov_multiplier.get())
+            hold_at_end=self.hold_at_end.get()
             audio_offset=float(self.audio_offset.get())
             manual_camera=self.camera_enabled.get() and self.camera_manual.get()
             camera = Path(self.camera.get()) if self.camera_enabled.get() and not manual_camera else None
         except Exception as exc: self.error(exc); return
+        camera_enabled=self.camera_enabled.get()
         self.state.set('正在准备新会话…')
         def launch():
-            directory = stage_session(build, motion, audio, ROOT / 'sessions', camera=camera, manual_camera=manual_camera,audio_offset=audio_offset)
+            directory = stage_session(build, motion, audio, ROOT / 'sessions', camera=camera, manual_camera=manual_camera,audio_offset=audio_offset,stabilize_cloth=stabilize_cloth,stabilize_braid=stabilize_braid,pause_bgm=pause_bgm,uid_text=uid_text,camera_values=camera_values if camera_enabled else None,fov_multiplier=fov_multiplier if camera_enabled else 1,hold_at_end=hold_at_end)
             loader = start_loader(directory, pid)
             return ('session', directory, loader)
         self.background(launch)
@@ -200,22 +224,33 @@ class Studio:
             self.slider.configure(to=max(duration, .001))
             if not self.dragging: self.slider.set(seconds)
             self.loop.set(bool(status.get('loop')))
-            states = ['准备', '播放中', '已暂停', '播放结束']
+            states = ['等待可用角色场景（可停止）', '播放中', '已暂停', '播放结束']
+            if status.get('holdingEnd'): states[3]='末帧保持中，点击停止并恢复结束'
             self.state.set('会话已结束' if status['closed'] else states[status['state']] if self.controller.fresh else '会话状态已过期，控制已停用')
+        if status and self.controller.fresh and not status['closed']:
+            music={1:'等待音乐接口',2:'音乐分类已暂停（场景覆盖待确认）',3:'音乐接口暂不可用；可在游戏设置中将音乐音量设为 0',5:'音乐接口异常'}.get(status.get('bgmState'))
+            uid={1:'等待 UID 文字',2:'UID 文字已替换',3:'未找到受支持 UID 文字对象',5:'UID 写入异常'}.get(status.get('uidTextState'))
+            if music: self.state.set(self.state.get()+'；'+music)
+            if uid: self.state.set(self.state.get()+'；'+uid)
         camera_active=self.controller.fresh and bool(status and status.get('cameraEnabled'))
         for button in [self.camera_apply,self.camera_reset]: button.state(['!disabled'] if camera_active else ['disabled'])
         try: self.controller.pump()
         except (OSError, ValueError) as exc: self.state.set('命令尚未发送：' + str(exc))
         if self.loader and self.loader.poll() is not None:
             if self.loader.returncode: self.state.set('加载失败，请查看会话目录中的 loader.log')
-            else:
+            if self.controller:
                 reports = list(self.controller.directory.glob('gimmd-*.probe.json'))
                 if reports:
                     try:
                         report = json.loads(reports[0].read_text(encoding='utf-8-sig'))
                         result = report.get('singleTrackPlayback', {})
                         camera = report.get('cameraPlayback', {})
-                        if camera.get('cleanupPending') or camera.get('aborted'):
+                        if result.get('status')=='multi-track-source-rejected':
+                            reason=result.get('multiTrackPreview',{}).get('status','未知原因')
+                            root=result.get('multiTrackPreview',{}).get('rootMotion',{}).get('status','')
+                            if root=='rotated-root-controls-unsupported': reason='该旧构建不支持根旋转，请选择 build-studio-center-yaw'
+                            self.state.set('动作无法加载：'+reason)
+                        elif camera.get('cleanupPending') or camera.get('aborted'):
                             self.state.set('相机：' + camera.get('status', '恢复待确认'))
                         else: self.state.set('会话结束，姿态已恢复' if result.get('localRestored') and not result.get('cleanupPending') else
                                        '会话结束：' + result.get('status', report.get('status', '未知状态')))
@@ -226,7 +261,7 @@ class Studio:
         if self.close_pending:
             if self.controller.fresh and not self.close_stop_sent:
                 self.send('stop'); self.close_stop_sent=True
-            if (status and status['closed'] and not self.loader) or (self.loader and self.loader.poll() is not None):
+            if (status and status['closed']) or (self.loader and self.loader.poll() is not None):
                 self.root.destroy()
 
     def tick(self):
@@ -248,7 +283,8 @@ class Studio:
             try:
                 offset=float(self.audio_offset.get())
                 if not math.isfinite(offset) or abs(offset)>600: raise ValueError('音频偏移应为 ±600 秒内的有限数值')
-                atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get(), 'manualCamera': self.camera_manual.get(), 'audioOffset': offset, 'importedWork': self.imported_work})
+                values=validate_camera_adjustments([float(v.get()) for v in self.camera_values],float(self.fov_multiplier.get()))
+                atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get(), 'manualCamera': self.camera_manual.get(), 'holdAtEnd':self.hold_at_end.get(),'cameraValues':values,'fovMultiplier':float(self.fov_multiplier.get()),'stabilizeBraid':self.braid_static.get(),'pauseBgm':self.pause_bgm.get(),'uidEnabled':self.uid_enabled.get(),'uidText':validate_uid_text(self.uid_text.get()),'stabilizeCloth': self.cloth_static.get(), 'audioOffset': offset, 'importedWork': self.imported_work})
             except Exception as exc: self.error(exc)
 
     def open_project(self):
@@ -262,15 +298,24 @@ class Studio:
             if project.get('schemaVersion') != 1: raise ValueError('不支持的工程格式')
             if any(not isinstance(project.get(name,''),str) for name in ['build','motion','audio','camera']):
                 raise ValueError('工程路径格式无效')
-            if type(project.get('cameraEnabled', False)) is not bool or type(project.get('manualCamera', False)) is not bool:
+            if type(project.get('stabilizeCloth',False)) is not bool or type(project.get('cameraEnabled', False)) is not bool or type(project.get('manualCamera', False)) is not bool:
                 raise ValueError('工程相机开关无效')
+            if any(type(project.get(k,False)) is not bool for k in ['stabilizeBraid','pauseBgm','uidEnabled','holdAtEnd']): raise ValueError('拍摄辅助开关无效')
+            validate_uid_text(project.get('uidText','MMD 创作中'))
+            camera_values=validate_camera_adjustments(project.get('cameraValues',[0]*7),project.get('fovMultiplier',1))
             offset=project.get('audioOffset',0)
             if type(offset) not in (int,float) or not math.isfinite(offset) or abs(offset)>600:
                 raise ValueError('工程音频偏移无效')
             if not isinstance(project.get('importedWork',{}),dict): raise ValueError('工程作品信息无效')
+            for variable,value in zip(self.camera_values,camera_values): variable.set(str(value))
+            self.hold_at_end.set(project.get('holdAtEnd',False))
+            self.fov_multiplier.set(str(project.get('fovMultiplier',1)))
             self.audio_offset.set(str(offset)); self.imported_work=project.get('importedWork',{})
             self.camera_enabled.set(project.get('cameraEnabled', False))
             self.camera_manual.set(project.get('manualCamera', False))
+            self.braid_static.set(project.get('stabilizeBraid',False)); self.pause_bgm.set(project.get('pauseBgm',False))
+            self.uid_enabled.set(project.get('uidEnabled',False)); self.uid_text.set(project.get('uidText','MMD 创作中'))
+            self.cloth_static.set(project.get('stabilizeCloth',False))
             for name in ['build', 'motion', 'audio', 'camera']:
                 getattr(self, name).set(project.get(name, ''))
         except Exception as exc: self.error(exc)
@@ -341,12 +386,13 @@ class Studio:
     def apply_camera(self):
         try:
             if not self.controller: raise ValueError('请先启用相机并开始会话')
-            sequence=self.controller.camera([float(v.get()) for v in self.camera_values])
+            sequence=self.controller.camera([float(v.get()) for v in self.camera_values],float(self.fov_multiplier.get()))
             self.camera_result.set(f'相机命令 {sequence} 已发送，等待运行时应用。')
         except Exception as exc: self.error(exc)
 
     def reset_camera(self):
         for value in self.camera_values: value.set('0')
+        self.fov_multiplier.set('1')
         self.apply_camera()
 
     def preview_camera(self):
@@ -360,6 +406,8 @@ class Studio:
         self.background(inspect)
 
     def close(self):
+        if self.controller and self.controller.status and self.controller.status['closed']:
+            self.root.destroy(); return
         if self.working:
             self.error('正在准备会话，请等待准备结束'); return
         if (self.controller and self.controller.fresh) or (self.loader and self.loader.poll() is None):

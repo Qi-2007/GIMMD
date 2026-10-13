@@ -17,6 +17,7 @@
 #include "core/rotation_preview.h"
 #include "generated/fk_profile.h"
 #include "core/root_translation.h"
+#include "core/root_controls.h"
 #include "core/leg_pose.h"
 #include "windows/player_session.h"
 #include "MinHook.h"
@@ -149,6 +150,8 @@ static BOOL CALLBACK find_window(HWND window, LPARAM) {
 #include "camera_roundtrip.h"
 #include "core/camera_pose.h"
 #include "camera_playback.h"
+#include "bgm_pause.h"
+#include "uid_text.h"
 
 // Keep SEH in POD-only leaf functions; exception means stop engine sampling.
 static bool capture(Reading* out,void* fov_target=nullptr) {
@@ -219,14 +222,14 @@ static int __fastcall observe_fov(void* object, float fov) {
                 last_sample_time = now;
             }
             hierarchy::playback::tick(now);
-            camera_playback::tick(object);
+            camera_playback::tick(object); bgm_pause::tick(); uid_text::tick();
             callback_reentrant = false;
         }
-        else if (!callback_reentrant && accepting.load() && (hierarchy::playback::dirty.load() || hierarchy::time_control::dirty.load() || hierarchy::animator_lease::dirty.load())) {
+        else if (!callback_reentrant && accepting.load() && (hierarchy::playback::dirty.load() || hierarchy::time_control::dirty.load() || hierarchy::animator_lease::dirty.load() || bgm_pause::dirty.load() || uid_text::dirty.load())) {
             callback_reentrant = true;
             hierarchy::playback::stop_requested.store(true);
             hierarchy::playback::tick(GetTickCount64());
-                camera_playback::tick();
+                camera_playback::tick(); bgm_pause::tick(); uid_text::tick();
             callback_reentrant = false;
         }
     }
@@ -248,7 +251,7 @@ static LRESULT CALLBACK observe_message(int code, WPARAM removed, LPARAM data) {
                 message_callback_count.fetch_add(1);
                 if (engine_error.load()) hierarchy::playback::stop_requested.store(true);
                 hierarchy::playback::tick(GetTickCount64());
-                camera_playback::tick();
+                camera_playback::tick(); bgm_pause::tick(); uid_text::tick();
                 callback_reentrant = false;
             }
         }
@@ -275,6 +278,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         camera_experiment::configure(base);
         gimmd::player_session::initialize(std::filesystem::path(dll_path).parent_path());
         camera_playback::configure(base,std::filesystem::path(dll_path).parent_path());
+        bgm_pause::configure(); uid_text::configure(base,std::filesystem::path(dll_path).parent_path());
         if (hierarchy::configured) hierarchy::playback::load(std::filesystem::path(dll_path).parent_path() /
             (hierarchy::playback::MultiEnabled ? L"multi-track.vmd" : L"single-track.vmd"));
         std::string status = "build-mismatch";
@@ -325,24 +329,30 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
                             installed = enable_status == MH_OK;
                             status = installed ? "waiting-for-camera-callback" : "hook-enable-failed";
                             if (installed) {
-                                const auto deadline = GetTickCount64() + (gimmd::player_session::Enabled ? 90000 : 5000);
-                                while (GetTickCount64() < deadline && (sample_count.load() < 4 ||
+                                const auto deadline = GetTickCount64() + (gimmd::player_session::Enabled ? 600000 : 5000);
+                                while ((gimmd::player_session::hold_at_end || GetTickCount64() < deadline) && (sample_count.load() < 4 ||
                                     (hierarchy::playback::Enabled && !hierarchy::playback::done.load())) && !engine_error.load() &&
-                                    !hierarchy::roundtrip::failed()) {
+                                    !hierarchy::roundtrip::failed() && !hierarchy::playback::stop_requested.load()) {
                                     gimmd::player_session::worker_tick();
+                                    const auto request=gimmd::player_session::command.load();
+                                    if (gimmd::player_session::Enabled && gimmd::command_op(request)==gimmd::PlayerOp::Stop) {
+                                        hierarchy::playback::stop_requested.store(true);
+                                        gimmd::player_session::acknowledged.store(gimmd::command_sequence(request));
+                                    }
+                                    bgm_pause::refresh();
                                     if (message_hook) PostThreadMessageW(window_thread, PlaybackMessage, reinterpret_cast<WPARAM>(self_module), 0);
                                     Sleep(20);
                                 }
                                 hierarchy::playback::stop_requested.store(true);
                                 gimmd::player_session::close_audio();
                                 const auto cleanup_deadline = GetTickCount64() + 1000;
-                                while (((hierarchy::playback::started.load() && !hierarchy::playback::done.load()) || camera_playback::dirty.load()) &&
+                                while (((hierarchy::playback::started.load() && !hierarchy::playback::done.load()) || camera_playback::dirty.load() || bgm_pause::dirty.load() || uid_text::dirty.load()) &&
                                     GetTickCount64() < cleanup_deadline) {
                                     if (message_hook) PostThreadMessageW(window_thread, PlaybackMessage, reinterpret_cast<WPARAM>(self_module), 0);
                                     Sleep(10);
                                 }
                             }
-                            const bool cleanup_pending = (hierarchy::playback::started.load() && !hierarchy::playback::done.load()) || camera_playback::dirty.load();
+                            const bool cleanup_pending = (hierarchy::playback::started.load() && !hierarchy::playback::done.load()) || camera_playback::dirty.load() || bgm_pause::dirty.load() || uid_text::dirty.load();
                             if (!cleanup_pending) accepting.store(false);
                             disable_status = cleanup_pending ? -1 : MH_DisableHook(reinterpret_cast<void*>(fov));
                             disabled = disable_status == MH_OK || disable_status == MH_ERROR_DISABLED;
@@ -354,7 +364,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
                             uint8_t after[32]{};
                             restored = disabled && read_bytes(fov, after, sizeof(after)) &&
                                 !std::memcmp(original_bytes, after, sizeof(after));
-                            permanently_closed = !restored || !message_unhooked || active_calls.load() != 0 || hierarchy::roundtrip::failed() || hierarchy::animator_observer::toggle::failed() || camera_experiment::failed() || camera_playback::dirty.load();
+                            permanently_closed = !restored || !message_unhooked || active_calls.load() != 0 || hierarchy::roundtrip::failed() || hierarchy::animator_observer::toggle::failed() || camera_experiment::failed() || camera_playback::dirty.load() || bgm_pause::dirty.load() || uid_text::dirty.load();
                             if (cleanup_pending) status = "playback-cleanup-pending-hook-retained";
                             else if (!restored) status = "hook-restoration-failed";
                             else if (hierarchy::roundtrip::failed()) status = "pose-restoration-failed";
@@ -388,7 +398,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
             << "\",\n  \"executableSha256\": \"" << sha
             << "\",\n  \"buildMatch\": " << (build_match ? "true" : "false")
             << ",\n  \"status\": \"" << status << "\",\n  \"settersCalled\": "
-            << (hierarchy::roundtrip::setter_calls.load() || hierarchy::playback::setter_calls.load() || hierarchy::time_control::setter_calls.load() || hierarchy::animator_observer::toggle::setter_calls.load() || hierarchy::animator_lease::setter_calls.load() || camera_experiment::result.calls || camera_playback::writes ? "true" : "false") << ','
+            << (hierarchy::roundtrip::setter_calls.load() || hierarchy::playback::setter_calls.load() || hierarchy::time_control::setter_calls.load() || hierarchy::animator_observer::toggle::setter_calls.load() || hierarchy::animator_lease::setter_calls.load() || camera_experiment::result.calls || camera_playback::writes || bgm_pause::calls || uid_text::calls ? "true" : "false") << ','
             << "\n  \"windowThread\": " << window_thread << ",\n  \"lastCallbackThread\": " << last_callback_thread.load()
             << ",\n  \"callbackCount\": " << callback_count.load() << ",\n  \"windowThreadCallbackCount\": " << window_callback_count.load()
             << ",\n  \"engineException\": " << engine_error.load() << ",\n  \"hookInstalled\": " << (installed ? "true" : "false")
@@ -439,16 +449,16 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         hierarchy::animator_observer::report(report);
         gimmd::player_session::report(report);
         camera_experiment::report(report);
-        camera_playback::report(report);
+        camera_playback::report(report); bgm_pause::report(report); uid_text::report(report);
         report << "\n}\n"; report.flush();
         busy.store(false);
-        return report && !hierarchy::roundtrip::failed() && !hierarchy::animator_observer::toggle::failed() && !camera_experiment::failed() && !camera_playback::dirty.load() && !hierarchy::playback::dirty.load() &&
+        return report && !hierarchy::roundtrip::failed() && !hierarchy::animator_observer::toggle::failed() && !camera_experiment::failed() && !camera_playback::dirty.load() && !bgm_pause::dirty.load() && !uid_text::dirty.load() && !hierarchy::playback::dirty.load() &&
             !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load() && message_unhooked ? ERROR_SUCCESS : ERROR_WRITE_FAULT;
     } catch (...) {
         gimmd::player_session::close_audio();
         permanently_closed = true;
         hierarchy::playback::stop_requested.store(true);
-        if (!hierarchy::playback::dirty.load() && !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load() && !camera_playback::dirty.load()) accepting.store(false);
+        if (!hierarchy::playback::dirty.load() && !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load() && !camera_playback::dirty.load() && !bgm_pause::dirty.load() && !uid_text::dirty.load()) accepting.store(false);
         busy.store(false);
         return ERROR_UNHANDLED_EXCEPTION;
     }
@@ -498,6 +508,23 @@ static void* mock_string(const wchar_t* text) {
     std::memcpy(mock_text.text, text, (static_cast<size_t>(mock_text.length) + 1) * sizeof(wchar_t));
     return &mock_text;
 }
+static int mock_music_pause=0,mock_music_mode=0;
+static char mock_music_name[64]="BGM";
+static int __cdecl mock_music_ready() { return 1; }
+static int __cdecl mock_music_count() { return mock_music_mode==2 ? 2:1; }
+static int __cdecl mock_music_info(uint16_t,void* out) {
+    uint32_t id=7; uintptr_t name=reinterpret_cast<uintptr_t>(mock_music_name);
+    std::memcpy(static_cast<uint8_t*>(out)+4,&id,4); std::memcpy(static_cast<uint8_t*>(out)+8,&name,sizeof(name)); return 1;
+}
+static int __cdecl mock_music_paused(uint32_t) { return mock_music_pause; }
+static void __cdecl mock_music_set(uint32_t,int value) { mock_music_pause=value; }
+static MockString mock_uid{};
+static void* __fastcall mock_uid_string(const char* value) {
+    const int n=MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,value,-1,mock_text.text,hierarchy::MaxName);
+    mock_text.length=n-1; return n ? &mock_text:nullptr;
+}
+static void* __fastcall mock_uid_get(void*) { return &mock_uid; }
+static void __fastcall mock_uid_set(void*,void* value) { mock_uid=*static_cast<MockString*>(value); }
 static void* __fastcall mock_find_string(const char*) { return mock_string(L"AvatarRoot"); }
 static void* __fastcall mock_name_a(void* object) { return mock_string(static_cast<MockNode*>(object)->name); }
 static void* __fastcall mock_name_b(void* object) {
@@ -844,7 +871,7 @@ static void mock_toggle_fixture(unsigned fault = 0) {
 }
 #endif
 #endif
-int main() {
+int wmain(int argc,wchar_t** argv) {
     unsigned checks = 0;
     auto check = [&](bool ok, const char* message) {
         ++checks; if (!ok) throw std::runtime_error(message);
@@ -925,8 +952,22 @@ int main() {
         check(camera_playback::writes==2&&std::abs(mock_nodes[0].position.x-10)>0.2f,"paused seek did not move camera");
         camera_playback::apply(&mock_nodes[0],123,false);
         check(camera_playback::retained>0,"paused camera was not retained");
+        const auto unadjusted_camera=mock_nodes[0].position; const float unadjusted_fov=camera_mock_fov;
+        gimmd::player_session::camera_control={7,2,1,-1,0,0,0,0,0.5f};
+        camera_playback::apply(&mock_nodes[0],123,false);
+        check(std::abs(mock_nodes[0].position.x-unadjusted_camera.x-2)<0.0001f&&
+            std::abs(mock_nodes[0].position.y-unadjusted_camera.y-1)<0.0001f&&
+            std::abs(mock_nodes[0].position.z-unadjusted_camera.z+1)<0.0001f,
+            "VMD camera offset did not add to the sampled pose");
+        check(std::abs(camera_mock_fov-unadjusted_fov*0.5f)<0.0001f&&gimmd::player_session::camera_acknowledged.load()==7,
+            "VMD camera multiplier was not applied while paused");
+        gimmd::player_session::camera_control={8,0,0,0,0,0,0,100,4}; camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_mock_fov==179,"multiplied FOV exceeded the engine range");
+        gimmd::player_session::camera_control={9}; camera_playback::apply(&mock_nodes[0],123,false);
+        check(gimmd::leg_ik::length(gimmd::leg_ik::sub(unadjusted_camera,mock_nodes[0].position))<0.0001f&&camera_mock_fov==unadjusted_fov,
+            "reset did not return to the VMD camera pose/FOV");
         hierarchy::playback::stop_requested.store(true); camera_playback::apply(&mock_nodes[0],123,false);
-        check(camera_playback::restored&&!camera_playback::dirty.load()&&mock_nodes[0].position.x==10,"camera stop did not restore baseline");
+        check(camera_playback::restored&&!camera_playback::dirty.load() && !bgm_pause::dirty.load() && !uid_text::dirty.load()&&mock_nodes[0].position.x==10,"camera stop did not restore baseline");
         camera_setup(); camera_playback::manual_only=true; camera_playback::zero={};
         gimmd::player_session::camera_control={5,2,0,0,90,0,0,60};
         camera_playback::apply(&mock_nodes[0],123,true);
@@ -935,9 +976,16 @@ int main() {
         gimmd::player_session::camera_control={6}; camera_playback::apply(&mock_nodes[0],123,false);
         check(mock_nodes[0].position.x==10&&mock_nodes[0].local.w==1&&camera_mock_fov==45,"manual camera reset failed");
         hierarchy::playback::stop_requested.store(true); camera_playback::apply(&mock_nodes[0],123,false);
-        check(camera_playback::restored&&!camera_playback::dirty.load(),"manual camera stop did not restore");
+        check(camera_playback::restored&&!camera_playback::dirty.load() && !bgm_pause::dirty.load() && !uid_text::dirty.load(),"manual camera stop did not restore");
+        camera_setup(); gimmd::player_session::holding_end.store(true);
+        gimmd::player_session::frame.store(gimmd::pack_player_frame({1,0,gimmd::PlaybackState::Ended}));
+        camera_playback::apply(&mock_nodes[0],123,true);
+        check(camera_playback::writes==1&&camera_playback::sampled_seconds==1,"final camera frame was not applied while holding");
+        hierarchy::playback::stop_requested.store(true); camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::restored&&!camera_playback::dirty.load(),"held final camera did not restore");
+        gimmd::player_session::holding_end.store(false);
         camera_setup(1); camera_playback::apply(&mock_nodes[0],123,true); camera_playback::apply(&mock_nodes[0],123,false);
-        check(camera_playback::aborted&&camera_playback::restored&&!camera_playback::dirty.load(),"partial camera mutation exception did not restore");
+        check(camera_playback::aborted&&camera_playback::restored&&!camera_playback::dirty.load() && !bgm_pause::dirty.load() && !uid_text::dirty.load(),"partial camera mutation exception did not restore");
         check(camera_mock_fov==45,"camera FOV baseline not restored after partial mutation");
         camera_setup(2); camera_playback::apply(&mock_nodes[0],123,true); camera_playback::apply(&mock_nodes[0],123,false);
         check(camera_playback::dirty.load()&&!camera_playback::restored,"lost camera identity falsely reported restored");
@@ -1224,6 +1272,21 @@ int main() {
         check(mp::done.load() && mp::result.restored, "multi-track synthetic cleanup failed");
         mock_multi_fixture(); mp::tick(1000); mock_nodes[5].local = {0.02f,0,0,0.99979998f}; mp::tick(1040);
         check(mp::done.load() && mp::result.overwritten == 1 && mp::result.restored, "external pose write did not stop multi-track preview");
+        mock_multi_fixture(); gimmd::player_session::active=true; gimmd::player_session::hold_at_end=true;
+        gimmd::player_session::command.store(0); mp::tick(1000); mp::tick(3040);
+        const auto held_pose=mock_nodes[5].local;
+        check(!mp::done.load()&&gimmd::player_session::holding_end.load()&&
+            gimmd::unpack_player_frame(gimmd::player_session::frame.load()).state==gimmd::PlaybackState::Ended,
+            "end hold restored instead of keeping the final pose");
+        mp::tick(700000);
+        check(!mp::done.load()&&hierarchy::roundtrip::error(held_pose,mock_nodes[5].local)<0.00001f,
+            "end hold expired or changed the final pose");
+        gimmd::player_session::command.store(gimmd::parse_player_command("1 stop")); mp::tick(700040);
+        check(mp::done.load()&&mp::result.restored&&!gimmd::player_session::holding_end.load(),"manual restore from final pose failed");
+        gimmd::player_session::hold_at_end=false;
+        mock_multi_fixture(); gimmd::player_session::command.store(0); mp::tick(1000); mp::tick(3040);
+        check(mp::done.load()&&mp::result.restored,"default natural completion stopped restoring");
+        gimmd::player_session::active=false;
         mock_hierarchy_reset(); BetterEndfieldNext::Vmd::Motion missing_motion; missing_motion.last_frame = 60;
         check(!mp::multi::prepare(missing_motion), "missing required source tracks accepted");
         mock_multi_fixture(); gimmd::player_session::active = true;
@@ -1285,11 +1348,83 @@ int main() {
         mock_multi_fixture(true,true); root_fault = 1; mp::tick(1000);
         check(mp::done.load() && mp::result.exception && rm::restored && mp::result.restored && hierarchy::animator_lease::restored,
             "partial position write exception left state dirty");
+        mock_multi_fixture(true,true);
+        namespace ph=hierarchy::playback::multi::pelvis_helper;
+        mock_nodes[55].children[52]=&mock_nodes[57]; mock_nodes[55].count=53;
+        mock_nodes[57].name=L"+PelvisTwist CF A01"; mock_nodes[57].parent=&mock_nodes[55];
+        const auto& helper_rest=gimmd::fk_profile::AvatarReference[123].rotation;
+        mock_nodes[57].local={helper_rest[0],helper_rest[1],helper_rest[2],helper_rest[3]};
+        ph::track={}; ph::bound=true; ph::track.length=mp::multi::tracks[0].length;
+        for (unsigned i=0;i<ph::track.length;++i) ph::track.steps[i]=mp::multi::tracks[0].steps[i];
+        auto& helper_leaf=ph::track.steps[ph::track.length-1]; helper_leaf.identity=reinterpret_cast<uintptr_t>(&mock_nodes[57]);
+        helper_leaf.child=52; wcscpy_s(helper_leaf.name,L"+PelvisTwist CF A01");
+        const auto helper_turn=gimmd::rotation_preview::multiply({0,0,0.70710678f,0.70710678f},gimmd::fk_profile::Bindings[0].rest);
+        hierarchy::playback::ResolutionBatch helper_batch{};
+        check(ph::preflight(&helper_batch)&&ph::apply(&helper_batch,{helper_turn.x,helper_turn.y,helper_turn.z,helper_turn.w}),
+            "pelvis helper did not accept/apply sibling rotation");
+        const auto helper_expected=gimmd::rotation_preview::multiply({0,0,0.70710678f,0.70710678f},
+            {helper_rest[0],helper_rest[1],helper_rest[2],helper_rest[3]});
+        check(hierarchy::roundtrip::error(mock_nodes[57].local,{helper_expected.x,helper_expected.y,helper_expected.z,helper_expected.w})<0.00002f,
+            "pelvis helper delta was applied in the wrong basis");
+        check(ph::restore(&helper_batch)&&ph::track.restored&&!ph::track.dirty&&
+            hierarchy::roundtrip::error(mock_nodes[57].local,{helper_rest[0],helper_rest[1],helper_rest[2],helper_rest[3]})<0.00002f,
+            "pelvis helper baseline did not restore");
+        namespace cs=hierarchy::playback::multi::cloth_stabilizer;
+        cs::reset(); cs::size=1; cs::bones[0].track=ph::track; cs::bones[0].track.captured=false;
+        cs::bones[0].track.dirty=false; cs::bones[0].reference=123;
+        mock_nodes[57].position={.1f,.2f,.3f};
+        hierarchy::playback::ResolutionBatch cloth_batch{};
+        check(cs::preflight(&cloth_batch)&&cs::apply(&cloth_batch,1),"static cloth pose did not apply");
+        mock_nodes[57].local=hierarchy::roundtrip::multiply(mock_nodes[57].local,{0,0.005f,0,0.9999875f});
+        check(cs::preflight(&cloth_batch)&&cs::overwrites==1,"native cloth overwrite was not counted");
+        check(cs::restore(&cloth_batch)&&!cs::bones[0].position_dirty&&!cs::bones[0].track.dirty&&
+            rm::error(mock_nodes[57].position,{.1f,.2f,.3f})<0.00002f,"static cloth position/rotation baseline not restored");
+        cs::reset();
+        // Exercise the actual cloth path builder, sharing an already populated
+        // skeleton cache. Root is a sentinel, not child zero of a parent.
+        mock_nodes[57].name=L"+AmiceB L B11";
+        MockNode* cloth_tree[hierarchy::MaxNodes]{}; cloth_tree[0]=&mock_nodes[0];
+        hierarchy::count=1; hierarchy::nodes[0]={}; hierarchy::nodes[0].parent=-1;
+        int cloth_model=-1;
+        for (unsigned i=0;i<hierarchy::count;++i) {
+            auto* object=cloth_tree[i]; auto& node=hierarchy::nodes[i];
+            node.object=object; node.identity=reinterpret_cast<uintptr_t>(object); wcscpy_s(node.name,object->name);
+            node.processed=node.aliases_equal=node.parent_valid=node.owner_valid=node.rotation_relation_valid=true;
+            node.active=object->active;
+            if (object==&mock_nodes[1]) cloth_model=int(i);
+            if (object==&mock_nodes[57]) hierarchy::animator_observer::bind_pose::avatar_links[i]=123;
+            for (int child=0;child<object->count;++child) {
+                const unsigned index=hierarchy::count++; cloth_tree[index]=object->children[child];
+                hierarchy::nodes[index]={}; hierarchy::nodes[index].parent=int(i);
+            }
+        }
+        gimmd::player_session::stabilize_cloth=true;
+        check(cs::bind(cloth_model)&&cs::size==1&&cs::bones[0].track.steps[0].child==-1,"cloth root sentinel generated incorrectly");
+        hierarchy::playback::ResolutionBatch shared_cloth_batch{}; bool shared_active=true;
+        check(hierarchy::playback::resolve_batch_steps(&shared_cloth_batch,&shared_active,mp::multi::tracks[0].steps,mp::multi::tracks[0].length)&&
+            cs::preflight(&shared_cloth_batch),"cloth path conflicted with populated skeleton cache");
+        cs::reset(); gimmd::player_session::stabilize_cloth=false; gimmd::player_session::stabilize_braid=true;
+        for (unsigned i=0;i<hierarchy::count;++i) if (hierarchy::nodes[i].object==&mock_nodes[57]) wcscpy_s(hierarchy::nodes[i].name,L"+HairB CB A01");
+        mock_nodes[57].name=L"+HairB CB A01";
+        check(cs::bind(cloth_model)&&cs::size==1,"braid-only binding did not select the back braid");
+        hierarchy::playback::ResolutionBatch braid_batch{};
+        check(cs::preflight(&braid_batch)&&cs::apply(&braid_batch,1)&&cs::restore(&braid_batch),"braid static pose did not restore");
+        cs::reset(); gimmd::player_session::stabilize_braid=false;
         rm::reset(); BetterEndfieldNext::Vmd::Motion rotated_control;
-        auto& control = rotated_control.bones[gimmd::fk_profile::RootTrackNames[1]]; control.resize(1); control[0].rotation = {0.1f,0,0,0.9949874f};
-        check(!rm::prepare(rotated_control), "unsupported rotated Center control silently accepted");
+        auto& control = rotated_control.bones[gimmd::fk_profile::RootTrackNames[0]]; control.resize(1); control[0].rotation = {0.1f,0,0,0.9949874f};
+        check(!rm::prepare(rotated_control), "unsupported rotated master control silently accepted");
 #ifdef GIMMD_LEG_IK
         namespace lk=hierarchy::playback::multi::leg_playback;
+        mock_multi_fixture(true,true,true);
+        rm::controls[1][1].rotation={0,0.17177446f,0,0.98513633f};
+        const auto yaw_expected=gimmd::fk_retarget::evaluate(gimmd::fk_profile::Bindings[0],
+            gimmd::root_controls::pelvis(rm::controls[1][1].rotation,mp::multi::tracks[0].keys[1].rotation));
+        mp::tick(1000); mp::tick(2000);
+        check(mp::result.samples==2&&rm::yaw_samples==1&&rm::maximum_yaw_degrees>19&&
+            hierarchy::roundtrip::error(mock_nodes[3].local,{yaw_expected.x,yaw_expected.y,yaw_expected.z,yaw_expected.w})<0.00002f,
+            "Center yaw did not reach target pelvis before leg IK");
+        mp::stop_requested.store(true); mp::tick(2034);
+        check(mp::done.load()&&rm::restored&&mp::result.restored&&hierarchy::animator_lease::restored,"Center yaw playback did not restore");
         mock_multi_fixture(true,true,true);
         check(mp::loaded && !std::strcmp(lk::status,"foot-ik-prepared"),"foot IK tracks not admitted");
         mp::tick(1000); mp::tick(2000);
@@ -1427,6 +1562,55 @@ int main() {
 #else
         check(!hierarchy::animator_observer::Enabled, "unexpected Animator probing");
 #endif
+        if (argc>1) {
+            std::ifstream source_input(std::filesystem::path(argv[1]),std::ios::binary|std::ios::ate);
+            const auto source_size=source_input ? source_input.tellg():std::streampos(-1);
+            if (source_size<=0||source_size>static_cast<std::streamoff>(BetterEndfieldNext::Vmd::Limits{}.file_bytes))
+                throw std::runtime_error("compatibility source size refused");
+            std::vector<uint8_t> source_bytes(static_cast<size_t>(source_size)); source_input.seekg(0);
+            source_input.read(reinterpret_cast<char*>(source_bytes.data()),source_size);
+            BetterEndfieldNext::Vmd::Motion source_motion; std::string source_error;
+            if (!source_input||!BetterEndfieldNext::Vmd::Parse(source_bytes,source_motion,source_error)) throw std::runtime_error(source_error);
+            namespace compatibility=hierarchy::playback;
+            compatibility::full_mode=true; compatibility::root_mode=true; compatibility::leg_mode=true; compatibility::toe_mode=true;
+            if (!compatibility::multi::prepare(source_motion)) throw std::runtime_error(compatibility::multi::state);
+            std::cout<<"Source admitted by runtime preparation: "<<source_motion.bones.size()<<" tracks, "<<source_motion.last_frame<<" frames\n";
+        }
+        hierarchy::playback::started.store(false); hierarchy::playback::done.store(false);
+        hierarchy::playback::dirty.store(false); hierarchy::playback::stop_requested.store(true);
+        hierarchy::time_control::dirty.store(false); hierarchy::animator_lease::dirty.store(false);
+        const auto cancel_setters=hierarchy::playback::setter_calls.load();
+        hierarchy::playback::tick(GetTickCount64());
+        check(hierarchy::playback::done.load()&&!std::strcmp(hierarchy::playback::result.status,"cancelled-before-binding"),
+            "stop before entering a character scene was ignored");
+        check(hierarchy::playback::setter_calls.load()==cancel_setters,"cancel before binding wrote an actor pose");
+        // Optional shooting leases: category-specific pause and exact restoration.
+        const auto music_setup=[](int initial,int mode) {
+            bgm_pause::configured=true; bgm_pause::attempted=bgm_pause::acquired=bgm_pause::restored=false;
+            bgm_pause::dirty.store(false); bgm_pause::calls=bgm_pause::restore_attempts=0;
+            bgm_pause::ready=mock_music_ready; bgm_pause::count=mock_music_count; bgm_pause::info=mock_music_info;
+            bgm_pause::paused=mock_music_paused; bgm_pause::pause=mock_music_set;
+            mock_music_pause=initial; mock_music_mode=mode; strcpy_s(mock_music_name,mode==1 ? "SFX":"BGM");
+            gimmd::player_session::pause_bgm=true; hierarchy::playback::started.store(true);
+            hierarchy::playback::done.store(false); hierarchy::playback::stop_requested.store(false);
+        };
+        music_setup(0,0); bgm_pause::tick();
+        check(mock_music_pause==1&&bgm_pause::dirty.load()&&bgm_pause::acquired,"BGM category pause not acquired");
+        hierarchy::playback::stop_requested.store(true); bgm_pause::tick();
+        check(mock_music_pause==0&&!bgm_pause::dirty.load()&&bgm_pause::restored,"BGM previous state not restored");
+        music_setup(1,0); bgm_pause::tick(); hierarchy::playback::stop_requested.store(true); bgm_pause::tick();
+        check(mock_music_pause==1&&!bgm_pause::dirty.load(),"already paused music was resumed");
+        music_setup(0,1); bgm_pause::tick();
+        check(!bgm_pause::acquired&&mock_music_pause==0,"SFX category paused as music");
+        music_setup(0,2); bgm_pause::tick();
+        check(!bgm_pause::acquired&&mock_music_pause==0,"ambiguous BGM categories accepted");
+        bgm_pause::configured=false; gimmd::player_session::pause_bgm=false;
+        auto saved_find_string=find_string; find_string=mock_uid_string; uid_text::get=mock_uid_get; uid_text::set=mock_uid_set;
+        check(uid_text::write(nullptr,"MMD test"),"UID text write/readback failed");
+        char uid_observed[257]{}; check(uid_text::text(nullptr,uid_observed)&&!std::strcmp(uid_observed,"MMD test"),"UID text mismatch");
+        check(uid_text::write(nullptr,"")&&mock_uid.length==0,"empty UID replacement failed");
+        check(uid_text::write(nullptr,"UID: baseline"),"UID baseline restore failed");
+        find_string=saved_find_string;
         std::cout << checks << " runtime observer checks passed in synthetic host\n";
         return 0;
     } catch (const std::exception& error) {

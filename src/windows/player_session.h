@@ -24,6 +24,10 @@ inline uint64_t session_token = 0;
 inline double duration_seconds = 0;
 inline std::atomic<bool> loop_enabled{false};
 inline bool legacy_resolver = false;
+inline bool hold_at_end=false;
+inline std::atomic<bool> holding_end{false};
+inline bool stabilize_cloth=false,stabilize_braid=false,pause_bgm=false;
+inline std::atomic<unsigned> bgm_state{0},uid_state{0};
 inline std::filesystem::path directory;
 inline unsigned commands_read = 0, audio_requeues = 0, position_checks = 0;
 inline MMRESULT audio_error = 0;
@@ -95,10 +99,20 @@ inline void initialize(const std::filesystem::path& path) {
     audio_error = 0; max_audio_offset_ms = 0; audio_epoch = UINT64_MAX; audio_state = PlaybackState::Ready;
     if (!Enabled) return;
     active = true;
+    hold_at_end=std::filesystem::exists(directory/L"hold-end.flag"); holding_end.store(false);
+    stabilize_cloth=std::filesystem::exists(directory/L"cloth-static.flag");
+    stabilize_braid=std::filesystem::exists(directory/L"braid-static.flag");
+    pause_bgm=std::filesystem::exists(directory/L"pause-bgm.flag");
+    bgm_state.store(pause_bgm ? 1:0); uid_state.store(0);
     legacy_resolver = std::filesystem::exists(directory / L"legacy-resolver.flag");
     // Refuse stale commands from a prior invocation of this directory.
     std::error_code ignored; std::filesystem::remove(directory / L"player.command", ignored);
     std::filesystem::remove(directory / L"camera.command", ignored);
+    std::ifstream initial_camera(directory/L"camera-initial.txt",std::ios::binary|std::ios::ate);
+    if (initial_camera&&initial_camera.tellg()>0&&initial_camera.tellg()<=256) {
+        initial_camera.seekg(0); std::string text; std::getline(initial_camera,text);
+        CameraControl initial; if (parse_camera_control(text,&initial)) camera_control=initial;
+    }
     audio_loaded = load_pcm(directory / L"multi-track.wav");
     if (audio_loaded) {
         audio_error = waveOutOpen(&device, WAVE_MAPPER, &format, 0, 0, CALLBACK_NULL);
@@ -111,9 +125,11 @@ inline void write_status() {
     const auto temporary=directory / L"player.status.tmp";
     std::ofstream out(temporary, std::ios::trunc);
     out << "{\"schemaVersion\":2,\"sessionToken\":" << session_token << ",\"closed\":" << (closed ? "true":"false")
+        << ",\"holdAtEnd\":" << (hold_at_end ? "true":"false") << ",\"holdingEnd\":" << (holding_end.load() ? "true":"false")
         << ",\"durationSeconds\":" << duration_seconds << ",\"loop\":" << (loop_enabled.load() ? "true":"false")
         << ",\"seconds\":" << f.seconds << ",\"state\":" << static_cast<unsigned>(f.state)
         << ",\"epoch\":" << f.epoch << ",\"commandSequence\":" << command_sequence(command.load())
+        << ",\"bgmState\":" << bgm_state.load() << ",\"uidTextState\":" << uid_state.load()
         << ",\"cameraEnabled\":" << (camera_enabled.load() ? "true":"false") << ",\"cameraAcknowledgedSequence\":" << camera_acknowledged.load()
         << ",\"acknowledgedSequence\":" << acknowledged.load() << '}';
     out.close();

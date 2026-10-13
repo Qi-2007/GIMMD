@@ -109,7 +109,7 @@ static void apply(void* transform,uintptr_t camera_native,bool callback_match) {
         return;
     }
     const auto frame=gimmd::unpack_player_frame(gimmd::player_session::frame.load());
-    if (frame.state!=gimmd::PlaybackState::Playing&&frame.state!=gimmd::PlaybackState::Paused) return;
+    if (frame.state!=gimmd::PlaybackState::Playing&&frame.state!=gimmd::PlaybackState::Paused&&!(frame.state==gimmd::PlaybackState::Ended&&gimmd::player_session::holding_end.load())) return;
     cp::Pose pose{};
     if (!sample(frame.seconds,&pose)) { aborted=true; hierarchy::playback::stop_requested.store(true); status="camera-sample-failed"; return; }
     if (!acquired) {
@@ -135,7 +135,8 @@ static void apply(void* transform,uintptr_t camera_native,bool callback_match) {
         {0,std::sin(yaw),0,std::cos(yaw)},{std::sin(pitch),0,0,std::cos(pitch)}),{0,0,std::sin(roll),std::cos(roll)});
     const auto adjusted=gimmd::rotation_preview::multiply({applied_q.x,applied_q.y,applied_q.z,applied_q.w},turn);
     applied_q={adjusted.x,adjusted.y,adjusted.z,adjusted.w};
-    applied_fov=control.fov ? control.fov:manual_only ? baseline_fov:pose.fov;
+    const float source_fov=control.fov ? control.fov:manual_only ? baseline_fov:pose.fov;
+    applied_fov=std::clamp(source_fov*control.fov_multiplier,1.0f,179.0f);
     dirty.store(true); ++writes; sampled_seconds=frame.seconds;
     if (!write(transform,native,&applied,&applied_q,camera_native,applied_fov)||!read(transform,native,&observed,&observed_q)||!fov_read(camera_native,&observed_fov)) {
         aborted=true; hierarchy::playback::stop_requested.store(true); status="camera-write-failed"; return;
@@ -182,6 +183,7 @@ static void report(std::ostream& out) {
         <<",\"restoreAttempts\":"<<attempts<<",\"maxWriteError\":"<<max_error<<",\"restoreError\":"<<restore_error
         <<",\"exception\":"<<exception<<",\"lastSampleSeconds\":"<<sampled_seconds
         <<",\"manualOnly\":"<<(manual_only ? "true":"false")<<",\"controlSequence\":"<<control.sequence
+        <<",\"fovMultiplier\":"<<control.fov_multiplier<<",\"positionOffset\":["<<control.right<<','<<control.up<<','<<control.forward<<']'
         <<",\"baselineFov\":"<<baseline_fov<<",\"lastFov\":"<<applied_fov<<",\"maxFovWriteError\":"<<max_fov_error<<",\"fovRestoreError\":"<<restore_fov_error
         <<",\"anchor\":\"initial-camera-pose\",\"fovWritten\":"<<(writes ? "true":"false")<<",\"finalRenderVerified\":false,\"timelineSamples\":[";
     for (unsigned i=0;i<trace_count;++i) {

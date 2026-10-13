@@ -14,8 +14,11 @@ struct Track {
 };
 static Track tracks[Capacity];
 static unsigned source_used = 0;
+static bool parallel_torso=false;
 #include "root_motion.h"
 #include "leg_playback.h"
+#include "pelvis_helper.h"
+#include "cloth_stabilizer.h"
 static size_t source_tracks = 0, source_morphs = 0, source_cameras = 0, source_ik = 0;
 static uint32_t last_frame = 0;
 static const char* state = "disabled";
@@ -36,9 +39,12 @@ static double precise_ms() {
     LARGE_INTEGER now{}; QueryPerformanceCounter(&now); return double(now.QuadPart)*1000/frequency;
 }
 static void reset() {
+    cloth_stabilizer::reset();
+    pelvis_helper::reset();
     root_motion::reset();
     leg_playback::reset();
     for (auto& track : tracks) track = {};
+    parallel_torso=false;
     TrackCount = full_mode ? Capacity : 10; source_used = 0;
     source_tracks = source_morphs = source_cameras = source_ik = 0; last_frame = 0;
     state = MultiEnabled ? "not-loaded" : "disabled";
@@ -52,7 +58,9 @@ static bool prepare(const vmd::Motion& motion) {
     for (unsigned i = 0; i < TrackCount; ++i) {
         tracks[i].mapping_index = full_mode ? i : gimmd::motion_profile::PreviewIndices[i];
         const auto& mapping = gimmd::motion_profile::Mappings[tracks[i].mapping_index];
-        const auto found = motion.bones.find(mapping.cp932);
+        auto found = motion.bones.find(mapping.cp932);
+        if (full_mode&&i==0&&found==motion.bones.end()&&!motion.bones.contains(gimmd::fk_profile::RootTrackNames[1]))
+            found=motion.bones.find("\x8d\x98"); // Baked FK waist (Japanese koshi).
         if (found == motion.bones.end() || found->second.empty()) {
             if (full_mode) continue;
             return false;
@@ -65,9 +73,10 @@ static bool prepare(const vmd::Motion& motion) {
     }
     if (full_mode && (source_used < 16 || tracks[0].keys.empty() || tracks[1].keys.empty() ||
         tracks[7].keys.empty() || tracks[8].keys.empty() || tracks[30].keys.empty() || tracks[31].keys.empty())) return false;
-    if (!root_motion::prepare(motion)) return false;
+    parallel_torso=full_mode&&motion.bones.contains(gimmd::motion_profile::Mappings[0].cp932);
+    if (!root_motion::prepare(motion)) { state=root_motion::status; return false; }
     if (root_mode) for (const auto& track:root_motion::controls) source_used+=unsigned(!track.empty());
-    if (!leg_playback::prepare(motion)) return false;
+    if (!leg_playback::prepare(motion)) { state=leg_playback::status; return false; }
     if (leg_mode) for (const auto& track:leg_playback::foot_keys) source_used+=unsigned(!track.empty());
     if (toe_mode) for (const auto& track:leg_playback::toe_keys) source_used+=unsigned(!track.empty());
     source_tracks = motion.bones.size(); source_morphs = motion.morphs.size();
@@ -124,6 +133,8 @@ static bool bind(int actor) {
         for (unsigned n = 0; n < length; ++n) track.steps[n] = reverse[length - n - 1];
     }
     if (!root_motion::bind(model_node)) { state = "root-motion-binding-refused"; return false; }
+    if (!pelvis_helper::bind()) { state="pelvis-helper-binding-refused"; return false; }
+    if (!cloth_stabilizer::bind(model_node)) { state="cloth-static-binding-refused"; return false; }
     state = "all-targets-bound"; return true;
 }
 static void restore_all() {
@@ -143,6 +154,8 @@ static void restore_all() {
             result.restore_error = std::max(result.restore_error, roundtrip::error(track.baseline, observed));
         } else pending = true;
     }
+    if (!cloth_stabilizer::restore(&batch)) pending=true;
+    if (!pelvis_helper::restore(&batch)) pending=true;
     if (!root_motion::restore(&batch)) pending = true;
     dirty.store(pending);
     if (pending) {
@@ -177,8 +190,9 @@ static void tick(ULONGLONG now) {
         }
         const auto f = clock.sample(seconds); source_seconds = f.seconds;
         timeline_playing = f.state == gimmd::PlaybackState::Playing;
+        gimmd::player_session::holding_end.store(f.state==gimmd::PlaybackState::Ended&&gimmd::player_session::hold_at_end&&!stop_requested.load());
         gimmd::player_session::frame.store(gimmd::pack_player_frame(f));
-        if (f.state == gimmd::PlaybackState::Ended) stop_requested.store(true);
+        if (f.state == gimmd::PlaybackState::Ended&&!gimmd::player_session::hold_at_end) stop_requested.store(true);
     } else if (result.elapsed >= 2000) stop_requested.store(true);
     if (full_mode) {
         if (blend_last && blend_was_playing && now >= blend_last)
@@ -208,7 +222,25 @@ static void tick(ULONGLONG now) {
         }
         if (!track.captured) { track.baseline = current[i]; track.captured = true; }
         if (full_mode) {
-            desired[i] = gimmd::fk_retarget::evaluate(gimmd::fk_profile::Bindings[track.mapping_index],source.rotation);
+            auto source_rotation=source.rotation;
+            if (root_mode&&i==0) {
+                vmd::Vec3 position{}; vmd::Quaternion center{};
+                if (!gimmd::root_controls::sample(root_motion::controls,source_seconds*30,&position,&center)) {
+                    stop_requested.store(true); restore_all(); return;
+                }
+                source_rotation=gimmd::root_controls::pelvis(center,source.rotation);
+                if (std::abs(center.y)>0.00001f) ++root_motion::yaw_samples;
+                root_motion::maximum_yaw_degrees=std::max(root_motion::maximum_yaw_degrees,2*std::acos(std::clamp(std::abs(center.w),0.0f,1.0f))*57.295779513f);
+            }
+            desired[i] = gimmd::fk_retarget::evaluate(gimmd::fk_profile::Bindings[track.mapping_index],source_rotation);
+            if (parallel_torso&&i==1) {
+                vmd::BoneSample lower{};
+                if (!vmd::SampleBone(tracks[0].keys,source_seconds*30,lower)) {
+                    stop_requested.store(true); restore_all(); return;
+                }
+                const auto lower_target=gimmd::fk_retarget::evaluate(gimmd::fk_profile::Bindings[0],lower.rotation);
+                desired[i]=gimmd::fk_retarget::compensate_parent(gimmd::fk_profile::Bindings[0].rest,lower_target,desired[i]);
+            }
         } else {
             bool limited = false;
             const auto delta = gimmd::rotation_preview::delta(track.source_zero, source.rotation, &limited);
@@ -217,6 +249,8 @@ static void tick(ULONGLONG now) {
         }
     }
     if (stop_requested.load()) { restore_all(); return; }
+    if (!cloth_stabilizer::preflight(&batch)) { stop_requested.store(true); restore_all(); return; }
+    if (!pelvis_helper::preflight(&batch)) { stop_requested.store(true); restore_all(); return; }
     if (!root_motion::preflight(&batch,source_seconds*30,entry_blend_seconds/0.5)) {
         stop_requested.store(true); restore_all(); return;
     }
@@ -235,7 +269,9 @@ static void tick(ULONGLONG now) {
         }
         ++track.writes;
     }
+    if (!pelvis_helper::apply(&batch,{desired[0].x,desired[0].y,desired[0].z,desired[0].w},entry_blend_seconds/0.5)) { stop_requested.store(true); restore_all(); return; }
     if (!root_motion::apply(&batch)) { dirty.store(root_motion::dirty || dirty.load()); stop_requested.store(true); restore_all(); return; }
+    if (!cloth_stabilizer::apply(&batch,entry_blend_seconds/0.5)) { stop_requested.store(true); restore_all(); return; }
     const double batch_end = precise_ms(); ++performance.batches;
     performance.total_ms += batch_end-batch_start; performance.max_ms = std::max(performance.max_ms,batch_end-batch_start);
     performance.resolve_ms += write_start-batch_start; performance.write_ms += batch_end-write_start;
@@ -251,6 +287,7 @@ static void report(std::ostream& out, bool complete) {
             << ",\"ignoredBoneTracks\":" << (source_tracks >= source_used ? source_tracks - source_used : 0)
             << ",\"ignoredMorphTracks\":" << source_morphs << ",\"ignoredCameraKeys\":" << source_cameras << ",\"ignoredIkTracks\":" << source_ik
             << ",\"positionsApplied\":" << (root_mode ? "true" : "false") << ",\"targetRestValidated\":" << (full_mode ? "true" : "false")
+            << ",\"parallelTorsoCompensated\":" << (parallel_torso ? "true":"false")
             << ",\"fullBodyFk\":" << (full_mode ? "true" : "false") << ",\"sourcePmxCalibrated\":false,\"relativeToSourceFrame\":"
             << (full_mode ? "null" : "0") << ",\"tracks\":[";
         for (unsigned i = 0; i < TrackCount; ++i) {
@@ -264,6 +301,8 @@ static void report(std::ostream& out, bool complete) {
                 << ",\"cleanupPending\":" << (t.dirty ? "true" : "false") << '}';
         }
         out << "],\"rootMotion\":"; root_motion::report(out);
+        pelvis_helper::report(out);
+        cloth_stabilizer::report(out);
         out << ",\"legIk\":"; leg_playback::report(out);
         out << ",\"performance\":{\"sharedPathResolution\":" << (gimmd::player_session::legacy_resolver ? "false" : "true")
             << ",\"batches\":" << performance.batches << ",\"averageBatchMs\":" << (performance.batches ? performance.total_ms/performance.batches : 0)

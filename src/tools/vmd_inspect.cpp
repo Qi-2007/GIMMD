@@ -1,4 +1,5 @@
 #include "vmd.h"
+#include "core/root_controls.h"
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -29,6 +30,15 @@ int wmain(int argc, wchar_t** argv) {
             if (consumed != value.size() || !std::isfinite(time) || time < 0)
                 throw std::runtime_error("seconds must be finite and nonnegative");
         }
+        const char* root_compatibility="supported"; bool center_yaw_required=false;
+        for (unsigned i=0;i<3;++i) {
+            const auto found=motion.bones.find(gimmd::fk_profile::RootTrackNames[i]);
+            if (found==motion.bones.end()) continue;
+            for (const auto& key:found->second) {
+                if (i==1&&std::abs(key.rotation.y)>0.00001f) center_yaw_required=true;
+                if (!gimmd::root_controls::supported(i,key.rotation)) root_compatibility=i==1 ? "center-pitch-roll-unsupported":"rotated-master-or-groove-unsupported";
+            }
+        }
         size_t keys = 0;
         for (const auto& [name, track] : motion.bones) keys += track.size();
         std::cout << "{\n  \"vmdVersion\": " << motion.version
@@ -39,7 +49,10 @@ int wmain(int argc, wchar_t** argv) {
             << ",\n  \"cameraKeys\": " << motion.cameras.size()
             << ",\n  \"ikTracks\": " << motion.ik.size()
             << ",\n  \"duplicateKeys\": " << motion.duplicate_keys
+            << ",\n  \"ignoredEmptyBoneKeys\": " << motion.ignored_empty_bone_keys
             << ",\n  \"zeroQuaternions\": " << motion.zero_quaternions
+            << ",\n  \"rootControlCompatibility\": \"" << root_compatibility << "\""
+            << ",\n  \"centerYawRequired\": " << (center_yaw_required ? "true":"false")
             << ",\n  \"sampleSeconds\": " << std::setprecision(12) << time
             << ",\n  \"bones\": [";
         bool first = true;
