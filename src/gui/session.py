@@ -34,7 +34,7 @@ def run_tool(arguments):
     return json.loads(result.stdout)
 
 
-def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path, camera: Path | None = None):
+def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path, camera: Path | None = None, manual_camera=False, audio_offset=0):
     build, motion = build.resolve(), motion.resolve()
     manifest = json.loads((build / 'build-manifest.json').read_text(encoding='utf-8-sig'))
     if manifest.get('schemaVersion') != 1 or not manifest.get('playerSession') or not manifest.get('fullBodyFK'):
@@ -45,6 +45,8 @@ def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path,
     summary = run_tool([build / 'gimmd-vmd.exe', motion, '0'])
     if not summary['boneTracks'] or not 0 < summary['durationSeconds'] <= 86400:
         raise ValueError('动作需要非空骨骼轨道和有效时长')
+    if manual_camera and (camera or not manifest.get("manualCamera")):
+        raise ValueError("手动机位需要支持该功能的构建，且不能同时指定相机轨道")
     if camera:
         if not manifest.get("cameraPlayback"):
             raise ValueError("该构建未启用相机播放")
@@ -52,6 +54,8 @@ def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path,
         camera_summary = run_tool([build / "gimmd-camera.exe", camera, "0"])
         if camera_summary.get("hasOrthographicKeys", True):
             raise ValueError("暂不支持包含正交投影的相机轨道")
+    if type(audio_offset) not in (int,float) or not math.isfinite(audio_offset) or abs(audio_offset)>600:
+        raise ValueError('音频偏移应为 ±600 秒内的有限数值')
     if audio:
         import wave
         if audio.stat().st_size > 64 << 20:
@@ -67,12 +71,25 @@ def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path,
             shutil.copy2(build / filename, target / filename)
         shutil.copy2(motion, target / 'multi-track.vmd')
         if audio:
-            shutil.copy2(audio.resolve(), target / 'multi-track.wav')
+            if audio_offset:
+                with wave.open(str(audio.resolve()), 'rb') as stream:
+                    channels,rate=stream.getnchannels(),stream.getframerate()
+                    frames=stream.getnframes(); shift=round(audio_offset*rate)
+                    output_frames=frames-shift
+                    if output_frames<=0 or output_frames*channels*2+44>64<<20:
+                        raise ValueError('音频偏移后为空或超过 64 MiB')
+                    if shift>0: stream.setpos(shift)
+                    data=(b'\0'*(-min(shift,0)*channels*2))+stream.readframes(frames)
+                with wave.open(str(target/'multi-track.wav'),'wb') as output:
+                    output.setnchannels(channels); output.setsampwidth(2); output.setframerate(rate); output.writeframes(data)
+            else: shutil.copy2(audio.resolve(), target / 'multi-track.wav')
         if camera:
             shutil.copy2(camera, target / 'camera.vmd')
+        if manual_camera:
+            atomic_text(target / 'manual-camera.flag', '1')
         atomic_json(target / 'session.json', {'schemaVersion': 1, 'motion': str(motion),
             'audio': str(audio.resolve()) if audio else None, 'camera': str(camera) if camera else None, 'build': str(build),
-            'durationSeconds': summary['durationSeconds'], 'createdAt': time.time()})
+            'audioOffset': audio_offset, 'manualCamera': bool(manual_camera), 'durationSeconds': summary['durationSeconds'], 'createdAt': time.time()})
     except Exception:
         # Preserve the failed directory for diagnosis; it has never been loaded.
         raise
@@ -148,6 +165,25 @@ class Controller:
             return current
         except (OSError, ValueError, TypeError):
             return None
+
+    def camera(self, values):
+        if not self.fresh or not self.status.get('cameraEnabled'):
+            raise ValueError('当前会话未启用相机控制')
+        if len(values)!=7 or any(type(v) not in (int,float) or not math.isfinite(v) for v in values):
+            raise ValueError('请输入七个有限数值')
+        if any(abs(v)>100 for v in values[:3]) or any(abs(v)>180 for v in values[3:6]) or (values[6]!=0 and not 1<=values[6]<=179):
+            raise ValueError('位移范围 ±100，角度 ±180°，FOV 为 0 或 1–179°')
+        acknowledged=self.status.get('cameraAcknowledgedSequence',0)
+        if type(acknowledged) is not int or not 0<=acknowledged<0xffffffff:
+            raise ValueError('相机状态序号无效')
+        previous=0
+        try: previous=int((self.directory/'camera.command').read_text().split()[0])
+        except (OSError,ValueError,IndexError): pass
+        if not 0<=previous<0xffffffff: raise ValueError('相机命令序号无效')
+        sequence=max(previous,acknowledged)+1
+        if sequence>0xffffffff: raise ValueError('相机命令序号已耗尽')
+        atomic_text(self.directory/'camera.command',str(sequence)+' '+' '.join(format(v,'.9g') for v in values))
+        return sequence
 
     def enqueue(self, operation: str, seconds=0):
         if not self.fresh:

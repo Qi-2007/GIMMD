@@ -88,6 +88,65 @@ class TransportTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             stage_session(ROOT/'build-camera-player',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',camera=invalid)
 
+    def test_manual_camera_transport_and_staging(self):
+        self.status.update(cameraEnabled=True,cameraAcknowledgedSequence=0); self.write(); self.controller.poll()
+        self.assertEqual(self.controller.camera([1,2,3,90,0,0,60]),1)
+        self.assertEqual(self.controller.camera([0]*7),2)
+        self.assertEqual((self.directory/'camera.command').read_text(),'2 0 0 0 0 0 0 0')
+        for values in [[math.nan]*7,[0,0,0,181,0,0,0],[0,0,0,0,0,0,180]]:
+            with self.assertRaises(ValueError): self.controller.camera(values)
+        self.status['cameraEnabled']=False; self.write(); self.controller.poll()
+        with self.assertRaises(ValueError): self.controller.camera([0]*7)
+        directory=stage_session(ROOT/'build-studio-camera-fov',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',manual_camera=True)
+        self.assertTrue((directory/'manual-camera.flag').exists()); self.assertFalse((directory/'camera.vmd').exists())
+        self.assertTrue(json.loads((directory/'session.json').read_text())['manualCamera'])
+
+    def test_camera_key_authoring_export_roundtrip(self):
+        import tkinter as tk
+        from player_gui import Studio
+        from camera_authoring import encode_vmd,load_keys,validate_keys
+        from session import run_tool
+        root=tk.Tk(); root.withdraw()
+        try:
+            app=Studio(root,test=True); app.record_camera_key()
+            self.assertEqual(app.camera_keys[0]['values'][6],45)
+            app.key_time.set('1'); app.camera_values[0].set('2'); app.camera_values[3].set('90'); app.camera_values[6].set('60')
+            app.record_camera_key(); self.assertEqual(len(app.camera_keys),2)
+            path=self.directory/'authored-camera.vmd'; path.write_bytes(encode_vmd(app.camera_keys))
+            sample=run_tool([ROOT/'build-studio-camera-fov/gimmd-camera.exe',path,'.5'])
+            self.assertAlmostEqual(sample['position'][0],-1,places=5); self.assertAlmostEqual(sample['fov'],52.5)
+            project=self.directory/'camera-keys.json'; atomic_json(project,{'schemaVersion':1,'type':'gimmd-camera-keys','keys':app.camera_keys})
+            self.assertEqual(load_keys(project),app.camera_keys)
+            with self.assertRaises(ValueError): validate_keys([app.camera_keys[0],app.camera_keys[0]])
+            app.key_list.selection_set('1'); app.recall_camera_key(); self.assertEqual(float(app.camera_values[0].get()),2)
+            app.delete_camera_key(); self.assertEqual(len(app.camera_keys),1); self.assertFalse(app.last_error)
+        finally: root.destroy()
+
+    def test_work_import_validates_paths_and_preserves_unsupported_tracks(self):
+        from work_import import import_work
+        for name in ['motion.vmd','camera.vmd','face.vmd','music.wav','second.vmd']:
+            (self.directory/name).write_bytes(b'fixture')
+        path=self.directory/'set.ini'
+        path.write_text('[set]\nname=测试作品\nmotion=motion.vmd\ncamera=camera.vmd\nface=face.vmd\nmotion2=second.vmd\nmusic=music.wav\naudio_offset=-.25\n',encoding='utf-8-sig')
+        work=import_work(path)
+        self.assertEqual(work['audioOffset'],-.25); self.assertEqual(set(work['unsupported']),{'face','motion2'})
+        for invalid in ['motion=../motion.vmd','motion=motion.vmd\naudio_offset=nan','motion=missing.vmd','motion=motion.vmd\nmotion=motion.vmd']:
+            path.write_text(invalid,encoding='utf-8')
+            with self.assertRaises(ValueError): import_work(path)
+
+    def test_audio_offset_stages_pcm_without_changing_original(self):
+        import wave
+        source=self.directory/'source.wav'; data=bytes(range(64))
+        with wave.open(str(source),'wb') as output:
+            output.setnchannels(1); output.setsampwidth(2); output.setframerate(8000); output.writeframes(data)
+        original=source.read_bytes()
+        for offset,expected in [(.001,data[16:]),(-.001,b'\0'*16+data)]:
+            directory=stage_session(ROOT/'build-studio-camera-fov',ROOT/'build-studio/multi-track.vmd',source,self.directory/'sessions',audio_offset=offset)
+            with wave.open(str(directory/'multi-track.wav'),'rb') as stream:
+                self.assertEqual(stream.readframes(stream.getnframes()),expected)
+            self.assertEqual(json.loads((directory/'session.json').read_text())['audioOffset'],offset)
+        self.assertEqual(source.read_bytes(),original)
+
     def test_real_buttons_and_layout(self):
         import tkinter as tk
         from player_gui import Studio

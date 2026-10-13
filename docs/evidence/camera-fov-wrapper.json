@@ -1,0 +1,270 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "linearWindow": false,
+  "note": "Instruction boundaries and semantics require review; linear windows may include adjacent functions; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x199c8d0",
+      "unwindRange": [
+        "0x199c8d0",
+        "0x199c9bd"
+      ],
+      "instructions": [
+        {
+          "rva": "0x199c8d0",
+          "text": "push rbx"
+        },
+        {
+          "rva": "0x199c8d2",
+          "text": "sub rsp, 0x60"
+        },
+        {
+          "rva": "0x199c8d6",
+          "text": "movaps xmmword ptr [rsp + 0x50], xmm6"
+        },
+        {
+          "rva": "0x199c8db",
+          "text": "mov rbx, rcx"
+        },
+        {
+          "rva": "0x199c8de",
+          "text": "movaps xmm6, xmm1"
+        },
+        {
+          "rva": "0x199c8e1",
+          "text": "call 0x16ed630",
+          "branchTarget": "0x16ed630"
+        },
+        {
+          "rva": "0x199c8e6",
+          "text": "test rax, rax"
+        },
+        {
+          "rva": "0x199c8e9",
+          "text": "je 0x199c988"
+        },
+        {
+          "rva": "0x199c8ef",
+          "text": "call 0x16ed630",
+          "branchTarget": "0x16ed630"
+        },
+        {
+          "rva": "0x199c8f4",
+          "text": "mov rcx, rax"
+        },
+        {
+          "rva": "0x199c8f7",
+          "text": "mov rdx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x199c8fa",
+          "text": "call qword ptr [rdx + 0xf8]"
+        },
+        {
+          "rva": "0x199c900",
+          "text": "test al, al"
+        },
+        {
+          "rva": "0x199c902",
+          "text": "je 0x199c988"
+        },
+        {
+          "rva": "0x199c908",
+          "text": "mov rcx, rbx"
+        },
+        {
+          "rva": "0x199c90b",
+          "text": "call 0x19a31a0",
+          "branchTarget": "0x19a31a0"
+        },
+        {
+          "rva": "0x199c910",
+          "text": "test al, al"
+        },
+        {
+          "rva": "0x199c912",
+          "text": "je 0x199c988"
+        },
+        {
+          "rva": "0x199c914",
+          "text": "call 0x19cc140",
+          "branchTarget": "0x19cc140"
+        },
+        {
+          "rva": "0x199c919",
+          "text": "test al, al"
+        },
+        {
+          "rva": "0x199c91b",
+          "text": "je 0x199c926"
+        },
+        {
+          "rva": "0x199c91d",
+          "text": "cmp dword ptr [rbx + 0xef0], 1"
+        },
+        {
+          "rva": "0x199c924",
+          "text": "je 0x199c92f"
+        },
+        {
+          "rva": "0x199c926",
+          "text": "cmp dword ptr [rbx + 0xef0], 8"
+        },
+        {
+          "rva": "0x199c92d",
+          "text": "jne 0x199c988"
+        },
+        {
+          "rva": "0x199c92f",
+          "text": "test rbx, rbx"
+        },
+        {
+          "rva": "0x199c932",
+          "text": "je 0x199c93e"
+        },
+        {
+          "rva": "0x199c934",
+          "text": "mov rcx, rbx"
+        },
+        {
+          "rva": "0x199c937",
+          "text": "call 0x98f830",
+          "branchTarget": "0x98f830"
+        },
+        {
+          "rva": "0x199c93c",
+          "text": "jmp 0x199c940",
+          "branchTarget": "0x199c940"
+        },
+        {
+          "rva": "0x199c93e",
+          "text": "xor eax, eax"
+        },
+        {
+          "rva": "0x199c940",
+          "text": "mov byte ptr [rsp + 0x40], 0"
+        },
+        {
+          "rva": "0x199c945",
+          "text": "lea r8, [rip + 0x20dbafa]",
+          "ripReferences": [
+            {
+              "rva": "0x3a78446"
+            }
+          ]
+        },
+        {
+          "rva": "0x199c94c",
+          "text": "mov qword ptr [rsp + 0x38], 0"
+        },
+        {
+          "rva": "0x199c955",
+          "text": "lea rcx, [rip + 0x214f6e4]",
+          "ripReferences": [
+            {
+              "rva": "0x3aec040",
+              "asciiPrefix": "Cannot set field of view on this camera while VR is enabled."
+            }
+          ]
+        },
+        {
+          "rva": "0x199c95c",
+          "text": "mov dword ptr [rsp + 0x30], 0"
+        },
+        {
+          "rva": "0x199c964",
+          "text": "mov r9d, 0x2776"
+        },
+        {
+          "rva": "0x199c96a",
+          "text": "mov dword ptr [rsp + 0x28], eax"
+        },
+        {
+          "rva": "0x199c96e",
+          "text": "xor edx, edx"
+        },
+        {
+          "rva": "0x199c970",
+          "text": "mov dword ptr [rsp + 0x20], 0x200"
+        },
+        {
+          "rva": "0x199c978",
+          "text": "call 0x16e7660",
+          "branchTarget": "0x16e7660"
+        },
+        {
+          "rva": "0x199c97d",
+          "text": "movaps xmm6, xmmword ptr [rsp + 0x50]"
+        },
+        {
+          "rva": "0x199c982",
+          "text": "add rsp, 0x60"
+        },
+        {
+          "rva": "0x199c986",
+          "text": "pop rbx"
+        },
+        {
+          "rva": "0x199c987",
+          "text": "ret "
+        },
+        {
+          "rva": "0x199c988",
+          "text": "movss xmm0, dword ptr [rip + 0x8357e0]",
+          "ripReferences": [
+            {
+              "rva": "0x21d2170"
+            }
+          ]
+        },
+        {
+          "rva": "0x199c990",
+          "text": "comiss xmm0, xmm6"
+        },
+        {
+          "rva": "0x199c993",
+          "text": "ja 0x199c9a1"
+        },
+        {
+          "rva": "0x199c995",
+          "text": "movss xmm0, dword ptr [rip + 0x8628eb]",
+          "ripReferences": [
+            {
+              "rva": "0x21ff288"
+            }
+          ]
+        },
+        {
+          "rva": "0x199c99d",
+          "text": "minss xmm0, xmm6"
+        },
+        {
+          "rva": "0x199c9a1",
+          "text": "movaps xmm6, xmmword ptr [rsp + 0x50]"
+        },
+        {
+          "rva": "0x199c9a6",
+          "text": "movss dword ptr [rbx + 0xa58], xmm0"
+        },
+        {
+          "rva": "0x199c9ae",
+          "text": "mov word ptr [rbx + 0xec0], 0x101"
+        },
+        {
+          "rva": "0x199c9b7",
+          "text": "add rsp, 0x60"
+        },
+        {
+          "rva": "0x199c9bb",
+          "text": "pop rbx"
+        },
+        {
+          "rva": "0x199c9bc",
+          "text": "ret "
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

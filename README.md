@@ -1,6 +1,6 @@
 # GIMMD prototype
 
-原神客户端内 MMD 创作工具原型。当前提供 VMD 检查/采样、统一时间线、Windows 加载诊断、角色骨架观察、绑定预览及显式启用的单骨恢复与限时单轨驱动实验；全身动作、根位移、腿部/脚尖 IK 与 GUI 播放控制已实机验证；表情、自由相机和 FOV 控制仍待完成。
+原神客户端内 MMD 创作工具原型。当前提供 VMD 检查/采样、统一时间线、Windows 加载诊断、角色骨架观察、绑定预览及显式启用的单骨恢复与限时单轨驱动实验；全身动作、根位移、腿部/脚尖 IK 与 GUI 播放控制已实机验证；表情、自由相机最终渲染时序仍待确认。
 
 2026-10-12 已在指定的国服 7.1.0 客户端完成两秒 VMD 单轨采样、43 次写入和停止恢复。此前已验证左上臂 1° 同回调写入/恢复、读取 465 节点完整层级并生成 52 项绑定候选。最新进展见 [单轨驱动实测](docs/SINGLE_TRACK_PLAYBACK_RESULTS.md)，前阶段见 [单骨恢复](docs/SINGLE_BONE_ROUNDTRIP_RESULTS.md)、[骨架与旋转](docs/HIERARCHY_OBSERVER_RESULTS.md)、[相机观察](docs/CAMERA_OBSERVER_RESULTS.md) 和 [加载诊断](docs/FIRST_PROTOTYPE_RESULTS.md)。
 
@@ -63,4 +63,4 @@ FufuLauncher 的 Plugins/File 配置只保证加载 DLL；本探测 DLL 需要�
 
 VMD 解析与采样来自 Better-Endfield 的固定提交，保留了其 EIEM 来源说明；详见 `third_party/better_endfield/UPSTREAM.md`。工程采用 AGPL-3.0-only。运行时观察器引用 FufuLauncher 固定提交的特征掩码与已核对的相机调用方式，使用官方 MinHook v1.3.4；来源分别见 `src/generated/gi_profile.h` 与 `third_party/minhook/UPSTREAM.md`。
 
-[GUI 控制台与相机进展](docs/STUDIO_RESULTS.md)：双击 `start-studio.cmd` 使用播放/暂停、进度、循环、独立会话与工程功能，实机命令链已自动验证。相机已识别 FOV 回调对应的 MainCamera 并通过同回调位置/旋转写入恢复；GUI 已支持可选相机 VMD 的位置/旋转同步播放、暂停、跳转和停止恢复，首帧对齐当前机位；使用 `build-camera-player` 构建。自动实机数值验证通过，游戏仍会改写相机，最终渲染持有时序与 FOV 控制待完成。
+[GUI 控制台与相机进展](docs/STUDIO_RESULTS.md)：双击 `start-studio.cmd` 使用播放/暂停、进度、循环、独立会话与工程功能，实机命令链已自动验证。相机已识别 FOV 回调对应的 MainCamera 并通过同回调位置/旋转写入恢复；GUI 已支持可选相机 VMD 的位置/旋转同步播放、暂停、跳转和停止恢复，首帧对齐当前机位；使用 `build-studio-camera-fov` 构建。已新增 FOV 轨道/手动覆盖、手动机位、运镜关键帧与相机 VMD 导出、set.ini 导入和 PCM 音频偏移。位置/旋转/FOV 的写入与停止恢复均实机数值验证通过；游戏仍会改写相机，最终渲染持有时序待确认。完整范围见 [功能状态](docs/FEATURE_STATUS.md)。

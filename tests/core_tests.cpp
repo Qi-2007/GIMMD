@@ -1,3 +1,4 @@
+#include "core/camera_control.h"
 #include "vmd.h"
 #include "core/timeline.h"
 #include "core/player_transport.h"
@@ -235,6 +236,12 @@ int wmain(int argc, wchar_t** argv) {
         check(gimmd::camera_pose::evaluate(camera_sample,0.1f,{}, {},&camera_pose)&&camera_pose.fov==179&&camera_pose.orthographic,
             "camera projection/FOV boundary wrong");
         check(!gimmd::camera_pose::evaluate(camera_sample,0,{}, {},&camera_pose),"zero camera unit scale accepted");
+        gimmd::CameraControl camera_control{};
+        check(gimmd::parse_camera_control("1 1 2 3 90 -15 10 60",&camera_control)&&camera_control.yaw==90,"camera control parse failed");
+        for (const char* invalid_camera_command:{"0 0 0 0 0 0 0 0","1 101 0 0 0 0 0 0","1 0 0 0 181 0 0 0","1 0 0 0 0 0 0 180",
+            "1 nan 0 0 0 0 0 0","1 0 0 0 0 0 0 0 extra","4294967296 0 0 0 0 0 0 0"})
+            check(!gimmd::parse_camera_control(invalid_camera_command,&camera_control),"invalid camera control accepted");
+        check(gimmd::parse_camera_control("2 0 0 0 0 0 0 0",&camera_control)&&camera_control.fov==0,"camera reset command failed");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));

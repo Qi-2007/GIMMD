@@ -2,11 +2,14 @@
 from __future__ import annotations
 import argparse
 import json
+import math
 from pathlib import Path
 import queue
 import threading
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
+from work_import import import_work
+from camera_authoring import validate_keys, encode_vmd, atomic_bytes, load_keys
 from session import Controller, atomic_json, game_processes, run_tool, stage_session, start_loader
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,19 +27,42 @@ class Studio:
         style = ttk.Style(root); style.theme_use('clam')
         style.configure('TFrame', background='#f4f6f9'); style.configure('TLabel', background='#f4f6f9', font=('Microsoft YaHei UI', 10))
         style.configure('TButton', font=('Microsoft YaHei UI', 10), padding=(12, 7))
-        self.build = tk.StringVar(value=str(ROOT / 'build-camera-player'))
+        self.build = tk.StringVar(value=str(ROOT / 'build-studio-camera-fov'))
         self.motion = tk.StringVar(); self.audio = tk.StringVar(); self.camera = tk.StringVar()
         self.camera_enabled = tk.BooleanVar(value=False)
+        self.camera_manual = tk.BooleanVar(value=False)
+        self.audio_offset=tk.StringVar(value="0"); self.imported_work={}
+        self.camera_keys=[]; self.key_time=tk.StringVar(value="0")
+        self.camera_values=[tk.StringVar(value="0") for _ in range(7)]
         self.pid = tk.StringVar(); self.position = tk.StringVar(value='0.000')
         self.state = tk.StringVar(value='选择动作和构建目录，或连接正在运行的会话。')
         self.clock = tk.StringVar(value='00:00.000 / 00:00.000'); self.loop = tk.BooleanVar()
-        self.camera_result = tk.StringVar(value='启用后与动作同步播放；首帧对齐当前机位，停止时恢复位置与旋转。FOV 暂不接管。')
+        self.camera_result = tk.StringVar(value='启用后与动作同步播放；首帧对齐当前机位，停止时恢复位置与旋转。FOV 随轨道播放，可手动覆盖。')
         container = ttk.Frame(root, padding=22); container.pack(fill='both', expand=True)
         ttk.Label(container, text='GIMMD', font=('Segoe UI', 22, 'bold')).pack(anchor='w')
         ttk.Label(container, text='动作、时间轴与拍摄素材 · 当前角色支持男主').pack(anchor='w', pady=(0, 12))
         notebook = ttk.Notebook(container); notebook.pack(fill='both', expand=True)
         playback = ttk.Frame(notebook, padding=14); camera_tab = ttk.Frame(notebook, padding=14)
+        authoring=ttk.Frame(notebook,padding=14)
         notebook.add(playback, text='动作与播放'); notebook.add(camera_tab, text='相机轨道')
+        notebook.add(authoring,text='运镜编排')
+        ttk.Label(authoring,text='从相机页的手动参数添加关键帧，保存运镜工程或导出可播放的相机 VMD。',wraplength=650).pack(anchor='w',pady=8)
+        timing=ttk.Frame(authoring); timing.pack(anchor='w',pady=8)
+        ttk.Label(timing,text='关键帧时间（秒）').pack(side='left')
+        ttk.Entry(timing,textvariable=self.key_time,width=12).pack(side='left',padx=8)
+        ttk.Button(timing,text='添加 / 替换此时刻',command=self.record_camera_key).pack(side='left')
+        self.key_list=ttk.Treeview(authoring,columns=['time','right','up','forward','yaw','pitch','roll','fov'],show='headings',height=8,selectmode='browse')
+        for column,title in zip(self.key_list['columns'],['秒','右','上','前','偏航','俯仰','滚转','FOV']):
+            self.key_list.heading(column,text=title); self.key_list.column(column,width=73,anchor='center')
+        self.key_list.pack(fill='both',expand=True,pady=8)
+        edits=ttk.Frame(authoring); edits.pack(anchor='w',pady=6)
+        ttk.Button(edits,text='取回所选参数',command=self.recall_camera_key).pack(side='left')
+        ttk.Button(edits,text='删除所选关键帧',command=self.delete_camera_key).pack(side='left',padx=8)
+        outputs=ttk.Frame(authoring); outputs.pack(anchor='w',pady=6)
+        ttk.Button(outputs,text='保存运镜工程',command=self.save_camera_keys).pack(side='left')
+        ttk.Button(outputs,text='打开运镜工程',command=self.open_camera_keys).pack(side='left',padx=8)
+        ttk.Button(outputs,text='导出相机 VMD',command=self.export_camera_keys).pack(side='left')
+        ttk.Label(authoring,text='先添加第 0 秒的初始机位；时间按 30 fps 对齐。FOV=0 在编排时采用 45°。回放首帧对齐当前游戏机位，导出不会自动开始播放。',wraplength=650).pack(anchor='w',pady=8)
         playback.columnconfigure(1, weight=1)
         for row, (title, variable, kind) in enumerate([('构建目录', self.build, 'build'), ('动作 VMD', self.motion, 'motion'), ('音频 WAV', self.audio, 'audio')]):
             ttk.Label(playback, text=title).grid(row=row, column=0, sticky='w', padx=(0, 10), pady=5)
@@ -65,17 +91,31 @@ class Studio:
         files = ttk.Frame(playback); files.grid(row=8, column=0, columnspan=3, sticky='ew', pady=(14, 0))
         ttk.Button(files, text='保存工程', command=self.save_project).pack(side='left')
         ttk.Button(files, text='打开工程', command=self.open_project).pack(side='left', padx=8)
+        ttk.Button(files,text='导入 set.ini',command=self.import_work_file).pack(side='left')
+        ttk.Label(files,text='音频偏移（秒，+提前）').pack(side='left',padx=(12,4))
+        ttk.Entry(files,textvariable=self.audio_offset,width=8).pack(side='left')
         ttk.Label(camera_tab, text='选择相机 VMD，在指定时刻预览换算后的坐标、旋转与视角。', wraplength=650).pack(anchor='w', pady=8)
-        row = ttk.Frame(camera_tab); row.pack(fill='x', pady=10)
+        row = ttk.Frame(camera_tab); row.pack(fill='x', pady=5)
         ttk.Entry(row, textvariable=self.camera).pack(side='left', fill='x', expand=True)
         ttk.Button(row, text='选择', command=lambda: self.browse(self.camera, 'motion')).pack(side='left', padx=8)
-        ttk.Checkbutton(camera_tab, text='在新会话中启用此相机轨道（位置与旋转）', variable=self.camera_enabled).pack(anchor='w', pady=8)
+        ttk.Checkbutton(camera_tab, text='在新会话中启用相机控制', variable=self.camera_enabled).pack(anchor='w', pady=8)
+        ttk.Checkbutton(camera_tab,text='仅手动机位（无需相机 VMD）',variable=self.camera_manual).pack(anchor='w')
+        manual=ttk.Frame(camera_tab); manual.pack(fill='x',pady=6)
+        for i,title in enumerate(['向右','向上','向前','偏航 °','俯仰 °','滚转 °','FOV °']):
+            r,c=divmod(i,2)
+            ttk.Label(manual,text=title).grid(row=r,column=c*2,sticky='w',padx=(0,8),pady=2)
+            ttk.Entry(manual,textvariable=self.camera_values[i],width=12).grid(row=r,column=c*2+1,padx=(0,18))
+        controls=ttk.Frame(camera_tab); controls.pack(anchor='w')
+        self.camera_apply=ttk.Button(controls,text='应用机位',command=self.apply_camera); self.camera_apply.pack(side='left')
+        self.camera_reset=ttk.Button(controls,text='复位偏移',command=self.reset_camera); self.camera_reset.pack(side='left',padx=8)
+        ttk.Label(camera_tab,text='位移沿初始机位的右/上/前方向，单位为游戏世界单位；FOV=0 使用轨道值或初始值。',wraplength=650).pack(anchor='w',pady=6)
         time_row=ttk.Frame(camera_tab); time_row.pack(anchor='w',pady=8)
         ttk.Label(time_row,text='时间（秒）').pack(side='left')
         ttk.Entry(time_row,textvariable=self.position,width=12).pack(side='left',padx=8)
         ttk.Button(camera_tab, text='预览指定秒数', command=self.preview_camera).pack(anchor='w')
-        ttk.Label(camera_tab, textvariable=self.camera_result, wraplength=650, justify='left').pack(anchor='w', pady=20)
+        ttk.Label(camera_tab, textvariable=self.camera_result, wraplength=650, justify='left').pack(anchor='w', pady=8)
         ttk.Label(container, textvariable=self.state, wraplength=760).pack(anchor='w', pady=(14, 0))
+        self.camera_apply.state(['disabled']); self.camera_reset.state(['disabled'])
         self.set_controls(False)
         root.protocol('WM_DELETE_WINDOW', self.close)
         if not test:
@@ -115,13 +155,15 @@ class Studio:
         try:
             build, motion = Path(self.build.get()), Path(self.motion.get()); pid = int(self.pid.get())
             audio = Path(self.audio.get()) if self.audio.get().strip() else None
-            if self.camera_enabled.get() and not self.camera.get().strip():
+            if self.camera_enabled.get() and not self.camera_manual.get() and not self.camera.get().strip():
                 raise ValueError('请选择相机 VMD')
-            camera = Path(self.camera.get()) if self.camera_enabled.get() else None
+            audio_offset=float(self.audio_offset.get())
+            manual_camera=self.camera_enabled.get() and self.camera_manual.get()
+            camera = Path(self.camera.get()) if self.camera_enabled.get() and not manual_camera else None
         except Exception as exc: self.error(exc); return
         self.state.set('正在准备新会话…')
         def launch():
-            directory = stage_session(build, motion, audio, ROOT / 'sessions', camera=camera)
+            directory = stage_session(build, motion, audio, ROOT / 'sessions', camera=camera, manual_camera=manual_camera,audio_offset=audio_offset)
             loader = start_loader(directory, pid)
             return ('session', directory, loader)
         self.background(launch)
@@ -160,6 +202,8 @@ class Studio:
             self.loop.set(bool(status.get('loop')))
             states = ['准备', '播放中', '已暂停', '播放结束']
             self.state.set('会话已结束' if status['closed'] else states[status['state']] if self.controller.fresh else '会话状态已过期，控制已停用')
+        camera_active=self.controller.fresh and bool(status and status.get('cameraEnabled'))
+        for button in [self.camera_apply,self.camera_reset]: button.state(['!disabled'] if camera_active else ['disabled'])
         try: self.controller.pump()
         except (OSError, ValueError) as exc: self.state.set('命令尚未发送：' + str(exc))
         if self.loader and self.loader.poll() is not None:
@@ -176,6 +220,9 @@ class Studio:
                         else: self.state.set('会话结束，姿态已恢复' if result.get('localRestored') and not result.get('cleanupPending') else
                                        '会话结束：' + result.get('status', report.get('status', '未知状态')))
                     except (OSError, ValueError): pass
+        unsupported=self.imported_work.get('unsupported',{})
+        if unsupported and '当前不播放' not in self.state.get():
+            self.state.set(self.state.get()+'；当前不播放：'+', '.join(unsupported))
         if self.close_pending:
             if self.controller.fresh and not self.close_stop_sent:
                 self.send('stop'); self.close_stop_sent=True
@@ -198,7 +245,10 @@ class Studio:
     def save_project(self):
         value = filedialog.asksaveasfilename(parent=self.root, defaultextension='.json', filetypes=[('GIMMD 工程', '*.json')])
         if value:
-            try: atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get()})
+            try:
+                offset=float(self.audio_offset.get())
+                if not math.isfinite(offset) or abs(offset)>600: raise ValueError('音频偏移应为 ±600 秒内的有限数值')
+                atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get(), 'manualCamera': self.camera_manual.get(), 'audioOffset': offset, 'importedWork': self.imported_work})
             except Exception as exc: self.error(exc)
 
     def open_project(self):
@@ -212,12 +262,92 @@ class Studio:
             if project.get('schemaVersion') != 1: raise ValueError('不支持的工程格式')
             if any(not isinstance(project.get(name,''),str) for name in ['build','motion','audio','camera']):
                 raise ValueError('工程路径格式无效')
-            if type(project.get('cameraEnabled', False)) is not bool:
+            if type(project.get('cameraEnabled', False)) is not bool or type(project.get('manualCamera', False)) is not bool:
                 raise ValueError('工程相机开关无效')
+            offset=project.get('audioOffset',0)
+            if type(offset) not in (int,float) or not math.isfinite(offset) or abs(offset)>600:
+                raise ValueError('工程音频偏移无效')
+            if not isinstance(project.get('importedWork',{}),dict): raise ValueError('工程作品信息无效')
+            self.audio_offset.set(str(offset)); self.imported_work=project.get('importedWork',{})
             self.camera_enabled.set(project.get('cameraEnabled', False))
+            self.camera_manual.set(project.get('manualCamera', False))
             for name in ['build', 'motion', 'audio', 'camera']:
                 getattr(self, name).set(project.get(name, ''))
         except Exception as exc: self.error(exc)
+
+    def import_work_file(self):
+        path=filedialog.askopenfilename(parent=self.root,filetypes=[('MMD 作品','set.ini')])
+        if not path: return
+        try:
+            work=import_work(Path(path))
+            for name in ['motion','audio','camera']: getattr(self,name).set(work[name])
+            self.audio_offset.set(str(work['audioOffset'])); self.camera_enabled.set(bool(work['camera'])); self.camera_manual.set(False)
+            self.imported_work=work
+            unsupported=', '.join(work['unsupported'])
+            self.state.set('已导入：'+work['name']+('；当前不播放这些通道：'+unsupported if unsupported else ''))
+        except Exception as exc: self.error(exc)
+
+    def refresh_camera_keys(self):
+        self.key_list.delete(*self.key_list.get_children())
+        for i,key in enumerate(self.camera_keys):
+            self.key_list.insert('', 'end',iid=str(i),values=[f"{key['seconds']:.3f}",*[f'{v:.3f}' for v in key['values']]])
+
+    def record_camera_key(self):
+        try:
+            seconds=float(self.key_time.get()); values=[float(v.get()) for v in self.camera_values]
+            if values[6]==0: values[6]=45
+            import math
+            if not math.isfinite(seconds) or not 0<=seconds<=86400: raise ValueError('关键帧时间超出范围')
+            frame=int(math.floor(seconds*30+.5))
+            candidate=[k for k in self.camera_keys if round(k['seconds']*30)!=frame]
+            candidate.append({'seconds':frame/30,'values':values})
+            self.camera_keys=validate_keys(candidate); self.refresh_camera_keys()
+        except Exception as exc: self.error(exc)
+
+    def recall_camera_key(self):
+        selected=self.key_list.selection()
+        if selected:
+            key=self.camera_keys[int(selected[0])]; self.key_time.set(str(key['seconds']))
+            for value,number in zip(self.camera_values,key['values']): value.set(str(number))
+
+    def delete_camera_key(self):
+        selected=self.key_list.selection()
+        if selected: self.camera_keys.pop(int(selected[0])); self.refresh_camera_keys()
+
+    def save_camera_keys(self):
+        try: keys=validate_keys(self.camera_keys)
+        except Exception as exc: self.error(exc); return
+        path=filedialog.asksaveasfilename(parent=self.root,defaultextension='.json',filetypes=[('运镜工程','*.json')])
+        if path:
+            try: atomic_json(Path(path),{'schemaVersion':1,'type':'gimmd-camera-keys','keys':keys})
+            except Exception as exc: self.error(exc)
+
+    def open_camera_keys(self):
+        path=filedialog.askopenfilename(parent=self.root,filetypes=[('运镜工程','*.json')])
+        if path:
+            try: self.camera_keys=load_keys(Path(path)); self.refresh_camera_keys()
+            except Exception as exc: self.error(exc)
+
+    def export_camera_keys(self):
+        try: data=encode_vmd(self.camera_keys)
+        except Exception as exc: self.error(exc); return
+        path=filedialog.asksaveasfilename(parent=self.root,defaultextension='.vmd',filetypes=[('相机 VMD','*.vmd')])
+        if path:
+            try:
+                atomic_bytes(Path(path),data); self.camera.set(path); self.camera_enabled.set(True); self.camera_manual.set(False)
+                self.state.set('相机 VMD 已导出并选入工程；开始新会话时播放。')
+            except Exception as exc: self.error(exc)
+
+    def apply_camera(self):
+        try:
+            if not self.controller: raise ValueError('请先启用相机并开始会话')
+            sequence=self.controller.camera([float(v.get()) for v in self.camera_values])
+            self.camera_result.set(f'相机命令 {sequence} 已发送，等待运行时应用。')
+        except Exception as exc: self.error(exc)
+
+    def reset_camera(self):
+        for value in self.camera_values: value.set('0')
+        self.apply_camera()
 
     def preview_camera(self):
         if self.working: return

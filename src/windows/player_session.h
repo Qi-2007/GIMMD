@@ -1,5 +1,6 @@
 #pragma once
 #include "core/player_transport.h"
+#include "core/camera_control.h"
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 namespace gimmd::player_session {
@@ -10,6 +11,14 @@ inline constexpr bool Enabled = false;
 #endif
 inline std::atomic<uint64_t> command{0}, frame{0}, acknowledged{0};
 inline bool active = false;
+inline SRWLOCK camera_lock=SRWLOCK_INIT;
+inline CameraControl camera_control{};
+inline std::atomic<uint64_t> camera_acknowledged{0};
+inline std::atomic<bool> camera_enabled{false};
+inline bool camera_snapshot(CameraControl* out) {
+    if (!TryAcquireSRWLockShared(&camera_lock)) return false;
+    *out=camera_control; ReleaseSRWLockShared(&camera_lock); return true;
+}
 inline bool closed = true;
 inline uint64_t session_token = 0;
 inline double duration_seconds = 0;
@@ -80,6 +89,7 @@ inline void close_audio() {
 // Worker only: no audio API or filesystem access is made on the game thread.
 inline void initialize(const std::filesystem::path& path) {
     directory = path; command.store(0); frame.store(0); acknowledged.store(0); commands_read = audio_requeues = position_checks = 0;
+    camera_control={}; camera_acknowledged.store(0); camera_enabled.store(false);
     closed = false; duration_seconds = 0; loop_enabled.store(false);
     session_token = (uint64_t(GetCurrentProcessId()) << 32) | (GetTickCount64() & 0xffffffff);
     audio_error = 0; max_audio_offset_ms = 0; audio_epoch = UINT64_MAX; audio_state = PlaybackState::Ready;
@@ -88,6 +98,7 @@ inline void initialize(const std::filesystem::path& path) {
     legacy_resolver = std::filesystem::exists(directory / L"legacy-resolver.flag");
     // Refuse stale commands from a prior invocation of this directory.
     std::error_code ignored; std::filesystem::remove(directory / L"player.command", ignored);
+    std::filesystem::remove(directory / L"camera.command", ignored);
     audio_loaded = load_pcm(directory / L"multi-track.wav");
     if (audio_loaded) {
         audio_error = waveOutOpen(&device, WAVE_MAPPER, &format, 0, 0, CALLBACK_NULL);
@@ -103,6 +114,7 @@ inline void write_status() {
         << ",\"durationSeconds\":" << duration_seconds << ",\"loop\":" << (loop_enabled.load() ? "true":"false")
         << ",\"seconds\":" << f.seconds << ",\"state\":" << static_cast<unsigned>(f.state)
         << ",\"epoch\":" << f.epoch << ",\"commandSequence\":" << command_sequence(command.load())
+        << ",\"cameraEnabled\":" << (camera_enabled.load() ? "true":"false") << ",\"cameraAcknowledgedSequence\":" << camera_acknowledged.load()
         << ",\"acknowledgedSequence\":" << acknowledged.load() << '}';
     out.close();
     if (out) MoveFileExW(temporary.c_str(),(directory / L"player.status.json").c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH);
@@ -114,6 +126,15 @@ inline void worker_tick() {
         in.seekg(0); std::string text; std::getline(in, text);
         const uint64_t parsed = parse_player_command(text);
         if (command_sequence(parsed) > command_sequence(command.load())) { command.store(parsed); ++commands_read; }
+    }
+    std::ifstream camera_in(directory / L"camera.command",std::ios::binary|std::ios::ate);
+    if (camera_in&&camera_in.tellg()>0&&camera_in.tellg()<=256) {
+        camera_in.seekg(0); std::string text; std::getline(camera_in,text); CameraControl parsed;
+        if (parse_camera_control(text,&parsed)) {
+            AcquireSRWLockExclusive(&camera_lock);
+            if (parsed.sequence>camera_control.sequence) camera_control=parsed;
+            ReleaseSRWLockExclusive(&camera_lock);
+        }
     }
     const auto f = unpack_player_frame(frame.load());
     if (device && !audio_error) {

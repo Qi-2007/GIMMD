@@ -1,8 +1,8 @@
 {
   "date": "2026-10-13",
-  "guiTestsPassed": 13,
-  "coreChecksPassed": 696,
-  "fullBodyRuntimeChecksPassed": 164,
+  "guiTestsPassed": 17,
+  "coreChecksPassed": 705,
+  "fullBodyRuntimeChecksPassed": 168,
   "cameraRuntimeChecksPassed": 40,
   "guiLiveValidated": true,
   "guiEvidence": "studio-live-validation.json",
@@ -10,11 +10,18 @@
   "cameraEvidence": "genshin-7.1-camera-roundtrip.json",
   "cameraOfflinePreview": "camera-offline-preview.json",
   "cameraContinuousOwnershipVerified": false,
-  "fovControlImplemented": false,
+  "fovControlImplemented": true,
   "visualFeedbackRequired": false,
   "guiLaunchedWithProject": true,
   "cameraPlaybackLiveValidated": true,
   "cameraPlaybackEvidence": "camera-playback-live-validation.json",
   "cameraPoseTimelineVerified": true,
-  "cameraFinalRenderVerified": false
+  "cameraFinalRenderVerified": false,
+  "fovControlLiveValidated": true,
+  "fovEvidence": "camera-fov-live-validation.json",
+  "manualCameraLiveValidated": true,
+  "manualCameraEvidence": "manual-camera-live-validation.json",
+  "cameraKeyAuthoringVerified": true,
+  "setIniImportVerified": true,
+  "audioOffsetPcmVerified": true
 }

@@ -75,7 +75,7 @@ try {
     }
     $taskManifest = [ordered]@{
         schemaVersion=1; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
-        cameraPlayback=[bool]$CameraPlayback; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
+        cameraPlayback=[bool]$CameraPlayback; cameraFov=[bool]$CameraPlayback; manualCamera=[bool]$CameraPlayback; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
         dllSha256=(Get-FileHash -LiteralPath './gimmd-probe.dll' -Algorithm SHA256).Hash
         loaderSha256=(Get-FileHash -LiteralPath './gimmd-inject-probe.exe' -Algorithm SHA256).Hash
     }

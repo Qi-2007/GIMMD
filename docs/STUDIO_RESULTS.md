@@ -14,7 +14,7 @@
 
 当前自动定位本机 Codex 随附的 Python；也可用 `-PythonPath` 指定带 tkinter 的 Python 3.10+ `pythonw.exe`。没有下载或安装依赖。
 
-默认构建目录为 `build-camera-player`，使用 `build-manifest.json` 核对 DLL/加载器 SHA256，且要求完整播放会话构建。选好动作 VMD、可选 PCM WAV 与游戏 PID 后，点击“开始新会话”。每次创建 `sessions/<时间-随机标识>`，复制构建和素材，使用新的 DLL 路径加载；不会覆盖已加载 DLL 或原素材。工程与会话目录已加入 Git 忽略。
+默认构建目录为 `build-studio-camera-fov`，使用 `build-manifest.json` 核对 DLL/加载器 SHA256，且要求完整播放会话构建。选好动作 VMD、可选 PCM WAV 与游戏 PID 后，点击“开始新会话”。每次创建 `sessions/<时间-随机标识>`，复制构建和素材，使用新的 DLL 路径加载；不会覆盖已加载 DLL 或原素材。工程与会话目录已加入 Git 忽略。
 
 ```powershell
 .\scripts\build.ps1 -RuntimeProbe -SingleTrackPlayback -AnimatorLease -MultiTrackPlayback -FullBodyFK -RootMotion -LegIK -ToeIK -PlayerSession -Test -OutputDirectory build-studio-next
@@ -96,3 +96,38 @@ python .\scripts\generate-camera-fixture.py .\build-studio-next\camera-fixture.v
 ## Windows 启动修复
 
 双击入口改为 `powershell.exe -NoProfile -ExecutionPolicy Bypass`，仅对启动进程设置执行策略，不修改系统配置。PowerShell 启动脚本使用纯 ASCII，避免 Windows PowerShell 5.1 对无 BOM UTF-8 中文按本地代码页解析而报“字符串缺少终止符”。入口失败时保留终端，Python 标准错误/输出保存至 `logs/gui-<随机标识>.stderr.log` 与 `.stdout.log`；启动后 1.5 秒内退出且非零会明确报告日志路径。已在实际桌面确认 `pythonw` 的“GIMMD · 创作控制台”窗口启动成功。日志目录不纳入 Git。
+
+
+## FOV、手动机位与运镜编排
+
+`build-studio-camera-fov` 是本轮构建，仍使用 `-CameraPlayback` 开关。该构建清单新增 `cameraFov` 和 `manualCamera` 能力。旧窗口需关闭后重新双击 `start-studio.cmd`；新界面默认选择该目录。工程本机预填配置也已更新，不自动播放。
+
+### FOV 实机控制
+
+离线核对 FOV 原生 setter `0x199c8d0` 的限幅与存储分支：目标是原生 Camera，float 位于 `native+0xa58`，写入后标记 `+0xec0`。新增精确 profile 条目覆盖 setter、分支以及完整的存储指令与偏移；只有完整 EXE 指纹和字节验证通过才启用。读取使用有界 `ReadProcessMemory`，写入复用已挂钩函数的原始 trampoline，不直接修改该字段。仅在已验证的主相机身份上调用，并保存初始 FOV；每次写后读回，停止时与位置/旋转一起恢复。
+
+轨道实机 291 次写入，FOV 写入/恢复误差均为 0，位置/旋转最大分量误差 `5.96e-8`、恢复误差 0。暂停跳转至 1.5 秒后，可手动覆盖至 60°，复位后回到轨道 FOV。最终恢复初始 45°，无异常、无待清理状态。
+
+证据：[FOV 原生分支](evidence/camera-fov-wrapper.json)、[命令链](evidence/camera-fov-live-validation.json)、[完整报告](evidence/genshin-7.1-camera-fov.json)。FOV 是原始 VMD 数值，不默认叠加 EIEM 的 +5° 偏置。
+
+### 手动机位
+
+相机页勾选“启用相机控制”和“仅手动机位”可不提供相机 VMD。此模式仍在角色播放会话中运行，尚非独立于动作的自由视角会话；暂停动作后也能调整机位。位移沿捕获初始相机的右/上/前方向，限制 ±100 世界单位；角度为局部 Y*X*Z 偏航/俯仰/滚转，限制 ±180°。FOV=0 采用轨道值，纯手动模式则保留初始值；1–179° 为手动覆盖。复位清除偏移和 FOV 覆盖，停止交还相机。
+
+界面通过独立原子文件 `camera.command` 发送完整参数与递增序号。工作线程解析有限数值，主线程通过非阻塞锁快照读取，验证写后姿态后才发布 `cameraAcknowledgedSequence`。主线程不读取文件；退出包含 FOV 恢复状态。
+
+纯手动实机 292 次写入，位置、转向、60° FOV 覆盖和复位均已确认，最终位置/旋转/FOV 恢复误差为 0。证据：[命令链](evidence/manual-camera-live-validation.json)、[完整报告](evidence/genshin-7.1-manual-camera.json)。仍有游戏相机覆盖采样，不宣称已验证最终渲染阶段或鼠标/WASD 自由机位。
+
+### 运镜关键帧
+
+新增“运镜编排”页，从相机页的手动输入参数添加或替换指定时刻关键帧，可取回、删除、保存/打开独立 JSON 运镜工程，并导出相机 VMD。这里记录的是输入参数，尚不是读取游戏当前相机的实时录制。必须先添加第 0 秒初始机位；时间按 30 fps 对齐，VMD FOV 按整数取整。FOV=0 在编排时使用明确标注的 45°。
+
+导出为原始相机 VMD，线性 Bezier 曲线，按固定源/目标单位和相机符号换算。回放首帧对齐当时的游戏机位；导出会把文件选入工程，不自动注入或播放。GUI 回归用两个关键帧导出后再交由实际 C++ VMD 采样器读取，验证中间位置和 FOV，并验证 JSON 往返、同帧冲突与参数取回/删除。
+
+### 作品导入与音频偏移
+
+新增 `set.ini` 导入，兼容本地参考 `BE_mmd_library.h` 中 `[set]`、`name/motion/camera/music/face/motion2..4/face2..4/audio_offset` 格式，采用 UTF-8。仅接受作品目录内文件名，拒绝重复字段、缺失文件、路径越界及越界链接；不会执行素材文件。当前需要主动作 `motion`，音频只支持 PCM WAV。表情和额外舞者路径保留到工程的 `importedWork.unsupported` 并提示当前不播放，不把导入成功视为客户端已经支持。
+
+音频偏移遵循 `音频位置 = 动作时间 + audio_offset`。准备独立会话时，正值裁去开头的对应 PCM 样本，负值补静音；原音频不变，新的会话 WAV 继续共用已有播放/暂停/跳转/循环时钟。偏移限制 ±600 秒，处理后不得为空或超过 64 MiB。保存工程和会话清单记录偏移。自动检查逐字节验证正/负偏移样本与原文件保持不变；本轮未做额外的主观音画同步评估。
+
+本轮通过 705 项核心检查、168 项运行时模拟检查和 17 项 GUI/素材测试；轨道 FOV 与纯手动模式分别通过一次自动实机命令链。剩余能力见 [功能状态](FEATURE_STATUS.md)。

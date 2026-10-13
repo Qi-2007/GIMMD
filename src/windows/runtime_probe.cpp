@@ -527,6 +527,11 @@ static void mock_hierarchy_reset() {
 }
 #if defined(GIMMD_CAMERA_ROUNDTRIP) || defined(GIMMD_CAMERA_PLAYBACK)
 static unsigned camera_mock_fault=0;
+#ifdef GIMMD_CAMERA_PLAYBACK
+static float camera_mock_fov=45;
+static bool camera_mock_fov_read(uintptr_t,float* out) { *out=camera_mock_fov; return true; }
+static int __fastcall camera_mock_fov_set(void*,float value) { camera_mock_fov=value; return 0; }
+#endif
 static void __fastcall camera_mock_position(Vec3* out,void* object) {
     const auto& p=static_cast<MockNode*>(object)->position; *out={p.x,p.y,p.z};
 }
@@ -896,7 +901,10 @@ int main() {
 #endif
 #ifdef GIMMD_CAMERA_PLAYBACK
         auto camera_setup=[](unsigned fault=0) {
-            camera_mock_fixture(fault);
+            camera_mock_fixture(fault); camera_mock_fov=45;
+            camera_playback::fov_read=camera_mock_fov_read; original_fov=camera_mock_fov_set;
+            camera_playback::manual_only=false; gimmd::player_session::camera_control={};
+            gimmd::player_session::camera_acknowledged.store(0);
             camera_playback::loaded=true; camera_playback::acquired=false; camera_playback::aborted=false;
             camera_playback::restored=false; camera_playback::dirty.store(false); camera_playback::writes=0;
             camera_playback::set_position=camera_mock_set_position; camera_playback::set_rotation=camera_mock_set_rotation;
@@ -919,8 +927,18 @@ int main() {
         check(camera_playback::retained>0,"paused camera was not retained");
         hierarchy::playback::stop_requested.store(true); camera_playback::apply(&mock_nodes[0],123,false);
         check(camera_playback::restored&&!camera_playback::dirty.load()&&mock_nodes[0].position.x==10,"camera stop did not restore baseline");
+        camera_setup(); camera_playback::manual_only=true; camera_playback::zero={};
+        gimmd::player_session::camera_control={5,2,0,0,90,0,0,60};
+        camera_playback::apply(&mock_nodes[0],123,true);
+        check(mock_nodes[0].position.x==12&&std::abs(mock_nodes[0].local.y-0.70710678f)<0.0001f&&camera_mock_fov==60&&
+            gimmd::player_session::camera_acknowledged.load()==5,"manual camera controls were not applied/acknowledged");
+        gimmd::player_session::camera_control={6}; camera_playback::apply(&mock_nodes[0],123,false);
+        check(mock_nodes[0].position.x==10&&mock_nodes[0].local.w==1&&camera_mock_fov==45,"manual camera reset failed");
+        hierarchy::playback::stop_requested.store(true); camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::restored&&!camera_playback::dirty.load(),"manual camera stop did not restore");
         camera_setup(1); camera_playback::apply(&mock_nodes[0],123,true); camera_playback::apply(&mock_nodes[0],123,false);
         check(camera_playback::aborted&&camera_playback::restored&&!camera_playback::dirty.load(),"partial camera mutation exception did not restore");
+        check(camera_mock_fov==45,"camera FOV baseline not restored after partial mutation");
         camera_setup(2); camera_playback::apply(&mock_nodes[0],123,true); camera_playback::apply(&mock_nodes[0],123,false);
         check(camera_playback::dirty.load()&&!camera_playback::restored,"lost camera identity falsely reported restored");
         camera_playback::dirty.store(false); camera_playback::loaded=false; get_position=mock_position;

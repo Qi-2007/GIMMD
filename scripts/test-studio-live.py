@@ -10,10 +10,10 @@ sys.path.insert(0,str(ROOT/'src/gui'))
 from session import Controller,atomic_json,stage_session,start_loader
 
 parser=argparse.ArgumentParser(); parser.add_argument('--pid',type=int,required=True)
-parser.add_argument('--build',type=Path,default=ROOT/'build-studio'); parser.add_argument('--camera',type=Path)
+parser.add_argument('--build',type=Path,default=ROOT/'build-studio'); parser.add_argument('--camera',type=Path); parser.add_argument('--manual-camera',action='store_true')
 args=parser.parse_args()
 build=args.build.resolve()
-directory=stage_session(build,ROOT/'build-studio/multi-track.vmd',ROOT/'build-studio/multi-track.wav',ROOT/'sessions',camera=args.camera)
+directory=stage_session(build,ROOT/'build-studio/multi-track.vmd',ROOT/'build-studio/multi-track.wav',ROOT/'sessions',camera=args.camera,manual_camera=args.manual_camera)
 loader=start_loader(directory,args.pid); controller=Controller(directory); events=[]
 deadline=time.monotonic()+65
 def wait(predicate):
@@ -35,6 +35,12 @@ try:
     assert controller.status['seconds']==paused['seconds']
     seq=send('seek',1.5); wait(lambda s:s['state']==2 and s['seconds']==1.5 and s['acknowledgedSequence']==seq)
     seq=send('loop-on'); wait(lambda s:s['loop'] and s['acknowledgedSequence']==seq)
+    if args.camera or args.manual_camera:
+        camera_seq=controller.camera([.2,.1,0,5,0,0,60])
+        wait(lambda s:s.get('cameraAcknowledgedSequence')==camera_seq)
+        time.sleep(.15)
+        camera_seq=controller.camera([0]*7)
+        wait(lambda s:s.get('cameraAcknowledgedSequence')==camera_seq)
     seq=send('play'); wait(lambda s:s['state']==1 and s['acknowledgedSequence']==seq)
     seq=send('stop')
     if loader.wait(timeout=10)!=0: raise RuntimeError('Loader failed')
@@ -45,16 +51,19 @@ try:
     assert len(m['tracks'])==52 and all(t['restored'] and not t['cleanupPending'] for t in m['tracks'])
     assert m['rootMotion']['restored'] and p['animatorLease']['restored']
     assert report['hookDisabled'] and report['entryBytesRestored'] and report['messageHookRemoved'] and report['playerSession']['audioClosed']
-    if args.camera:
+    if args.camera or args.manual_camera:
         camera=report['cameraPlayback']
         assert camera['loaded'] and camera['acquired'] and camera['restored'] and not camera['cleanupPending']
         assert not camera['aborted'] and not camera['exception'] and camera['poseWrites']>20
         assert camera['maxWriteError']<.0001 and camera['restoreError']<.0001
+        assert camera['fovWritten'] and camera['maxFovWriteError']<.0001 and camera['fovRestoreError']<.0001
+        assert camera['controlSequence']==2 and any(t['controlSequence']==1 and t['fov']==60 for t in camera['timelineSamples'])
+        assert camera['manualOnly']==args.manual_camera
         assert any(t['state']==2 and t['seconds']==1.5 for t in camera['timelineSamples'])
     result={'cameraPlayback':report.get('cameraPlayback'),'session':str(directory),'passed':True,'events':events,'finalStatus':controller.status,
             'probeReport':str(directory/f'gimmd-{args.pid}.probe.json'),
             'cameraSamples':[s['cameras'] for s in report['samples']]}
-    atomic_json(ROOT/('docs/evidence/camera-playback-live-validation.json' if args.camera else 'docs/evidence/studio-live-validation.json'),result)
+    atomic_json(ROOT/('docs/evidence/manual-camera-live-validation.json' if args.manual_camera else 'docs/evidence/camera-fov-live-validation.json' if args.camera else 'docs/evidence/studio-live-validation.json'),result)
     print(json.dumps(result,ensure_ascii=True,indent=2))
 finally:
     if loader.poll() is None:
