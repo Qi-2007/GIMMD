@@ -216,6 +216,12 @@ int wmain(int argc, wchar_t** argv) {
         check(lp::solve(toe_pose,{},{},toe_feet,&toe_result,nullptr,&measured)&&toe_result.toe_corrected==1,"measured chain geometry solve failed");
         rig.reset(toe_pose,{},nullptr,&measured); rest_toe.reset(nullptr,{},nullptr,&measured);
         check(ik::length(ik::sub(rig.world[foot_index].position,rest_toe.world[foot_index].position))<1e-5f,"measured chain geometry not used for ankle target");
+        for (unsigned i=0;i<52;++i) toe_pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        lp::FootSample grounded_feet[2]{{true,{}, {},1},{true,{}, {},1}};
+        check(lp::solve(toe_pose,{0.2f,-0.04f,0.3f},{0.2f,0,0.3f},grounded_feet,&ik_result),"captured root origin solve failed");
+        rig.reset(toe_pose,{0.2f,-0.04f+ik_result.root_correction_y,0.3f}); reference.reset(nullptr,{});
+        check(ik::length(ik::sub(rig.world[foot_index].position,ik::add(reference.world[foot_index].position,{0.2f,0,0.3f})))<1e-5f,
+            "captured root height offset leaked into ground target");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));

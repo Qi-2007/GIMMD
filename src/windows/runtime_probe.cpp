@@ -1192,7 +1192,7 @@ int main() {
         check(mp::done.load() && mp::result.restored && hierarchy::animator_lease::restored,"IK partial write exception failed cleanup");
         mock_multi_fixture(true,true,true); mp::tick(1000); mock_nodes[55].local.x+=0.01f; mp::tick(2000);
         check(mp::done.load() && rm::restored && mp::result.samples==1,"external skeleton root rotation did not stop IK");
-        mock_multi_fixture(true,true,true); mock_nodes[3+11].position.x+=0.01f; mp::tick(1000);
+        mock_multi_fixture(true,true,true); mock_nodes[3+11].position.x+=0.04f; mp::tick(1000);
         check(mp::done.load()&&!mp::setter_calls.load()&&lk::geometry_error>0.009f&&hierarchy::animator_lease::restored,
             "unverified live leg lengths accepted for IK");
 #ifdef GIMMD_TOE_IK
@@ -1208,8 +1208,8 @@ int main() {
         check(mp::done.load()&&!mp::setter_calls.load()&&hierarchy::animator_lease::restored,"unverified toe geometry accepted");
         mock_multi_fixture(true,true,true,true); mp::tick(1000); playback_fault=3; mp::tick(2000);
         check(mp::done.load()&&mp::result.restored&&rm::restored&&hierarchy::animator_lease::restored,"toe partial write exception failed cleanup");
-        mock_multi_fixture(true,true,true,true); mock_nodes[3].position.x+=0.005f; mp::tick(1000);
-        check(mp::result.samples==1&&lk::geometry_captured&&lk::adjusted_joints==1,"small live geometry deviation not measured");
+        mock_multi_fixture(true,true,true,true); mock_nodes[3].position.x+=0.005f; mock_nodes[3+11].position.x+=0.005f; mp::tick(1000);
+        check(mp::result.samples==1&&lk::geometry_captured&&lk::adjusted_joints==2,"small live geometry deviation not measured");
         mock_nodes[3].position.x+=0.0001f; mp::tick(2000);
         check(mp::done.load()&&mp::result.restored&&rm::restored&&!std::strcmp(lk::status,"live-leg-captured-geometry-changed"),
             "captured live geometry mutation did not stop and restore");

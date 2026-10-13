@@ -14,13 +14,14 @@ static const char* status = "disabled";
 static Step root_steps[MaxDepth+1]{}, body_steps[MaxDepth+1]{};
 static unsigned root_length = 0, body_length = 0;
 static Vec baseline{}, applied{}, pending{}, source_zero{}, body_scale{1,1,1};
+static Vec body_position{};
 static Quat body_rotation{0,0,0,1};
 static Quat root_rotation{0,0,0,1};
 static std::vector<vmd::BoneKey> controls[3];
 static void reset() {
     bound = captured = dirty = restored = false; writes = calls = retained = overwrites = attempts = 0;
     maximum_offset = 0; restore_error = 0; root_length = body_length = 0;
-    baseline = applied = pending = source_zero = {}; body_scale = {1,1,1}; body_rotation = {0,0,0,1};
+    baseline = applied = pending = source_zero = body_position = {}; body_scale = {1,1,1}; body_rotation = {0,0,0,1};
     for (auto& control_track : controls) control_track.clear();
     status = root_mode ? "not-prepared" : "disabled";
 }
@@ -87,17 +88,18 @@ static bool bind(int model_node) {
     void* root = resolve_batch_steps(&batch,&active,root_steps,root_length);
     void* mesh = resolve_batch_steps(&batch,&active,body_steps,body_length);
     Vec initial{};
-    bound = root && mesh && active && read(get,root,&initial) && read(get_scale,mesh,&body_scale) && read_local(mesh,&body_rotation) && read_local(root,&root_rotation) &&
+    bound = root && mesh && active && read(get,root,&initial) && read(get,mesh,&body_position) && read(get_scale,mesh,&body_scale) && read_local(mesh,&body_rotation) && read_local(root,&root_rotation) &&
         std::abs(body_scale.x) > 0.000001f && std::abs(body_scale.y) > 0.000001f && std::abs(body_scale.z) > 0.000001f;
     status = bound ? "visual-root-bound" : "visual-root-read-refused"; return bound;
 }
 static bool preflight(ResolutionBatch* batch,double frame,double blend) {
     if (!root_mode) return true;
-    bool active = true; Vec current{}, scale{}, source{}; Quat rotation{}, root_now{};
+    bool active = true; Vec current{}, scale{}, source{}, body_now{}; Quat rotation{}, root_now{};
     void* root = resolve_batch_steps(batch,&active,root_steps,root_length);
     void* mesh = resolve_batch_steps(batch,&active,body_steps,body_length);
     if (!bound || !root || !mesh || !active || !read(get,root,&current) || !read(get_scale,mesh,&scale) ||
-        !read_local(mesh,&rotation) || !read_local(root,&root_now) || (leg_mode && captured && roundtrip::error(root_now,root_rotation)>0.00002f) ||
+        !read_local(mesh,&rotation) || !read_local(root,&root_now) || (leg_mode && (!read(get,mesh,&body_now)||error(body_now,body_position)>0.00002f)) ||
+        (leg_mode && captured && roundtrip::error(root_now,root_rotation)>0.00002f) ||
         error(scale,body_scale) > 0.00002f || roundtrip::error(rotation,body_rotation) > 0.00002f || !sample(frame,&source)) {
         status = "visual-root-preflight-refused"; return false;
     }
