@@ -91,6 +91,12 @@ lines += ['};','inline constexpr float RootMotionScale = '+number(target_leg/10.
           'inline constexpr const char* RootTrackNames[] = {']
 for name in ('全ての親','センター','グルーブ'):
     lines.append('    "'+''.join('\\x%02x'%b for b in name.encode('cp932'))+'",')
+links = {item['nodeId']: item['avatarIndex'] for item in snapshot['animatorObserver']['bindPose']['avatarReference']['nodeLinks']}
+lines += ['};','inline constexpr unsigned AvatarIndices[] = {'+','.join(str(links[bones[target]['nodeId']]) for _,target in definitions)+'};',
+          'inline constexpr const char* FootTrackNames[2][2] = {']
+for side in ('左','右'):
+    names = [side+'足ＩＫ',side+'足IK']
+    lines.append('    {'+','.join('"'+''.join('\\x%02x'%b for b in name.encode('cp932'))+'"' for name in names)+'},')
 lines += ['};','}']
 (root/'src/generated/fk_profile.h').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 (root/'docs/evidence/fk-binding-profile.json').write_text(json.dumps({'sourcePreset':'EIEM canonical Tda approximation',

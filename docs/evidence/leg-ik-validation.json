@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-13",
+  "coreChecksPassed": 681,
+  "runtimeChecksPassed": 148,
+  "firstLive": {
+    "build": "build-leg-ik",
+    "evidence": "genshin-7.1-leg-ik-first.json",
+    "evidenceAssertionsPassed": true,
+    "elapsedMs": 23484,
+    "restoredBoneCount": 52,
+    "legIk": {
+      "enabled": true,
+      "status": "playing-two-bone-foot-ik",
+      "solvedLegSamples": 1862,
+      "reachClampedSamples": 603,
+      "disabledOrMissingSamples": 0,
+      "maximumReachableTargetResidual": 3.68709664e-07,
+      "maximumRequestedTargetMiss": 0.208767638,
+      "maximumLiveReferenceGeometryError": 1.37090683e-06,
+      "footPositionFrameZeroAnchored": true,
+      "footRotationApplied": true,
+      "toeIkApplied": false,
+      "sourcePmxCalibrated": false
+    },
+    "performance": {
+      "sharedPathResolution": true,
+      "batches": 931,
+      "averageBatchMs": 3.99061729,
+      "maxBatchMs": 5.16760001,
+      "totalResolveAndSampleMs": 3707.5926,
+      "totalWriteMs": 7.67209974,
+      "uniqueNodesValidated": 53998,
+      "sharedPrefixesReused": 575358
+    },
+    "userFeedback": "变化不明显，仍有滑步或悬空"
+  },
+  "correctedBuild": {
+    "build": "build-leg-ik-support",
+    "offlineEvidence": "leg-ik-offline.json",
+    "liveValidated": false,
+    "liveAttempt": "Windows UAC canceled; corrected DLL not loaded",
+    "commonRootFrameZeroOrigin": true,
+    "flatSupportReachCompensation": true,
+    "terrainRaycast": false
+  },
+  "sourcePmxCalibrated": false,
+  "toeIkImplemented": false
+}

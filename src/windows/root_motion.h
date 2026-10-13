@@ -15,6 +15,7 @@ static Step root_steps[MaxDepth+1]{}, body_steps[MaxDepth+1]{};
 static unsigned root_length = 0, body_length = 0;
 static Vec baseline{}, applied{}, pending{}, source_zero{}, body_scale{1,1,1};
 static Quat body_rotation{0,0,0,1};
+static Quat root_rotation{0,0,0,1};
 static std::vector<vmd::BoneKey> controls[3];
 static void reset() {
     bound = captured = dirty = restored = false; writes = calls = retained = overwrites = attempts = 0;
@@ -86,27 +87,33 @@ static bool bind(int model_node) {
     void* root = resolve_batch_steps(&batch,&active,root_steps,root_length);
     void* mesh = resolve_batch_steps(&batch,&active,body_steps,body_length);
     Vec initial{};
-    bound = root && mesh && active && read(get,root,&initial) && read(get_scale,mesh,&body_scale) && read_local(mesh,&body_rotation) &&
+    bound = root && mesh && active && read(get,root,&initial) && read(get_scale,mesh,&body_scale) && read_local(mesh,&body_rotation) && read_local(root,&root_rotation) &&
         std::abs(body_scale.x) > 0.000001f && std::abs(body_scale.y) > 0.000001f && std::abs(body_scale.z) > 0.000001f;
     status = bound ? "visual-root-bound" : "visual-root-read-refused"; return bound;
 }
 static bool preflight(ResolutionBatch* batch,double frame,double blend) {
     if (!root_mode) return true;
-    bool active = true; Vec current{}, scale{}, source{}; Quat rotation{};
+    bool active = true; Vec current{}, scale{}, source{}; Quat rotation{}, root_now{};
     void* root = resolve_batch_steps(batch,&active,root_steps,root_length);
     void* mesh = resolve_batch_steps(batch,&active,body_steps,body_length);
     if (!bound || !root || !mesh || !active || !read(get,root,&current) || !read(get_scale,mesh,&scale) ||
-        !read_local(mesh,&rotation) || error(scale,body_scale) > 0.00002f || roundtrip::error(rotation,body_rotation) > 0.00002f || !sample(frame,&source)) {
+        !read_local(mesh,&rotation) || !read_local(root,&root_now) || (leg_mode && captured && roundtrip::error(root_now,root_rotation)>0.00002f) ||
+        error(scale,body_scale) > 0.00002f || roundtrip::error(rotation,body_rotation) > 0.00002f || !sample(frame,&source)) {
         status = "visual-root-preflight-refused"; return false;
+    }
+    if (leg_mode) {
+        Vec root_scale{}; const auto& reference=gimmd::fk_profile::AvatarReference[1];
+        if (!read(get_scale,root,&root_scale)||error(root_scale,{reference.scale[0],reference.scale[1],reference.scale[2]})>0.00002f) {
+            status="visual-root-reference-scale-mismatch"; return false;
+        }
     }
     if (dirty) {
         if (error(current,applied) < 0.00002f) ++retained;
         else { ++overwrites; status = "visual-root-external-write"; return false; }
     }
-    if (!captured) { baseline = current; captured = true; }
+    if (!captured) { baseline = current; root_rotation=root_now; captured = true; }
     auto delta = gimmd::root_translation::offset(source,source_zero,gimmd::fk_profile::RootMotionScale,
         {body_rotation.x,body_rotation.y,body_rotation.z,body_rotation.w},body_scale);
-    maximum_offset = std::max(maximum_offset,std::sqrt(double(delta.x)*delta.x+double(delta.y)*delta.y+double(delta.z)*delta.z));
     pending = {baseline.x+delta.x*static_cast<float>(blend),baseline.y+delta.y*static_cast<float>(blend),baseline.z+delta.z*static_cast<float>(blend)};
     return finite(pending);
 }
@@ -116,6 +123,8 @@ static bool apply(ResolutionBatch* batch) {
     if (!root || !active) return false;
     dirty = true; applied = pending;
     if (!write(root,applied,&observed)) { status = "visual-root-write-failed"; return false; }
+    const Vec delta{applied.x-baseline.x,applied.y-baseline.y,applied.z-baseline.z};
+    maximum_offset = std::max(maximum_offset,std::sqrt(double(delta.x)*delta.x+double(delta.y)*delta.y+double(delta.z)*delta.z));
     ++writes; status = "playing-visual-root-translation"; return true;
 }
 static bool restore(ResolutionBatch* batch) {

@@ -17,6 +17,7 @@
 #include "core/rotation_preview.h"
 #include "generated/fk_profile.h"
 #include "core/root_translation.h"
+#include "core/leg_pose.h"
 #include "windows/player_session.h"
 #include "MinHook.h"
 #include "generated/gi_profile.h"
@@ -357,7 +358,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         std::ofstream report(output, std::ios::trunc);
         if (!report) { busy.store(false); return ERROR_WRITE_FAULT; }
         report << "{\n  \"schemaVersion\": 5,\n  \"pid\": " << GetCurrentProcessId()
-            << ",\n  \"mode\": \"" << (hierarchy::playback::RootMotionEnabled ? "canonical-full-body-root-motion" : hierarchy::playback::FullBodyEnabled ? "canonical-full-body-fk" : gimmd::player_session::Enabled ? "controlled-multi-track-preview" : hierarchy::playback::MultiEnabled ? "bounded-multi-track-preview" : hierarchy::playback::Enabled ? "bounded-single-track-playback" :
+            << ",\n  \"mode\": \"" << (hierarchy::playback::LegIkEnabled ? "canonical-full-body-foot-ik" : hierarchy::playback::RootMotionEnabled ? "canonical-full-body-root-motion" : hierarchy::playback::FullBodyEnabled ? "canonical-full-body-fk" : gimmd::player_session::Enabled ? "controlled-multi-track-preview" : hierarchy::playback::MultiEnabled ? "bounded-multi-track-preview" : hierarchy::playback::Enabled ? "bounded-single-track-playback" :
                 hierarchy::animator_observer::toggle::Enabled ? "bounded-animator-toggle" : "bounded-camera-observer")
             << "\",\n  \"executableSha256\": \"" << sha
             << "\",\n  \"buildMatch\": " << (build_match ? "true" : "false")
@@ -604,7 +605,7 @@ static void mock_play_fixture() {
     mock_time = 1.25f; time_fault = 0; message_callback_count.store(3);
 #endif
     namespace p = hierarchy::playback;
-    p::multi_mode = false; p::full_mode = false; p::root_mode = false; // Exercise the legacy strategy in its existing tests.
+    p::multi_mode = false; p::full_mode = false; p::root_mode = false; p::leg_mode=false; // Exercise the legacy strategy in its existing tests.
     p::consumed.store(false); p::profile_verified = true; p::set_local = mock_play_set;
     p::done.store(false); p::loaded = true;
     p::keys.resize(3);
@@ -654,12 +655,12 @@ static void __fastcall mock_set_position(void* object,const gimmd::root_translat
     static_cast<MockNode*>(object)->position = *value;
     if (root_fault == 1 && hierarchy::playback::multi::root_motion::calls == 1) RaiseException(0xe0060001,0,0,nullptr);
 }
-static void mock_multi_fixture(bool full = false,bool root = false) {
+static void mock_multi_fixture(bool full = false,bool root = false,bool leg = false) {
     mock_hierarchy_reset();
     namespace p = hierarchy::playback;
     p::multi_mode = true; p::consumed.store(false); p::profile_verified = true; p::set_local = mock_play_set;
     p::full_mode = full;
-    p::root_mode = root; root_fault = 0;
+    p::root_mode = root; p::leg_mode=leg; root_fault = 0;
     p::done.store(false); playback_fault = 0;
     mock_nodes[1].name = mock_nodes[2].name = L"Avatar_Test(Clone)"; mock_nodes[2].active = false;
     mock_nodes[1].count = full ? 52 : 10;
@@ -690,6 +691,15 @@ static void mock_multi_fixture(bool full = false,bool root = false) {
         for (unsigned i = 0; i < 52; ++i) { mock_nodes[55].children[i] = &mock_nodes[3+i]; mock_nodes[3+i].parent = &mock_nodes[55]; }
         auto& control = motion.bones[gimmd::fk_profile::RootTrackNames[1]]; control.resize(3);
         for (unsigned i = 0; i < 3; ++i) { control[i].frame = i*30; control[i].position.y = i == 1 ? 10.0f : 0.0f; }
+    }
+    if (leg) for (const unsigned mapping:{0u,10u,11u,12u,33u,34u,35u}) {
+        const auto& reference=gimmd::fk_profile::AvatarReference[gimmd::fk_profile::AvatarIndices[mapping]];
+        mock_nodes[3+mapping].position={reference.position[0],reference.position[1],reference.position[2]};
+        mock_nodes[3+mapping].scale={reference.scale[0],reference.scale[1],reference.scale[2]};
+    }
+    if (leg) for (unsigned side=0;side<2;++side) {
+        auto& control=motion.bones[gimmd::fk_profile::FootTrackNames[side][0]]; control.resize(3);
+        for (unsigned i=0;i<3;++i) { control[i].frame=i*30; control[i].position.z=i==1 ? 1.0f:0.0f; }
     }
     p::loaded = p::multi::prepare(motion); mock_lease_prepare(); find_object = mock_find_root;
     if (root) {
@@ -1156,6 +1166,28 @@ int main() {
         rm::reset(); BetterEndfieldNext::Vmd::Motion rotated_control;
         auto& control = rotated_control.bones[gimmd::fk_profile::RootTrackNames[1]]; control.resize(1); control[0].rotation = {0.1f,0,0,0.9949874f};
         check(!rm::prepare(rotated_control), "unsupported rotated Center control silently accepted");
+#ifdef GIMMD_LEG_IK
+        namespace lk=hierarchy::playback::multi::leg_playback;
+        mock_multi_fixture(true,true,true);
+        check(mp::loaded && !std::strcmp(lk::status,"foot-ik-prepared"),"foot IK tracks not admitted");
+        mp::tick(1000); mp::tick(2000);
+        check(lk::solved==4 && lk::residual<0.002f && mp::result.samples==2,"two-bone IK not applied before engine writes");
+        mp::tick(3000);
+        check(mp::done.load() && mp::result.restored && rm::restored && hierarchy::animator_lease::restored,
+            "IK playback did not restore poses/root/Animator");
+        mock_multi_fixture(true,true,true); lk::switches[0]={{0,false},{30,true}};
+        mp::tick(1000);
+        check(lk::solved==1 && lk::disabled==1,"IK off switch did not preserve FK");
+        mp::tick(2000); check(lk::solved==3,"IK on switch did not resume solving");
+        mp::stop_requested.store(true); mp::tick(2034);
+        mock_multi_fixture(true,true,true); mp::tick(1000); playback_fault=3; mp::tick(2000);
+        check(mp::done.load() && mp::result.restored && hierarchy::animator_lease::restored,"IK partial write exception failed cleanup");
+        mock_multi_fixture(true,true,true); mp::tick(1000); mock_nodes[55].local.x+=0.01f; mp::tick(2000);
+        check(mp::done.load() && rm::restored && mp::result.samples==1,"external skeleton root rotation did not stop IK");
+        mock_multi_fixture(true,true,true); mock_nodes[3+11].position.x+=0.01f; mp::tick(1000);
+        check(mp::done.load()&&!mp::setter_calls.load()&&lk::geometry_error>0.009f&&hierarchy::animator_lease::restored,
+            "unverified live leg lengths accepted for IK");
+#endif
 #endif
 #endif
 #endif

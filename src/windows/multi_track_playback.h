@@ -15,6 +15,7 @@ struct Track {
 static Track tracks[Capacity];
 static unsigned source_used = 0;
 #include "root_motion.h"
+#include "leg_playback.h"
 static size_t source_tracks = 0, source_morphs = 0, source_cameras = 0, source_ik = 0;
 static uint32_t last_frame = 0;
 static const char* state = "disabled";
@@ -36,6 +37,7 @@ static double precise_ms() {
 }
 static void reset() {
     root_motion::reset();
+    leg_playback::reset();
     for (auto& track : tracks) track = {};
     TrackCount = full_mode ? Capacity : 10; source_used = 0;
     source_tracks = source_morphs = source_cameras = source_ik = 0; last_frame = 0;
@@ -64,8 +66,12 @@ static bool prepare(const vmd::Motion& motion) {
     if (full_mode && (source_used < 16 || tracks[0].keys.empty() || tracks[1].keys.empty() ||
         tracks[7].keys.empty() || tracks[8].keys.empty() || tracks[30].keys.empty() || tracks[31].keys.empty())) return false;
     if (!root_motion::prepare(motion)) return false;
+    if (root_mode) for (const auto& track:root_motion::controls) source_used+=unsigned(!track.empty());
+    if (!leg_playback::prepare(motion)) return false;
+    if (leg_mode) for (const auto& track:leg_playback::foot_keys) source_used+=unsigned(!track.empty());
     source_tracks = motion.bones.size(); source_morphs = motion.morphs.size();
     source_cameras = motion.cameras.size(); source_ik = motion.ik.size(); last_frame = motion.last_frame;
+    if (leg_mode) for (const auto& track:leg_playback::switches) if (!track.empty()&&source_ik) --source_ik;
     clock = gimmd::Timeline(double(last_frame)/30);
     state = "source-prepared"; return true;
 }
@@ -178,7 +184,7 @@ static void tick(ULONGLONG now) {
     if (result.samples && now - result.last < cadence) return;
     const double batch_start = precise_ms();
     ResolutionBatch batch{};
-    void* bones[Capacity]{}; Quat sampled[Capacity]{}, current[Capacity]{};
+    void* bones[Capacity]{}; Quat sampled[Capacity]{}, current[Capacity]{}; vmd::Quaternion desired[Capacity]{};
     // Resolve and read every target before writing any of this batch.
     for (unsigned i = 0; i < TrackCount; ++i) {
         auto& track = tracks[i]; bool active = true;
@@ -197,10 +203,7 @@ static void tick(ULONGLONG now) {
         }
         if (!track.captured) { track.baseline = current[i]; track.captured = true; }
         if (full_mode) {
-            const auto desired = gimmd::fk_retarget::evaluate(gimmd::fk_profile::Bindings[track.mapping_index],source.rotation);
-            const auto blended = vmd::Slerp({track.baseline.x,track.baseline.y,track.baseline.z,track.baseline.w},desired,
-                entry_blend_seconds/0.5);
-            sampled[i] = {blended.x,blended.y,blended.z,blended.w};
+            desired[i] = gimmd::fk_retarget::evaluate(gimmd::fk_profile::Bindings[track.mapping_index],source.rotation);
         } else {
             bool limited = false;
             const auto delta = gimmd::rotation_preview::delta(track.source_zero, source.rotation, &limited);
@@ -211,6 +214,12 @@ static void tick(ULONGLONG now) {
     if (stop_requested.load()) { restore_all(); return; }
     if (!root_motion::preflight(&batch,source_seconds*30,entry_blend_seconds/0.5)) {
         stop_requested.store(true); restore_all(); return;
+    }
+    if (!leg_playback::evaluate(source_seconds*30,desired,bones,entry_blend_seconds/0.5)) { stop_requested.store(true); restore_all(); return; }
+    if (full_mode) for (unsigned i=0;i<TrackCount;++i) {
+        const auto& baseline=tracks[i].baseline;
+        const auto blended=vmd::Slerp({baseline.x,baseline.y,baseline.z,baseline.w},desired[i],entry_blend_seconds/0.5);
+        sampled[i]={blended.x,blended.y,blended.z,blended.w};
     }
     const double write_start = precise_ms();
     for (unsigned i = 0; i < TrackCount; ++i) {
@@ -250,6 +259,7 @@ static void report(std::ostream& out, bool complete) {
                 << ",\"cleanupPending\":" << (t.dirty ? "true" : "false") << '}';
         }
         out << "],\"rootMotion\":"; root_motion::report(out);
+        out << ",\"legIk\":"; leg_playback::report(out);
         out << ",\"performance\":{\"sharedPathResolution\":" << (gimmd::player_session::legacy_resolver ? "false" : "true")
             << ",\"batches\":" << performance.batches << ",\"averageBatchMs\":" << (performance.batches ? performance.total_ms/performance.batches : 0)
             << ",\"maxBatchMs\":" << performance.max_ms << ",\"totalResolveAndSampleMs\":" << performance.resolve_ms

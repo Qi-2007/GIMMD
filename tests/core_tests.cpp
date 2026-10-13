@@ -4,6 +4,7 @@
 #include "core/rotation_preview.h"
 #include "core/fk_retarget.h"
 #include "core/root_translation.h"
+#include "core/leg_pose.h"
 #include <bit>
 #include <filesystem>
 #include <fstream>
@@ -152,6 +153,37 @@ int wmain(int argc, wchar_t** argv) {
         check(near(moved.x,-0.1) && near(moved.y,0.2) && near(moved.z,-0.3),"root units or source basis wrong");
         const auto model_space = gimmd::root_translation::offset({1,2,3},{0,0,0},0.1f,{0,0.70710678f,0,0.70710678f},{2,2,2});
         check(near(model_space.x,-0.6) && near(model_space.y,0.4) && near(model_space.z,0.2),"mesh-to-model root translation wrong");
+        namespace ik=gimmd::leg_ik;
+        ik::Solution solution{};
+        check(ik::solve({0,2,0},{0,1,0},{0,0,0},{0,0.5f,0},{0,0,1},&solution)&&!solution.clamped,
+            "reachable two-bone target rejected");
+        check(near(ik::length(ik::sub(solution.knee,{0,2,0})),1)&&near(ik::length(ik::sub(solution.ankle,solution.knee)),1)&&solution.knee.z>0,
+            "two-bone lengths or forward pole violated");
+        check(ik::solve({0,2,0},{0,1,0},{0,0,0},{0,-1,0},{0,0,1},&solution)&&solution.clamped,
+            "unreachable IK did not clamp");
+        check(!ik::solve({0,0,0},{0,0,0},{0,0,0},{1,0,0},{0,0,1},&solution),"degenerate IK chain accepted");
+        const ik::Matrix reflected{{{-1,0,0},{0,1,0},{0,0,1}}}; vmd::Quaternion aimed{};
+        check(ik::aim({reflected,{}},{},{-1,0,0},{0,1,0},{},&aimed)&&
+            ik::length(ik::sub(ik::vector(ik::multiply(reflected,ik::rotation(aimed)),{1,0,0}),{0,1,0}))<1e-5f,
+            "signed parent IK aim wrong");
+        namespace lp=gimmd::leg_pose;
+        vmd::Quaternion pose[52]{};
+        for (unsigned i=0;i<52;++i) pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        lp::FootSample feet[2]{{true,{0,0.1f,0.08f},{}},{true,{0,0.1f,-0.05f},{}}}; lp::Result ik_result{};
+        check(lp::solve(pose,{0,0.05f,0},{},feet,&ik_result)&&ik_result.solved==2&&ik_result.maximum_residual<1e-4f,
+            "target rig foot IK solve failed");
+        lp::Rig rig{},reference{}; rig.reset(pose,{0,0.05f,0}); reference.reset(nullptr,{});
+        const auto foot_index=gimmd::fk_profile::AvatarIndices[12];
+        check(ik::length(ik::sub(rig.world[foot_index].position,ik::add(reference.world[foot_index].position,feet[0].delta)))<1e-4f,
+            "Center compensation missed planted foot target");
+        check(ik::length(ik::sub(rig.world[foot_index].frame.columns[1],reference.world[foot_index].frame.columns[1]))<1e-4f,
+            "ankle orientation changed with solved leg");
+        for (unsigned i=0;i<52;++i) pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        lp::FootSample support[2]{{true,{}, {},1},{true,{}, {},1}};
+        check(lp::solve(pose,{0,0.15f,0},{},support,&ik_result)&&ik_result.root_correction_y< -0.14f&&
+            ik_result.root_correction_y>=-0.25f&&ik_result.clamped==0,"support foot reach did not lower visual root");
+        check(lp::support_weight(0)==1&&lp::support_weight(0.1f)==0&&lp::support_weight(0.04f)>0.49f,
+            "support blend changed lifted foot into ground constraint");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));

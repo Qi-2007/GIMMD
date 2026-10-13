@@ -1,4 +1,4 @@
-param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion)
+param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK)
 $ErrorActionPreference = 'Stop'
 if ($PoseRoundTrip -and -not $RuntimeProbe) { throw '-PoseRoundTrip requires -RuntimeProbe.' }
 if ($SingleTrackPlayback -and (-not $RuntimeProbe -or $PoseRoundTrip)) { throw '-SingleTrackPlayback requires -RuntimeProbe and excludes -PoseRoundTrip.' }
@@ -10,6 +10,7 @@ if ($MultiTrackPlayback -and -not $AnimatorLease) { throw '-MultiTrackPlayback r
 if ($PlayerSession -and -not $MultiTrackPlayback) { throw '-PlayerSession requires -MultiTrackPlayback.' }
 if ($BindPoseProbe -and -not ($AnimatorProbe -or $AnimatorLease)) { throw '-BindPoseProbe requires -AnimatorProbe or -AnimatorLease.' }
 if ($FullBodyFK -and -not $MultiTrackPlayback) { throw '-FullBodyFK requires -MultiTrackPlayback.' }
+if ($LegIK -and -not $RootMotion) { throw '-LegIK requires -RootMotion.' }
 if ($RootMotion -and -not $FullBodyFK) { throw '-RootMotion requires -FullBodyFK.' }
 $taskRoot = Split-Path -Parent $PSScriptRoot
 $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio/Installer/vswhere.exe'
@@ -34,6 +35,7 @@ try {
     if ($BindPoseProbe) { $common += '/DGIMMD_BIND_POSE_PROBE' }
     if ($FullBodyFK) { $common += '/DGIMMD_FULL_BODY_FK'; if (-not $BindPoseProbe) { $common += '/DGIMMD_BIND_POSE_PROBE' } }
     if ($RootMotion) { $common += '/DGIMMD_ROOT_MOTION' }
+    if ($LegIK) { $common += '/DGIMMD_LEG_IK' }
     $probeSource = 'src/windows/probe.cpp'
     $probeObjects = @()
     if ($RuntimeProbe) {
@@ -48,6 +50,7 @@ try {
     }
     $targets = @(
         @{Source='src/tools/vmd_inspect.cpp'; Output='gimmd-vmd.exe'; Dll=$false},
+        @{Source='src/tools/ik_inspect.cpp'; Output='gimmd-ik-inspect.exe'; Dll=$false},
         @{Source=$probeSource; Output='gimmd-probe.dll'; Dll=$true},
         @{Source='src/windows/probe_host.cpp'; Output='gimmd-probe-host.exe'; Dll=$false},
         @{Source='src/windows/inject_probe.cpp'; Output='gimmd-inject-probe.exe'; Dll=$false},

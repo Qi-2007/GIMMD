@@ -206,4 +206,9 @@ inline constexpr const char* RootTrackNames[] = {
     "\x83\x5a\x83\x93\x83\x5e\x81\x5b",
     "\x83\x4f\x83\x8b\x81\x5b\x83\x75",
 };
+inline constexpr unsigned AvatarIndices[] = {3,4,5,6,7,8,62,63,64,65,113,114,115,116,66,67,68,70,71,72,74,75,76,78,79,80,82,83,84,30,31,32,33,118,119,120,121,34,35,36,38,39,40,42,43,44,46,47,48,50,51,52};
+inline constexpr const char* FootTrackNames[2][2] = {
+    {"\x8d\xb6\x91\xab\x82\x68\x82\x6a","\x8d\xb6\x91\xab\x49\x4b"},
+    {"\x89\x45\x91\xab\x82\x68\x82\x6a","\x89\x45\x91\xab\x49\x4b"},
+};
 }

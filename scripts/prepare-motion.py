@@ -55,10 +55,17 @@ if __name__ == '__main__':
     parser.add_argument('--player-session', action='store_true', help='Stage one WAV for the controlled full-source preview')
     parser.add_argument('--full-body-fk', action='store_true', help='Admit canonical full-body FK with target rest fallback for absent tracks')
     parser.add_argument('--root-motion', action='store_true', help='Enable first-frame-anchored visual root translation')
+    parser.add_argument('--leg-ik', action='store_true', help='Enable independent two-bone foot IK and ankle orientation')
     args = parser.parse_args()
     result = inspect(args.folder, args.inspector, args.choreography, args.motion_author, args.author_notified)
     if args.root_motion and not args.full_body_fk:
         raise SystemExit('--root-motion requires --full-body-fk')
+    if args.leg_ik and not args.root_motion:
+        raise SystemExit('--leg-ik requires --root-motion')
+    if args.leg_ik:
+        result['preview'].update({'legIk':True,'legIkSolver':'independent two-bone','toeIk':False,
+            'footPositionReference':'common root frame zero origin; retain initial foot stance',
+            'flatSupportReachCompensation':True,'terrainRaycast':False,'unreachableTargets':'bounded visual root lowering, then clamp without stretching'})
     if args.full_body_fk:
         mappings = result['mappings']
         for item in mappings:

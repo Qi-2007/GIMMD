@@ -17,7 +17,7 @@
 .\scripts\inspect-pe-patterns.ps1 -SelfTest
 ```
 
-最新进展：[全身 FK 与播放卡顿修复](docs/FULL_BODY_FK_RESULTS.md)。已实机完成 52 个目标骨骼、完整旋转幅度与音频联动，使用 EIEM 默认源预设近似和已验证目标参考骨架。共享骨架路径后，每批姿态平均耗时从 43.49 ms 降至 2.59 ms，用户确认“明显改善，基本流畅”；完整播放后全部恢复。后续已接入 [Root/Center 视觉骨架位移](docs/ROOT_MOTION_RESULTS.md)，用户确认“基本自然、流畅”；脚部 IK、表情和相机尚未接入。
+最新进展：[全身 FK 与播放卡顿修复](docs/FULL_BODY_FK_RESULTS.md)。已实机完成 52 个目标骨骼、完整旋转幅度与音频联动，使用 EIEM 默认源预设近似和已验证目标参考骨架。共享骨架路径后，每批姿态平均耗时从 43.49 ms 降至 2.59 ms，用户确认“明显改善，基本流畅”；完整播放后全部恢复。后续已接入 [Root/Center 视觉骨架位移](docs/ROOT_MOTION_RESULTS.md)，用户确认“基本自然、流畅”；[独立腿部 IK](docs/LEG_IK_RESULTS.md) 首版已实测并恢复，用户反馈仍有滑步/悬空；修正版统一坐标基准并加入支撑脚可达补偿，已通过离线检查，实机待验证。表情和相机尚未接入。
 
 [目标参考骨架恢复](docs/TARGET_REST_POSE_RESULTS.md) 取得 139 条参考骨骼记录，与 Body 的 91 组绑定矩阵交叉验证，52 项目标映射均具备局部参考姿态，包含负缩放处理。
 
