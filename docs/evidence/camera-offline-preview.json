@@ -1,0 +1,18 @@
+{
+  "seconds": 0.5,
+  "cameraKeys": 3,
+  "position": [
+    -1.3783623,
+    0.823577583,
+    1.11631453
+  ],
+  "rotation": [
+    0,
+    0.923879504,
+    0,
+    0.382683456
+  ],
+  "fov": 52.5,
+  "orthographic": false,
+  "clientCameraControlled": false
+}

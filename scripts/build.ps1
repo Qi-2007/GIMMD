@@ -1,5 +1,6 @@
-param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK)
+param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK, [switch]$CameraRoundTrip)
 $ErrorActionPreference = 'Stop'
+if ($CameraRoundTrip -and (-not $RuntimeProbe -or $SingleTrackPlayback -or $PoseRoundTrip -or $AnimatorToggle)) { throw '-CameraRoundTrip requires a read-only -RuntimeProbe build.' }
 if ($PoseRoundTrip -and -not $RuntimeProbe) { throw '-PoseRoundTrip requires -RuntimeProbe.' }
 if ($SingleTrackPlayback -and (-not $RuntimeProbe -or $PoseRoundTrip)) { throw '-SingleTrackPlayback requires -RuntimeProbe and excludes -PoseRoundTrip.' }
 if ($FreezeTime -and -not $SingleTrackPlayback) { throw '-FreezeTime requires -SingleTrackPlayback.' }
@@ -38,6 +39,7 @@ try {
     if ($RootMotion) { $common += '/DGIMMD_ROOT_MOTION' }
     if ($LegIK) { $common += '/DGIMMD_LEG_IK' }
     if ($ToeIK) { $common += '/DGIMMD_TOE_IK' }
+    if ($CameraRoundTrip) { $common += '/DGIMMD_CAMERA_ROUNDTRIP' }
     $probeSource = 'src/windows/probe.cpp'
     $probeObjects = @()
     if ($RuntimeProbe) {
@@ -53,6 +55,7 @@ try {
     $targets = @(
         @{Source='src/tools/vmd_inspect.cpp'; Output='gimmd-vmd.exe'; Dll=$false},
         @{Source='src/tools/ik_inspect.cpp'; Output='gimmd-ik-inspect.exe'; Dll=$false},
+        @{Source='src/tools/camera_inspect.cpp'; Output='gimmd-camera.exe'; Dll=$false},
         @{Source=$probeSource; Output='gimmd-probe.dll'; Dll=$true},
         @{Source='src/windows/probe_host.cpp'; Output='gimmd-probe-host.exe'; Dll=$false},
         @{Source='src/windows/inject_probe.cpp'; Output='gimmd-inject-probe.exe'; Dll=$false},
@@ -68,6 +71,13 @@ try {
         & cl.exe @common /DGIMMD_OBSERVER_TEST "/I$taskRoot/third_party/minhook/include" (Join-Path $taskRoot 'src/windows/runtime_probe.cpp') @probeObjects /Fe:gimmd-runtime-tests.exe
         if ($LASTEXITCODE -ne 0) { throw 'Runtime observer test build failed.' }
     }
+    $taskManifest = [ordered]@{
+        schemaVersion=1; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
+        rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
+        dllSha256=(Get-FileHash -LiteralPath './gimmd-probe.dll' -Algorithm SHA256).Hash
+        loaderSha256=(Get-FileHash -LiteralPath './gimmd-inject-probe.exe' -Algorithm SHA256).Hash
+    }
+    $taskManifest | ConvertTo-Json | Set-Content -LiteralPath './build-manifest.json' -Encoding utf8
     if ($Test) {
         & './gimmd-tests.exe' (Join-Path $taskBuild 'synthetic.vmd')
         if ($LASTEXITCODE -ne 0) { throw 'Core tests failed.' }

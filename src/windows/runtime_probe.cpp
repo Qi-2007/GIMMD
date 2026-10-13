@@ -49,7 +49,10 @@ static GetTransformFn get_transform;
 static GetPositionFn get_position;
 static FindStringFn find_string;
 static FindObjectFn find_object;
-struct CameraReading { bool main = false, readable = false; Vec3 position{}; };
+struct CameraReading {
+    bool main=false,readable=false,callback_target=false,name_valid=false;
+    Vec3 position{}; wchar_t name[96]{};
+};
 struct Reading {
     DWORD thread = 0;
     unsigned camera_count = 0;
@@ -143,9 +146,10 @@ static BOOL CALLBACK find_window(HWND window, LPARAM) {
 }
 
 #include "hierarchy_observer.h"
+#include "camera_roundtrip.h"
 
 // Keep SEH in POD-only leaf functions; exception means stop engine sampling.
-static bool capture(Reading* out) {
+static bool capture(Reading* out,void* fov_target=nullptr) {
     __try {
         out->thread = GetCurrentThreadId();
         void* main_camera = get_main();
@@ -162,11 +166,23 @@ static bool capture(Reading* out) {
                     continue;
                 auto& item = out->cameras[i];
                 item.main = camera == main_camera;
+                uintptr_t native=0;
+                if (read_bytes(reinterpret_cast<uintptr_t>(camera)+16,&native,sizeof(native)))
+                    item.callback_target=camera==fov_target || (native&&native==reinterpret_cast<uintptr_t>(fov_target));
                 void* transform = get_transform(camera);
                 if (!transform) continue;
+                if (hierarchy::configured) {
+                    void* owner=hierarchy::component_game_object(transform); void* owner_transform=nullptr; uintptr_t owner_native=0;
+                    wchar_t alias[hierarchy::MaxName]{};
+                    if (owner&&read_bytes(reinterpret_cast<uintptr_t>(owner)+16,&owner_native,sizeof(owner_native))&&owner_native&&
+                        hierarchy::object_transform(&owner_transform,reinterpret_cast<void*>(owner_native))==&owner_transform&&hierarchy::same_object(transform,owner_transform)&&
+                        hierarchy::string_read(hierarchy::name_a(owner),item.name)&&hierarchy::string_read(hierarchy::name_b(owner),alias)&&!std::wcscmp(item.name,alias))
+                        item.name_valid=true;
+                }
                 get_position(&item.position, transform);
                 item.readable = std::isfinite(item.position.x) && std::isfinite(item.position.y) && std::isfinite(item.position.z) &&
                     std::abs(item.position.x) < 1e9f && std::abs(item.position.y) < 1e9f && std::abs(item.position.z) < 1e9f;
+                if (item.readable&&item.callback_target&&item.name_valid&&!std::wcscmp(item.name,L"MainCamera(Clone)")) camera_experiment::run(transform);
             }
         }
         if (find_string && find_object) {
@@ -197,7 +213,7 @@ static int __fastcall observe_fov(void* object, float fov) {
             const unsigned index = sample_count.load();
             const auto now = GetTickCount64();
             if (index < 4 && now - last_sample_time >= 250) {
-                if (capture(&readings[index])) sample_count.store(index + 1);
+                if (capture(&readings[index],object)) sample_count.store(index + 1);
                 last_sample_time = now;
             }
             hierarchy::playback::tick(now);
@@ -251,6 +267,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         const bool build_match = sha == gi::BuildSha256;
         const auto base = reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
         hierarchy::configure(base, sha);
+        camera_experiment::configure(base);
         gimmd::player_session::initialize(std::filesystem::path(dll_path).parent_path());
         if (hierarchy::configured) hierarchy::playback::load(std::filesystem::path(dll_path).parent_path() /
             (hierarchy::playback::MultiEnabled ? L"multi-track.vmd" : L"single-track.vmd"));
@@ -331,11 +348,12 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
                             uint8_t after[32]{};
                             restored = disabled && read_bytes(fov, after, sizeof(after)) &&
                                 !std::memcmp(original_bytes, after, sizeof(after));
-                            permanently_closed = !restored || !message_unhooked || active_calls.load() != 0 || hierarchy::roundtrip::failed() || hierarchy::animator_observer::toggle::failed();
+                            permanently_closed = !restored || !message_unhooked || active_calls.load() != 0 || hierarchy::roundtrip::failed() || hierarchy::animator_observer::toggle::failed() || camera_experiment::failed();
                             if (cleanup_pending) status = "playback-cleanup-pending-hook-retained";
                             else if (!restored) status = "hook-restoration-failed";
                             else if (hierarchy::roundtrip::failed()) status = "pose-restoration-failed";
                             else if (hierarchy::animator_observer::toggle::failed()) status = "animator-toggle-failed";
+                            else if (camera_experiment::failed()) status = "camera-restoration-failed";
                             else if (hierarchy::animator_observer::ready.load() && hierarchy::animator_observer::toggle::restored) status = "animator-toggle-restored";
                             else if (engine_error.load()) status = "engine-read-exception";
                             else if (sample_count.load()) {
@@ -354,6 +372,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         }
         if (!installed && message_hook) message_unhooked = UnhookWindowsHookEx(message_hook) != FALSE;
         gimmd::player_session::close_audio();
+        gimmd::player_session::closed=true;
         gimmd::player_session::write_status();
         std::ofstream report(output, std::ios::trunc);
         if (!report) { busy.store(false); return ERROR_WRITE_FAULT; }
@@ -363,7 +382,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
             << "\",\n  \"executableSha256\": \"" << sha
             << "\",\n  \"buildMatch\": " << (build_match ? "true" : "false")
             << ",\n  \"status\": \"" << status << "\",\n  \"settersCalled\": "
-            << (hierarchy::roundtrip::setter_calls.load() || hierarchy::playback::setter_calls.load() || hierarchy::time_control::setter_calls.load() || hierarchy::animator_observer::toggle::setter_calls.load() || hierarchy::animator_lease::setter_calls.load() ? "true" : "false") << ','
+            << (hierarchy::roundtrip::setter_calls.load() || hierarchy::playback::setter_calls.load() || hierarchy::time_control::setter_calls.load() || hierarchy::animator_observer::toggle::setter_calls.load() || hierarchy::animator_lease::setter_calls.load() || camera_experiment::result.calls ? "true" : "false") << ','
             << "\n  \"windowThread\": " << window_thread << ",\n  \"lastCallbackThread\": " << last_callback_thread.load()
             << ",\n  \"callbackCount\": " << callback_count.load() << ",\n  \"windowThreadCallbackCount\": " << window_callback_count.load()
             << ",\n  \"engineException\": " << engine_error.load() << ",\n  \"hookInstalled\": " << (installed ? "true" : "false")
@@ -395,7 +414,9 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
             for (unsigned j = 0; j < reading.camera_count; ++j) {
                 const auto& camera = reading.cameras[j];
                 report << (j ? ", " : "") << "{\"main\": " << (camera.main ? "true" : "false")
+                    << ", \"fovCallbackTarget\": " << (camera.callback_target ? "true":"false") << ", \"nameValidated\": " << (camera.name_valid ? "true":"false")
                     << ", \"positionReadable\": " << (camera.readable ? "true" : "false");
+                if (camera.name_valid) { report << ", \"name\": "; hierarchy::json_string(report,camera.name); }
                 if (camera.readable) report << ", \"position\": [" << std::setprecision(9)
                     << camera.position.x << ", " << camera.position.y << ", " << camera.position.z << ']';
                 report << '}';
@@ -411,9 +432,10 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         report << ",\n  \"animatorObserver\":";
         hierarchy::animator_observer::report(report);
         gimmd::player_session::report(report);
+        camera_experiment::report(report);
         report << "\n}\n"; report.flush();
         busy.store(false);
-        return report && !hierarchy::roundtrip::failed() && !hierarchy::animator_observer::toggle::failed() && !hierarchy::playback::dirty.load() &&
+        return report && !hierarchy::roundtrip::failed() && !hierarchy::animator_observer::toggle::failed() && !camera_experiment::failed() && !hierarchy::playback::dirty.load() &&
             !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load() && message_unhooked ? ERROR_SUCCESS : ERROR_WRITE_FAULT;
     } catch (...) {
         gimmd::player_session::close_audio();
@@ -496,6 +518,28 @@ static void mock_hierarchy_reset() {
     mock_nodes[0].children[0] = &mock_nodes[1]; mock_nodes[0].children[1] = &mock_nodes[2];
     mock_nodes[1].parent = mock_nodes[2].parent = &mock_nodes[0];
 }
+#ifdef GIMMD_CAMERA_ROUNDTRIP
+static unsigned camera_mock_fault=0;
+static void __fastcall camera_mock_position(Vec3* out,void* object) {
+    const auto& p=static_cast<MockNode*>(object)->position; *out={p.x,p.y,p.z};
+}
+static void __fastcall camera_mock_rotation(hierarchy::Quat* out,void* object) { *out=static_cast<MockNode*>(object)->local; }
+static void __fastcall camera_mock_set_position(void* object,const Vec3* value) {
+    static_cast<MockNode*>(object)->position={value->x,value->y,value->z};
+}
+static void __fastcall camera_mock_set_rotation(void* object,const hierarchy::Quat* value) {
+    static_cast<MockNode*>(object)->local=*value;
+    if (camera_mock_fault==1) { camera_mock_fault=0; RaiseException(0xe0060001,0,0,nullptr); }
+    if (camera_mock_fault==2) { static_cast<MockNode*>(object)->native=nullptr; camera_mock_fault=0; }
+}
+static void camera_mock_fixture(unsigned fault=0) {
+    mock_hierarchy_reset(); camera_mock_fault=fault;
+    get_position=camera_mock_position; hierarchy::rotation_world=camera_mock_rotation;
+    camera_experiment::result={}; camera_experiment::consumed=false; camera_experiment::verified=true;
+    camera_experiment::set_position=camera_mock_set_position; camera_experiment::set_rotation=camera_mock_set_rotation;
+    mock_nodes[0].position={10,20,30};
+}
+#endif
 #ifdef GIMMD_POSE_ROUNDTRIP
 enum class PoseFault { none, write_after_mutation, read_after_write, original_read, ignore_write, restore_once, restore_always };
 static PoseFault pose_fault;
@@ -830,6 +874,19 @@ int main() {
         check(active_calls.load() == 0, "callback still active");
         const auto count = callback_count.load();
         check(invoke(&mock_camera, 12) == 31 && callback_count.load() == count, "callback active after disable");
+#ifdef GIMMD_CAMERA_ROUNDTRIP
+        camera_mock_fixture(); camera_experiment::run(&mock_nodes[0]);
+        check(camera_experiment::result.position_verified&&camera_experiment::result.rotation_verified&&camera_experiment::result.restored&&
+            camera_experiment::result.calls==4,"camera position/rotation roundtrip failed");
+        check(mock_nodes[0].position.x==10&&mock_nodes[0].position.y==20&&mock_nodes[0].position.z==30&&mock_nodes[0].local.w==1,
+            "camera pose not restored");
+        camera_experiment::run(&mock_nodes[0]); check(camera_experiment::result.calls==4,"camera experiment consumed twice");
+        camera_mock_fixture(1); camera_experiment::run(&mock_nodes[0]);
+        check(camera_experiment::result.exception&&camera_experiment::result.restored,"camera partial mutation exception not restored");
+        camera_mock_fixture(2); camera_experiment::run(&mock_nodes[0]);
+        check(camera_experiment::failed()&&camera_experiment::result.attempts==8,"camera identity loss not bounded/reported");
+        camera_experiment::result={}; camera_experiment::verified=false; get_position=mock_position;
+#endif
         mock_hierarchy_reset();
         hierarchy::capture(&mock_nodes[0]);
         check(hierarchy::published.load() && hierarchy::root_name_valid && hierarchy::count == 3 &&

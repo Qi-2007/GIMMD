@@ -75,6 +75,7 @@ static bool prepare(const vmd::Motion& motion) {
     if (leg_mode) for (const auto& track:leg_playback::switches) if (!track.empty()&&source_ik) --source_ik;
     if (toe_mode) for (const auto& track:leg_playback::toe_switches) if (!track.empty()&&source_ik) --source_ik;
     clock = gimmd::Timeline(double(last_frame)/30);
+    gimmd::player_session::duration_seconds=double(last_frame)/30;
     state = "source-prepared"; return true;
 }
 static bool bind(int actor) {
@@ -169,6 +170,8 @@ static void tick(ULONGLONG now) {
         if (gimmd::command_sequence(word) > gimmd::command_sequence(applied_command)) {
             applied_command = word; ++commands_applied;
             gimmd::apply_player_command(clock, word, seconds);
+            if (gimmd::command_op(word)==gimmd::PlayerOp::LoopOn) gimmd::player_session::loop_enabled.store(true);
+            if (gimmd::command_op(word)==gimmd::PlayerOp::LoopOff) gimmd::player_session::loop_enabled.store(false);
             gimmd::player_session::acknowledged.store(gimmd::command_sequence(word));
             if (gimmd::command_op(word) == gimmd::PlayerOp::Stop) stop_requested.store(true);
         }

@@ -42,7 +42,12 @@ entries = [('NameA', 0x14389f0), ('NameB', 0x1438b70),
            ('LocalPositionRead', 0x15c6410), ('LocalPositionSet', 0x19cb3880),
            ('LocalPositionSetNative', 0x1436de0), ('LocalPositionStore', 0x15c5990),
            ('LocalScaleGet', 0x19cb6e90), ('LocalScaleGetNative', 0x1436f70),
-           ('LocalScaleRead', 0x15c64a0)]
+           ('LocalScaleRead', 0x15c64a0),
+           ('WorldPositionGet',0x19cb6280),('WorldPositionSet',0x19cb62c0),
+           ('WorldPositionGetNative',0x1436d00),('WorldPositionSetNative',0x1436d50),
+           ('WorldPositionRead',0x15c6450),('WorldPositionStore',0x15c5a80),
+           ('WorldRotationSet',0x19cb6730),('WorldRotationSetNative',0x1437190),
+           ('WorldRotationRead',0x15c6360),('WorldRotationStore',0x15c5860)]
 lines = ['#pragma once', '#include <cstdint>', '// Generated from locally reviewed, build-pinned interface entries.',
          '// See docs/HIERARCHY_OBSERVER_RESULTS.md for semantic evidence and limitations.',
          'namespace gimmd::hierarchy_profile {', 'struct Entry { const char* name; uint32_t rva; uint8_t bytes[32]; };',

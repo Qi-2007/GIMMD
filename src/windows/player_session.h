@@ -10,6 +10,10 @@ inline constexpr bool Enabled = false;
 #endif
 inline std::atomic<uint64_t> command{0}, frame{0}, acknowledged{0};
 inline bool active = false;
+inline bool closed = true;
+inline uint64_t session_token = 0;
+inline double duration_seconds = 0;
+inline std::atomic<bool> loop_enabled{false};
 inline bool legacy_resolver = false;
 inline std::filesystem::path directory;
 inline unsigned commands_read = 0, audio_requeues = 0, position_checks = 0;
@@ -76,6 +80,8 @@ inline void close_audio() {
 // Worker only: no audio API or filesystem access is made on the game thread.
 inline void initialize(const std::filesystem::path& path) {
     directory = path; command.store(0); frame.store(0); acknowledged.store(0); commands_read = audio_requeues = position_checks = 0;
+    closed = false; duration_seconds = 0; loop_enabled.store(false);
+    session_token = (uint64_t(GetCurrentProcessId()) << 32) | (GetTickCount64() & 0xffffffff);
     audio_error = 0; max_audio_offset_ms = 0; audio_epoch = UINT64_MAX; audio_state = PlaybackState::Ready;
     if (!Enabled) return;
     active = true;
@@ -91,10 +97,15 @@ inline void initialize(const std::filesystem::path& path) {
 inline void write_status() {
     if (!Enabled) return;
     const auto f = unpack_player_frame(frame.load());
-    std::ofstream out(directory / L"player.status.json", std::ios::trunc);
-    out << "{\"seconds\":" << f.seconds << ",\"state\":" << static_cast<unsigned>(f.state)
+    const auto temporary=directory / L"player.status.tmp";
+    std::ofstream out(temporary, std::ios::trunc);
+    out << "{\"schemaVersion\":2,\"sessionToken\":" << session_token << ",\"closed\":" << (closed ? "true":"false")
+        << ",\"durationSeconds\":" << duration_seconds << ",\"loop\":" << (loop_enabled.load() ? "true":"false")
+        << ",\"seconds\":" << f.seconds << ",\"state\":" << static_cast<unsigned>(f.state)
         << ",\"epoch\":" << f.epoch << ",\"commandSequence\":" << command_sequence(command.load())
         << ",\"acknowledgedSequence\":" << acknowledged.load() << '}';
+    out.close();
+    if (out) MoveFileExW(temporary.c_str(),(directory / L"player.status.json").c_str(),MOVEFILE_REPLACE_EXISTING|MOVEFILE_WRITE_THROUGH);
 }
 inline void worker_tick() {
     if (!Enabled) return;

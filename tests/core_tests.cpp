@@ -5,6 +5,7 @@
 #include "core/fk_retarget.h"
 #include "core/root_translation.h"
 #include "core/leg_pose.h"
+#include "core/camera_pose.h"
 #include <bit>
 #include <filesystem>
 #include <fstream>
@@ -222,6 +223,18 @@ int wmain(int argc, wchar_t** argv) {
         rig.reset(toe_pose,{0.2f,-0.04f+ik_result.root_correction_y,0.3f}); reference.reset(nullptr,{});
         check(ik::length(ik::sub(rig.world[foot_index].position,ik::add(reference.world[foot_index].position,{0.2f,0,0.3f})))<1e-5f,
             "captured root height offset leaked into ground target");
+        gimmd::camera_pose::Pose camera_pose{};
+        vmd::CameraSample camera_sample{{0,10,0},{},-20,45,false};
+        check(gimmd::camera_pose::evaluate(camera_sample,0.1f,{}, {},&camera_pose)&&near(camera_pose.position.y,1)&&near(camera_pose.position.z,2),
+            "camera source basis or signed distance wrong");
+        check(near(camera_pose.rotation.y,1)&&near(camera_pose.fov,45),"camera neutral facing/FOV wrong");
+        camera_sample.euler.y=1.57079632679f;
+        check(gimmd::camera_pose::evaluate(camera_sample,0.1f,{3,4,5}, {},&camera_pose)&&near(camera_pose.position.x,1)&&near(camera_pose.position.y,5),
+            "camera Euler composition or anchor placement wrong");
+        camera_sample.fov=200; camera_sample.orthographic=true;
+        check(gimmd::camera_pose::evaluate(camera_sample,0.1f,{}, {},&camera_pose)&&camera_pose.fov==179&&camera_pose.orthographic,
+            "camera projection/FOV boundary wrong");
+        check(!gimmd::camera_pose::evaluate(camera_sample,0,{}, {},&camera_pose),"zero camera unit scale accepted");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));

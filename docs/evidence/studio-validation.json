@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-13",
+  "guiTestsPassed": 12,
+  "coreChecksPassed": 696,
+  "fullBodyRuntimeChecksPassed": 156,
+  "cameraRuntimeChecksPassed": 40,
+  "guiLiveValidated": true,
+  "guiEvidence": "studio-live-validation.json",
+  "cameraRoundTripLiveValidated": true,
+  "cameraEvidence": "genshin-7.1-camera-roundtrip.json",
+  "cameraOfflinePreview": "camera-offline-preview.json",
+  "cameraContinuousOwnershipVerified": false,
+  "fovControlImplemented": false,
+  "visualFeedbackRequired": false,
+  "guiLaunchedWithProject": true
+}

@@ -6,4 +6,6 @@
 *.probe.json
 __pycache__/
 /testmmd/
+/sessions/
+/projects/
 

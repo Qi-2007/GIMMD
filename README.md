@@ -62,3 +62,5 @@ FufuLauncher 的 Plugins/File 配置只保证加载 DLL；本探测 DLL 需要�
 ## 来源
 
 VMD 解析与采样来自 Better-Endfield 的固定提交，保留了其 EIEM 来源说明；详见 `third_party/better_endfield/UPSTREAM.md`。工程采用 AGPL-3.0-only。运行时观察器引用 FufuLauncher 固定提交的特征掩码与已核对的相机调用方式，使用官方 MinHook v1.3.4；来源分别见 `src/generated/gi_profile.h` 与 `third_party/minhook/UPSTREAM.md`。
+
+[GUI 控制台与相机进展](docs/STUDIO_RESULTS.md)：双击 `start-studio.cmd` 使用播放/暂停、进度、循环、独立会话与工程功能，实机命令链已自动验证。相机已识别 FOV 回调对应的 MainCamera 并通过同回调位置/旋转写入恢复；GUI 目前只提供相机轨道离线预览，持续接管与 FOV 控制待接入。
