@@ -69,9 +69,11 @@ static bool prepare(const vmd::Motion& motion) {
     if (root_mode) for (const auto& track:root_motion::controls) source_used+=unsigned(!track.empty());
     if (!leg_playback::prepare(motion)) return false;
     if (leg_mode) for (const auto& track:leg_playback::foot_keys) source_used+=unsigned(!track.empty());
+    if (toe_mode) for (const auto& track:leg_playback::toe_keys) source_used+=unsigned(!track.empty());
     source_tracks = motion.bones.size(); source_morphs = motion.morphs.size();
     source_cameras = motion.cameras.size(); source_ik = motion.ik.size(); last_frame = motion.last_frame;
     if (leg_mode) for (const auto& track:leg_playback::switches) if (!track.empty()&&source_ik) --source_ik;
+    if (toe_mode) for (const auto& track:leg_playback::toe_switches) if (!track.empty()&&source_ik) --source_ik;
     clock = gimmd::Timeline(double(last_frame)/30);
     state = "source-prepared"; return true;
 }

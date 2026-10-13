@@ -25,6 +25,12 @@ inline constexpr bool LegIkEnabled = true;
 inline constexpr bool LegIkEnabled = false;
 #endif
 static bool leg_mode = LegIkEnabled;
+#ifdef GIMMD_TOE_IK
+inline constexpr bool ToeIkEnabled = true;
+#else
+inline constexpr bool ToeIkEnabled = false;
+#endif
+static bool toe_mode=ToeIkEnabled;
 #ifdef GIMMD_SINGLE_TRACK_PLAYBACK
 inline constexpr bool Enabled = true;
 #else
@@ -62,7 +68,7 @@ static void report(std::ostream& out, bool complete);
 static void configure(uintptr_t base) {
     done.store(!Enabled); started.store(false); dirty.store(false); stop_requested.store(false);
     setter_calls.store(0); result = {}; path_size = model_path_size = 0; loaded = false; keys.clear();
-    multi_mode = MultiEnabled; full_mode = FullBodyEnabled; root_mode = RootMotionEnabled; leg_mode = LegIkEnabled; multi::reset();
+    multi_mode = MultiEnabled; full_mode = FullBodyEnabled; root_mode = RootMotionEnabled; leg_mode = LegIkEnabled; toe_mode=ToeIkEnabled; multi::reset();
     multi::configure_root(base);
     set_local = Enabled ? reinterpret_cast<roundtrip::SetLocalFn>(entry("SetLocalRotation", base)) : nullptr;
     profile_verified = set_local && entry("SetLocalRotationNative", base) && entry("LocalRotationStore", base);

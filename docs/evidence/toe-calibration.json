@@ -1,0 +1,16 @@
+{
+  "mode": "original-toe-calibration",
+  "source": "self-generated; no third-party motion edited",
+  "durationSeconds": 6,
+  "leftToeLiftFrames": [
+    45,
+    60
+  ],
+  "rightToeLiftFrames": [
+    120,
+    135
+  ],
+  "maximumSourceToeLift": 0.5,
+  "audio": "six-second silence",
+  "otherChannels": "neutral reference FK and foot IK; Center zero"
+}

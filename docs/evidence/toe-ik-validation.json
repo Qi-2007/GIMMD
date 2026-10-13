@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-13",
+  "coreChecksPassed": 689,
+  "runtimeChecksPassed": 156,
+  "build": "build-toe-ik-final",
+  "sourceMotionOffline": "toe-ik-motion-offline.json",
+  "calibrationOffline": "toe-ik-calibration-offline.json",
+  "liveToeCalibrationValidated": false,
+  "liveAttempt": "final build UAC canceled; final DLL not loaded",
+  "earlierAttempts": {
+    "initial": "live reference geometry mismatch; zero pose writes",
+    "measured": "metadata scan partial, then Pelvis reference position mismatch; zero pose writes"
+  },
+  "earlierRefusalCleanupAssertionsPassed": true,
+  "sourceMotionEdited": false,
+  "sourcePmxCalibrated": false,
+  "terrainRaycast": false
+}

@@ -70,7 +70,7 @@ python .\scripts\prepare-motion.py "testmmd/It's me x mosi mosi" .\build-multi-n
 | Animator 控制权与停止恢复 | 单轨、十轨通过有界实测 | 长时会话与场景切换验证 |
 | 正式动作重定向 | 目标参考与默认源预设近似的全身 FK 已实测 | 源 PMX 精确校准、IK 和捩骨 |
 | Root/Center/位置轨道 | 视觉骨架根位移已实测，按腿长比例换算并恢复 | [位移实测](ROOT_MOTION_RESULTS.md)；控制骨旋转/枢轴仍未支持 |
-| 腿部/脚尖 IK、捩骨 | 独立双腿 IK、坐标基准与支撑补偿已实测，用户确认自然流畅 | [腿部 IK](LEG_IK_RESULTS.md)；脚尖、捩骨仍未接入 |
+| 腿部/脚尖 IK、捩骨 | 独立双腿 IK、坐标基准与支撑补偿已实测，用户确认自然流畅 | [腿部 IK](LEG_IK_RESULTS.md)；[脚尖 IK](TOE_IK_RESULTS.md) 已实现，最终构建待实机；捩骨未接入 |
 | 暂停、跳转、循环、速率 | 后续已接入并实测暂停、跳转、继续和循环；速率未接入 | 见 [播放会话](PLAYER_SESSION_RESULTS.md) |
 | 表情和眼睛 | 源数据已解析，未写入客户端 | 枚举原神面部驱动与可恢复通道 |
 | 音频与同步 | 后续已接入 WinMM PCM 输出和时间轴联动 | 可听延迟测量、设备变化和生产后端 |

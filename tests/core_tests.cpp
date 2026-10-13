@@ -184,6 +184,38 @@ int wmain(int argc, wchar_t** argv) {
             ik_result.root_correction_y>=-0.25f&&ik_result.clamped==0,"support foot reach did not lower visual root");
         check(lp::support_weight(0)==1&&lp::support_weight(0.1f)==0&&lp::support_weight(0.04f)>0.49f,
             "support blend changed lifted foot into ground constraint");
+        vmd::Quaternion neutral[52]{},toe_pose[52]{};
+        for (unsigned i=0;i<52;++i) neutral[i]=toe_pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        lp::FootSample toe_feet[2]{{true,{}, {0,0.198669331f,0,0.980066578f},0,true,{}},{true,{}, {},0,true,{}}};
+        auto no_toes=toe_feet[0]; no_toes.toe_enabled=false;
+        lp::FootSample base_feet[2]{no_toes,toe_feet[1]}; base_feet[1].toe_enabled=false;
+        lp::Result toe_result{};
+        check(lp::solve(neutral,{},{},base_feet,&ik_result)&&lp::solve(toe_pose,{},{},toe_feet,&toe_result)&&toe_result.toe_solved==2,
+            "neutral toe solve failed");
+        check(toe_pose[12].x==neutral[12].x&&toe_pose[12].y==neutral[12].y&&toe_pose[12].z==neutral[12].z&&toe_pose[12].w==neutral[12].w&&
+            toe_result.toe_corrected==0&&toe_result.maximum_toe_correction_degrees==0,"zero toe offset changed existing ankle rotation");
+        toe_feet[0].toe_offset={0,0.04f,0};
+        for (unsigned i=0;i<52;++i) toe_pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        check(lp::solve(toe_pose,{},{},toe_feet,&toe_result)&&toe_result.toe_corrected==1&&toe_result.maximum_toe_direction_error<1e-5f,
+            "toe aim missed target direction");
+        rig.reset(toe_pose,{}); reference.reset(neutral,{});
+        check(ik::length(ik::sub(rig.world[foot_index].position,reference.world[foot_index].position))<1e-5f,
+            "toe aim displaced solved ankle");
+        const auto ti=gimmd::fk_profile::AvatarIndices[13];
+        check(near(ik::length(ik::sub(rig.world[ti].position,rig.world[foot_index].position)),
+            ik::length(ik::sub(reference.world[ti].position,reference.world[foot_index].position))),"toe aim stretched foot segment");
+        lp::Rig rest_toe{}; rest_toe.reset(nullptr,{});
+        toe_feet[0].toe_offset=ik::sub(rest_toe.world[foot_index].position,rest_toe.world[ti].position);
+        for (unsigned i=0;i<52;++i) toe_pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        check(lp::solve(toe_pose,{},{},toe_feet,&toe_result)&&toe_result.toe_degenerate==1,"degenerate toe target did not retain ankle solve");
+        lp::Geometry measured{}; const unsigned pelvis=gimmd::fk_profile::AvatarIndices[0]; const auto& p_ref=gimmd::fk_profile::AvatarReference[pelvis];
+        measured.active[pelvis]=true; measured.position[pelvis]={p_ref.position[0]+0.00084f,p_ref.position[1],p_ref.position[2]};
+        measured.scale[pelvis]={p_ref.scale[0],p_ref.scale[1],p_ref.scale[2]};
+        for (unsigned i=0;i<52;++i) toe_pose[i]=gimmd::fk_profile::Bindings[i].rest;
+        toe_feet[0].toe_offset={0,0.04f,0};
+        check(lp::solve(toe_pose,{},{},toe_feet,&toe_result,nullptr,&measured)&&toe_result.toe_corrected==1,"measured chain geometry solve failed");
+        rig.reset(toe_pose,{},nullptr,&measured); rest_toe.reset(nullptr,{},nullptr,&measured);
+        check(ik::length(ik::sub(rig.world[foot_index].position,rest_toe.world[foot_index].position))<1e-5f,"measured chain geometry not used for ankle target");
         if(argc==2) {
             std::ofstream file(std::filesystem::path(argv[1]),std::ios::binary);
             file.write(reinterpret_cast<const char*>(bytes.data.data()),static_cast<std::streamsize>(bytes.data.size()));

@@ -358,7 +358,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         std::ofstream report(output, std::ios::trunc);
         if (!report) { busy.store(false); return ERROR_WRITE_FAULT; }
         report << "{\n  \"schemaVersion\": 5,\n  \"pid\": " << GetCurrentProcessId()
-            << ",\n  \"mode\": \"" << (hierarchy::playback::LegIkEnabled ? "canonical-full-body-foot-ik" : hierarchy::playback::RootMotionEnabled ? "canonical-full-body-root-motion" : hierarchy::playback::FullBodyEnabled ? "canonical-full-body-fk" : gimmd::player_session::Enabled ? "controlled-multi-track-preview" : hierarchy::playback::MultiEnabled ? "bounded-multi-track-preview" : hierarchy::playback::Enabled ? "bounded-single-track-playback" :
+            << ",\n  \"mode\": \"" << (hierarchy::playback::ToeIkEnabled ? "canonical-full-body-toe-ik" : hierarchy::playback::LegIkEnabled ? "canonical-full-body-foot-ik" : hierarchy::playback::RootMotionEnabled ? "canonical-full-body-root-motion" : hierarchy::playback::FullBodyEnabled ? "canonical-full-body-fk" : gimmd::player_session::Enabled ? "controlled-multi-track-preview" : hierarchy::playback::MultiEnabled ? "bounded-multi-track-preview" : hierarchy::playback::Enabled ? "bounded-single-track-playback" :
                 hierarchy::animator_observer::toggle::Enabled ? "bounded-animator-toggle" : "bounded-camera-observer")
             << "\",\n  \"executableSha256\": \"" << sha
             << "\",\n  \"buildMatch\": " << (build_match ? "true" : "false")
@@ -605,7 +605,7 @@ static void mock_play_fixture() {
     mock_time = 1.25f; time_fault = 0; message_callback_count.store(3);
 #endif
     namespace p = hierarchy::playback;
-    p::multi_mode = false; p::full_mode = false; p::root_mode = false; p::leg_mode=false; // Exercise the legacy strategy in its existing tests.
+    p::multi_mode = false; p::full_mode = false; p::root_mode = false; p::leg_mode=false; p::toe_mode=false; // Exercise the legacy strategy in its existing tests.
     p::consumed.store(false); p::profile_verified = true; p::set_local = mock_play_set;
     p::done.store(false); p::loaded = true;
     p::keys.resize(3);
@@ -655,12 +655,12 @@ static void __fastcall mock_set_position(void* object,const gimmd::root_translat
     static_cast<MockNode*>(object)->position = *value;
     if (root_fault == 1 && hierarchy::playback::multi::root_motion::calls == 1) RaiseException(0xe0060001,0,0,nullptr);
 }
-static void mock_multi_fixture(bool full = false,bool root = false,bool leg = false) {
+static void mock_multi_fixture(bool full = false,bool root = false,bool leg = false,bool toe = false) {
     mock_hierarchy_reset();
     namespace p = hierarchy::playback;
     p::multi_mode = true; p::consumed.store(false); p::profile_verified = true; p::set_local = mock_play_set;
     p::full_mode = full;
-    p::root_mode = root; p::leg_mode=leg; root_fault = 0;
+    p::root_mode = root; p::leg_mode=leg; p::toe_mode=toe; root_fault = 0;
     p::done.store(false); playback_fault = 0;
     mock_nodes[1].name = mock_nodes[2].name = L"Avatar_Test(Clone)"; mock_nodes[2].active = false;
     mock_nodes[1].count = full ? 52 : 10;
@@ -700,6 +700,14 @@ static void mock_multi_fixture(bool full = false,bool root = false,bool leg = fa
     if (leg) for (unsigned side=0;side<2;++side) {
         auto& control=motion.bones[gimmd::fk_profile::FootTrackNames[side][0]]; control.resize(3);
         for (unsigned i=0;i<3;++i) { control[i].frame=i*30; control[i].position.z=i==1 ? 1.0f:0.0f; }
+    }
+    if (toe) for (unsigned side=0;side<2;++side) {
+        const unsigned mapping=gimmd::leg_pose::Toe[side];
+        const auto& reference=gimmd::fk_profile::AvatarReference[gimmd::fk_profile::AvatarIndices[mapping]];
+        mock_nodes[3+mapping].position={reference.position[0],reference.position[1],reference.position[2]};
+        mock_nodes[3+mapping].scale={reference.scale[0],reference.scale[1],reference.scale[2]};
+        auto& control=motion.bones[gimmd::fk_profile::ToeTrackNames[side][0]]; control.resize(3);
+        for (unsigned i=0;i<3;++i) { control[i].frame=i*30; control[i].position.y=i==1 ? 0.5f:0.0f; }
     }
     p::loaded = p::multi::prepare(motion); mock_lease_prepare(); find_object = mock_find_root;
     if (root) {
@@ -1187,6 +1195,25 @@ int main() {
         mock_multi_fixture(true,true,true); mock_nodes[3+11].position.x+=0.01f; mp::tick(1000);
         check(mp::done.load()&&!mp::setter_calls.load()&&lk::geometry_error>0.009f&&hierarchy::animator_lease::restored,
             "unverified live leg lengths accepted for IK");
+#ifdef GIMMD_TOE_IK
+        mock_multi_fixture(true,true,true,true); mp::tick(1000); mp::tick(2000);
+        check(lk::toe_solved==4 && lk::toe_corrected==2 && lk::toe_direction_error<0.002f,"toe targets not applied after leg solve");
+        mp::tick(3000);
+        check(mp::done.load()&&mp::result.restored&&rm::restored&&hierarchy::animator_lease::restored,"toe playback cleanup failed");
+        mock_multi_fixture(true,true,true,true); lk::toe_switches[0]={{0,false},{30,true}}; mp::tick(1000);
+        check(lk::toe_solved==1&&lk::toe_disabled==1,"toe IK switch ignored");
+        mp::tick(2000); check(lk::toe_solved==3,"toe IK on switch did not resume");
+        mp::stop_requested.store(true); mp::tick(2034);
+        mock_multi_fixture(true,true,true,true); mock_nodes[3+13].position.x+=0.01f; mp::tick(1000);
+        check(mp::done.load()&&!mp::setter_calls.load()&&hierarchy::animator_lease::restored,"unverified toe geometry accepted");
+        mock_multi_fixture(true,true,true,true); mp::tick(1000); playback_fault=3; mp::tick(2000);
+        check(mp::done.load()&&mp::result.restored&&rm::restored&&hierarchy::animator_lease::restored,"toe partial write exception failed cleanup");
+        mock_multi_fixture(true,true,true,true); mock_nodes[3].position.x+=0.005f; mp::tick(1000);
+        check(mp::result.samples==1&&lk::geometry_captured&&lk::adjusted_joints==1,"small live geometry deviation not measured");
+        mock_nodes[3].position.x+=0.0001f; mp::tick(2000);
+        check(mp::done.load()&&mp::result.restored&&rm::restored&&!std::strcmp(lk::status,"live-leg-captured-geometry-changed"),
+            "captured live geometry mutation did not stop and restore");
+#endif
 #endif
 #endif
 #endif

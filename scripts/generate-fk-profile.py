@@ -97,6 +97,10 @@ lines += ['};','inline constexpr unsigned AvatarIndices[] = {'+','.join(str(link
 for side in ('左','右'):
     names = [side+'足ＩＫ',side+'足IK']
     lines.append('    {'+','.join('"'+''.join('\\x%02x'%b for b in name.encode('cp932'))+'"' for name in names)+'},')
+lines += ['};','inline constexpr const char* ToeTrackNames[2][2] = {']
+for side in ('左','右'):
+    names = [side+'つま先ＩＫ',side+'つま先IK']
+    lines.append('    {'+','.join('"'+''.join('\\x%02x'%b for b in name.encode('cp932'))+'"' for name in names)+'},')
 lines += ['};','}']
 (root/'src/generated/fk_profile.h').write_text('\n'.join(lines)+'\n',encoding='utf-8')
 (root/'docs/evidence/fk-binding-profile.json').write_text(json.dumps({'sourcePreset':'EIEM canonical Tda approximation',

@@ -1,4 +1,4 @@
-param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK)
+param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK)
 $ErrorActionPreference = 'Stop'
 if ($PoseRoundTrip -and -not $RuntimeProbe) { throw '-PoseRoundTrip requires -RuntimeProbe.' }
 if ($SingleTrackPlayback -and (-not $RuntimeProbe -or $PoseRoundTrip)) { throw '-SingleTrackPlayback requires -RuntimeProbe and excludes -PoseRoundTrip.' }
@@ -10,6 +10,7 @@ if ($MultiTrackPlayback -and -not $AnimatorLease) { throw '-MultiTrackPlayback r
 if ($PlayerSession -and -not $MultiTrackPlayback) { throw '-PlayerSession requires -MultiTrackPlayback.' }
 if ($BindPoseProbe -and -not ($AnimatorProbe -or $AnimatorLease)) { throw '-BindPoseProbe requires -AnimatorProbe or -AnimatorLease.' }
 if ($FullBodyFK -and -not $MultiTrackPlayback) { throw '-FullBodyFK requires -MultiTrackPlayback.' }
+if ($ToeIK -and -not $LegIK) { throw '-ToeIK requires -LegIK.' }
 if ($LegIK -and -not $RootMotion) { throw '-LegIK requires -RootMotion.' }
 if ($RootMotion -and -not $FullBodyFK) { throw '-RootMotion requires -FullBodyFK.' }
 $taskRoot = Split-Path -Parent $PSScriptRoot
@@ -36,6 +37,7 @@ try {
     if ($FullBodyFK) { $common += '/DGIMMD_FULL_BODY_FK'; if (-not $BindPoseProbe) { $common += '/DGIMMD_BIND_POSE_PROBE' } }
     if ($RootMotion) { $common += '/DGIMMD_ROOT_MOTION' }
     if ($LegIK) { $common += '/DGIMMD_LEG_IK' }
+    if ($ToeIK) { $common += '/DGIMMD_TOE_IK' }
     $probeSource = 'src/windows/probe.cpp'
     $probeObjects = @()
     if ($RuntimeProbe) {
