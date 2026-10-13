@@ -1,6 +1,6 @@
 # GIMMD prototype
 
-原神客户端内 MMD 创作工具原型。当前提供 VMD 检查/采样、统一时间线、Windows 加载诊断、角色骨架观察、绑定预览及显式启用的单骨恢复与限时单轨驱动实验；稳定的可见动作播放、表情及相机控制尚未完成。
+原神客户端内 MMD 创作工具原型。当前提供 VMD 检查/采样、统一时间线、Windows 加载诊断、角色骨架观察、绑定预览及显式启用的单骨恢复与限时单轨驱动实验；全身动作、根位移、腿部/脚尖 IK 与 GUI 播放控制已实机验证；表情、自由相机和 FOV 控制仍待完成。
 
 2026-10-12 已在指定的国服 7.1.0 客户端完成两秒 VMD 单轨采样、43 次写入和停止恢复。此前已验证左上臂 1° 同回调写入/恢复、读取 465 节点完整层级并生成 52 项绑定候选。最新进展见 [单轨驱动实测](docs/SINGLE_TRACK_PLAYBACK_RESULTS.md)，前阶段见 [单骨恢复](docs/SINGLE_BONE_ROUNDTRIP_RESULTS.md)、[骨架与旋转](docs/HIERARCHY_OBSERVER_RESULTS.md)、[相机观察](docs/CAMERA_OBSERVER_RESULTS.md) 和 [加载诊断](docs/FIRST_PROTOTYPE_RESULTS.md)。
 
@@ -17,7 +17,7 @@
 .\scripts\inspect-pe-patterns.ps1 -SelfTest
 ```
 
-最新进展：[全身 FK 与播放卡顿修复](docs/FULL_BODY_FK_RESULTS.md)。已实机完成 52 个目标骨骼、完整旋转幅度与音频联动，使用 EIEM 默认源预设近似和已验证目标参考骨架。共享骨架路径后，每批姿态平均耗时从 43.49 ms 降至 2.59 ms，用户确认“明显改善，基本流畅”；完整播放后全部恢复。后续已接入 [Root/Center 视觉骨架位移](docs/ROOT_MOTION_RESULTS.md)，用户确认“基本自然、流畅”；[独立腿部 IK](docs/LEG_IK_RESULTS.md) 修正版统一坐标基准并加入支撑脚可达补偿，已实机完整播放并恢复，用户反馈“明显改善，整体自然流畅”；限距比例从首版约 32% 降到 2.5%。[脚尖 IK](docs/TOE_IK_RESULTS.md) 已完成自制动作实机校准、实际根高度修正与恢复；用户确认沉地明显改善，斜坡上仍略有下沉，地形适配待实现。表情和相机尚未接入。
+最新进展：[全身 FK 与播放卡顿修复](docs/FULL_BODY_FK_RESULTS.md)。已实机完成 52 个目标骨骼、完整旋转幅度与音频联动，使用 EIEM 默认源预设近似和已验证目标参考骨架。共享骨架路径后，每批姿态平均耗时从 43.49 ms 降至 2.59 ms，用户确认“明显改善，基本流畅”；完整播放后全部恢复。后续已接入 [Root/Center 视觉骨架位移](docs/ROOT_MOTION_RESULTS.md)，用户确认“基本自然、流畅”；[独立腿部 IK](docs/LEG_IK_RESULTS.md) 修正版统一坐标基准并加入支撑脚可达补偿，已实机完整播放并恢复，用户反馈“明显改善，整体自然流畅”；限距比例从首版约 32% 降到 2.5%。[脚尖 IK](docs/TOE_IK_RESULTS.md) 已完成自制动作实机校准、实际根高度修正与恢复；用户确认沉地明显改善，斜坡上仍略有下沉，地形适配待实现。表情待接入；相机位置/旋转轨道已接入时间轴，最终渲染时序仍待确认。
 
 [目标参考骨架恢复](docs/TARGET_REST_POSE_RESULTS.md) 取得 139 条参考骨骼记录，与 Body 的 91 组绑定矩阵交叉验证，52 项目标映射均具备局部参考姿态，包含负缩放处理。
 
@@ -63,4 +63,4 @@ FufuLauncher 的 Plugins/File 配置只保证加载 DLL；本探测 DLL 需要�
 
 VMD 解析与采样来自 Better-Endfield 的固定提交，保留了其 EIEM 来源说明；详见 `third_party/better_endfield/UPSTREAM.md`。工程采用 AGPL-3.0-only。运行时观察器引用 FufuLauncher 固定提交的特征掩码与已核对的相机调用方式，使用官方 MinHook v1.3.4；来源分别见 `src/generated/gi_profile.h` 与 `third_party/minhook/UPSTREAM.md`。
 
-[GUI 控制台与相机进展](docs/STUDIO_RESULTS.md)：双击 `start-studio.cmd` 使用播放/暂停、进度、循环、独立会话与工程功能，实机命令链已自动验证。相机已识别 FOV 回调对应的 MainCamera 并通过同回调位置/旋转写入恢复；GUI 目前只提供相机轨道离线预览，持续接管与 FOV 控制待接入。
+[GUI 控制台与相机进展](docs/STUDIO_RESULTS.md)：双击 `start-studio.cmd` 使用播放/暂停、进度、循环、独立会话与工程功能，实机命令链已自动验证。相机已识别 FOV 回调对应的 MainCamera 并通过同回调位置/旋转写入恢复；GUI 已支持可选相机 VMD 的位置/旋转同步播放、暂停、跳转和停止恢复，首帧对齐当前机位；使用 `build-camera-player` 构建。自动实机数值验证通过，游戏仍会改写相机，最终渲染持有时序与 FOV 控制待完成。

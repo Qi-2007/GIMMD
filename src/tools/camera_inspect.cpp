@@ -20,6 +20,7 @@ int wmain(int argc,wchar_t** argv) {
             !gimmd::camera_pose::evaluate(sample,gimmd::fk_profile::RootMotionScale,{}, {},&pose)) throw std::runtime_error("camera track missing or invalid");
         std::cout<<std::setprecision(9)<<"{\"seconds\":"<<seconds<<",\"cameraKeys\":"<<motion.cameras.size()<<",\"position\":["<<pose.position.x<<','<<pose.position.y<<','<<pose.position.z
             <<"],\"rotation\":["<<pose.rotation.x<<','<<pose.rotation.y<<','<<pose.rotation.z<<','<<pose.rotation.w<<"],\"fov\":"<<pose.fov
+            <<",\"hasOrthographicKeys\":"<<(std::any_of(motion.cameras.begin(),motion.cameras.end(),[](const auto& key){return key.orthographic;}) ? "true":"false")
             <<",\"orthographic\":"<<(pose.orthographic ? "true":"false")<<",\"clientCameraControlled\":false}\n";
         return 0;
     } catch(const std::exception& e) { std::cerr<<e.what()<<'\n'; return 1; }

@@ -1,0 +1,299 @@
+{
+  "cameraPlayback": {
+    "enabled": true,
+    "loaded": true,
+    "status": "camera-stopped-restored",
+    "acquired": true,
+    "restored": true,
+    "cleanupPending": false,
+    "aborted": false,
+    "poseWrites": 231,
+    "retainedSamples": 148,
+    "gameOverwrites": 82,
+    "restoreAttempts": 1,
+    "maxWriteError": 5.96046448e-08,
+    "restoreError": 0,
+    "exception": 0,
+    "lastSampleSeconds": 1.547,
+    "anchor": "initial-camera-pose",
+    "fovWritten": false,
+    "finalRenderVerified": false,
+    "timelineSamples": [
+      {
+        "seconds": 0.016,
+        "epoch": 0,
+        "state": 1,
+        "position": [
+          38.5177956,
+          196.333817,
+          -50.8157158
+        ],
+        "error": 0
+      },
+      {
+        "seconds": 0.687,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          39.552887,
+          196.345901,
+          -49.1916771
+        ],
+        "error": 0
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          39.414566,
+          196.362335,
+          -49.75317
+        ],
+        "error": 5.96046448e-08
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 1,
+        "position": [
+          39.414566,
+          196.362335,
+          -49.75317
+        ],
+        "error": 5.96046448e-08
+      }
+    ]
+  },
+  "session": "E:\\code\\gimmd\\sessions\\20261013-161312-8de88e66",
+  "passed": true,
+  "events": [
+    {
+      "schemaVersion": 2,
+      "sessionToken": 25855847705779,
+      "closed": false,
+      "durationSeconds": 6,
+      "loop": false,
+      "seconds": 0.641,
+      "state": 1,
+      "epoch": 0,
+      "commandSequence": 0,
+      "acknowledgedSequence": 0
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 25855847705779,
+      "closed": false,
+      "durationSeconds": 6,
+      "loop": false,
+      "seconds": 0.687,
+      "state": 2,
+      "epoch": 0,
+      "commandSequence": 1,
+      "acknowledgedSequence": 1
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 25855847705779,
+      "closed": false,
+      "durationSeconds": 6,
+      "loop": false,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 2,
+      "acknowledgedSequence": 2
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 25855847705779,
+      "closed": false,
+      "durationSeconds": 6,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 3,
+      "acknowledgedSequence": 3
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 25855847705779,
+      "closed": false,
+      "durationSeconds": 6,
+      "loop": true,
+      "seconds": 1.547,
+      "state": 1,
+      "epoch": 1,
+      "commandSequence": 4,
+      "acknowledgedSequence": 4
+    }
+  ],
+  "finalStatus": {
+    "schemaVersion": 2,
+    "sessionToken": 25855847705779,
+    "closed": true,
+    "durationSeconds": 6,
+    "loop": true,
+    "seconds": 0,
+    "state": 0,
+    "epoch": 0,
+    "commandSequence": 5,
+    "acknowledgedSequence": 5
+  },
+  "probeReport": "E:\\code\\gimmd\\sessions\\20261013-161312-8de88e66\\gimmd-6020.probe.json",
+  "cameraSamples": [
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          38.4797554,
+          196.331085,
+          -50.8375473
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          38.4797554,
+          196.331085,
+          -50.8375473
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          38.4797554,
+          196.331085,
+          -50.8375473
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          38.4797554,
+          196.331085,
+          -50.8375473
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          38.4797554,
+          196.331085,
+          -50.8375473
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          38.4797554,
+          196.331085,
+          -50.8375473
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          39.552887,
+          196.345901,
+          -49.1916771
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          39.552887,
+          196.345901,
+          -49.1916771
+        ]
+      }
+    ]
+  ]
+}

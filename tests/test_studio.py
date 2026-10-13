@@ -76,6 +76,18 @@ class TransportTests(unittest.TestCase):
         atomic_json(build/'build-manifest.json',{'schemaVersion':1,'playerSession':True,'fullBodyFK':True,'dllSha256':'0'*64})
         with self.assertRaises(ValueError): stage_session(build,ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions')
 
+    def test_camera_staging_and_unsupported_build(self):
+        camera=ROOT/'build-studio/camera-fixture.vmd'
+        with self.assertRaises(ValueError):
+            stage_session(ROOT/'build-studio',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',camera=camera)
+        directory=stage_session(ROOT/'build-camera-player',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',camera=camera)
+        self.assertEqual((directory/'camera.vmd').read_bytes(),camera.read_bytes())
+        self.assertEqual(json.loads((directory/'session.json').read_text())['camera'],str(camera.resolve()))
+        data=bytearray(camera.read_bytes()); data[50+4+4+4+60]=1
+        invalid=self.directory/'orthographic.vmd'; invalid.write_bytes(data)
+        with self.assertRaises(ValueError):
+            stage_session(ROOT/'build-camera-player',ROOT/'build-studio/multi-track.vmd',None,self.directory/'sessions',camera=invalid)
+
     def test_real_buttons_and_layout(self):
         import tkinter as tk
         from player_gui import Studio

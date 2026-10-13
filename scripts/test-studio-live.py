@@ -9,9 +9,11 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src/gui'))
 from session import Controller,atomic_json,stage_session,start_loader
 
-parser=argparse.ArgumentParser(); parser.add_argument('--pid',type=int,required=True); args=parser.parse_args()
-build=ROOT/'build-studio'
-directory=stage_session(build,build/'multi-track.vmd',build/'multi-track.wav',ROOT/'sessions')
+parser=argparse.ArgumentParser(); parser.add_argument('--pid',type=int,required=True)
+parser.add_argument('--build',type=Path,default=ROOT/'build-studio'); parser.add_argument('--camera',type=Path)
+args=parser.parse_args()
+build=args.build.resolve()
+directory=stage_session(build,ROOT/'build-studio/multi-track.vmd',ROOT/'build-studio/multi-track.wav',ROOT/'sessions',camera=args.camera)
 loader=start_loader(directory,args.pid); controller=Controller(directory); events=[]
 deadline=time.monotonic()+65
 def wait(predicate):
@@ -43,10 +45,16 @@ try:
     assert len(m['tracks'])==52 and all(t['restored'] and not t['cleanupPending'] for t in m['tracks'])
     assert m['rootMotion']['restored'] and p['animatorLease']['restored']
     assert report['hookDisabled'] and report['entryBytesRestored'] and report['messageHookRemoved'] and report['playerSession']['audioClosed']
-    result={'session':str(directory),'passed':True,'events':events,'finalStatus':controller.status,
+    if args.camera:
+        camera=report['cameraPlayback']
+        assert camera['loaded'] and camera['acquired'] and camera['restored'] and not camera['cleanupPending']
+        assert not camera['aborted'] and not camera['exception'] and camera['poseWrites']>20
+        assert camera['maxWriteError']<.0001 and camera['restoreError']<.0001
+        assert any(t['state']==2 and t['seconds']==1.5 for t in camera['timelineSamples'])
+    result={'cameraPlayback':report.get('cameraPlayback'),'session':str(directory),'passed':True,'events':events,'finalStatus':controller.status,
             'probeReport':str(directory/f'gimmd-{args.pid}.probe.json'),
             'cameraSamples':[s['cameras'] for s in report['samples']]}
-    atomic_json(ROOT/'docs/evidence/studio-live-validation.json',result)
+    atomic_json(ROOT/('docs/evidence/camera-playback-live-validation.json' if args.camera else 'docs/evidence/studio-live-validation.json'),result)
     print(json.dumps(result,ensure_ascii=True,indent=2))
 finally:
     if loader.poll() is None:

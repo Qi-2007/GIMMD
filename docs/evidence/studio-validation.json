@@ -1,8 +1,8 @@
 {
   "date": "2026-10-13",
-  "guiTestsPassed": 12,
+  "guiTestsPassed": 13,
   "coreChecksPassed": 696,
-  "fullBodyRuntimeChecksPassed": 156,
+  "fullBodyRuntimeChecksPassed": 164,
   "cameraRuntimeChecksPassed": 40,
   "guiLiveValidated": true,
   "guiEvidence": "studio-live-validation.json",
@@ -12,5 +12,9 @@
   "cameraContinuousOwnershipVerified": false,
   "fovControlImplemented": false,
   "visualFeedbackRequired": false,
-  "guiLaunchedWithProject": true
+  "guiLaunchedWithProject": true,
+  "cameraPlaybackLiveValidated": true,
+  "cameraPlaybackEvidence": "camera-playback-live-validation.json",
+  "cameraPoseTimelineVerified": true,
+  "cameraFinalRenderVerified": false
 }

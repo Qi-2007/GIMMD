@@ -34,7 +34,7 @@ def run_tool(arguments):
     return json.loads(result.stdout)
 
 
-def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path):
+def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path, camera: Path | None = None):
     build, motion = build.resolve(), motion.resolve()
     manifest = json.loads((build / 'build-manifest.json').read_text(encoding='utf-8-sig'))
     if manifest.get('schemaVersion') != 1 or not manifest.get('playerSession') or not manifest.get('fullBodyFK'):
@@ -45,6 +45,13 @@ def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path)
     summary = run_tool([build / 'gimmd-vmd.exe', motion, '0'])
     if not summary['boneTracks'] or not 0 < summary['durationSeconds'] <= 86400:
         raise ValueError('动作需要非空骨骼轨道和有效时长')
+    if camera:
+        if not manifest.get("cameraPlayback"):
+            raise ValueError("该构建未启用相机播放")
+        camera = camera.resolve()
+        camera_summary = run_tool([build / "gimmd-camera.exe", camera, "0"])
+        if camera_summary.get("hasOrthographicKeys", True):
+            raise ValueError("暂不支持包含正交投影的相机轨道")
     if audio:
         import wave
         if audio.stat().st_size > 64 << 20:
@@ -61,8 +68,10 @@ def stage_session(build: Path, motion: Path, audio: Path | None, sessions: Path)
         shutil.copy2(motion, target / 'multi-track.vmd')
         if audio:
             shutil.copy2(audio.resolve(), target / 'multi-track.wav')
+        if camera:
+            shutil.copy2(camera, target / 'camera.vmd')
         atomic_json(target / 'session.json', {'schemaVersion': 1, 'motion': str(motion),
-            'audio': str(audio.resolve()) if audio else None, 'build': str(build),
+            'audio': str(audio.resolve()) if audio else None, 'camera': str(camera) if camera else None, 'build': str(build),
             'durationSeconds': summary['durationSeconds'], 'createdAt': time.time()})
     except Exception:
         # Preserve the failed directory for diagnosis; it has never been loaded.

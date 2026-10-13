@@ -24,18 +24,19 @@ class Studio:
         style = ttk.Style(root); style.theme_use('clam')
         style.configure('TFrame', background='#f4f6f9'); style.configure('TLabel', background='#f4f6f9', font=('Microsoft YaHei UI', 10))
         style.configure('TButton', font=('Microsoft YaHei UI', 10), padding=(12, 7))
-        self.build = tk.StringVar(value=str(ROOT / 'build-studio'))
+        self.build = tk.StringVar(value=str(ROOT / 'build-camera-player'))
         self.motion = tk.StringVar(); self.audio = tk.StringVar(); self.camera = tk.StringVar()
+        self.camera_enabled = tk.BooleanVar(value=False)
         self.pid = tk.StringVar(); self.position = tk.StringVar(value='0.000')
         self.state = tk.StringVar(value='选择动作和构建目录，或连接正在运行的会话。')
         self.clock = tk.StringVar(value='00:00.000 / 00:00.000'); self.loop = tk.BooleanVar()
-        self.camera_result = tk.StringVar(value='相机轨道可离线预览；客户端相机接管尚未启用。')
+        self.camera_result = tk.StringVar(value='启用后与动作同步播放；首帧对齐当前机位，停止时恢复位置与旋转。FOV 暂不接管。')
         container = ttk.Frame(root, padding=22); container.pack(fill='both', expand=True)
         ttk.Label(container, text='GIMMD', font=('Segoe UI', 22, 'bold')).pack(anchor='w')
         ttk.Label(container, text='动作、时间轴与拍摄素材 · 当前角色支持男主').pack(anchor='w', pady=(0, 12))
         notebook = ttk.Notebook(container); notebook.pack(fill='both', expand=True)
         playback = ttk.Frame(notebook, padding=14); camera_tab = ttk.Frame(notebook, padding=14)
-        notebook.add(playback, text='动作与播放'); notebook.add(camera_tab, text='相机轨道预览')
+        notebook.add(playback, text='动作与播放'); notebook.add(camera_tab, text='相机轨道')
         playback.columnconfigure(1, weight=1)
         for row, (title, variable, kind) in enumerate([('构建目录', self.build, 'build'), ('动作 VMD', self.motion, 'motion'), ('音频 WAV', self.audio, 'audio')]):
             ttk.Label(playback, text=title).grid(row=row, column=0, sticky='w', padx=(0, 10), pady=5)
@@ -68,6 +69,7 @@ class Studio:
         row = ttk.Frame(camera_tab); row.pack(fill='x', pady=10)
         ttk.Entry(row, textvariable=self.camera).pack(side='left', fill='x', expand=True)
         ttk.Button(row, text='选择', command=lambda: self.browse(self.camera, 'motion')).pack(side='left', padx=8)
+        ttk.Checkbutton(camera_tab, text='在新会话中启用此相机轨道（位置与旋转）', variable=self.camera_enabled).pack(anchor='w', pady=8)
         time_row=ttk.Frame(camera_tab); time_row.pack(anchor='w',pady=8)
         ttk.Label(time_row,text='时间（秒）').pack(side='left')
         ttk.Entry(time_row,textvariable=self.position,width=12).pack(side='left',padx=8)
@@ -113,10 +115,13 @@ class Studio:
         try:
             build, motion = Path(self.build.get()), Path(self.motion.get()); pid = int(self.pid.get())
             audio = Path(self.audio.get()) if self.audio.get().strip() else None
+            if self.camera_enabled.get() and not self.camera.get().strip():
+                raise ValueError('请选择相机 VMD')
+            camera = Path(self.camera.get()) if self.camera_enabled.get() else None
         except Exception as exc: self.error(exc); return
         self.state.set('正在准备新会话…')
         def launch():
-            directory = stage_session(build, motion, audio, ROOT / 'sessions')
+            directory = stage_session(build, motion, audio, ROOT / 'sessions', camera=camera)
             loader = start_loader(directory, pid)
             return ('session', directory, loader)
         self.background(launch)
@@ -165,7 +170,10 @@ class Studio:
                     try:
                         report = json.loads(reports[0].read_text(encoding='utf-8-sig'))
                         result = report.get('singleTrackPlayback', {})
-                        self.state.set('会话结束，姿态已恢复' if result.get('localRestored') and not result.get('cleanupPending') else
+                        camera = report.get('cameraPlayback', {})
+                        if camera.get('cleanupPending') or camera.get('aborted'):
+                            self.state.set('相机：' + camera.get('status', '恢复待确认'))
+                        else: self.state.set('会话结束，姿态已恢复' if result.get('localRestored') and not result.get('cleanupPending') else
                                        '会话结束：' + result.get('status', report.get('status', '未知状态')))
                     except (OSError, ValueError): pass
         if self.close_pending:
@@ -190,7 +198,7 @@ class Studio:
     def save_project(self):
         value = filedialog.asksaveasfilename(parent=self.root, defaultextension='.json', filetypes=[('GIMMD 工程', '*.json')])
         if value:
-            try: atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get()})
+            try: atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get()})
             except Exception as exc: self.error(exc)
 
     def open_project(self):
@@ -204,6 +212,9 @@ class Studio:
             if project.get('schemaVersion') != 1: raise ValueError('不支持的工程格式')
             if any(not isinstance(project.get(name,''),str) for name in ['build','motion','audio','camera']):
                 raise ValueError('工程路径格式无效')
+            if type(project.get('cameraEnabled', False)) is not bool:
+                raise ValueError('工程相机开关无效')
+            self.camera_enabled.set(project.get('cameraEnabled', False))
             for name in ['build', 'motion', 'audio', 'camera']:
                 getattr(self, name).set(project.get(name, ''))
         except Exception as exc: self.error(exc)

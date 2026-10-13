@@ -1,5 +1,6 @@
-param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK, [switch]$CameraRoundTrip)
+﻿param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK, [switch]$CameraRoundTrip, [switch]$CameraPlayback)
 $ErrorActionPreference = 'Stop'
+if ($CameraPlayback -and (-not $PlayerSession -or $CameraRoundTrip)) { throw '-CameraPlayback requires -PlayerSession and excludes -CameraRoundTrip.' }
 if ($CameraRoundTrip -and (-not $RuntimeProbe -or $SingleTrackPlayback -or $PoseRoundTrip -or $AnimatorToggle)) { throw '-CameraRoundTrip requires a read-only -RuntimeProbe build.' }
 if ($PoseRoundTrip -and -not $RuntimeProbe) { throw '-PoseRoundTrip requires -RuntimeProbe.' }
 if ($SingleTrackPlayback -and (-not $RuntimeProbe -or $PoseRoundTrip)) { throw '-SingleTrackPlayback requires -RuntimeProbe and excludes -PoseRoundTrip.' }
@@ -40,6 +41,7 @@ try {
     if ($LegIK) { $common += '/DGIMMD_LEG_IK' }
     if ($ToeIK) { $common += '/DGIMMD_TOE_IK' }
     if ($CameraRoundTrip) { $common += '/DGIMMD_CAMERA_ROUNDTRIP' }
+    if ($CameraPlayback) { $common += '/DGIMMD_CAMERA_PLAYBACK' }
     $probeSource = 'src/windows/probe.cpp'
     $probeObjects = @()
     if ($RuntimeProbe) {
@@ -73,7 +75,7 @@ try {
     }
     $taskManifest = [ordered]@{
         schemaVersion=1; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
-        rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
+        cameraPlayback=[bool]$CameraPlayback; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
         dllSha256=(Get-FileHash -LiteralPath './gimmd-probe.dll' -Algorithm SHA256).Hash
         loaderSha256=(Get-FileHash -LiteralPath './gimmd-inject-probe.exe' -Algorithm SHA256).Hash
     }

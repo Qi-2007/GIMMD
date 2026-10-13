@@ -147,6 +147,8 @@ static BOOL CALLBACK find_window(HWND window, LPARAM) {
 
 #include "hierarchy_observer.h"
 #include "camera_roundtrip.h"
+#include "core/camera_pose.h"
+#include "camera_playback.h"
 
 // Keep SEH in POD-only leaf functions; exception means stop engine sampling.
 static bool capture(Reading* out,void* fov_target=nullptr) {
@@ -217,12 +219,14 @@ static int __fastcall observe_fov(void* object, float fov) {
                 last_sample_time = now;
             }
             hierarchy::playback::tick(now);
+            camera_playback::tick(object);
             callback_reentrant = false;
         }
         else if (!callback_reentrant && accepting.load() && (hierarchy::playback::dirty.load() || hierarchy::time_control::dirty.load() || hierarchy::animator_lease::dirty.load())) {
             callback_reentrant = true;
             hierarchy::playback::stop_requested.store(true);
             hierarchy::playback::tick(GetTickCount64());
+                camera_playback::tick();
             callback_reentrant = false;
         }
     }
@@ -244,6 +248,7 @@ static LRESULT CALLBACK observe_message(int code, WPARAM removed, LPARAM data) {
                 message_callback_count.fetch_add(1);
                 if (engine_error.load()) hierarchy::playback::stop_requested.store(true);
                 hierarchy::playback::tick(GetTickCount64());
+                camera_playback::tick();
                 callback_reentrant = false;
             }
         }
@@ -269,6 +274,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         hierarchy::configure(base, sha);
         camera_experiment::configure(base);
         gimmd::player_session::initialize(std::filesystem::path(dll_path).parent_path());
+        camera_playback::configure(base,std::filesystem::path(dll_path).parent_path());
         if (hierarchy::configured) hierarchy::playback::load(std::filesystem::path(dll_path).parent_path() /
             (hierarchy::playback::MultiEnabled ? L"multi-track.vmd" : L"single-track.vmd"));
         std::string status = "build-mismatch";
@@ -330,13 +336,13 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
                                 hierarchy::playback::stop_requested.store(true);
                                 gimmd::player_session::close_audio();
                                 const auto cleanup_deadline = GetTickCount64() + 1000;
-                                while (hierarchy::playback::started.load() && !hierarchy::playback::done.load() &&
+                                while (((hierarchy::playback::started.load() && !hierarchy::playback::done.load()) || camera_playback::dirty.load()) &&
                                     GetTickCount64() < cleanup_deadline) {
                                     if (message_hook) PostThreadMessageW(window_thread, PlaybackMessage, reinterpret_cast<WPARAM>(self_module), 0);
                                     Sleep(10);
                                 }
                             }
-                            const bool cleanup_pending = hierarchy::playback::started.load() && !hierarchy::playback::done.load();
+                            const bool cleanup_pending = (hierarchy::playback::started.load() && !hierarchy::playback::done.load()) || camera_playback::dirty.load();
                             if (!cleanup_pending) accepting.store(false);
                             disable_status = cleanup_pending ? -1 : MH_DisableHook(reinterpret_cast<void*>(fov));
                             disabled = disable_status == MH_OK || disable_status == MH_ERROR_DISABLED;
@@ -348,7 +354,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
                             uint8_t after[32]{};
                             restored = disabled && read_bytes(fov, after, sizeof(after)) &&
                                 !std::memcmp(original_bytes, after, sizeof(after));
-                            permanently_closed = !restored || !message_unhooked || active_calls.load() != 0 || hierarchy::roundtrip::failed() || hierarchy::animator_observer::toggle::failed() || camera_experiment::failed();
+                            permanently_closed = !restored || !message_unhooked || active_calls.load() != 0 || hierarchy::roundtrip::failed() || hierarchy::animator_observer::toggle::failed() || camera_experiment::failed() || camera_playback::dirty.load();
                             if (cleanup_pending) status = "playback-cleanup-pending-hook-retained";
                             else if (!restored) status = "hook-restoration-failed";
                             else if (hierarchy::roundtrip::failed()) status = "pose-restoration-failed";
@@ -382,7 +388,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
             << "\",\n  \"executableSha256\": \"" << sha
             << "\",\n  \"buildMatch\": " << (build_match ? "true" : "false")
             << ",\n  \"status\": \"" << status << "\",\n  \"settersCalled\": "
-            << (hierarchy::roundtrip::setter_calls.load() || hierarchy::playback::setter_calls.load() || hierarchy::time_control::setter_calls.load() || hierarchy::animator_observer::toggle::setter_calls.load() || hierarchy::animator_lease::setter_calls.load() || camera_experiment::result.calls ? "true" : "false") << ','
+            << (hierarchy::roundtrip::setter_calls.load() || hierarchy::playback::setter_calls.load() || hierarchy::time_control::setter_calls.load() || hierarchy::animator_observer::toggle::setter_calls.load() || hierarchy::animator_lease::setter_calls.load() || camera_experiment::result.calls || camera_playback::writes ? "true" : "false") << ','
             << "\n  \"windowThread\": " << window_thread << ",\n  \"lastCallbackThread\": " << last_callback_thread.load()
             << ",\n  \"callbackCount\": " << callback_count.load() << ",\n  \"windowThreadCallbackCount\": " << window_callback_count.load()
             << ",\n  \"engineException\": " << engine_error.load() << ",\n  \"hookInstalled\": " << (installed ? "true" : "false")
@@ -433,15 +439,16 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         hierarchy::animator_observer::report(report);
         gimmd::player_session::report(report);
         camera_experiment::report(report);
+        camera_playback::report(report);
         report << "\n}\n"; report.flush();
         busy.store(false);
-        return report && !hierarchy::roundtrip::failed() && !hierarchy::animator_observer::toggle::failed() && !camera_experiment::failed() && !hierarchy::playback::dirty.load() &&
+        return report && !hierarchy::roundtrip::failed() && !hierarchy::animator_observer::toggle::failed() && !camera_experiment::failed() && !camera_playback::dirty.load() && !hierarchy::playback::dirty.load() &&
             !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load() && message_unhooked ? ERROR_SUCCESS : ERROR_WRITE_FAULT;
     } catch (...) {
         gimmd::player_session::close_audio();
         permanently_closed = true;
         hierarchy::playback::stop_requested.store(true);
-        if (!hierarchy::playback::dirty.load() && !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load()) accepting.store(false);
+        if (!hierarchy::playback::dirty.load() && !hierarchy::time_control::dirty.load() && !hierarchy::animator_lease::dirty.load() && !camera_playback::dirty.load()) accepting.store(false);
         busy.store(false);
         return ERROR_UNHANDLED_EXCEPTION;
     }
@@ -518,7 +525,7 @@ static void mock_hierarchy_reset() {
     mock_nodes[0].children[0] = &mock_nodes[1]; mock_nodes[0].children[1] = &mock_nodes[2];
     mock_nodes[1].parent = mock_nodes[2].parent = &mock_nodes[0];
 }
-#ifdef GIMMD_CAMERA_ROUNDTRIP
+#if defined(GIMMD_CAMERA_ROUNDTRIP) || defined(GIMMD_CAMERA_PLAYBACK)
 static unsigned camera_mock_fault=0;
 static void __fastcall camera_mock_position(Vec3* out,void* object) {
     const auto& p=static_cast<MockNode*>(object)->position; *out={p.x,p.y,p.z};
@@ -886,6 +893,38 @@ int main() {
         camera_mock_fixture(2); camera_experiment::run(&mock_nodes[0]);
         check(camera_experiment::failed()&&camera_experiment::result.attempts==8,"camera identity loss not bounded/reported");
         camera_experiment::result={}; camera_experiment::verified=false; get_position=mock_position;
+#endif
+#ifdef GIMMD_CAMERA_PLAYBACK
+        auto camera_setup=[](unsigned fault=0) {
+            camera_mock_fixture(fault);
+            camera_playback::loaded=true; camera_playback::acquired=false; camera_playback::aborted=false;
+            camera_playback::restored=false; camera_playback::dirty.store(false); camera_playback::writes=0;
+            camera_playback::set_position=camera_mock_set_position; camera_playback::set_rotation=camera_mock_set_rotation;
+            camera_playback::keys.resize(2); camera_playback::keys[0]={}; camera_playback::keys[1]={};
+            camera_playback::keys[1].frame=30; camera_playback::keys[1].interest={4,2,1};
+            camera_playback::sample(0,&camera_playback::zero);
+            hierarchy::playback::stop_requested.store(false); hierarchy::playback::done.store(false); engine_error.store(0);
+            gimmd::player_session::frame.store(gimmd::pack_player_frame({0,0,gimmd::PlaybackState::Playing}));
+        };
+        camera_setup(); camera_playback::apply(&mock_nodes[0],123,false);
+        check(!camera_playback::acquired,"camera acquired without FOV callback ownership");
+        camera_playback::apply(&mock_nodes[0],123,true);
+        check(camera_playback::acquired&&mock_nodes[0].position.x==10,"camera first frame changed initial view");
+        gimmd::player_session::frame.store(gimmd::pack_player_frame({1,1,gimmd::PlaybackState::Paused}));
+        camera_playback::apply(&mock_nodes[0],124,false);
+        check(camera_playback::writes==1,"different camera received the original camera pose");
+        camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::writes==2&&std::abs(mock_nodes[0].position.x-10)>0.2f,"paused seek did not move camera");
+        camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::retained>0,"paused camera was not retained");
+        hierarchy::playback::stop_requested.store(true); camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::restored&&!camera_playback::dirty.load()&&mock_nodes[0].position.x==10,"camera stop did not restore baseline");
+        camera_setup(1); camera_playback::apply(&mock_nodes[0],123,true); camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::aborted&&camera_playback::restored&&!camera_playback::dirty.load(),"partial camera mutation exception did not restore");
+        camera_setup(2); camera_playback::apply(&mock_nodes[0],123,true); camera_playback::apply(&mock_nodes[0],123,false);
+        check(camera_playback::dirty.load()&&!camera_playback::restored,"lost camera identity falsely reported restored");
+        camera_playback::dirty.store(false); camera_playback::loaded=false; get_position=mock_position;
+        hierarchy::playback::stop_requested.store(false); hierarchy::playback::done.store(false);
 #endif
         mock_hierarchy_reset();
         hierarchy::capture(&mock_nodes[0]);
