@@ -1,0 +1,398 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "linearWindow": true,
+  "note": "Instruction boundaries and semantics require review; linear windows may include adjacent functions; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x2f3a00",
+      "unwindRange": [
+        "0x2f3a00",
+        "0x2f3a1b"
+      ],
+      "instructions": [
+        {
+          "rva": "0x2f3a00",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x2f3a01",
+          "text": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x2f3a05",
+          "text": "mov rax, rcx"
+        },
+        {
+          "rva": "0x2f3a08",
+          "text": "mov rsi, qword ptr [rsp + 0x50]"
+        },
+        {
+          "rva": "0x2f3a0d",
+          "text": "mov rcx, r8"
+        },
+        {
+          "rva": "0x2f3a10",
+          "text": "call rax"
+        },
+        {
+          "rva": "0x2f3a12",
+          "text": "mov qword ptr [rsi], rax"
+        },
+        {
+          "rva": "0x2f3a15",
+          "text": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x2f3a19",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x2f3a1a",
+          "text": "ret "
+        },
+        {
+          "rva": "0x2f3a1b",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a1c",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a1d",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a1e",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a1f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a20",
+          "text": "mov rax, rcx"
+        },
+        {
+          "rva": "0x2f3a23",
+          "text": "mov rcx, qword ptr [r9]"
+        },
+        {
+          "rva": "0x2f3a26",
+          "text": "mov rdx, qword ptr [rcx]"
+        },
+        {
+          "rva": "0x2f3a29",
+          "text": "mov rcx, r8"
+        },
+        {
+          "rva": "0x2f3a2c",
+          "text": "jmp rax"
+        },
+        {
+          "rva": "0x2f3a2f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a30",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x2f3a31",
+          "text": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x2f3a35",
+          "text": "mov rax, rcx"
+        },
+        {
+          "rva": "0x2f3a38",
+          "text": "mov rsi, qword ptr [rsp + 0x50]"
+        },
+        {
+          "rva": "0x2f3a3d",
+          "text": "mov rcx, qword ptr [r9]"
+        },
+        {
+          "rva": "0x2f3a40",
+          "text": "mov edx, dword ptr [rcx]"
+        },
+        {
+          "rva": "0x2f3a42",
+          "text": "mov rcx, r8"
+        },
+        {
+          "rva": "0x2f3a45",
+          "text": "call rax"
+        },
+        {
+          "rva": "0x2f3a47",
+          "text": "mov qword ptr [rsi], rax"
+        },
+        {
+          "rva": "0x2f3a4a",
+          "text": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x2f3a4e",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x2f3a4f",
+          "text": "ret "
+        },
+        {
+          "rva": "0x2f3a50",
+          "text": "mov rax, rcx"
+        },
+        {
+          "rva": "0x2f3a53",
+          "text": "mov rcx, qword ptr [r9]"
+        },
+        {
+          "rva": "0x2f3a56",
+          "text": "jmp rax"
+        },
+        {
+          "rva": "0x2f3a59",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a5a",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a5b",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a5c",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a5d",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a5e",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a5f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a60",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x2f3a61",
+          "text": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x2f3a65",
+          "text": "mov rax, rcx"
+        },
+        {
+          "rva": "0x2f3a68",
+          "text": "mov rsi, qword ptr [rsp + 0x50]"
+        },
+        {
+          "rva": "0x2f3a6d",
+          "text": "mov rcx, qword ptr [r9]"
+        },
+        {
+          "rva": "0x2f3a70",
+          "text": "mov rcx, qword ptr [rcx]"
+        },
+        {
+          "rva": "0x2f3a73",
+          "text": "call rax"
+        },
+        {
+          "rva": "0x2f3a75",
+          "text": "mov qword ptr [rsi], rax"
+        },
+        {
+          "rva": "0x2f3a78",
+          "text": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x2f3a7c",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x2f3a7d",
+          "text": "ret "
+        },
+        {
+          "rva": "0x2f3a7e",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x2f3a7f",
+          "text": "int3 "
+        }
+      ]
+    },
+    {
+      "rva": "0x19c86230",
+      "unwindRange": null,
+      "instructions": [
+        {
+          "rva": "0x19c86230",
+          "text": "jmp 0x11a13f0",
+          "branchTarget": "0x11a13f0"
+        },
+        {
+          "rva": "0x19c86235",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c86240",
+          "text": "jmp 0x11a1420",
+          "branchTarget": "0x11a1420"
+        },
+        {
+          "rva": "0x19c86245",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c86250",
+          "text": "jmp 0x11a1450",
+          "branchTarget": "0x11a1450"
+        },
+        {
+          "rva": "0x19c86255",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c86260",
+          "text": "jmp 0x11a14a0",
+          "branchTarget": "0x11a14a0"
+        },
+        {
+          "rva": "0x19c86265",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c86270",
+          "text": "jmp 0x11a1500",
+          "branchTarget": "0x11a1500"
+        },
+        {
+          "rva": "0x19c86275",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c86280",
+          "text": "jmp 0x11a1550",
+          "branchTarget": "0x11a1550"
+        },
+        {
+          "rva": "0x19c86285",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c86290",
+          "text": "jmp 0x11a15b0",
+          "branchTarget": "0x11a15b0"
+        },
+        {
+          "rva": "0x19c86295",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c862a0",
+          "text": "jmp 0x11a15c0",
+          "branchTarget": "0x11a15c0"
+        },
+        {
+          "rva": "0x19c862a5",
+          "text": "nop word ptr cs:[rax + rax]"
+        }
+      ]
+    },
+    {
+      "rva": "0x19c888b0",
+      "unwindRange": null,
+      "instructions": [
+        {
+          "rva": "0x19c888b0",
+          "text": "jmp 0x11a3ff0",
+          "branchTarget": "0x11a3ff0"
+        },
+        {
+          "rva": "0x19c888b5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c888c0",
+          "text": "jmp 0x11a4050",
+          "branchTarget": "0x11a4050"
+        },
+        {
+          "rva": "0x19c888c5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c888d0",
+          "text": "jmp 0x11a5470",
+          "branchTarget": "0x11a5470"
+        },
+        {
+          "rva": "0x19c888d5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c888e0",
+          "text": "jmp 0x11a40c0",
+          "branchTarget": "0x11a40c0"
+        },
+        {
+          "rva": "0x19c888e5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c888f0",
+          "text": "jmp 0x11a5090",
+          "branchTarget": "0x11a5090"
+        },
+        {
+          "rva": "0x19c888f5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c88900",
+          "text": "jmp 0x11a50e0",
+          "branchTarget": "0x11a50e0"
+        },
+        {
+          "rva": "0x19c88905",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c88910",
+          "text": "jmp 0x11a5140",
+          "branchTarget": "0x11a5140"
+        },
+        {
+          "rva": "0x19c88915",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c88920",
+          "text": "jmp 0x11a51a0",
+          "branchTarget": "0x11a51a0"
+        },
+        {
+          "rva": "0x19c88925",
+          "text": "nop word ptr cs:[rax + rax]"
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

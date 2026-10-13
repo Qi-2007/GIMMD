@@ -1,0 +1,371 @@
+{
+  "sourcePreset": "EIEM canonical Tda approximation",
+  "sourcePmxCalibrated": false,
+  "targetReferenceSha256": "5BDF0DE35E3034CB5C6987A0C410D4A3A05E2AB4E2FF821ED70153C990F889F9",
+  "bindings": [
+    {
+      "source": "下半身",
+      "target": "Bip001 Pelvis",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "上半身",
+      "target": "Bip001 Spine",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "上半身2",
+      "target": "Bip001 Spine1",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "上半身3",
+      "target": "Bip001 Spine2",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "首",
+      "target": "Bip001 Neck",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "頭",
+      "target": "Bip001 Head",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 1.4510423824117067e-17
+    },
+    {
+      "source": "左肩",
+      "target": "Bip001 L Clavicle",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左腕",
+      "target": "Bip001 L UpperArm",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "左ひじ",
+      "target": "Bip001 L Forearm",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 1.7824283715661693e-16
+    },
+    {
+      "source": "左手首",
+      "target": "Bip001 L Hand",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "左足",
+      "target": "Bip001 L Thigh",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左ひざ",
+      "target": "Bip001 L Calf",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左足首",
+      "target": "Bip001 L Foot",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "左つま先",
+      "target": "Bip001 L Toe0",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左親指０",
+      "target": "Bip001 L Finger0",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左親指１",
+      "target": "Bip001 L Finger01",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "左親指２",
+      "target": "Bip001 L Finger02",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.5673907444456745e-16
+    },
+    {
+      "source": "左人指１",
+      "target": "Bip001 L Finger1",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左人指２",
+      "target": "Bip001 L Finger11",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左人指３",
+      "target": "Bip001 L Finger12",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "source": "左中指１",
+      "target": "Bip001 L Finger2",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左中指２",
+      "target": "Bip001 L Finger21",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "左中指３",
+      "target": "Bip001 L Finger22",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左薬指１",
+      "target": "Bip001 L Finger3",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左薬指２",
+      "target": "Bip001 L Finger31",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "左薬指３",
+      "target": "Bip001 L Finger32",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "source": "左小指１",
+      "target": "Bip001 L Finger4",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "左小指２",
+      "target": "Bip001 L Finger41",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "左小指３",
+      "target": "Bip001 L Finger42",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右肩",
+      "target": "Bip001 R Clavicle",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右腕",
+      "target": "Bip001 R UpperArm",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "右ひじ",
+      "target": "Bip001 R Forearm",
+      "sourcePresetAlignment": "canonical-limb-direction",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右手首",
+      "target": "Bip001 R Hand",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右足",
+      "target": "Bip001 R Thigh",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右ひざ",
+      "target": "Bip001 R Calf",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 1.1102230246251565e-16
+    },
+    {
+      "source": "右足首",
+      "target": "Bip001 R Foot",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右つま先",
+      "target": "Bip001 R Toe0",
+      "sourcePresetAlignment": "canonical-basis",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右親指０",
+      "target": "Bip001 R Finger0",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右親指１",
+      "target": "Bip001 R Finger01",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "右親指２",
+      "target": "Bip001 R Finger02",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右人指１",
+      "target": "Bip001 R Finger1",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右人指２",
+      "target": "Bip001 R Finger11",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "source": "右人指３",
+      "target": "Bip001 R Finger12",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 2.220446049250313e-16
+    },
+    {
+      "source": "右中指１",
+      "target": "Bip001 R Finger2",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右中指２",
+      "target": "Bip001 R Finger21",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 4.440892098500626e-16
+    },
+    {
+      "source": "右中指３",
+      "target": "Bip001 R Finger22",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右薬指１",
+      "target": "Bip001 R Finger3",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右薬指２",
+      "target": "Bip001 R Finger31",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "source": "右薬指３",
+      "target": "Bip001 R Finger32",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 5.551115123125783e-16
+    },
+    {
+      "source": "右小指１",
+      "target": "Bip001 R Finger4",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右小指２",
+      "target": "Bip001 R Finger41",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    },
+    {
+      "source": "右小指３",
+      "target": "Bip001 R Finger42",
+      "sourcePresetAlignment": "canonical-wrist-frame",
+      "signedParentFrame": false,
+      "axesOrthogonalityError": 3.3306690738754696e-16
+    }
+  ]
+}

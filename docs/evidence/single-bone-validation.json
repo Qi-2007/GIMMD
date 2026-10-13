@@ -1,0 +1,33 @@
+{
+  "coreChecksPassed": 657,
+  "finalExperimentalChecksPassed": 46,
+  "worldRestored": true,
+  "localRestored": true,
+  "stage": "single-bone-local-rotation-roundtrip",
+  "hookDisabled": true,
+  "artifacts": [
+    {
+      "bytes": 814080,
+      "sha256": "D2F529D9BEDEC3D52F2EC5BD035C66C6BE13A7C8B92CD5C1E543639E9D470DB8",
+      "file": "E:\\code\\gimmd\\build-pose-roundtrip\\gimmd-probe.dll"
+    },
+    {
+      "bytes": 814592,
+      "sha256": "ADEF58BDAEDCD660B5E71A6BEC5026AFA1F3A7CAD43EE1CB5435FD6DEE05E011",
+      "file": "E:\\code\\gimmd\\build-pose-final\\gimmd-probe.dll"
+    },
+    {
+      "bytes": 814592,
+      "sha256": "433355E537E10C5A14F5A8FD997F53DEF4DF59507D49D2DEB75A6C3EDC3D1324",
+      "file": "E:\\code\\gimmd\\build-readonly-final\\gimmd-probe.dll"
+    }
+  ],
+  "liveBuildObserverChecksPassed": 45,
+  "entryBytesRestored": true,
+  "setterCalls": 2,
+  "bindPreviewTestsPassed": 8,
+  "poseStatus": "single-bone-roundtrip-restored",
+  "gamePid": 9620,
+  "finalReadOnlyChecksPassed": 33,
+  "date": "2026-10-12"
+}

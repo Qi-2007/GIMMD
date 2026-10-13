@@ -1,0 +1,876 @@
+{
+  "schemaVersion": 1,
+  "mode": "offline-bind-preview",
+  "executableSha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "snapshotPid": 9620,
+  "suggestedActorNodeId": 1,
+  "selectionBasis": "unique upstream-active AvatarRoot child in this snapshot; rendering identity not proven",
+  "writeEnabled": false,
+  "bindPoseCalibrated": false,
+  "note": "Node IDs expire with this snapshot. Observed idle rotations are not a bind pose. Spine allocation remains provisional.",
+  "virtualChannels": [
+    "全ての親",
+    "センター",
+    "グルーブ",
+    "腰"
+  ],
+  "unsupportedChannels": [
+    "足IK",
+    "つま先IK",
+    "腕捩",
+    "手捩",
+    "表情"
+  ],
+  "actors": [
+    {
+      "actorNodeId": 1,
+      "name": "Avatar_Boy_Sword_PlayerBoy(Clone)",
+      "upstreamActive": true,
+      "descendantCount": 273,
+      "uniqueBindingCount": 52,
+      "bindings": [
+        {
+          "mmdName": "下半身",
+          "mmdCp932Hex": "89ba94bc9067",
+          "targetName": "Bip001 Pelvis",
+          "status": "unique",
+          "nodeId": 82,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "上半身",
+          "mmdCp932Hex": "8fe394bc9067",
+          "targetName": "Bip001 Spine",
+          "status": "unique",
+          "nodeId": 98,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "上半身2",
+          "mmdCp932Hex": "8fe394bc906732",
+          "targetName": "Bip001 Spine1",
+          "status": "unique",
+          "nodeId": 106,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "上半身3",
+          "mmdCp932Hex": "8fe394bc906733",
+          "targetName": "Bip001 Spine2",
+          "status": "unique",
+          "nodeId": 122,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "首",
+          "mmdCp932Hex": "8ef1",
+          "targetName": "Bip001 Neck",
+          "status": "unique",
+          "nodeId": 144,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "頭",
+          "mmdCp932Hex": "93aa",
+          "targetName": "Bip001 Head",
+          "status": "unique",
+          "nodeId": 175,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左肩",
+          "mmdCp932Hex": "8db68ca8",
+          "targetName": "Bip001 L Clavicle",
+          "status": "unique",
+          "nodeId": 143,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左腕",
+          "mmdCp932Hex": "8db69872",
+          "targetName": "Bip001 L UpperArm",
+          "status": "unique",
+          "nodeId": 174,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左ひじ",
+          "mmdCp932Hex": "8db682d082b6",
+          "targetName": "Bip001 L Forearm",
+          "status": "unique",
+          "nodeId": 200,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左手首",
+          "mmdCp932Hex": "8db68ee88ef1",
+          "targetName": "Bip001 L Hand",
+          "status": "unique",
+          "nodeId": 257,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左足",
+          "mmdCp932Hex": "8db691ab",
+          "targetName": "Bip001 L Thigh",
+          "status": "unique",
+          "nodeId": 96,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左ひざ",
+          "mmdCp932Hex": "8db682d082b4",
+          "targetName": "Bip001 L Calf",
+          "status": "unique",
+          "nodeId": 102,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左足首",
+          "mmdCp932Hex": "8db691ab8ef1",
+          "targetName": "Bip001 L Foot",
+          "status": "unique",
+          "nodeId": 114,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左つま先",
+          "mmdCp932Hex": "8db682c282dc90e6",
+          "targetName": "Bip001 L Toe0",
+          "status": "unique",
+          "nodeId": 134,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左親指０",
+          "mmdCp932Hex": "8db690658e77824f",
+          "targetName": "Bip001 L Finger0",
+          "status": "unique",
+          "nodeId": 304,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左親指１",
+          "mmdCp932Hex": "8db690658e778250",
+          "targetName": "Bip001 L Finger01",
+          "status": "unique",
+          "nodeId": 350,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左親指２",
+          "mmdCp932Hex": "8db690658e778251",
+          "targetName": "Bip001 L Finger02",
+          "status": "unique",
+          "nodeId": 385,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左人指１",
+          "mmdCp932Hex": "8db6906c8e778250",
+          "targetName": "Bip001 L Finger1",
+          "status": "unique",
+          "nodeId": 305,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左人指２",
+          "mmdCp932Hex": "8db6906c8e778251",
+          "targetName": "Bip001 L Finger11",
+          "status": "unique",
+          "nodeId": 351,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左人指３",
+          "mmdCp932Hex": "8db6906c8e778252",
+          "targetName": "Bip001 L Finger12",
+          "status": "unique",
+          "nodeId": 386,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左中指１",
+          "mmdCp932Hex": "8db692868e778250",
+          "targetName": "Bip001 L Finger2",
+          "status": "unique",
+          "nodeId": 306,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左中指２",
+          "mmdCp932Hex": "8db692868e778251",
+          "targetName": "Bip001 L Finger21",
+          "status": "unique",
+          "nodeId": 352,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左中指３",
+          "mmdCp932Hex": "8db692868e778252",
+          "targetName": "Bip001 L Finger22",
+          "status": "unique",
+          "nodeId": 387,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左薬指１",
+          "mmdCp932Hex": "8db696f28e778250",
+          "targetName": "Bip001 L Finger3",
+          "status": "unique",
+          "nodeId": 307,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左薬指２",
+          "mmdCp932Hex": "8db696f28e778251",
+          "targetName": "Bip001 L Finger31",
+          "status": "unique",
+          "nodeId": 353,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左薬指３",
+          "mmdCp932Hex": "8db696f28e778252",
+          "targetName": "Bip001 L Finger32",
+          "status": "unique",
+          "nodeId": 388,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左小指１",
+          "mmdCp932Hex": "8db68fac8e778250",
+          "targetName": "Bip001 L Finger4",
+          "status": "unique",
+          "nodeId": 308,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左小指２",
+          "mmdCp932Hex": "8db68fac8e778251",
+          "targetName": "Bip001 L Finger41",
+          "status": "unique",
+          "nodeId": 354,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左小指３",
+          "mmdCp932Hex": "8db68fac8e778252",
+          "targetName": "Bip001 L Finger42",
+          "status": "unique",
+          "nodeId": 389,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右肩",
+          "mmdCp932Hex": "89458ca8",
+          "targetName": "Bip001 R Clavicle",
+          "status": "unique",
+          "nodeId": 145,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右腕",
+          "mmdCp932Hex": "89459872",
+          "targetName": "Bip001 R UpperArm",
+          "status": "unique",
+          "nodeId": 177,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右ひじ",
+          "mmdCp932Hex": "894582d082b6",
+          "targetName": "Bip001 R Forearm",
+          "status": "unique",
+          "nodeId": 218,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右手首",
+          "mmdCp932Hex": "89458ee88ef1",
+          "targetName": "Bip001 R Hand",
+          "status": "unique",
+          "nodeId": 268,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右足",
+          "mmdCp932Hex": "894591ab",
+          "targetName": "Bip001 R Thigh",
+          "status": "unique",
+          "nodeId": 97,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右ひざ",
+          "mmdCp932Hex": "894582d082b4",
+          "targetName": "Bip001 R Calf",
+          "status": "unique",
+          "nodeId": 104,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右足首",
+          "mmdCp932Hex": "894591ab8ef1",
+          "targetName": "Bip001 R Foot",
+          "status": "unique",
+          "nodeId": 118,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右つま先",
+          "mmdCp932Hex": "894582c282dc90e6",
+          "targetName": "Bip001 R Toe0",
+          "status": "unique",
+          "nodeId": 136,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右親指０",
+          "mmdCp932Hex": "894590658e77824f",
+          "targetName": "Bip001 R Finger0",
+          "status": "unique",
+          "nodeId": 313,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右親指１",
+          "mmdCp932Hex": "894590658e778250",
+          "targetName": "Bip001 R Finger01",
+          "status": "unique",
+          "nodeId": 357,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右親指２",
+          "mmdCp932Hex": "894590658e778251",
+          "targetName": "Bip001 R Finger02",
+          "status": "unique",
+          "nodeId": 390,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右人指１",
+          "mmdCp932Hex": "8945906c8e778250",
+          "targetName": "Bip001 R Finger1",
+          "status": "unique",
+          "nodeId": 314,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右人指２",
+          "mmdCp932Hex": "8945906c8e778251",
+          "targetName": "Bip001 R Finger11",
+          "status": "unique",
+          "nodeId": 358,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右人指３",
+          "mmdCp932Hex": "8945906c8e778252",
+          "targetName": "Bip001 R Finger12",
+          "status": "unique",
+          "nodeId": 391,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右中指１",
+          "mmdCp932Hex": "894592868e778250",
+          "targetName": "Bip001 R Finger2",
+          "status": "unique",
+          "nodeId": 315,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右中指２",
+          "mmdCp932Hex": "894592868e778251",
+          "targetName": "Bip001 R Finger21",
+          "status": "unique",
+          "nodeId": 359,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右中指３",
+          "mmdCp932Hex": "894592868e778252",
+          "targetName": "Bip001 R Finger22",
+          "status": "unique",
+          "nodeId": 392,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右薬指１",
+          "mmdCp932Hex": "894596f28e778250",
+          "targetName": "Bip001 R Finger3",
+          "status": "unique",
+          "nodeId": 316,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右薬指２",
+          "mmdCp932Hex": "894596f28e778251",
+          "targetName": "Bip001 R Finger31",
+          "status": "unique",
+          "nodeId": 360,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右薬指３",
+          "mmdCp932Hex": "894596f28e778252",
+          "targetName": "Bip001 R Finger32",
+          "status": "unique",
+          "nodeId": 393,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右小指１",
+          "mmdCp932Hex": "89458fac8e778250",
+          "targetName": "Bip001 R Finger4",
+          "status": "unique",
+          "nodeId": 317,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右小指２",
+          "mmdCp932Hex": "89458fac8e778251",
+          "targetName": "Bip001 R Finger41",
+          "status": "unique",
+          "nodeId": 361,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右小指３",
+          "mmdCp932Hex": "89458fac8e778252",
+          "targetName": "Bip001 R Finger42",
+          "status": "unique",
+          "nodeId": 394,
+          "rotationRelationVerified": true
+        }
+      ]
+    },
+    {
+      "actorNodeId": 2,
+      "name": "Avatar_Boy_Sword_PlayerBoy(Clone)",
+      "upstreamActive": false,
+      "descendantCount": 191,
+      "uniqueBindingCount": 52,
+      "bindings": [
+        {
+          "mmdName": "下半身",
+          "mmdCp932Hex": "89ba94bc9067",
+          "targetName": "Bip001 Pelvis",
+          "status": "unique",
+          "nodeId": 90,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "上半身",
+          "mmdCp932Hex": "8fe394bc9067",
+          "targetName": "Bip001 Spine",
+          "status": "unique",
+          "nodeId": 101,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "上半身2",
+          "mmdCp932Hex": "8fe394bc906732",
+          "targetName": "Bip001 Spine1",
+          "status": "unique",
+          "nodeId": 112,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "上半身3",
+          "mmdCp932Hex": "8fe394bc906733",
+          "targetName": "Bip001 Spine2",
+          "status": "unique",
+          "nodeId": 132,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "首",
+          "mmdCp932Hex": "8ef1",
+          "targetName": "Bip001 Neck",
+          "status": "unique",
+          "nodeId": 160,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "頭",
+          "mmdCp932Hex": "93aa",
+          "targetName": "Bip001 Head",
+          "status": "unique",
+          "nodeId": 186,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左肩",
+          "mmdCp932Hex": "8db68ca8",
+          "targetName": "Bip001 L Clavicle",
+          "status": "unique",
+          "nodeId": 159,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左腕",
+          "mmdCp932Hex": "8db69872",
+          "targetName": "Bip001 L UpperArm",
+          "status": "unique",
+          "nodeId": 185,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左ひじ",
+          "mmdCp932Hex": "8db682d082b6",
+          "targetName": "Bip001 L Forearm",
+          "status": "unique",
+          "nodeId": 227,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左手首",
+          "mmdCp932Hex": "8db68ee88ef1",
+          "targetName": "Bip001 L Hand",
+          "status": "unique",
+          "nodeId": 276,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左足",
+          "mmdCp932Hex": "8db691ab",
+          "targetName": "Bip001 L Thigh",
+          "status": "unique",
+          "nodeId": 99,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左ひざ",
+          "mmdCp932Hex": "8db682d082b4",
+          "targetName": "Bip001 L Calf",
+          "status": "unique",
+          "nodeId": 108,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左足首",
+          "mmdCp932Hex": "8db691ab8ef1",
+          "targetName": "Bip001 L Foot",
+          "status": "unique",
+          "nodeId": 124,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左つま先",
+          "mmdCp932Hex": "8db682c282dc90e6",
+          "targetName": "Bip001 L Toe0",
+          "status": "unique",
+          "nodeId": 150,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左親指０",
+          "mmdCp932Hex": "8db690658e77824f",
+          "targetName": "Bip001 L Finger0",
+          "status": "unique",
+          "nodeId": 323,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左親指１",
+          "mmdCp932Hex": "8db690658e778250",
+          "targetName": "Bip001 L Finger01",
+          "status": "unique",
+          "nodeId": 363,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左親指２",
+          "mmdCp932Hex": "8db690658e778251",
+          "targetName": "Bip001 L Finger02",
+          "status": "unique",
+          "nodeId": 395,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左人指１",
+          "mmdCp932Hex": "8db6906c8e778250",
+          "targetName": "Bip001 L Finger1",
+          "status": "unique",
+          "nodeId": 324,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左人指２",
+          "mmdCp932Hex": "8db6906c8e778251",
+          "targetName": "Bip001 L Finger11",
+          "status": "unique",
+          "nodeId": 364,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左人指３",
+          "mmdCp932Hex": "8db6906c8e778252",
+          "targetName": "Bip001 L Finger12",
+          "status": "unique",
+          "nodeId": 396,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左中指１",
+          "mmdCp932Hex": "8db692868e778250",
+          "targetName": "Bip001 L Finger2",
+          "status": "unique",
+          "nodeId": 325,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左中指２",
+          "mmdCp932Hex": "8db692868e778251",
+          "targetName": "Bip001 L Finger21",
+          "status": "unique",
+          "nodeId": 365,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左中指３",
+          "mmdCp932Hex": "8db692868e778252",
+          "targetName": "Bip001 L Finger22",
+          "status": "unique",
+          "nodeId": 397,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左薬指１",
+          "mmdCp932Hex": "8db696f28e778250",
+          "targetName": "Bip001 L Finger3",
+          "status": "unique",
+          "nodeId": 326,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左薬指２",
+          "mmdCp932Hex": "8db696f28e778251",
+          "targetName": "Bip001 L Finger31",
+          "status": "unique",
+          "nodeId": 366,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左薬指３",
+          "mmdCp932Hex": "8db696f28e778252",
+          "targetName": "Bip001 L Finger32",
+          "status": "unique",
+          "nodeId": 398,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左小指１",
+          "mmdCp932Hex": "8db68fac8e778250",
+          "targetName": "Bip001 L Finger4",
+          "status": "unique",
+          "nodeId": 327,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左小指２",
+          "mmdCp932Hex": "8db68fac8e778251",
+          "targetName": "Bip001 L Finger41",
+          "status": "unique",
+          "nodeId": 367,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "左小指３",
+          "mmdCp932Hex": "8db68fac8e778252",
+          "targetName": "Bip001 L Finger42",
+          "status": "unique",
+          "nodeId": 399,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右肩",
+          "mmdCp932Hex": "89458ca8",
+          "targetName": "Bip001 R Clavicle",
+          "status": "unique",
+          "nodeId": 161,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右腕",
+          "mmdCp932Hex": "89459872",
+          "targetName": "Bip001 R UpperArm",
+          "status": "unique",
+          "nodeId": 188,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右ひじ",
+          "mmdCp932Hex": "894582d082b6",
+          "targetName": "Bip001 R Forearm",
+          "status": "unique",
+          "nodeId": 245,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右手首",
+          "mmdCp932Hex": "89458ee88ef1",
+          "targetName": "Bip001 R Hand",
+          "status": "unique",
+          "nodeId": 287,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右足",
+          "mmdCp932Hex": "894591ab",
+          "targetName": "Bip001 R Thigh",
+          "status": "unique",
+          "nodeId": 100,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右ひざ",
+          "mmdCp932Hex": "894582d082b4",
+          "targetName": "Bip001 R Calf",
+          "status": "unique",
+          "nodeId": 110,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右足首",
+          "mmdCp932Hex": "894591ab8ef1",
+          "targetName": "Bip001 R Foot",
+          "status": "unique",
+          "nodeId": 128,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右つま先",
+          "mmdCp932Hex": "894582c282dc90e6",
+          "targetName": "Bip001 R Toe0",
+          "status": "unique",
+          "nodeId": 152,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右親指０",
+          "mmdCp932Hex": "894590658e77824f",
+          "targetName": "Bip001 R Finger0",
+          "status": "unique",
+          "nodeId": 332,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右親指１",
+          "mmdCp932Hex": "894590658e778250",
+          "targetName": "Bip001 R Finger01",
+          "status": "unique",
+          "nodeId": 370,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右親指２",
+          "mmdCp932Hex": "894590658e778251",
+          "targetName": "Bip001 R Finger02",
+          "status": "unique",
+          "nodeId": 400,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右人指１",
+          "mmdCp932Hex": "8945906c8e778250",
+          "targetName": "Bip001 R Finger1",
+          "status": "unique",
+          "nodeId": 333,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右人指２",
+          "mmdCp932Hex": "8945906c8e778251",
+          "targetName": "Bip001 R Finger11",
+          "status": "unique",
+          "nodeId": 371,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右人指３",
+          "mmdCp932Hex": "8945906c8e778252",
+          "targetName": "Bip001 R Finger12",
+          "status": "unique",
+          "nodeId": 401,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右中指１",
+          "mmdCp932Hex": "894592868e778250",
+          "targetName": "Bip001 R Finger2",
+          "status": "unique",
+          "nodeId": 334,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右中指２",
+          "mmdCp932Hex": "894592868e778251",
+          "targetName": "Bip001 R Finger21",
+          "status": "unique",
+          "nodeId": 372,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右中指３",
+          "mmdCp932Hex": "894592868e778252",
+          "targetName": "Bip001 R Finger22",
+          "status": "unique",
+          "nodeId": 402,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右薬指１",
+          "mmdCp932Hex": "894596f28e778250",
+          "targetName": "Bip001 R Finger3",
+          "status": "unique",
+          "nodeId": 335,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右薬指２",
+          "mmdCp932Hex": "894596f28e778251",
+          "targetName": "Bip001 R Finger31",
+          "status": "unique",
+          "nodeId": 373,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右薬指３",
+          "mmdCp932Hex": "894596f28e778252",
+          "targetName": "Bip001 R Finger32",
+          "status": "unique",
+          "nodeId": 403,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右小指１",
+          "mmdCp932Hex": "89458fac8e778250",
+          "targetName": "Bip001 R Finger4",
+          "status": "unique",
+          "nodeId": 336,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右小指２",
+          "mmdCp932Hex": "89458fac8e778251",
+          "targetName": "Bip001 R Finger41",
+          "status": "unique",
+          "nodeId": 374,
+          "rotationRelationVerified": true
+        },
+        {
+          "mmdName": "右小指３",
+          "mmdCp932Hex": "89458fac8e778252",
+          "targetName": "Bip001 R Finger42",
+          "status": "unique",
+          "nodeId": 404,
+          "rotationRelationVerified": true
+        }
+      ]
+    }
+  ]
+}

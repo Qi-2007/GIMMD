@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-13",
+  "pid": 6020,
+  "coreChecks": 657,
+  "liveLeaseRuntimeChecks": 88,
+  "finalLeaseRuntimeChecks": 92,
+  "controlRuntimeChecks": 56,
+  "readonlyRuntimeChecks": 53,
+  "liveLease": {
+    "samples": 43,
+    "retained": 43,
+    "overwritten": 0,
+    "animatorDisabledChecks": 296,
+    "animatorSetters": 2,
+    "restored": true,
+    "boneRestoreError": 0,
+    "exception": 0,
+    "timeSetters": 0
+  },
+  "liveControl": {
+    "samples": 42,
+    "retained": 0,
+    "overwritten": 42,
+    "restored": true,
+    "boneRestoreError": 0,
+    "exception": 0
+  },
+  "note": "Final source adds assertions and a comment after the live lease build; final DLL was tested but not reinjected. Both live runs restored their state and hooks. Full-body/visual validation remains outstanding.",
+  "files": [
+    {
+      "path": "src/windows/animator_lease.h",
+      "sha256": "C0205CE855F7D15D740E9C06820340556C24623E73B3BE6AB6CED52913D0B6CE"
+    },
+    {
+      "path": "src/windows/single_track_playback.h",
+      "sha256": "3B85F856E22D06EDDFBB908C90E406159BE8BB600FF380AEAFD48655BF4F3E04"
+    },
+    {
+      "path": "src/windows/hierarchy_observer.h",
+      "sha256": "D214CD1D57F0320A46C9832FFE66B9E4F656D2AC4783CBEF3CDD80DED6A13DB1"
+    },
+    {
+      "path": "src/windows/runtime_probe.cpp",
+      "sha256": "FDF2EBA1DDD7497A42778EB7A34746AAFB6A1F84B001103C76B1F657F1825AB3"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "C06ED3CA5C52B7F095EF3BB4B5F9080353DA3CBC09E0BB652383D10128F579AD"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "9A01FEC07CE8ACEF310C2DB6F089B3CA6B69E998EF9EBB17CA0D85C19B65E244"
+    },
+    {
+      "path": "build-animator-lease/gimmd-probe.dll",
+      "sha256": "2FF7ABBA2A515EA30DF37445948AA71EA16A6A3E380DEA7B83C9777BC2EF3246"
+    },
+    {
+      "path": "build-animator-lease-control/gimmd-probe.dll",
+      "sha256": "4F05335E7372DD2A091C6EA32570CDAFD5200987B29F79571D6B6D1389891EE8"
+    },
+    {
+      "path": "build-animator-lease-final/gimmd-probe.dll",
+      "sha256": "A7F88DFC4E05A4317E502E8CBD01A94910A19FB5A2598ECA77AC9FA53C7EBC8D"
+    },
+    {
+      "path": "build-animator-lease-readonly/gimmd-probe.dll",
+      "sha256": "668B8982576346EE08B46A0C37BD7554B90B1CB5B74513DF65AFA2A5C4D17190"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-lease-playback.json",
+      "sha256": "C96E0EDCB3A672AC87E4FD95EB79C6D3BE60A6810FAE16017F442ADF56CD95B2"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-lease-control.json",
+      "sha256": "03351176E3A41E2418687EA23184AEC085FF248155E23C98B369D14572904E01"
+    }
+  ]
+}

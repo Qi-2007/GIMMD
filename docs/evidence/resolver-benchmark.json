@@ -1,0 +1,27 @@
+{
+  "baseline": {
+    "sharedPathResolution": false,
+    "batches": 66,
+    "averageBatchMs": 43.4943303,
+    "maxBatchMs": 57.2482,
+    "totalResolveAndSampleMs": 2869.7757,
+    "totalWriteMs": 0.850099996,
+    "uniqueNodesValidated": 0,
+    "sharedPrefixesReused": 0
+  },
+  "optimized": {
+    "sharedPathResolution": true,
+    "batches": 934,
+    "averageBatchMs": 2.59304261,
+    "maxBatchMs": 3.93450001,
+    "totalResolveAndSampleMs": 2414.6337,
+    "totalWriteMs": 7.26809968,
+    "uniqueNodesValidated": 53238,
+    "sharedPrefixesReused": 564136
+  },
+  "optimizedSamples": 934,
+  "optimizedOverwrites": 0,
+  "optimizedRestored": true,
+  "optimizedAnimatorRestored": true,
+  "optimizedExitCode": 0
+}

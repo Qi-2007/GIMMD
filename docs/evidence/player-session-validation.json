@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-13",
+  "coreChecks": 665,
+  "runtimeChecks": 127,
+  "pid": 6020,
+  "commandsApplied": 5,
+  "poseSamples": 385,
+  "retentionChecks": 3840,
+  "overwrites": 0,
+  "audioMaxReportedOffsetMs": 41.8541667,
+  "allStatesRestored": true,
+  "fullRetargetingValidated": false,
+  "audibleLatencyMeasured": false,
+  "files": [
+    {
+      "sha256": "1F47E5E2E7E96BDCAB40711E263D06E9B7630B97AA581A0A628690D6BB106FFB",
+      "path": "src/core/player_transport.h"
+    },
+    {
+      "sha256": "0DDC2824211319001A034EFC35CDE0201630DDFD4CE6C08027C76DCD0011839B",
+      "path": "src/windows/player_session.h"
+    },
+    {
+      "sha256": "6514BF9ECC34A09EFBAA10942B69C962940A4C71D86E4AB6BA7E471600F7E8D8",
+      "path": "src/windows/multi_track_playback.h"
+    },
+    {
+      "sha256": "331056D6367009B55D1FB5ECA92EACD1DA1BBB11B39BF29A174A5BD13B689682",
+      "path": "build-player-final/gimmd-probe.dll"
+    },
+    {
+      "sha256": "779193E760EF15346D70910EF6B9F12AF53A14A744A83202BBAFF78BD5833FF2",
+      "path": "docs/evidence/genshin-7.1-player-loop-stop-audio.json"
+    },
+    {
+      "sha256": "EC817258BC2D44920A4F00CA4AC40FE2E7508A85852B96C86DCDC87E5EC2EBD7",
+      "path": "docs/evidence/player-control-events.json"
+    }
+  ]
+}

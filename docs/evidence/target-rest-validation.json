@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-13",
+  "runtimeChecks": 53,
+  "mathAndAdmissionChecks": 7,
+  "settersCalled": false,
+  "targetMappedRestCount": 52,
+  "avatarRecords": 139,
+  "linkedNodes": 121,
+  "sharedMeshBones": 91,
+  "maxMatrixAgreementError": 0.00015984670511283756,
+  "negativeScaleRecords": 6,
+  "fullRetargetingApplied": false,
+  "files": [
+    {
+      "sha256": "B46F5D7F7F3A4B3E53D9F82FDA72439631A0E6C6DC10ACED05A7EFBB57766E0D",
+      "path": "src/windows/bind_pose_observer.h"
+    },
+    {
+      "sha256": "3DB101F261FFCC3775525B427AA58A29F8922D95A9830C5A98E185C955685DBE",
+      "path": "src/generated/gi_hierarchy_profile.h"
+    },
+    {
+      "sha256": "F9FFE98B67AEEF654A45785B4FC4AC82FBD81A7F8981DAC01F6592013DEECA45",
+      "path": "scripts/build-rest-pose.py"
+    },
+    {
+      "sha256": "9AE52438130E449560891406F51179C171575F28E65C3B6BD0E001600A11FD4B",
+      "path": "build-avatar-reference-signed/gimmd-probe.dll"
+    },
+    {
+      "sha256": "EF42FC7AA5F0A2A312C94681E7C5D06ABAD153C626A95476CFE5E15C5751D73A",
+      "path": "docs/evidence/genshin-7.1-avatar-reference-signed.json"
+    },
+    {
+      "sha256": "5BDF0DE35E3034CB5C6987A0C410D4A3A05E2AB4E2FF821ED70153C990F889F9",
+      "path": "docs/evidence/playerboy-target-rest-pose.json"
+    }
+  ]
+}

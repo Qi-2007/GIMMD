@@ -1,0 +1,44 @@
+{
+  "retrievedDate": "2026-10-12",
+  "repository": "https://github.com/FufuLauncher/FufuLauncher.UnlockerIsland",
+  "commit": "2433a01d4fb4f96d340e82d035750e55b6a2c534",
+  "usage": "Read-only source research; no upstream executables or hooks run",
+  "files": [
+    {
+      "file": "FufuLauncher.UnlockerIsland__Camera__Camera.cpp",
+      "sha256": "C5DCAAB100516DD7EA23B065B2EFDF6A24ACC9EFBB8F9DE6A0B5943508131A67"
+    },
+    {
+      "file": "FufuLauncher.UnlockerIsland__Core__dllmain.cpp",
+      "sha256": "2CBF269C50272ADEEDEC106E5D9AE227BE49EAF30F94C7F181C9F338515F6BDA"
+    },
+    {
+      "file": "FufuLauncher.UnlockerIsland__Core__Hooks.cpp",
+      "sha256": "344962EC98CCDE0557B3B7764CC13D8FC4B658C53CC735C98BF2D30F30050265"
+    },
+    {
+      "file": "FufuLauncher.UnlockerIsland__Core__Hooks.h",
+      "sha256": "417E57F866C47E146BB868B2225FB857E1D099044A116994302741E02671861F"
+    },
+    {
+      "file": "FufuLauncher.UnlockerIsland__FreeCamera__FreeCamera.cpp",
+      "sha256": "FF066C52E45088E8C8024F8DBD91FE3C99C2AAC27D497D0A254171B6BB1C9A52"
+    },
+    {
+      "file": "FufuLauncher.UnlockerIsland__Patterns__Patterns.h",
+      "sha256": "C43EBC1F8901299A1F87B34A9D1F5E956E86B09C5C45083076B9FEA7C433268D"
+    },
+    {
+      "file": "Launcher__Launcher.cpp",
+      "sha256": "88C559FD67B3A80F4C0C6B6ABF517AC050E50EC9A7EB229F482D231A7386211A"
+    },
+    {
+      "file": "Launcher_2__Launcher_2.cpp",
+      "sha256": "63BA6ADDCF49EDC113AE1B314E48A2B561B3C654DD5475E085C0D62808B43180"
+    },
+    {
+      "file": "LICENSE",
+      "sha256": "8486A10C4393CEE1C25392769DDD3B2D6C242D6EC7928E1414EFFF7DFB2F07EF"
+    }
+  ]
+}

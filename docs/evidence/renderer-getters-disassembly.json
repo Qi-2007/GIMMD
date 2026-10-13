@@ -1,0 +1,93 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "linearWindow": true,
+  "note": "Instruction boundaries and semantics require review; linear windows may include adjacent functions; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x19c9a4e0",
+      "unwindRange": null,
+      "instructions": [
+        {
+          "rva": "0x19c9a4e0",
+          "text": "jmp 0x144c1c0",
+          "branchTarget": "0x144c1c0"
+        },
+        {
+          "rva": "0x19c9a4e5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c9a4f0",
+          "text": "jmp 0x144c230",
+          "branchTarget": "0x144c230"
+        },
+        {
+          "rva": "0x19c9a4f5",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c9a500",
+          "text": "jmp 0x144c270",
+          "branchTarget": "0x144c270"
+        },
+        {
+          "rva": "0x19c9a505",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c9a510",
+          "text": "jmp 0x144c2c0",
+          "branchTarget": "0x144c2c0"
+        },
+        {
+          "rva": "0x19c9a515",
+          "text": "nop word ptr cs:[rax + rax]"
+        }
+      ]
+    },
+    {
+      "rva": "0x19c9a560",
+      "unwindRange": null,
+      "instructions": [
+        {
+          "rva": "0x19c9a560",
+          "text": "jmp 0x982130",
+          "branchTarget": "0x982130"
+        },
+        {
+          "rva": "0x19c9a565",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c9a570",
+          "text": "jmp 0x982190",
+          "branchTarget": "0x982190"
+        },
+        {
+          "rva": "0x19c9a575",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c9a580",
+          "text": "jmp 0x982210",
+          "branchTarget": "0x982210"
+        },
+        {
+          "rva": "0x19c9a585",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19c9a590",
+          "text": "jmp 0x982270",
+          "branchTarget": "0x982270"
+        },
+        {
+          "rva": "0x19c9a595",
+          "text": "nop word ptr cs:[rax + rax]"
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

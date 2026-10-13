@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-13",
+  "pid": 6020,
+  "coreChecks": 657,
+  "toggleRuntimeChecks": 60,
+  "readonlyRuntimeChecks": 53,
+  "ordinaryPlaybackRuntimeChecks": 55,
+  "liveStatus": "animator-toggle-restored",
+  "liveSetterCount": 2,
+  "liveOriginalEnabled": true,
+  "liveDisabledObserved": true,
+  "liveRestored": true,
+  "liveException": 0,
+  "liveCleanupPending": false,
+  "hooksRemoved": true,
+  "activeCallbacks": 0,
+  "crossFrameTakeoverTested": false,
+  "files": [
+    {
+      "path": "src/windows/animator_metadata.h",
+      "sha256": "1187CD2A24F9BF3C593066A8C54BA332C564D21BE1D143083E55AEC0AC1709E7"
+    },
+    {
+      "path": "src/windows/animator_observer.h",
+      "sha256": "C9B5DC855A979B524F3C64F674D5250796D87AFAB60F0D8F58FD7A93978665E5"
+    },
+    {
+      "path": "src/windows/animator_toggle.h",
+      "sha256": "210EFC64516E5EDB0D8854C849C62A8B029A735729A2AC75E426D173CADC6D27"
+    },
+    {
+      "path": "src/windows/runtime_probe.cpp",
+      "sha256": "A106AFAAE923F2CDF925CD3B66DBE05DB4FBD46381E737C3E20CEF9DDEF6242E"
+    },
+    {
+      "path": "src/generated/gi_hierarchy_profile.h",
+      "sha256": "7B3A6AE6C1DCDE24FC0FBDA058B52B4B896B335F74EBFF91D3BC6DCC9F3B06EB"
+    },
+    {
+      "path": "scripts/generate-hierarchy-profile.py",
+      "sha256": "8480E8EAF477CAE1432452D0B1701BCF288F352B938580122E80932EAE9113F8"
+    },
+    {
+      "path": "scripts/inspect-gi-functions.py",
+      "sha256": "49C0D827E372986F06D6814CDC699FE171C2A52F80E4806698F335395C7D65B0"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "CC4A40C8BBEE48D95135A51144D22C3274FEE907E5BD6DCBEF60CA546DECDBAF"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "C595A564AED8C08D1DCC034CB7379B39AD7527ADD88EA188172970216C10F5B0"
+    },
+    {
+      "path": "build-animator-toggle/gimmd-probe.dll",
+      "sha256": "6EBAD778545BC4711EED28B9E4C57D4338FE19300EF7791741F0B9CEE611C782"
+    },
+    {
+      "path": "build-animator-readonly-final/gimmd-probe.dll",
+      "sha256": "D86282E57E7D123D45F8C6A430C35868EF40FC61B9BC762201CBC709C389756A"
+    },
+    {
+      "path": "build-animator-playback-regression/gimmd-probe.dll",
+      "sha256": "C841C6E458A60DC0D0D4FCD2479C5F04CD72E6AC14C83C74059D07B399DEC3D6"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-toggle.json",
+      "sha256": "4354352B6B9B0E86F9D448DB6EE1989A5FF378F67A85C896D63216CC7A8B2790"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-state.json",
+      "sha256": "0D75E8454EAD498A4F69E4359D2B729FF57CB38D1D7046BC97B26A7B4B8EDF03"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-named-methods.json",
+      "sha256": "5B586A044B78661FA156239731A368A952BBCB7323D0FAA6B76A03D2BCD5F7E2"
+    }
+  ]
+}

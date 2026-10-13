@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-13",
+  "pid": 6020,
+  "coreChecks": 668,
+  "runtimeChecks": 134,
+  "fullBodyTargets": 52,
+  "sourceTracks": 51,
+  "positionsApplied": false,
+  "sourcePmxCalibrated": false,
+  "sourcePreset": "EIEM canonical Tda approximation",
+  "userAnimationFeedback": "整体动画效果好像还行",
+  "userOptimizedPerformanceFeedback": "明显改善，基本流畅",
+  "batches": 934,
+  "retentionChecks": 48516,
+  "overwrites": 0,
+  "allStatesRestored": true,
+  "averageLegacyBatchMs": 43.4943303,
+  "averageOptimizedBatchMs": 2.59304261,
+  "averageProcessingSpeedup": 16.773473035986864,
+  "finalBuildDeltaSinceLiveBenchmark": "Entry blend now freezes during pause; covered by two added runtime checks",
+  "finalBuildRetestedInGame": false,
+  "files": [
+    {
+      "sha256": "CAA9AAAD37AE86DB56B7F6CAF6A8B1B782E8A88D36389B9679B74BCA6CF293AC",
+      "path": "src/core/fk_retarget.h"
+    },
+    {
+      "sha256": "86D05E9A076371B0C8938629817441789F9D49924EBF8410B3F3BBAB07C69E73",
+      "path": "src/generated/fk_profile.h"
+    },
+    {
+      "sha256": "C6C5D9CF66E9C333FFAACD7C97570EB23BBD413C1C8A39B977C8C608C1B2F46B",
+      "path": "src/windows/multi_track_playback.h"
+    },
+    {
+      "sha256": "6747718370FADC8D3851A9297957C79B4D415DCE6A1CA7E199D787DC1DD143E9",
+      "path": "src/windows/batch_resolver.h"
+    },
+    {
+      "sha256": "9403D6708AC3B2AD6D1BE551E312D6CF81047565DE34DBD6616F2A3CF0F82D68",
+      "path": "scripts/generate-fk-profile.py"
+    },
+    {
+      "sha256": "6CA10EDF96A2265FCF1A24B3A236974CB3807653D0FD657B4D6CFC26AB4D67B2",
+      "path": "build-full-body-fast/gimmd-probe.dll"
+    },
+    {
+      "sha256": "44A52FEF6488599FF3EEA48AE6ABAA55D221BD6DE8390C808D9D7044EA1162DF",
+      "path": "build-full-body-final/gimmd-probe.dll"
+    },
+    {
+      "sha256": "F9E9765E8CB8681C2DCE0787F6ED20064EC8BA2DE31F48587BEC31D8D70C8896",
+      "path": "docs/evidence/genshin-7.1-full-body-fast.json"
+    },
+    {
+      "sha256": "FFA575E0EEE57BB26E33D7C073FA0E6B9B22B69E0F884F1A22D049D125A781FD",
+      "path": "docs/evidence/resolver-benchmark.json"
+    }
+  ]
+}

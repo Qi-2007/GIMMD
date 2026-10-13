@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-13",
+  "coreChecks": 661,
+  "multiRuntimeChecks": 123,
+  "legacyLeaseRuntimeChecks": 92,
+  "readonlyRuntimeChecks": 53,
+  "assetAdmissionVerified": true,
+  "sourceAssetUnchanged": true,
+  "reports": {
+    "calibration": {
+      "batches": 38,
+      "boneSetters": 390,
+      "retainedChecks": 370,
+      "overwritten": 0,
+      "restoreError": 0,
+      "restoredTargets": 10,
+      "animatorRestored": true,
+      "hooksRemoved": true
+    },
+    "realMotion": {
+      "batches": 37,
+      "boneSetters": 380,
+      "retainedChecks": 360,
+      "overwritten": 0,
+      "restoreError": 7.4505806e-09,
+      "restoredTargets": 10,
+      "animatorRestored": true,
+      "hooksRemoved": true
+    }
+  },
+  "fullDanceValidated": false,
+  "audioPlaybackImplemented": false,
+  "files": [
+    {
+      "path": "src/core/rotation_preview.h",
+      "sha256": "C7AE72DE0BCA8B5AD2E56C192353DF2FEBCD64A54DAF8141B18FF0A7F10706FF"
+    },
+    {
+      "path": "src/generated/motion_profile.h",
+      "sha256": "E8508A3EF4CA9B8AED357F2619276CAD7D04ED73167125245234CDED37738CE3"
+    },
+    {
+      "path": "src/windows/multi_track_playback.h",
+      "sha256": "4F094717776D7CA123046973C4D884F6E75C4D9267D40AA725DAACF9D11A45EB"
+    },
+    {
+      "path": "src/windows/single_track_playback.h",
+      "sha256": "34324DBAB69909ABA61B7DBFAAAB2BB1997C519C467044733CB62728451F4605"
+    },
+    {
+      "path": "src/windows/runtime_probe.cpp",
+      "sha256": "719C3B315A7BAC0AF8A2F224C33284E4D6F749C63E64A5D0BA0CD29728DA548D"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "BD66DC775379E7F711F94275C962A38703E1FF52BB8B6D1BE47D086B1F42D331"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "F2610538822DED2A09D52D17226408BA41E5900C7DB88B59C284486FF85AEDD0"
+    },
+    {
+      "path": "scripts/generate-motion-profile.py",
+      "sha256": "FFD20721EF40546FB80AB268F8AE4F112C403717CDF93C181D6AF33BDBA3CA22"
+    },
+    {
+      "path": "scripts/generate-multi-track-fixture.py",
+      "sha256": "FAEC9D89FB1FB5952FF7A1E990A0074E49BD4CDB66BF1D5E2EC91876158773CD"
+    },
+    {
+      "path": "scripts/prepare-motion.py",
+      "sha256": "6B601D74976657703B75BB028704E9FC225552DF7ED2EBE42455D13FD71A96FB"
+    },
+    {
+      "path": "tests/core_tests.cpp",
+      "sha256": "BFFB2200F437D248ABDFD2E826379B411E98C02CA55E4EBC7B950E40CA146184"
+    },
+    {
+      "path": "build-multi-preview/gimmd-probe.dll",
+      "sha256": "7478E00B56527F5916A82A4AB14405C257E6369A15342FBDD257384504BA4F11"
+    },
+    {
+      "path": "build-real-motion-preview/gimmd-probe.dll",
+      "sha256": "7478E00B56527F5916A82A4AB14405C257E6369A15342FBDD257384504BA4F11"
+    },
+    {
+      "path": "docs/evidence/its-me-motion-admission.json",
+      "sha256": "A385CC0970292774C762F055EB5230DFDC633EB0DAF5935BABC3ADE4A5A1205F"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-multi-calibration.json",
+      "sha256": "A5A798F17FFA4535E2F3969AA6FF17C4AB599380F06426099E049C8169FB9432"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-real-motion-preview.json",
+      "sha256": "0B9C90EC38F12A7AD93136F51678A8EC05C4E2EC7115DAB43C8E495D800FA35C"
+    }
+  ]
+}

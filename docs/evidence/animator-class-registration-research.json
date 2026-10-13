@@ -1,0 +1,1140 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "note": "Instruction boundaries and semantics require review; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x1b0a401",
+      "unwindRange": [
+        "0x1b0a1b0",
+        "0x1b0a5a4"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1b0a401",
+          "text": "lea r9, [rip + 0x1f90be8]",
+          "ripReferences": [
+            {
+              "rva": "0x3a9aff0",
+              "asciiPrefix": "Animator"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a408",
+          "text": "lea r8, [rip + 0x1fb48f9]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a40f",
+          "text": "lea rdx, [rip + 0x1fa4752]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a416",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a41b",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1b0a420",
+          "text": "lea r9, [rip + 0x1f9ce51]",
+          "ripReferences": [
+            {
+              "rva": "0x3aa7278",
+              "asciiPrefix": "AnimatorClipInfo"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a427",
+          "text": "lea r8, [rip + 0x1fb48da]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a42e",
+          "text": "lea rdx, [rip + 0x1fa4733]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a435",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a438",
+          "text": "mov rax, qword ptr [rip + 0x3bc3e59]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a43f",
+          "text": "mov qword ptr [rax + 0x50], rcx"
+        },
+        {
+          "rva": "0x1b0a443",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a448",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1b0a44d",
+          "text": "lea r9, [rip + 0x1f9298c]",
+          "ripReferences": [
+            {
+              "rva": "0x3a9cde0",
+              "asciiPrefix": "AnimatorControllerParameter"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a454",
+          "text": "lea r8, [rip + 0x1fb48ad]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a45b",
+          "text": "lea rdx, [rip + 0x1fa4706]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a462",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a465",
+          "text": "mov rax, qword ptr [rip + 0x3bc3e2c]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a46c",
+          "text": "mov qword ptr [rax + 0x58], rcx"
+        },
+        {
+          "rva": "0x1b0a470",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a475",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1b0a47a",
+          "text": "lea r9, [rip + 0x1f9cf97]",
+          "ripReferences": [
+            {
+              "rva": "0x3aa7418",
+              "asciiPrefix": "AnimatorStateInfo"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a481",
+          "text": "lea r8, [rip + 0x1fb4880]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a488",
+          "text": "lea rdx, [rip + 0x1fa46d9]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a48f",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a492",
+          "text": "mov rax, qword ptr [rip + 0x3bc3dff]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a499",
+          "text": "mov qword ptr [rax + 0x60], rcx"
+        },
+        {
+          "rva": "0x1b0a49d",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a4a2",
+          "text": "call 0x14cbf60",
+          "branchTarget": "0x14cbf60"
+        },
+        {
+          "rva": "0x1b0a4a7",
+          "text": "lea r9, [rip + 0x1f9ce32]",
+          "ripReferences": [
+            {
+              "rva": "0x3aa72e0",
+              "asciiPrefix": "AnimatorTransitionInfo"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4ae",
+          "text": "lea r8, [rip + 0x1fb4853]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4b5",
+          "text": "lea rdx, [rip + 0x1fa46ac]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4bc",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a4bf",
+          "text": "mov rax, qword ptr [rip + 0x3bc3dd2]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4c6",
+          "text": "mov qword ptr [rax + 0x68], rcx"
+        },
+        {
+          "rva": "0x1b0a4ca",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a4cf",
+          "text": "call 0x14cbf60",
+          "branchTarget": "0x14cbf60"
+        },
+        {
+          "rva": "0x1b0a4d4",
+          "text": "lea r9, [rip + 0x1fb434d]",
+          "ripReferences": [
+            {
+              "rva": "0x3abe828",
+              "asciiPrefix": "HumanBone"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4db",
+          "text": "lea r8, [rip + 0x1fb4826]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4e2",
+          "text": "lea rdx, [rip + 0x1fa467f]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4e9",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a4ec",
+          "text": "mov rax, qword ptr [rip + 0x3bc3da5]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a4f3",
+          "text": "mov qword ptr [rax + 0x70], rcx"
+        },
+        {
+          "rva": "0x1b0a4f7",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a4fc",
+          "text": "call 0x14cbf60",
+          "branchTarget": "0x14cbf60"
+        },
+        {
+          "rva": "0x1b0a501",
+          "text": "lea r9, [rip + 0x1fae8a8]",
+          "ripReferences": [
+            {
+              "rva": "0x3ab8db0",
+              "asciiPrefix": "SharedBetweenAnimatorsAttribute"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a508",
+          "text": "lea r8, [rip + 0x1fb47f9]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a50f",
+          "text": "lea rdx, [rip + 0x1fa4652]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a516",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a519",
+          "text": "mov rax, qword ptr [rip + 0x3bc3d78]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a520",
+          "text": "mov qword ptr [rax + 0x78], rcx"
+        },
+        {
+          "rva": "0x1b0a524",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a529",
+          "text": "call 0x14cbf60",
+          "branchTarget": "0x14cbf60"
+        },
+        {
+          "rva": "0x1b0a52e",
+          "text": "lea r9, [rip + 0x1fb42e3]",
+          "ripReferences": [
+            {
+              "rva": "0x3abe818",
+              "asciiPrefix": "SkeletonBone"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a535",
+          "text": "lea r8, [rip + 0x1fb47cc]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a53c",
+          "text": "lea rdx, [rip + 0x1fa4625]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a543",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a546",
+          "text": "mov rax, qword ptr [rip + 0x3bc3d4b]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a54d",
+          "text": "mov qword ptr [rax + 0x80], rcx"
+        },
+        {
+          "rva": "0x1b0a554",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a559",
+          "text": "call 0x14cbf60",
+          "branchTarget": "0x14cbf60"
+        },
+        {
+          "rva": "0x1b0a55e",
+          "text": "lea r9, [rip + 0x1f8fed3]",
+          "ripReferences": [
+            {
+              "rva": "0x3a9a438",
+              "asciiPrefix": "StateMachineBehaviour"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a565",
+          "text": "lea r8, [rip + 0x1fb479c]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a56c",
+          "text": "lea rdx, [rip + 0x1fa45f5]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaeb68",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a573",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a576",
+          "text": "mov rax, qword ptr [rip + 0x3bc3d1b]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a57d",
+          "text": "mov qword ptr [rax + 0x88], rcx"
+        },
+        {
+          "rva": "0x1b0a584",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b0a589",
+          "text": "call 0x14cbf60",
+          "branchTarget": "0x14cbf60"
+        },
+        {
+          "rva": "0x1b0a58e",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b0a591",
+          "text": "mov rax, qword ptr [rip + 0x3bc3d00]",
+          "ripReferences": [
+            {
+              "rva": "0x56ce298"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b0a598",
+          "text": "mov qword ptr [rax + 0x90], rcx"
+        },
+        {
+          "rva": "0x1b0a59f",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x1b0a5a3",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1c0e937",
+      "unwindRange": [
+        "0x1c0e220",
+        "0x1c10ac4"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1c0e937",
+          "text": "lea r9, [rip + 0x1e8bb1a]",
+          "ripReferences": [
+            {
+              "rva": "0x3a9a458",
+              "asciiPrefix": "Behaviour"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e93e",
+          "text": "lea r8, [rip + 0x1eb03c3]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e945",
+          "text": "lea rdx, [rip + 0x1ea0324]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e94c",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0e94f",
+          "text": "mov rax, qword ptr [rip + 0x3ac0862]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e956",
+          "text": "mov qword ptr [rax + 0x100], rcx"
+        },
+        {
+          "rva": "0x1c0e95d",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0e961",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0e966",
+          "text": "lea r9, [rip + 0x1e7c203]",
+          "ripReferences": [
+            {
+              "rva": "0x3a8ab70",
+              "asciiPrefix": "BoneWeight"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e96d",
+          "text": "lea r8, [rip + 0x1eb0394]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e974",
+          "text": "lea rdx, [rip + 0x1ea02f5]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e97b",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0e97e",
+          "text": "mov rax, qword ptr [rip + 0x3ac0833]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e985",
+          "text": "mov qword ptr [rax + 0x108], rcx"
+        },
+        {
+          "rva": "0x1c0e98c",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0e990",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0e995",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0e998",
+          "text": "mov rax, qword ptr [rip + 0x3ac0819]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e99f",
+          "text": "mov qword ptr [rax + 0x110], rcx"
+        },
+        {
+          "rva": "0x1c0e9a6",
+          "text": "lea r9, [rip + 0x1e6b2a3]",
+          "ripReferences": [
+            {
+              "rva": "0x3a79c50",
+              "asciiPrefix": "Bounds"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9ad",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0e9b1",
+          "text": "lea r8, [rip + 0x1eb0350]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9b8",
+          "text": "lea rdx, [rip + 0x1ea02b1]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9bf",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0e9c4",
+          "text": "lea r9, [rip + 0x1e7acc5]",
+          "ripReferences": [
+            {
+              "rva": "0x3a89690",
+              "asciiPrefix": "BoundsInt"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9cb",
+          "text": "lea r8, [rip + 0x1eb0336]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9d2",
+          "text": "lea rdx, [rip + 0x1ea0297]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9d9",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0e9dc",
+          "text": "mov rax, qword ptr [rip + 0x3ac07d5]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9e3",
+          "text": "mov qword ptr [rax + 0x118], rcx"
+        },
+        {
+          "rva": "0x1c0e9ea",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0e9ee",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0e9f3",
+          "text": "lea r9, [rip + 0x1eb337e]",
+          "ripReferences": [
+            {
+              "rva": "0x3ac1d78",
+              "asciiPrefix": "CachedAssetBundle"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0e9fa",
+          "text": "lea r8, [rip + 0x1eb0307]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea01",
+          "text": "lea rdx, [rip + 0x1ea0268]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea08",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0ea0b",
+          "text": "mov rax, qword ptr [rip + 0x3ac07a6]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea12",
+          "text": "mov qword ptr [rax + 0x120], rcx"
+        },
+        {
+          "rva": "0x1c0ea19",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0ea1d",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0ea22",
+          "text": "lea r9, [rip + 0x1e7322f]",
+          "ripReferences": [
+            {
+              "rva": "0x3a81c58",
+              "asciiPrefix": "CacheIndex"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea29",
+          "text": "lea r8, [rip + 0x1eb02d8]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea30",
+          "text": "lea rdx, [rip + 0x1ea0239]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea37",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0ea3a",
+          "text": "mov rax, qword ptr [rip + 0x3ac0777]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea41",
+          "text": "mov qword ptr [rax + 0x128], rcx"
+        },
+        {
+          "rva": "0x1c0ea48",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0ea4c",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0ea51",
+          "text": "lea r9, [rip + 0x1e6c6a0]",
+          "ripReferences": [
+            {
+              "rva": "0x3a7b0f8",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea58",
+          "text": "lea r8, [rip + 0x1eb02a9]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea5f",
+          "text": "lea rdx, [rip + 0x1ea020a]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea66",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0ea69",
+          "text": "mov rax, qword ptr [rip + 0x3ac0748]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea70",
+          "text": "mov qword ptr [rax + 0x130], rcx"
+        },
+        {
+          "rva": "0x1c0ea77",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0ea7b",
+          "text": "call 0x14cc020",
+          "branchTarget": "0x14cc020"
+        },
+        {
+          "rva": "0x1c0ea80",
+          "text": "lea r9, [rip + 0x1e6c671]",
+          "ripReferences": [
+            {
+              "rva": "0x3a7b0f8",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea87",
+          "text": "lea r8, [rip + 0x1eb027a]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea8e",
+          "text": "lea rdx, [rip + 0x1ea01db]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea95",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0ea98",
+          "text": "mov rax, qword ptr [rip + 0x3ac0719]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ea9f",
+          "text": "mov qword ptr [rax + 0x138], rcx"
+        },
+        {
+          "rva": "0x1c0eaa6",
+          "text": "lea rax, [rip + 0x1e9fd63]",
+          "ripReferences": [
+            {
+              "rva": "0x3aae810",
+              "asciiPrefix": "FireOnBeforeCull"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eaad",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0eab1",
+          "text": "mov qword ptr [rsp + 0x20], rax"
+        },
+        {
+          "rva": "0x1c0eab6",
+          "text": "call 0x14cbe20",
+          "branchTarget": "0x14cbe20"
+        },
+        {
+          "rva": "0x1c0eabb",
+          "text": "lea r9, [rip + 0x1e6c636]",
+          "ripReferences": [
+            {
+              "rva": "0x3a7b0f8",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eac2",
+          "text": "lea r8, [rip + 0x1eb023f]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eac9",
+          "text": "lea rdx, [rip + 0x1ea01a0]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0ead0",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0ead3",
+          "text": "mov rax, qword ptr [rip + 0x3ac06de]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eada",
+          "text": "mov qword ptr [rax + 0x140], rcx"
+        },
+        {
+          "rva": "0x1c0eae1",
+          "text": "lea rax, [rip + 0x1e920b0]",
+          "ripReferences": [
+            {
+              "rva": "0x3aa0b98",
+              "asciiPrefix": "FireOnPostRender"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eae8",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0eaec",
+          "text": "mov qword ptr [rsp + 0x20], rax"
+        },
+        {
+          "rva": "0x1c0eaf1",
+          "text": "call 0x14cbe20",
+          "branchTarget": "0x14cbe20"
+        },
+        {
+          "rva": "0x1c0eaf6",
+          "text": "lea r9, [rip + 0x1e6c5fb]",
+          "ripReferences": [
+            {
+              "rva": "0x3a7b0f8",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eafd",
+          "text": "lea r8, [rip + 0x1eb0204]",
+          "ripReferences": [
+            {
+              "rva": "0x3abed08",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eb04",
+          "text": "lea rdx, [rip + 0x1ea0165]",
+          "ripReferences": [
+            {
+              "rva": "0x3aaec70",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eb0b",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c0eb0e",
+          "text": "mov rax, qword ptr [rip + 0x3ac06a3]",
+          "ripReferences": [
+            {
+              "rva": "0x56cf1b8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eb15",
+          "text": "mov qword ptr [rax + 0x148], rcx"
+        },
+        {
+          "rva": "0x1c0eb1c",
+          "text": "lea rax, [rip + 0x1e9fd05]",
+          "ripReferences": [
+            {
+              "rva": "0x3aae828",
+              "asciiPrefix": "FireOnPreCull"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c0eb23",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c0eb27",
+          "text": "mov qword ptr [rsp + 0x20], rax"
+        },
+        {
+          "rva": "0x1c0eb2c",
+          "text": "call 0x14cbe20",
+          "branchTarget": "0x14cbe20"
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

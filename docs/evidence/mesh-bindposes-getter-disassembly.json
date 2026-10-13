@@ -1,0 +1,51 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "linearWindow": true,
+  "note": "Instruction boundaries and semantics require review; linear windows may include adjacent functions; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x19ca0260",
+      "unwindRange": null,
+      "instructions": [
+        {
+          "rva": "0x19ca0260",
+          "text": "jmp 0x97c2f0",
+          "branchTarget": "0x97c2f0"
+        },
+        {
+          "rva": "0x19ca0265",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19ca0270",
+          "text": "jmp 0x97c620",
+          "branchTarget": "0x97c620"
+        },
+        {
+          "rva": "0x19ca0275",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19ca0280",
+          "text": "jmp 0x97c670",
+          "branchTarget": "0x97c670"
+        },
+        {
+          "rva": "0x19ca0285",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x19ca0290",
+          "text": "jmp 0x97c6d0",
+          "branchTarget": "0x97c6d0"
+        },
+        {
+          "rva": "0x19ca0295",
+          "text": "nop word ptr cs:[rax + rax]"
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

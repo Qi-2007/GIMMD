@@ -1,0 +1,32 @@
+{
+  "coreChecksPassed": 657,
+  "syntheticObserverChecksPassed": 16,
+  "stage": "bounded-camera-observer",
+  "date": "2026-10-12",
+  "gameHookDisabled": true,
+  "artifacts": [
+    {
+      "file": "gimmd-probe.dll",
+      "bytes": 464384,
+      "sha256": "863BFD836EF1CB5B10F397EA089EFB72C25362F49408B09322746A727C5DD3A7"
+    },
+    {
+      "file": "gimmd-inject-probe.exe",
+      "bytes": 450048,
+      "sha256": "1C7AB11B53DD2C5CE44A725174767C92205FEE3F210900140D5DF2CB3D45FC16"
+    },
+    {
+      "file": "gimmd-runtime-tests.exe",
+      "bytes": 472576,
+      "sha256": "61058B91379033E196692B21605D3FFDCB0F4CC7A26E185BD45413D2F7C5CBFE"
+    }
+  ],
+  "gameStatus": "camera-read-observed",
+  "gameEntryBytesRestored": true,
+  "unknownBuildRejection": "passed",
+  "gameEngineGettersCalled": true,
+  "gamePid": 9620,
+  "gameSettersCalled": false,
+  "cmakeReleaseBuild": "passed",
+  "cmakeCTest": "2/2 passed (core, runtime-observer)"
+}

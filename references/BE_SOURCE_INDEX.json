@@ -1,0 +1,362 @@
+[
+  {
+    "path": "docs/camera/INDEX.md",
+    "sha": "530ffe88d1acadd9e82c7041cb0bc428a99022f7"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/INDEX.md",
+    "sha": "89cb1aabac923064526690bf90c9c525725f3aa3"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/android-mmd/ANDROID_CAMERA_MMD.md",
+    "sha": "bd1a020079f4bbf6530bb7b8bcddb5b007f4bc31"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/eiem-port/CAMERA_EIEM_PORT_PLAN.md",
+    "sha": "15e9eba6182ed572d430dc585adefdaff2432f26"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-accessories/FIRST_PERSON_HEAD_ACCESSORIES.md",
+    "sha": "7dca7ee54f3660877d8d2be302117547da45f351"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-cinemachine/CAMERA_FIRST_PERSON_CINEMACHINE.md",
+    "sha": "2e2790acaa98edb9f1289aa404927a99976464a9"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-facing/FIRST_PERSON_ACTION_FACING.md",
+    "sha": "68a006a36cb86d400ebd3b49ab2137d40a964193"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-geometry/BEM_HAIR_BONE_ANALYSIS.md",
+    "sha": "66db1a60f1e76e15c4dcf4bd8b4b04898206f4bf"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-geometry/BEM_HAIR_SHADOW_IMPLEMENTATION.md",
+    "sha": "e5fefa68cbde6e13734c28faad040ba97f9277aa"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-lifecycle/FIRST_PERSON_FIX.md",
+    "sha": "405b753440dc7aefa761f96210ccf0983586cd04"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-lifecycle/FIRST_PERSON_LIFECYCLE_DIAGNOSIS.md",
+    "sha": "79d3b9a3914da1eebd1cbcae5eecdb7fe3a1ab2a"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/first-person-typhoea-campus/FIRST_PERSON_TYPHOEA_CAMPUS_DIAGNOSIS.md",
+    "sha": "2a3e3dd9817d390d838a551ab97be5f75e2e830a"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/fov-follow/CAMERA_FOV_FOLLOW_IMPLEMENTATION.md",
+    "sha": "a88d796233b769be348d339a43cb593d2585c8b8"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/fov-follow/CAMERA_HAIR_FOV_FOLLOW_DESIGN.md",
+    "sha": "c50a899874ffad64eb9ebff721ed85077e79f1a2"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/pc-vmd-stages/PC_CAMERA_PROGRESS.md",
+    "sha": "e84435fd0b61f79eae64255d908fb238713077b5"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/pc-vmd-stages/PC_CHARACTER_PREVIEW.md",
+    "sha": "3698b84ba9e3da0b63b34831746a9c890eb8c825"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/relink-port/CAMERA_RELINK_PORTING_ANALYSIS.md",
+    "sha": "2caa903aa71cd02fbe80e053873c4f08e55ff18b"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/renodx-hiding/RENODX_FIRST_PERSON_HIDING_RESEARCH.md",
+    "sha": "2ea949b3909a828769deee216b0f810559046ddc"
+  },
+  {
+    "path": "docs/camera/research/1.5.3/windows-input/WINDOWS_CAMERA_INPUT_FIX.md",
+    "sha": "8d2badedf6804a56ff6218fdb300642f9e924f7c"
+  },
+  {
+    "path": "native/modules/camera/betterendfieldnext.camera.module.ini",
+    "sha": "498119069a6beeda0fad041d602372dd8263d5f4"
+  },
+  {
+    "path": "native/modules/camera/camera_file_worker.h",
+    "sha": "386660c0ab59a9968998bc21cf297e0a61b20c1d"
+  },
+  {
+    "path": "native/modules/camera/camera_follow.h",
+    "sha": "53759daec4fa55017ac84001326890ab533a5db1"
+  },
+  {
+    "path": "native/modules/camera/camera_path.h",
+    "sha": "8ef43905ef1d0c2fa285358d860148de9ae12514"
+  },
+  {
+    "path": "native/modules/camera/character_motion_runtime.inc",
+    "sha": "c2d3f06b876ac683091f9042693c7885afff4d00"
+  },
+  {
+    "path": "native/modules/camera/eiem/LICENSE.EIEM",
+    "sha": "fe2b6afd49de6b3dc3573389c0f78e650270b6e0"
+  },
+  {
+    "path": "native/modules/camera/eiem/UPSTREAM.md",
+    "sha": "66c1576259fc6e627a5beb98572611bf4f5b6352"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/android_cp932_table.h",
+    "sha": "85de404b7729316f19b756302ef3c6fcb31d8c57"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/android_encoding.h",
+    "sha": "6dcbdaedb55e8ec6a59de00a8933305215374a50"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/android_managed_features.inc",
+    "sha": "6d7ba211de751f73bb3cb2593b28399829b0c0c7"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/android_morph_map.h",
+    "sha": "ab3686bc0e35507ae36c705aff6c0125e5100d9f"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/android_slot.inc",
+    "sha": "d4cdce6b6dbcc78f54bb07100e18ec2989365c3a"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/android_terrain.inc",
+    "sha": "9449d6ed0d99add7187c49b33b3a4d958e1174c5"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/cloth_be.h",
+    "sha": "d79e07cec8946d9ef9477850b6b21797ad217af1"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/generate_cp932.py",
+    "sha": "5fb386bcdd6c96b9b23e9ca248434864bdb380ed"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/.gitignore",
+    "sha": "06bc590a74948e8fa7e49e6eaefddb1298b2c189"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/android_multislot_tests.cpp",
+    "sha": "9f352038c95479179e9b47508b77cd712c897bfb"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/android_slot_tests.cpp",
+    "sha": "aa1a0c5fa6bffba91b96385f05ba5c3ab6401738"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/fixtures/slot0.vmd",
+    "sha": "aa016a539d2d83eaaa8ea1e4893f4e208f093a17"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/fixtures/slot1.vmd",
+    "sha": "d4dcb799fe0ea70403857fe76e29c9af45f0ccab"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/fixtures/slot2.vmd",
+    "sha": "0ba075a66320322f24f165b56afb18eb29f11ba4"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/fixtures/slot3.vmd",
+    "sha": "c1deb50974588421654e69cd8370a255c24356b6"
+  },
+  {
+    "path": "native/modules/camera/eiem/compat/tests/run_android_tests.ps1",
+    "sha": "4f006f9f25d40ac037b26940a1bf583ad57fde10"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_body.cpp",
+    "sha": "77ca322104b5afa828a415df2c2005fad6200873"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_body.h",
+    "sha": "ae96e8ec5b011505f364cbd09638a1f9226f2572"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_slot.h",
+    "sha": "2ff321afa9efcbb4b6931838585a573e8a59868a"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_slot.inc",
+    "sha": "2082da3334ffa835c95b40391c3f3b79e471285f"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_slot0.cpp",
+    "sha": "91305cd349501a4f6bbbea249e56083ee7360c1e"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_slot1.cpp",
+    "sha": "cc11329276af579f178bb511e20c5f64c49eb2e4"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_slot2.cpp",
+    "sha": "66acd7e130f8231daf29d17439611afae4683162"
+  },
+  {
+    "path": "native/modules/camera/eiem/eiem_slot3.cpp",
+    "sha": "048d6c53fc59ffb65358e20d9e2e217b764a9204"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/animation.h",
+    "sha": "02b2ebbb7ced03f882ffb772fcdd3515e0e5820c"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/audio_timeline.h",
+    "sha": "7875654ef5ee087dc2cca48c06e805efcb09c8c5"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/bone_anim_player.h",
+    "sha": "91a6f8ab649c6e9b9ec0bab7cc7f0e41841400e4"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/bone_map.h",
+    "sha": "ff249df937278401abcfba4fa2a34eec9a4fe649"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/camera_player.h",
+    "sha": "37cb0bd5277c80c0b6f7c683b0c34f5f386a1d50"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/cloth.h",
+    "sha": "01d0101236a3213b65e8a6587478f70ec8028d2a"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/cloth/core/cloth_anchor.h",
+    "sha": "58aff9209d683680af60a5a6058a030ced73a756"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/cloth/core/cloth_state.h",
+    "sha": "6431503b381905cd7de66c98546b1e2bd31a7a76"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/cloth/core/cloth_writer.h",
+    "sha": "aee93f41c4fc48bedcc1df016754917a64d6505e"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/cloth/core/cloth_writer_state.h",
+    "sha": "9860bfb1c3c143264967f8c902116fce5595c347"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_knee.h",
+    "sha": "ba4105ffb76a69c25fb5252f7bfb51f7365c99e5"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_pose.h",
+    "sha": "348b6d0b26705758d38e7121fe92275e3ff06a68"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_runtime.h",
+    "sha": "0bc7d475f5bc6ace054c6ec78333d33551a65509"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_source.h",
+    "sha": "8104da95bd3d8fcf2b9fb1c19c880e1030e8d1c2"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_source_pmx.h",
+    "sha": "1ee30cf10c94382ba67918ea78ee2fd561272e90"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_source_runtime.h",
+    "sha": "a5774d2198fa29b7def19abd99f840381c1442a0"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/direct_vmd_source_sample.h",
+    "sha": "ce36ff021cc465a4519d46594f1f4950502021ea"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/ghost_rig.h",
+    "sha": "b6c176971e7767a68c6d9f0aac18f5a4939fc141"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/globals.h",
+    "sha": "29927b03298b97a85ebc3f152c603d3ec8ec2be8"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/il2cpp_api.h",
+    "sha": "2ed1e6f4ecf9b20a600c5e1f6b721a1277e90911"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/init.h",
+    "sha": "b53e6602259b33c0525de910a58d7ad8fab46857"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/mmd_player.h",
+    "sha": "ab461da0777d381f6716581922eb9499700450a6"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/motion_backend.h",
+    "sha": "27390d8a5df991d0621a081b2da107a714eba94e"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/muscle_player.h",
+    "sha": "fbfc9278d8a1a19b1fd910b97dc5f375e515be98"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/playback_start.h",
+    "sha": "dda683bc25f0fdd1b8bcbd1694113659ef66575f"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/smc_face.h",
+    "sha": "3704df1f28cd7861be91e5492f13128276dac11c"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/trojan.h",
+    "sha": "495148f9b518f59912c1894d11a78efa749b587c"
+  },
+  {
+    "path": "native/modules/camera/eiem/upstream/vmd_parser.h",
+    "sha": "f9221ccb94ceba0cd9c0c978b7ac8cc1fd1b6edd"
+  },
+  {
+    "path": "native/modules/camera/free_camera_runtime.inc",
+    "sha": "cac4f00bd450c16760adb54f25e4ded630cea94b"
+  },
+  {
+    "path": "native/modules/camera/mmd_director_runtime.inc",
+    "sha": "815234d974096055c5cc96bddb96ee03439c7fa1"
+  },
+  {
+    "path": "native/modules/camera/mmd_library.h",
+    "sha": "74af0d0fa288498f9adb8f0e1f92bef633e41256"
+  },
+  {
+    "path": "native/modules/camera/mmd_overlay_protocol.h",
+    "sha": "13ff98eb0aa58eea16624540e1970d9d3b50d541"
+  },
+  {
+    "path": "native/modules/camera/module.cpp",
+    "sha": "86ddc1c0477fd5d6c02e6b22a13346c634b6834d"
+  },
+  {
+    "path": "native/modules/camera/overlay/main.cpp",
+    "sha": "86aed7ee513df4d4283712a7ebe8f4deb8f8160f"
+  },
+  {
+    "path": "native/modules/camera/overlay/mmd_overlay.manifest",
+    "sha": "fc856130a61cb758d12c0b72d020b98e7275deb4"
+  },
+  {
+    "path": "native/modules/camera/overlay/mmd_overlay.rc",
+    "sha": "12434be9f9b07b291fb9674d0778c7b7d4273abc"
+  },
+  {
+    "path": "native/shared/motion/character_mapping.h",
+    "sha": "872a21d211f729c100f8fb95ceef3b2826b1a8f0"
+  },
+  {
+    "path": "native/shared/motion/character_pose.h",
+    "sha": "0880bea0a1a5b53163e6df49c6a2fd99c93ec6bf"
+  },
+  {
+    "path": "native/shared/motion/pose_lease_registry.h",
+    "sha": "91f36dad52590076bc525548f8e3f95e30efc45b"
+  },
+  {
+    "path": "native/shared/motion/vmd.h",
+    "sha": "1368ee11c92dcb07877f4ab3fbd8f82057f8f3c0"
+  }
+]

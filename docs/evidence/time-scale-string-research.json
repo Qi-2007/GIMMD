@@ -1,0 +1,110 @@
+{
+  "mode": "offline-named-icall-research",
+  "note": "Registration and instruction boundaries require review; candidates are not callable profiles.",
+  "strings": [
+    {
+      "name": "Time.timeScale is out of range. Needs to be between 0 and 100.",
+      "rva": "0x3aecb00"
+    }
+  ],
+  "references": [
+    {
+      "name": "Time.timeScale is out of range. Needs to be between 0 and 100.",
+      "stringRva": "0x3aecb00",
+      "codeRva": "0x16f32ad",
+      "followingInstructions": [
+        {
+          "rva": "0x16f32ad",
+          "text": "lea rcx, [rip + 0x23f984c]",
+          "ripTargets": [
+            "0x3aecb00"
+          ]
+        },
+        {
+          "rva": "0x16f32b4",
+          "text": "mov dword ptr [rsp + 0x28], eax"
+        },
+        {
+          "rva": "0x16f32b8",
+          "text": "mov r9d, 0x2ca"
+        },
+        {
+          "rva": "0x16f32be",
+          "text": "xor edx, edx"
+        },
+        {
+          "rva": "0x16f32c0",
+          "text": "mov dword ptr [rsp + 0x20], 1"
+        },
+        {
+          "rva": "0x16f32c8",
+          "text": "call 0x16e7660"
+        },
+        {
+          "rva": "0x16f32cd",
+          "text": "add rsp, 0x58"
+        },
+        {
+          "rva": "0x16f32d1",
+          "text": "ret "
+        },
+        {
+          "rva": "0x16f32d2",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d3",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d4",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d5",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d6",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d7",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d8",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32d9",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32da",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32db",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32dc",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32dd",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32de",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x16f32df",
+          "text": "int3 "
+        }
+      ]
+    }
+  ]
+}

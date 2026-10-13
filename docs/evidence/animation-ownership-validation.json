@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "target": "YuanShen CN 7.1.0",
+  "pid": 9620,
+  "executableSha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "coreChecks": 657,
+  "liveFreezeBuild": "build-freeze-time",
+  "liveFreezeRuntimeChecks": 65,
+  "freezeFinalRuntimeChecks": 66,
+  "liveAnimatorBuild": "build-animator-observer",
+  "animatorRuntimeChecks": 40,
+  "readonlyFinalRuntimeChecks": 35,
+  "ordinaryPlaybackRuntimeChecks": 55,
+  "bindPreviewTests": 8,
+  "freezeBuildNote": "Live freeze DLL predates integration of the separate default-off Animator observer. Final integrated freeze build passed tests and was not injected.",
+  "timeScaleBefore": 1,
+  "timeScaleHeld": 0,
+  "timeScaleRestored": 1,
+  "holdChecks": 338,
+  "timeScaleOverrides": 0,
+  "poseSamples": 43,
+  "poseOverwrites": 42,
+  "poseRestoreError": 0,
+  "privateMessageCallbacks": 101,
+  "fovHookDisabled": true,
+  "messageHookRemoved": true,
+  "entryBytesRestored": true,
+  "animatorMatches": 1,
+  "animatorOwnerNode": 20,
+  "animatorStateChanged": false,
+  "visualPlaybackVerified": false,
+  "photoModeTested": false,
+  "artifacts": [
+    {
+      "path": "src/windows/time_control.h",
+      "sha256": "51563CF57EA7A1DB2F95D107318C8D915B5BA7B88210E1C6E0CAC38B7D405254"
+    },
+    {
+      "path": "src/windows/animator_observer.h",
+      "sha256": "6EE037A5F4FE9057D83CC23374ACE11E2E9967BEEF41467DFB84CB1D6363E094"
+    },
+    {
+      "path": "src/windows/single_track_playback.h",
+      "sha256": "D2FE0619102A7EBCE8D41826666792A94A919AACFBDFB303F8BF19A0416ECAE3"
+    },
+    {
+      "path": "src/windows/runtime_probe.cpp",
+      "sha256": "7F94F3FDEB28FC06BE4F0B2282E80779A8CE922DB9EB955D95780E008AEA93B1"
+    },
+    {
+      "path": "src/windows/hierarchy_observer.h",
+      "sha256": "3B931A844F4E2B98CD74C0E59BDD89001222D512A6141CAC5C6E938B28CDC9A2"
+    },
+    {
+      "path": "src/generated/gi_hierarchy_profile.h",
+      "sha256": "411D6DD9C41281E6DE3F9CF64DBC7709D4E8FC95EAD7DF67D3E2488809DE02F6"
+    },
+    {
+      "path": "scripts/generate-hierarchy-profile.py",
+      "sha256": "14A9E435F9C59A589B22E651B4561365762C5E873CB1D2AAB2D6D9B090A39C10"
+    },
+    {
+      "path": "scripts/inspect-gi-icalls.py",
+      "sha256": "D55955A9ED5C4C7AC205A454D6DE167CE13C2F53734C1AAF4D9D5BA8BCA6CE2F"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "8479BE3203E05CF32876C21A88BFAD45CC27F0852216B6208FD2411DD4A75EA7"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "074B5C7A2485D41823C59E8220B1A14A457C58BCFFA09C85D007C0C4AC7EB77B"
+    },
+    {
+      "path": "build-freeze-time/gimmd-probe.dll",
+      "sha256": "BD92F45DA12B9FA8F3E30DBBB3D66E814884AAC5A4E6DFC22A89C7FD48175E22"
+    },
+    {
+      "path": "build-animator-observer/gimmd-probe.dll",
+      "sha256": "6F0A1D673DAB52AABF5B37CB2051C9FD2783B1E670E6743EF798EB3B4FD1E315"
+    },
+    {
+      "path": "build-freeze-final/gimmd-probe.dll",
+      "sha256": "35624B46A10DC6730F6ED3D8583CC442E9889CB75C42CBB40528E3C8FA86E936"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-freeze-time-playback.json",
+      "sha256": "80E6D7A73C947F65779430CB0C25272D62596BB31BEDBF815D356DBF7617C934"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-freeze-time-preflight-refused.json",
+      "sha256": "6220137C31F1781FA09A0ED5B0F17C549FE896A23CDA39F03FB93D699EE19F03"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-observer.json",
+      "sha256": "19D1CE8797790DB8C36BD8E95739D2AF4D92E7B454E07DECDF83BBE2F6B47E04"
+    }
+  ],
+  "roundtripRuntimeChecks": 48
+}

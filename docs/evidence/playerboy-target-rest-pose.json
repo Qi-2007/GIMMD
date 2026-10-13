@@ -1,0 +1,7691 @@
+{
+  "schemaVersion": 1,
+  "mode": "offline-target-rest-recovery",
+  "executableSha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "runtimeSnapshot": "E:\\code\\gimmd\\docs\\evidence\\genshin-7.1-avatar-reference-signed.json",
+  "snapshotSha256": "EF42FC7AA5F0A2A312C94681E7C5D06ABAD153C626A95476CFE5E15C5751D73A",
+  "space": "renderer-mesh",
+  "source": "Mesh.bindposes inverse; custom Avatar local reference admitted only after mesh agreement",
+  "usedLiveAnimationAsRest": false,
+  "sourceSkeletonCalibrated": false,
+  "runtimeRetargetingApplied": false,
+  "boneCount": 121,
+  "mappedTargetRestCount": 52,
+  "mappedTargetLocalRestCount": 52,
+  "maxInverseProductError": 3.434752482434078e-16,
+  "skinAlignment": [
+    {
+      "name": "Brow",
+      "status": "bindpose-matrices-observed",
+      "mergedBones": 0,
+      "sharedBones": 1,
+      "mergeStatus": "insufficient-shared-reference-bones"
+    },
+    {
+      "name": "EffectMesh",
+      "status": "bindpose-matrices-observed",
+      "mergedBones": 0,
+      "sharedBones": 11,
+      "alignmentResidual": 2.220446049250313e-16,
+      "mergeStatus": "aligned-by-shared-rest-matrices"
+    },
+    {
+      "name": "EyeStar",
+      "status": "bindpose-matrices-observed",
+      "mergedBones": 0,
+      "sharedBones": 2,
+      "mergeStatus": "insufficient-shared-reference-bones"
+    },
+    {
+      "name": "Face",
+      "status": "bindpose-matrices-observed",
+      "mergedBones": 0,
+      "sharedBones": 1,
+      "mergeStatus": "insufficient-shared-reference-bones"
+    },
+    {
+      "name": "Face_Eye",
+      "status": "bindpose-matrices-observed",
+      "mergedBones": 0,
+      "sharedBones": 1,
+      "mergeStatus": "insufficient-shared-reference-bones"
+    },
+    {
+      "name": "BakeLod3Obj",
+      "status": "body-renderer-not-found",
+      "mergedBones": 0
+    }
+  ],
+  "avatarReference": {
+    "status": "verified-against-mesh-bindposes",
+    "boneCount": 139,
+    "linkedNodeCount": 121,
+    "sharedMeshBoneCount": 91,
+    "maxMeshAgreementError": 0.00015984670511283756,
+    "negativeScaleRecordCount": 6
+  },
+  "mappings": [
+    {
+      "source": "下半身",
+      "target": "Bip001 Pelvis",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 90
+    },
+    {
+      "source": "上半身",
+      "target": "Bip001 Spine",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 101
+    },
+    {
+      "source": "上半身2",
+      "target": "Bip001 Spine1",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 112
+    },
+    {
+      "source": "上半身3",
+      "target": "Bip001 Spine2",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 132
+    },
+    {
+      "source": "首",
+      "target": "Bip001 Neck",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 160
+    },
+    {
+      "source": "頭",
+      "target": "Bip001 Head",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 186
+    },
+    {
+      "source": "左肩",
+      "target": "Bip001 L Clavicle",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 159
+    },
+    {
+      "source": "左腕",
+      "target": "Bip001 L UpperArm",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 185
+    },
+    {
+      "source": "左ひじ",
+      "target": "Bip001 L Forearm",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 227
+    },
+    {
+      "source": "左手首",
+      "target": "Bip001 L Hand",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 276
+    },
+    {
+      "source": "左足",
+      "target": "Bip001 L Thigh",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 99
+    },
+    {
+      "source": "左ひざ",
+      "target": "Bip001 L Calf",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 108
+    },
+    {
+      "source": "左足首",
+      "target": "Bip001 L Foot",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 124
+    },
+    {
+      "source": "左つま先",
+      "target": "Bip001 L Toe0",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 150
+    },
+    {
+      "source": "左親指０",
+      "target": "Bip001 L Finger0",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 323
+    },
+    {
+      "source": "左親指１",
+      "target": "Bip001 L Finger01",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 363
+    },
+    {
+      "source": "左親指２",
+      "target": "Bip001 L Finger02",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 395
+    },
+    {
+      "source": "左人指１",
+      "target": "Bip001 L Finger1",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 324
+    },
+    {
+      "source": "左人指２",
+      "target": "Bip001 L Finger11",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 364
+    },
+    {
+      "source": "左人指３",
+      "target": "Bip001 L Finger12",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 396
+    },
+    {
+      "source": "左中指１",
+      "target": "Bip001 L Finger2",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 325
+    },
+    {
+      "source": "左中指２",
+      "target": "Bip001 L Finger21",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 365
+    },
+    {
+      "source": "左中指３",
+      "target": "Bip001 L Finger22",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 397
+    },
+    {
+      "source": "左薬指１",
+      "target": "Bip001 L Finger3",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 326
+    },
+    {
+      "source": "左薬指２",
+      "target": "Bip001 L Finger31",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 366
+    },
+    {
+      "source": "左薬指３",
+      "target": "Bip001 L Finger32",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 398
+    },
+    {
+      "source": "左小指１",
+      "target": "Bip001 L Finger4",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 327
+    },
+    {
+      "source": "左小指２",
+      "target": "Bip001 L Finger41",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 367
+    },
+    {
+      "source": "左小指３",
+      "target": "Bip001 L Finger42",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 399
+    },
+    {
+      "source": "右肩",
+      "target": "Bip001 R Clavicle",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 161
+    },
+    {
+      "source": "右腕",
+      "target": "Bip001 R UpperArm",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 188
+    },
+    {
+      "source": "右ひじ",
+      "target": "Bip001 R Forearm",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 245
+    },
+    {
+      "source": "右手首",
+      "target": "Bip001 R Hand",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 287
+    },
+    {
+      "source": "右足",
+      "target": "Bip001 R Thigh",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 100
+    },
+    {
+      "source": "右ひざ",
+      "target": "Bip001 R Calf",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 110
+    },
+    {
+      "source": "右足首",
+      "target": "Bip001 R Foot",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 128
+    },
+    {
+      "source": "右つま先",
+      "target": "Bip001 R Toe0",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 152
+    },
+    {
+      "source": "右親指０",
+      "target": "Bip001 R Finger0",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 332
+    },
+    {
+      "source": "右親指１",
+      "target": "Bip001 R Finger01",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 370
+    },
+    {
+      "source": "右親指２",
+      "target": "Bip001 R Finger02",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 400
+    },
+    {
+      "source": "右人指１",
+      "target": "Bip001 R Finger1",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 333
+    },
+    {
+      "source": "右人指２",
+      "target": "Bip001 R Finger11",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 371
+    },
+    {
+      "source": "右人指３",
+      "target": "Bip001 R Finger12",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 401
+    },
+    {
+      "source": "右中指１",
+      "target": "Bip001 R Finger2",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 334
+    },
+    {
+      "source": "右中指２",
+      "target": "Bip001 R Finger21",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 372
+    },
+    {
+      "source": "右中指３",
+      "target": "Bip001 R Finger22",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 402
+    },
+    {
+      "source": "右薬指１",
+      "target": "Bip001 R Finger3",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 335
+    },
+    {
+      "source": "右薬指２",
+      "target": "Bip001 R Finger31",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 373
+    },
+    {
+      "source": "右薬指３",
+      "target": "Bip001 R Finger32",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 403
+    },
+    {
+      "source": "右小指１",
+      "target": "Bip001 R Finger4",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 336
+    },
+    {
+      "source": "右小指２",
+      "target": "Bip001 R Finger41",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 374
+    },
+    {
+      "source": "右小指３",
+      "target": "Bip001 R Finger42",
+      "targetRestAvailable": true,
+      "targetLocalRestAvailable": true,
+      "nodeId": 404
+    }
+  ],
+  "bones": [
+    {
+      "nodeId": 280,
+      "name": "+EyeBone R A02",
+      "parentNodeId": 232,
+      "meshSpace": {
+        "position": [
+          0.04527153817027499,
+          1.45997870956232,
+          0.11612750108469369
+        ],
+        "rotation": [
+          -0.5844365127056045,
+          0.5844364808418527,
+          -0.3980376730174651,
+          0.3980376531643007
+        ],
+        "scale": [
+          0.999864478368601,
+          1.0001269162219113,
+          0.9999939337543842
+        ],
+        "orthogonalError": 3.634245708423044e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -2.7771153052138627e-13,
+        -0.9998644783686,
+        4.370847815372797e-08,
+        0.0,
+        -0.36631054298926574,
+        -4.067774393171235e-08,
+        -0.9306290531927626,
+        0.0,
+        0.9305052982388835,
+        -1.6008092139362714e-08,
+        -0.3662618701078967,
+        0.0,
+        0.04527153817027499,
+        1.45997870956232,
+        0.11612750108469369,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0540975556,
+          0.00142761227,
+          0.00140714645
+        ],
+        "rotation": [
+          -0.00407914538,
+          0.0142465485,
+          -0.720326543,
+          0.693476796
+        ],
+        "scale": [
+          1,
+          1,
+          1.00000036
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 279,
+      "name": "+EyeBone L A02",
+      "parentNodeId": 231,
+      "meshSpace": {
+        "position": [
+          -0.04539011288135676,
+          1.4599767543597635,
+          0.11614237278707083
+        ],
+        "rotation": [
+          -0.3970108981048071,
+          0.3970108609469898,
+          -0.5851344756981651,
+          0.585134487468973
+        ],
+        "scale": [
+          0.9998330178876818,
+          1.0001546130162005,
+          0.9999921388933334
+        ],
+        "orthogonalError": 7.33607126610771e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -1.3415595882276697e-12,
+        -0.9998330178876808,
+        4.370373084059262e-08,
+        0.0,
+        0.3695865461240132,
+        -4.062308638687824e-08,
+        -0.929362703610225,
+        0.0,
+        0.9292117024539538,
+        1.6149179879285896e-08,
+        0.36952657532454736,
+        0.0,
+        -0.04539011288135676,
+        1.4599767543597635,
+        0.11614237278707083,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0541672632,
+          0.00143493654,
+          -0.00138948672
+        ],
+        "rotation": [
+          0.00495628268,
+          -0.0148332128,
+          -0.720351517,
+          0.693432868
+        ],
+        "scale": [
+          1.00000012,
+          1.0000006,
+          1.00000048
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 186,
+      "name": "Bip001 Head",
+      "parentNodeId": 160,
+      "meshSpace": {
+        "position": [
+          1.0380622161151054e-07,
+          1.3923151520081303,
+          0.045940619626887017
+        ],
+        "rotation": [
+          0.499999637305748,
+          -0.4999996591614943,
+          -0.5000003408382446,
+          0.5000003626940177
+        ],
+        "scale": [
+          0.999999999999999,
+          0.9999998799990236,
+          0.99999999999901
+        ],
+        "orthogonalError": 1.7115218404126494e-13
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -2.904368055557866e-14,
+        -0.9999999999999981,
+        4.371142925466927e-08,
+        0.0,
+        1.4070647611494444e-06,
+        4.3711429254496265e-08,
+        0.9999998799980327,
+        0.0,
+        -0.9999999999980201,
+        9.391664460606362e-14,
+        1.4070651011493982e-06,
+        0.0,
+        1.0380622161151054e-07,
+        1.3923151520081303,
+        0.045940619626887017,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0871769711,
+          0.00811577775,
+          -3.71255721e-10
+        ],
+        "rotation": [
+          -6.80190115e-15,
+          -1.38454268e-07,
+          0.0499193072,
+          0.99875325
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 236,
+      "name": "+HairS L A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -0.1079448355202466,
+          1.4994124615134081,
+          0.04366263440869863
+        ],
+        "rotation": [
+          0.0012042169856100902,
+          0.0017295233976114882,
+          0.8176899244418976,
+          0.5756550582392831
+        ],
+        "scale": [
+          1.0000038136590503,
+          0.9999875720671254,
+          0.9999869472771342
+        ],
+        "orthogonalError": 4.365094527544536e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.3372408731344799,
+        0.9414224452083513,
+        -2.1864742398141297e-05,
+        0.0,
+        -0.9413988095651639,
+        -0.3372323547376883,
+        0.004214802020330324,
+        0.0,
+        0.003960519213474221,
+        0.0014419811842883966,
+        0.9999780646106523,
+        0.0,
+        -0.1079448355202466,
+        1.4994124615134081,
+        0.04366263440869863,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.107097164,
+          -0.00227797986,
+          0.107944876
+        ],
+        "rotation": [
+          0.120755278,
+          0.698138773,
+          0.695206165,
+          -0.121279836
+        ],
+        "scale": [
+          1.00000381,
+          0.999987543,
+          0.999987125
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 285,
+      "name": "+HairS R A02",
+      "parentNodeId": 237,
+      "meshSpace": {
+        "position": [
+          0.08882348534132121,
+          1.446023353299398,
+          0.04365414153924496
+        ],
+        "rotation": [
+          -0.7507472000787663,
+          -0.6605894932197198,
+          0.00027486097440578114,
+          0.00029575843401796656
+        ],
+        "scale": [
+          1.000021506284086,
+          0.9999972594613867,
+          0.9999965739675499
+        ],
+        "orthogonalError": 8.742395896892751e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.1272456326560415,
+        0.991892918373115,
+        -2.1952705765801452e-05,
+        0.0,
+        0.9918685445822482,
+        -0.1272425148997524,
+        -0.0008072177917015455,
+        0.0,
+        -0.0008034494414761752,
+        8.093898373505449e-05,
+        -0.9999962479253177,
+        0.0,
+        0.08882348534132121,
+        1.446023353299398,
+        0.04365414153924496,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0566882305,
+          -1.52587887e-07,
+          -3.81469718e-08
+        ],
+        "rotation": [
+          1.53624696e-05,
+          -9.1782269e-05,
+          -0.107293032,
+          0.994227469
+        ],
+        "scale": [
+          1.0000205,
+          1.00000894,
+          1.00000048
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 237,
+      "name": "+HairS R A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          0.10786654200425702,
+          1.4994175293743757,
+          0.043653673416808404
+        ],
+        "rotation": [
+          -0.8172893121778535,
+          -0.5762274123719102,
+          0.0002259484476206607,
+          0.00031365318882589036
+        ],
+        "scale": [
+          1.0000015554084467,
+          0.9999876091396935,
+          0.9999963611500857
+        ],
+        "orthogonalError": 6.400132185266592e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.33592432871454886,
+        0.9418906285419882,
+        -7.859434718963271e-06,
+        0.0,
+        0.9418771877289485,
+        -0.33591960946223925,
+        -0.000773076622513923,
+        0.0,
+        -0.0007307989236025438,
+        0.00025229447604947997,
+        -0.9999960622891688,
+        0.0,
+        0.10786654200425702,
+        1.4994175293743757,
+        0.043653673416808404,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.107102357,
+          -0.00228666305,
+          -0.107866369
+        ],
+        "rotation": [
+          -0.120575219,
+          -0.696488976,
+          0.697027802,
+          -0.120486423
+        ],
+        "scale": [
+          1.00000155,
+          0.999987721,
+          0.999996305
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 284,
+      "name": "+HairS L A02",
+      "parentNodeId": 236,
+      "meshSpace": {
+        "position": [
+          -0.08885734273118137,
+          1.4461289073324397,
+          0.04366398352753677
+        ],
+        "rotation": [
+          0.001009827172879473,
+          0.0018500654476311105,
+          0.7504198088427243,
+          0.6609581439118286
+        ],
+        "scale": [
+          1.0000163182850055,
+          1.0000005510352952,
+          0.9999888550409571
+        ],
+        "orthogonalError": 1.4249380469621098e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.12626869201052657,
+        0.9920120912807037,
+        -0.0009300575966832008,
+        0.0,
+        -0.9919889790437296,
+        -0.12626188101535749,
+        0.004111560425984438,
+        0.0,
+        0.003961176729902435,
+        0.0014417281167549486,
+        0.9999799701519407,
+        0.0,
+        -0.08885734273118137,
+        1.4461289073324397,
+        0.04366398352753677,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0565992743,
+          7.62939436e-08,
+          1.04904174e-07
+        ],
+        "rotation": [
+          -1.84415185e-08,
+          -1.668528e-07,
+          -0.10847804,
+          0.994098842
+        ],
+        "scale": [
+          1.00001323,
+          1.00001216,
+          1.00000179
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 233,
+      "name": "+HairB CB A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          5.894499314880127e-09,
+          1.5053208014762738,
+          -0.05227645991165992
+        ],
+        "rotation": [
+          -0.45016469466263265,
+          -0.5444593181984205,
+          0.45117544547802807,
+          0.5453040582133171
+        ],
+        "scale": [
+          1.0000087579798238,
+          0.9999879710042298,
+          0.9999883749399161
+        ],
+        "orthogonalError": 2.981913736861366e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        9.524173110321392e-06,
+        0.9822569335403522,
+        0.18758686643137998,
+        0.0,
+        -0.0018628400103138088,
+        0.1875826883459992,
+        -0.9822348023833914,
+        0.0,
+        -0.9999866397849901,
+        -0.0003400864810833638,
+        0.0018315588126354655,
+        0.0,
+        5.894499314880127e-09,
+        1.5053208014762738,
+        -0.05227645991165992,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.11300537,
+          -0.0982168913,
+          5.45696809e-14
+        ],
+        "rotation": [
+          8.32557344e-05,
+          0.000927053683,
+          0.995551705,
+          0.0942122787
+        ],
+        "scale": [
+          1.0000087,
+          0.9999879,
+          0.999988377
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 281,
+      "name": "+HairB CB A02",
+      "parentNodeId": 233,
+      "meshSpace": {
+        "position": [
+          -1.8061924485271148e-06,
+          1.3169282474795942,
+          -0.0882556589912189
+        ],
+        "rotation": [
+          -0.3984725612493056,
+          -0.583420729014764,
+          0.399709905201448,
+          0.58401358081054
+        ],
+        "scale": [
+          1.0000189067735166,
+          1.0000002587828662,
+          0.9999940675441973
+        ],
+        "orthogonalError": 1.584042877274353e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.0002955216740351403,
+        0.9318439510742388,
+        0.36291125281229697,
+        0.0,
+        -0.0019177143370099838,
+        0.36290332058664876,
+        -0.9318251015317763,
+        0.0,
+        -0.9999921850757798,
+        -0.0009713102168936113,
+        0.0016797224230478346,
+        0.0,
+        -1.8061924485271148e-06,
+        1.3169282474795942,
+        -0.0882556589912189,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.191795424,
+          8.01086401e-07,
+          -1.59442415e-08
+        ],
+        "rotation": [
+          1.42593935e-05,
+          -0.000324308377,
+          -0.0912143216,
+          0.995831251
+        ],
+        "scale": [
+          1.00001085,
+          1.00001168,
+          1.0000056
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 368,
+      "name": "+HairB CB A04",
+      "parentNodeId": 330,
+      "meshSpace": {
+        "position": [
+          -1.734084587672513e-06,
+          1.0431359122903257,
+          -0.18805187739840462
+        ],
+        "rotation": [
+          -0.44944824468633465,
+          -0.545103908576132,
+          0.4504520847152333,
+          0.5458488101838245
+        ],
+        "scale": [
+          1.000043515972227,
+          1.0000211077481347,
+          1.000001238437653
+        ],
+        "orthogonalError": 8.641507961161416e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -9.071106958268254e-05,
+        0.9817921813488044,
+        0.19018711379047706,
+        0.0,
+        -0.001765512105133804,
+        0.1901824078741903,
+        -0.981768684896798,
+        0.0,
+        -0.9999996758697488,
+        -0.0004248080613178028,
+        0.0017160056376549087,
+        0.0,
+        -1.734084587672513e-06,
+        1.0431359122903257,
+        -0.18805187739840462,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.142538831,
+          -2.6702881e-07,
+          1.48564567e-07
+        ],
+        "rotation": [
+          -3.28231981e-05,
+          -7.76067463e-05,
+          0.067622751,
+          0.997710943
+        ],
+        "scale": [
+          1.00001323,
+          1.00001025,
+          1.0000025
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 330,
+      "name": "+HairB CB A03",
+      "parentNodeId": 281,
+      "meshSpace": {
+        "position": [
+          4.226542813850088e-05,
+          1.17813988395088,
+          -0.14230862250677592
+        ],
+        "rotation": [
+          -0.411575804000101,
+          -0.5741913990076103,
+          0.4124929276895794,
+          0.5751166659673784
+        ],
+        "scale": [
+          1.0000298788388107,
+          1.0000112902692089,
+          0.9999989587842856
+        ],
+        "orthogonalError": 2.006473985817611e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.00030764609838268423,
+        0.9471379896688991,
+        0.32091944853841614,
+        0.0,
+        -0.001816552010014018,
+        0.3209135172803898,
+        -0.947118680647474,
+        0.0,
+        -0.999997261572244,
+        -0.00029157706735979147,
+        0.0018191757699477214,
+        0.0,
+        4.226542813850088e-05,
+        1.17813988395088,
+        -0.14230862250677592,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.148940042,
+          1.18255616e-06,
+          -5.88595839e-08
+        ],
+        "rotation": [
+          -5.06845499e-05,
+          0.000343229622,
+          0.0223443899,
+          0.999750316
+        ],
+        "scale": [
+          1.00001085,
+          1.00001144,
+          1.00000489
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 132,
+      "name": "Bip001 Spine2",
+      "parentNodeId": 112,
+      "meshSpace": {
+        "position": [
+          1.2480233861014697e-08,
+          1.1197004974877955,
+          0.04880337242464979
+        ],
+        "rotation": [
+          0.47691239556663567,
+          -0.5220669248317853,
+          -0.47691329524826104,
+          0.5220674302875261
+        ],
+        "scale": [
+          0.9999999651027854,
+          0.9999999637575905,
+          0.9999999999989267
+        ],
+        "orthogonalError": 1.4839702256030862e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -3.2359754732115726e-07,
+        -0.9959221371513923,
+        0.09021655578257567,
+        0.0,
+        1.4289250224562434e-06,
+        0.09021654088148096,
+        0.9959221371495467,
+        0.0,
+        -0.9999999999978535,
+        4.511906992682338e-07,
+        1.3939041473933462e-06,
+        0.0,
+        1.2480233861014697e-08,
+        1.1197004974877955,
+        0.04880337242464979,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0802561194,
+          -0.000139832497,
+          -3.87808535e-10
+        ],
+        "rotation": [
+          4.74578737e-14,
+          -8.69460592e-08,
+          0.0313477255,
+          0.99950856
+        ],
+        "scale": [
+          1,
+          1,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 235,
+      "name": "+HairF R A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          0.01676909867976417,
+          1.6126399757693364,
+          0.10569057760063404
+        ],
+        "rotation": [
+          0.18004804058119844,
+          -0.226519953946356,
+          -0.506848216838426,
+          0.8120198880783155
+        ],
+        "scale": [
+          1.0000036258780758,
+          0.9999869331341923,
+          0.9999836594822491
+        ],
+        "orthogonalError": 2.0449499235630775e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.3835886343744377,
+        -0.9047138885529666,
+        0.1853639425762805,
+        0.0,
+        0.7415630478298869,
+        0.42136971337430357,
+        0.522020763172533,
+        0.0,
+        -0.5503825739595557,
+        -0.06278175467530764,
+        0.8325291543201682,
+        0.0,
+        0.01676909867976417,
+        1.6126399757693364,
+        0.10569057760063404,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.220324695,
+          0.0597503185,
+          -0.0167687852
+        ],
+        "rotation": [
+          -0.45614934,
+          0.129350275,
+          0.175821394,
+          0.862718463
+        ],
+        "scale": [
+          1.00000358,
+          0.999987066,
+          0.999983907
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 283,
+      "name": "+HairF R A02",
+      "parentNodeId": 235,
+      "meshSpace": {
+        "position": [
+          -0.015204400492879619,
+          1.6880478337314613,
+          0.09023968000774352
+        ],
+        "rotation": [
+          -0.01481089813984656,
+          -0.28168159584038277,
+          0.1464511567627118,
+          0.9481498692421837
+        ],
+        "scale": [
+          0.9999943783893903,
+          1.000009275667445,
+          0.9999930927283319
+        ],
+        "orthogonalError": 1.1363175015169369e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.7984105535416102,
+        0.2860575999613748,
+        0.5298116592791261,
+        0.0,
+        -0.26937387105770133,
+        0.9566742673213317,
+        -0.11059211209444395,
+        0.0,
+        -0.538487115850359,
+        -0.05441890586157433,
+        0.8408664544696532,
+        0.0,
+        -0.015204400492879619,
+        1.6880478337314613,
+        0.09023968000774352,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0833506733,
+          -1.37329096e-06,
+          0
+        ],
+        "rotation": [
+          -0.00679537468,
+          0.00490511069,
+          0.653561354,
+          0.756827176
+        ],
+        "scale": [
+          1.00000715,
+          1.0000062,
+          1.00000918
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 88,
+      "name": "+PelvisTwist CF A01",
+      "parentNodeId": 59,
+      "meshSpace": {
+        "position": [
+          1.2413738304384956e-09,
+          0.8863954079955225,
+          0.03108379616067516
+        ],
+        "rotation": [
+          -0.4927733071879028,
+          0.5071234785111617,
+          -0.4927724605367603,
+          0.5071247848433197
+        ],
+        "scale": [
+          0.99981269132549,
+          1.0001816741583154,
+          0.9999847402304376
+        ],
+        "orthogonalError": 2.3974824194528195e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        2.1601184328792065e-06,
+        -0.9994008518166315,
+        -0.02869416524390864,
+        0.0,
+        4.300128595681795e-07,
+        0.028704752485879715,
+        -0.9997696827303127,
+        0.0,
+        0.9999847402280113,
+        2.147262079553348e-06,
+        4.917561155792222e-07,
+        0.0,
+        1.2413738304384956e-09,
+        0.8863954079955225,
+        0.03108379616067516,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -8.31174839e-05,
+          0,
+          0.000381927472
+        ],
+        "rotation": [
+          0.507123411,
+          0.492772579,
+          -0.492773175,
+          0.507124901
+        ],
+        "scale": [
+          0.999812722,
+          1.00018167,
+          0.99998498
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 100,
+      "name": "Bip001 R Thigh",
+      "parentNodeId": 90,
+      "meshSpace": {
+        "position": [
+          0.06590749758940696,
+          0.8860134330300433,
+          0.03100080568587391
+        ],
+        "rotation": [
+          0.4865209631813013,
+          0.4767402667818591,
+          0.5128207183213322,
+          0.5225236657552398
+        ],
+        "scale": [
+          0.9999999128547875,
+          0.9999998740006839,
+          0.9999999724977607
+        ],
+        "orthogonalError": 5.412902399687305e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.019467254803939314,
+        0.9998101036823505,
+        0.0007799196553257354,
+        0.0,
+        -0.07203364255416207,
+        0.0006245223134008047,
+        0.9974018810457713,
+        0.0,
+        0.9972121758190927,
+        -0.019472857536728564,
+        0.07203214013915889,
+        0.0,
+        0.06590749758940696,
+        0.8860134330300433,
+        0.03100080568587391,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -7.62939436e-08,
+          -5.24520871e-08,
+          -0.0659074858
+        ],
+        "rotation": [
+          3.91153226e-05,
+          0.999302864,
+          0.0360402428,
+          0.00974100921
+        ],
+        "scale": [
+          0.99999994,
+          0.999999881,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 99,
+      "name": "Bip001 L Thigh",
+      "parentNodeId": 90,
+      "meshSpace": {
+        "position": [
+          -0.06590749965968916,
+          0.8860135892604831,
+          0.031000624377199935
+        ],
+        "rotation": [
+          0.5128179684225455,
+          0.5225250648179361,
+          0.4865195540207086,
+          0.47674312942660796
+        ],
+        "scale": [
+          1.0000002138356787,
+          1.0000000774985476,
+          1.0000001772255596
+        ],
+        "orthogonalError": 1.940924620958735e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.019467445532225697,
+        0.999810407562812,
+        0.0007714693362196814,
+        0.0,
+        0.07203078090361441,
+        0.0006329098370894613,
+        0.9974022864544951,
+        0.0,
+        0.9972125846300319,
+        0.019472440606163353,
+        -0.07202943539610306,
+        0.0,
+        -0.06590749965968916,
+        0.8860135892604831,
+        0.031000624377199935,
+        1.0
+      ],
+      "local": {
+        "position": [
+          7.62939436e-08,
+          1.28746024e-07,
+          0.0659074932
+        ],
+        "rotation": [
+          3.90757559e-05,
+          0.999302804,
+          -0.0360416248,
+          -0.00974248257
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 101,
+      "name": "Bip001 Spine",
+      "parentNodeId": 90,
+      "meshSpace": {
+        "position": [
+          -4.9453498313909e-09,
+          0.9705343627615515,
+          0.04842325259348804
+        ],
+        "rotation": [
+          0.5100477731367773,
+          -0.48974540860807353,
+          -0.5100484802449223,
+          0.48974610939278596
+        ],
+        "scale": [
+          1.0000000785238736,
+          0.9999998408733789,
+          0.9999998799990331
+        ],
+        "orthogonalError": 1.345884183248914e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -2.8444382286774392e-08,
+        -0.9991757064646553,
+        -0.04059636262782086,
+        0.0,
+        1.400744685227905e-06,
+        -0.04059636642782056,
+        0.9991754684627117,
+        0.0,
+        -0.9999998799980516,
+        -2.8444428031385685e-08,
+        1.4007444532877881e-06,
+        0.0,
+        -4.9453498313909e-09,
+        0.9705343627615515,
+        0.04842325259348804,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0845207945,
+          0.0174225904,
+          7.54676108e-08
+        ],
+        "rotation": [
+          -2.09384916e-06,
+          7.07334721e-07,
+          -0.0203023888,
+          0.999793887
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 244,
+      "name": "+UpperArmTwist R A02",
+      "parentNodeId": 188,
+      "meshSpace": {
+        "position": [
+          0.17597708583476585,
+          1.163264234229648,
+          0.01279345905751184
+        ],
+        "rotation": [
+          0.3211234282832579,
+          0.6334924347602277,
+          0.6358197720059079,
+          0.30215938912355766
+        ],
+        "scale": [
+          0.9999783386821088,
+          1.0000109370292534,
+          0.9999985838593763
+        ],
+        "orthogonalError": 1.677838670034249e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6111455888929883,
+        0.791079265813834,
+        0.02552140688751821,
+        0.0,
+        0.022620962810486266,
+        -0.014774328626442445,
+        0.9996458800161634,
+        0.0,
+        0.7911834526062841,
+        0.6115123137497137,
+        -0.00886578678007366,
+        0.0,
+        0.17597708583476585,
+        1.163264234229648,
+        0.01279345905751184,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0957794935,
+          -8.89682779e-05,
+          0.001473999
+        ],
+        "rotation": [
+          0.999377966,
+          -0.000221382958,
+          0.0027600762,
+          -0.0351582021
+        ],
+        "scale": [
+          0.999978304,
+          1.00001109,
+          0.999998569
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 243,
+      "name": "+UpperArmTwist R A01",
+      "parentNodeId": 188,
+      "meshSpace": {
+        "position": [
+          0.11866314942935219,
+          1.2406867256763503,
+          0.0152537198448058
+        ],
+        "rotation": [
+          0.3276921283389253,
+          0.6303275508217108,
+          0.6325218885950898,
+          0.3085791764651492
+        ],
+        "scale": [
+          1.000015265185126,
+          0.9999674100590804,
+          0.9999998482288381
+        ],
+        "orthogonalError": 1.0573865807814381e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.5948026065466223,
+        0.8034851817942382,
+        0.025533360250890362,
+        0.0,
+        0.022739843198823835,
+        -0.014931646358761206,
+        0.9995973022415451,
+        0.0,
+        0.8035566814405688,
+        0.5951539178071777,
+        -0.009389903550450218,
+        0.0,
+        0.11866314942935219,
+        1.2406867256763503,
+        0.0152537198448058,
+        1.0
+      ],
+      "local": {
+        "position": [
+          0.000569381693,
+          -3.03316101e-05,
+          3.02886965e-05
+        ],
+        "rotation": [
+          0.999353647,
+          4.01862744e-05,
+          -0.00749590062,
+          -0.0351590514
+        ],
+        "scale": [
+          1.00001526,
+          0.999967337,
+          0.999999762
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 110,
+      "name": "Bip001 R Calf",
+      "parentNodeId": 100,
+      "meshSpace": {
+        "position": [
+          0.05779914885260803,
+          0.469580809074264,
+          0.030675962183300248
+        ],
+        "rotation": [
+          0.5048753698644372,
+          0.4572579020027942,
+          0.532953551153038,
+          0.5019726927569039
+        ],
+        "scale": [
+          1.0000001166142414,
+          0.9999999425676305,
+          1.0000000308300385
+        ],
+        "orthogonalError": 9.962474733626187e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.013751456197803127,
+        0.9967728796364244,
+        0.07908828675756226,
+        0.0,
+        -0.07333975444548096,
+        -0.07787724669265876,
+        0.9942616858758622,
+        0.0,
+        0.9972122342450852,
+        -0.019472858321412302,
+        0.07203214088722676,
+        0.0,
+        0.05779914885260803,
+        0.469580809074264,
+        0.030675962183300248,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.416511804,
+          2.38418574e-09,
+          0
+        ],
+        "rotation": [
+          5.5189413e-09,
+          -2.57904764e-09,
+          0.0393033102,
+          0.999227345
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 128,
+      "name": "Bip001 R Foot",
+      "parentNodeId": 110,
+      "meshSpace": {
+        "position": [
+          0.05258831472722015,
+          0.09187415993090396,
+          0.0007070784782929532
+        ],
+        "rotation": [
+          0.527663454882749,
+          0.5276634658769396,
+          0.47071356598974246,
+          0.47071359015133335
+        ],
+        "scale": [
+          0.999999999999999,
+          0.9999998379159027,
+          1.0000000157547801
+        ],
+        "orthogonalError": 2.035496756487757e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        4.396895590909321e-15,
+        0.9999999999999981,
+        -4.371138764419001e-08,
+        0.0,
+        0.11371490136017351,
+        4.342786119097311e-08,
+        0.9935132596198583,
+        0.0,
+        0.9935134386198341,
+        -4.970703867558676e-09,
+        -0.11371490136017329,
+        0.0,
+        0.05258831472722015,
+        0.09187415993090396,
+        0.0007070784782929532,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.378929466,
+          0,
+          4.76837148e-09
+        ],
+        "rotation": [
+          0.0932034105,
+          0.00606515072,
+          -0.0397248715,
+          0.994835854
+        ],
+        "scale": [
+          0.99999994,
+          1,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 152,
+      "name": "Bip001 R Toe0",
+      "parentNodeId": 128,
+      "meshSpace": {
+        "position": [
+          0.06421829240134458,
+          0.0047760390022924485,
+          0.10467580654941294
+        ],
+        "rotation": [
+          -6.7020842105711135e-06,
+          0.7462288282344622,
+          -8.792610752913042e-06,
+          0.6656895190624481
+        ],
+        "scale": [
+          1.0000000129036992,
+          0.9999999997555442,
+          0.999999895614643
+        ],
+        "orthogonalError": 2.8457323137161317e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.11371491566195398,
+        -2.1708874388093732e-05,
+        -0.9935134338760186,
+        0.0,
+        1.7037211852545363e-06,
+        0.9999999995110883,
+        -2.2045614113729995e-05,
+        0.0,
+        0.9935133143474603,
+        -4.19958482133952e-06,
+        -0.11371493053238435,
+        0.0,
+        0.06421829240134458,
+        0.0047760390022924485,
+        0.10467580654941294,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0871003866,
+          0.104614921,
+          -0.000267896656
+        ],
+        "rotation": [
+          -1.54543134e-08,
+          1.54543134e-08,
+          -0.707106829,
+          0.707106829
+        ],
+        "scale": [
+          1.00000012,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 108,
+      "name": "Bip001 L Calf",
+      "parentNodeId": 99,
+      "meshSpace": {
+        "position": [
+          -0.057799079738963983,
+          0.4695808312396086,
+          0.03067930623082509
+        ],
+        "rotation": [
+          0.5329571321747835,
+          0.5019675433632056,
+          0.5048797953924966,
+          0.45725449465081214
+        ],
+        "scale": [
+          1.0000000219036351,
+          1.0000000190481138,
+          1.0000001750420842
+        ],
+        "orthogonalError": 2.0749810445384875e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.013750030363425661,
+        0.9967714970557485,
+        0.07910476047317164,
+        0.0,
+        0.07333726914281509,
+        -0.07789382039456232,
+        0.9942606478158742,
+        0.0,
+        0.9972125808197503,
+        0.01947244337368574,
+        -0.07202945708576719,
+        0.0,
+        -0.057799079738963983,
+        0.4695808312396086,
+        0.03067930623082509,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.416511744,
+          0,
+          -4.76837148e-09
+        ],
+        "rotation": [
+          -1.04692821e-09,
+          -4.11795598e-11,
+          0.0393033065,
+          0.999227345
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 124,
+      "name": "Bip001 L Foot",
+      "parentNodeId": 108,
+      "meshSpace": {
+        "position": [
+          -0.05258877824871982,
+          0.09187461443077152,
+          0.0007041728450080749
+        ],
+        "rotation": [
+          0.4707128795513145,
+          0.4707129011520107,
+          0.5276640571891225,
+          0.5276640905578867
+        ],
+        "scale": [
+          0.999999999999999,
+          1.0000000169555856,
+          0.9999997795059979
+        ],
+        "orthogonalError": 2.71784793775479e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -4.0977331181322166e-14,
+        0.9999999999999981,
+        -4.3711391277941165e-08,
+        0.0,
+        -0.11371748785411752,
+        4.3427858440544865e-08,
+        0.9935131437818617,
+        0.0,
+        0.9935129047819123,
+        4.9709215881274164e-09,
+        0.11371748785411731,
+        0.0,
+        -0.05258877824871982,
+        0.09187461443077152,
+        0.0007041728450080749,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.378929436,
+          -2.38418574e-09,
+          0
+        ],
+        "rotation": [
+          -0.093203418,
+          -0.0060652378,
+          -0.0397248678,
+          0.994835854
+        ],
+        "scale": [
+          0.999999821,
+          0.999999881,
+          0.999999821
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 150,
+      "name": "Bip001 L Toe0",
+      "parentNodeId": 124,
+      "meshSpace": {
+        "position": [
+          -0.0642190504370792,
+          0.004776382427356399,
+          0.10467273922328756
+        ],
+        "rotation": [
+          -8.209239494094523e-06,
+          0.6656885751193917,
+          -6.4649615707296e-06,
+          0.7462296703068879
+        ],
+        "scale": [
+          0.9999999042316177,
+          0.9999999997816253,
+          0.9999997845029222
+        ],
+        "orthogonalError": 1.4453219166463786e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.11371743165487438,
+        -2.057828329274469e-05,
+        -0.9935130365413419,
+        0.0,
+        -1.280900697325066e-06,
+        0.9999999995632507,
+        -2.085925903287171e-05,
+        0.0,
+        0.9935129179659585,
+        3.6446525017547813e-06,
+        0.11371741655249558,
+        0.0,
+        -0.0642190504370792,
+        0.004776382427356399,
+        0.10467273922328756,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0871003792,
+          0.104614921,
+          0.000267896656
+        ],
+        "rotation": [
+          1.80884907e-08,
+          -1.28201343e-08,
+          -0.707106829,
+          0.707106829
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 268,
+      "name": "+AmiceF L A04",
+      "parentNodeId": 218,
+      "meshSpace": {
+        "position": [
+          -0.06246607726622271,
+          0.7725742751108599,
+          0.1588674250688111
+        ],
+        "rotation": [
+          0.5012875212775908,
+          0.4986380191769049,
+          0.49868408381207185,
+          0.5013832181028959
+        ],
+        "scale": [
+          1.0000278959904862,
+          1.00002943458689,
+          1.00001399839192
+        ],
+        "orthogonalError": 2.259497626265708e-10
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.005348770091933546,
+        1.0000135904034952,
+        -4.925416444958856e-05,
+        0.0,
+        -0.00014163228407316564,
+        5.0012487695557734e-05,
+        1.0000294233067455,
+        0.0,
+        0.999999684188354,
+        -0.005348688496988444,
+        0.0001418955578844793,
+        0.0,
+        -0.06246607726622271,
+        0.7725742751108599,
+        0.1588674250688111,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.156500623,
+          -0.00855201669,
+          0.0440839715
+        ],
+        "rotation": [
+          0.194520324,
+          -0.00528918719,
+          0.0210428573,
+          0.980658531
+        ],
+        "scale": [
+          1.00000596,
+          1.00000548,
+          1.00000477
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 369,
+      "name": "+AmiceB R B25",
+      "parentNodeId": 331,
+      "meshSpace": {
+        "position": [
+          0.2187283081133554,
+          0.6144384065182456,
+          -0.18980470627869378
+        ],
+        "rotation": [
+          -0.47332941682309443,
+          -0.5356312243886798,
+          0.46468602906433065,
+          0.5226139579290026
+        ],
+        "scale": [
+          1.0000480105879193,
+          1.0000398325448394,
+          1.0000243683302135
+        ],
+        "orthogonalError": 1.4003456222277575e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.005668093817967158,
+        0.9928105022909065,
+        0.11996333912576614,
+        0.0,
+        0.021358065279794933,
+        0.12005708888886153,
+        -0.9925773496969122,
+        0.0,
+        -0.9997802051795904,
+        -0.003063644005031016,
+        -0.021883616490633587,
+        0.0,
+        0.2187283081133554,
+        0.6144384065182456,
+        -0.18980470627869378,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.234413937,
+          0.0109859081,
+          0.0409536734
+        ],
+        "rotation": [
+          0.136426926,
+          0.094180055,
+          0.0403118096,
+          0.985338926
+        ],
+        "scale": [
+          1.00001132,
+          1.00000763,
+          1.00000286
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 362,
+      "name": "+AmiceB L B25",
+      "parentNodeId": 322,
+      "meshSpace": {
+        "position": [
+          -0.2188686580490106,
+          0.6146026965669678,
+          -0.1904014640169201
+        ],
+        "rotation": [
+          -0.4702853682807555,
+          -0.5278717941828831,
+          0.467266692877423,
+          0.5308906469458414
+        ],
+        "scale": [
+          1.000026131499581,
+          1.0000277965519504,
+          1.0000087153039288
+        ],
+        "orthogonalError": 2.2464357011752562e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.00602658095991083,
+        0.99266173372323,
+        0.12099019136087952,
+        0.0,
+        0.00036572794151705013,
+        0.12099037164972155,
+        -0.9926816156692356,
+        0.0,
+        -0.9999904892191664,
+        0.006026452309087902,
+        0.0003660977905957455,
+        0.0,
+        -0.2188686580490106,
+        0.6146026965669678,
+        -0.1904014640169201,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.234393224,
+          0.0116242217,
+          -0.0409806259
+        ],
+        "rotation": [
+          -0.147078291,
+          -0.0945079476,
+          0.0387450941,
+          0.983836889
+        ],
+        "scale": [
+          0.999997437,
+          1.00000262,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 225,
+      "name": "+UpperArmTwist L A01",
+      "parentNodeId": 185,
+      "meshSpace": {
+        "position": [
+          -0.11866306754578333,
+          1.2406868440405125,
+          0.0152540971820261
+        ],
+        "rotation": [
+          0.6325321180257379,
+          0.3085560002843783,
+          0.3277059810515192,
+          0.6303214293814244
+        ],
+        "scale": [
+          1.0000341030490352,
+          1.000005809742862,
+          1.0000134783614876
+        ],
+        "orthogonalError": 5.080979496223468e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.5948242733768995,
+        0.8034907509150876,
+        0.025591097214470903,
+        0.0,
+        -0.022777180375165476,
+        -0.014976296125450764,
+        0.9996341981585047,
+        0.0,
+        0.8035588810854687,
+        -0.5951738047957849,
+        0.00939274284860535,
+        0.0,
+        -0.11866306754578333,
+        1.2406868440405125,
+        0.0152540971820261,
+        1.0
+      ],
+      "local": {
+        "position": [
+          0.000569381693,
+          -3.09896459e-05,
+          -2.99835192e-05
+        ],
+        "rotation": [
+          0.999353647,
+          4.27390041e-05,
+          0.00749125425,
+          0.0351590291
+        ],
+        "scale": [
+          1.00003421,
+          1.00000572,
+          1.00001347
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 226,
+      "name": "+UpperArmTwist L A02",
+      "parentNodeId": 185,
+      "meshSpace": {
+        "position": [
+          -0.17597808188857286,
+          1.1632649610514636,
+          0.012787997335365866
+        ],
+        "rotation": [
+          0.6358327826685188,
+          0.3021327325121318,
+          0.32113600878686444,
+          0.6334857127743321
+        ],
+        "scale": [
+          1.0000592498462648,
+          0.9999682746282592,
+          1.0000299378274784
+        ],
+        "orthogonalError": 4.4262597287869545e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6112111479621635,
+        0.7911288233116005,
+        0.025585557165140903,
+        0.0,
+        -0.022657632824078476,
+        -0.01482283388929388,
+        0.9996016534266624,
+        0.0,
+        0.7911948141118925,
+        -0.6115488942717977,
+        0.00886524611163805,
+        0.0,
+        -0.17597808188857286,
+        1.1632649610514636,
+        0.012787997335365866,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0957796425,
+          -8.97788996e-05,
+          -0.00147315976
+        ],
+        "rotation": [
+          0.999377966,
+          -0.000221328693,
+          -0.00276843878,
+          0.0351571254
+        ],
+        "scale": [
+          1.00005913,
+          0.999968112,
+          1.0000298
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 227,
+      "name": "Bip001 L Forearm",
+      "parentNodeId": 185,
+      "meshSpace": {
+        "position": [
+          -0.23811430333031805,
+          1.084340362231469,
+          0.010248088656229283
+        ],
+        "rotation": [
+          -0.6174521377074527,
+          -0.2968533715663673,
+          0.33117030542060877,
+          0.6488121162846746
+        ],
+        "scale": [
+          1.000000016976168,
+          0.9999999851684306,
+          0.9999999488344187
+        ],
+        "orthogonalError": 6.376539245667862e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6044085914839712,
+        0.7963201467037285,
+        -0.023759470668570537,
+        0.0,
+        -0.06314910393377446,
+        0.018158203809088308,
+        -0.9978388851130479,
+        0.0,
+        -0.7941676966113672,
+        0.6046028027411293,
+        0.06126188248337114,
+        0.0,
+        -0.23811430333031805,
+        1.084340362231469,
+        0.010248088656229283,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.196250066,
+          0,
+          7.62939436e-08
+        ],
+        "rotation": [
+          -2.69360667e-09,
+          1.48394763e-08,
+          0.0245620329,
+          0.999698281
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 112,
+      "name": "Bip001 Spine1",
+      "parentNodeId": 101,
+      "meshSpace": {
+        "position": [
+          -2.8952238866226207e-09,
+          1.039479016535355,
+          0.051160652937595315
+        ],
+        "rotation": [
+          0.49304364171675263,
+          -0.5068602030900409,
+          -0.493044448636134,
+          0.5068608029383369
+        ],
+        "scale": [
+          1.0000000979776076,
+          0.9999999790220584,
+          0.9999998799990056
+        ],
+        "orthogonalError": 3.2877368267645933e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -1.892140320619085e-07,
+        -0.9996183089712334,
+        0.02763027912781522,
+        0.0,
+        1.4078505601577725e-06,
+        0.027630279127228877,
+        0.9996181899692935,
+        0.0,
+        -0.9999998799979967,
+        2.2804079608892684e-07,
+        1.4020850018788517e-06,
+        0.0,
+        -2.8952238866226207e-09,
+        1.039479016535355,
+        0.051160652937595315,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0689990222,
+          -6.37602789e-05,
+          -1.76855794e-10
+        ],
+        "rotation": [
+          -6.24667825e-15,
+          -9.46187129e-08,
+          0.0341140442,
+          0.999417961
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 159,
+      "name": "Bip001 L Clavicle",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          -0.03279082363452893,
+          1.290511420724545,
+          0.01949158866842014
+        ],
+        "rotation": [
+          -0.721659622353319,
+          -0.20957254222665908,
+          0.15644547820187762,
+          0.6409458256043999
+        ],
+        "scale": [
+          0.9999999694921062,
+          0.9999998026784593,
+          0.9999997543432005
+        ],
+        "orthogonalError": 3.608411125628763e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.8632083162021156,
+        0.5030261879307755,
+        0.042848524823545,
+        0.0,
+        0.10193387783408045,
+        -0.09053558250491393,
+        -0.9906626056368335,
+        0.0,
+        -0.4944499375824073,
+        0.8595158802158263,
+        -0.12942650257203261,
+        0.0,
+        -0.03279082363452893,
+        1.290511420724545,
+        0.01949158866842014,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.172758862,
+          -0.0137823196,
+          0.0327909403
+        ],
+        "rotation": [
+          -0.500807047,
+          -0.0443526618,
+          0.864053071,
+          0.0252484921
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 161,
+      "name": "Bip001 R Clavicle",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          0.03279112067034,
+          1.2905116771755287,
+          0.01949164306865687
+        ],
+        "rotation": [
+          -0.15644660416038111,
+          -0.6409460783149887,
+          0.7216593476494342,
+          0.20957187475783742
+        ],
+        "scale": [
+          1.0000000424075521,
+          0.9999997831385553,
+          1.0000001034175603
+        ],
+        "orthogonalError": 1.0321758939224601e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.8632081978630821,
+        0.5030267357720852,
+        0.042846179007668364,
+        0.0,
+        -0.10193128195358049,
+        -0.0905355324073599,
+        -0.9906628575898933,
+        0.0,
+        -0.4944508520998437,
+        -0.8595159584119862,
+        0.1294251866059869,
+        0.0,
+        0.03279112067034,
+        1.2905116771755287,
+        0.01949164306865687,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.172758862,
+          -0.0137821389,
+          -0.0327910222
+        ],
+        "rotation": [
+          0.500807106,
+          0.0443502776,
+          0.86405319,
+          0.0252470952
+        ],
+        "scale": [
+          1.00000012,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 155,
+      "name": "+AmiceB R B11",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          0.026926706732802085,
+          1.3120210678127335,
+          -0.02051858035759786
+        ],
+        "rotation": [
+          -0.37098778904244567,
+          -0.6154037739170721,
+          0.4091922287521423,
+          0.5623237282552442
+        ],
+        "scale": [
+          1.0000040274501318,
+          1.000001182292338,
+          1.0000024947108186
+        ],
+        "orthogonalError": 7.065005528446733e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.09232053429485712,
+        0.9168152442977411,
+        0.38850325827111093,
+        0.0,
+        -0.003582483308271783,
+        0.3898599967737321,
+        -0.9208684560321336,
+        0.0,
+        -0.9957254172609047,
+        -0.08640660681579346,
+        -0.03270750903139619,
+        0.0,
+        0.026926706732802085,
+        1.3120210678127335,
+        -0.02051858035759786,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.197790295,
+          -0.0516887084,
+          -0.0269267
+        ],
+        "rotation": [
+          0.0452601723,
+          -0.00949177239,
+          0.968979776,
+          0.242775023
+        ],
+        "scale": [
+          1.00000417,
+          1.00000131,
+          1.0000025
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 154,
+      "name": "+AmiceB L B11",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          -0.026926710910035935,
+          1.3120194814095425,
+          -0.020518601556642792
+        ],
+        "rotation": [
+          -0.4091899589379911,
+          -0.5623262817901059,
+          0.370988243512694,
+          0.615402675886127
+        ],
+        "scale": [
+          1.0000076019680966,
+          1.000004328115648,
+          1.0000007547385648
+        ],
+        "orthogonalError": 4.91414126842552e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.092314484569949,
+        0.9168178133175898,
+        0.3885078340472952,
+        0.0,
+        0.003582220346930655,
+        0.38986425756772203,
+        -0.9208700693466934,
+        0.0,
+        -0.9957242768090174,
+        0.08640037277255859,
+        0.032705498553322984,
+        0.0,
+        -0.026926710910035935,
+        1.3120194814095425,
+        -0.020518601556642792,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.197788775,
+          -0.0516889468,
+          0.0269267056
+        ],
+        "rotation": [
+          -0.045256339,
+          0.00948990509,
+          0.968979537,
+          0.242776647
+        ],
+        "scale": [
+          1.00000787,
+          1.00000453,
+          1.00000072
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 245,
+      "name": "Bip001 R Forearm",
+      "parentNodeId": 188,
+      "meshSpace": {
+        "position": [
+          0.23811395191513487,
+          1.0843394004402733,
+          0.010260698860743904
+        ],
+        "rotation": [
+          -0.3311472529441544,
+          -0.6488247271157349,
+          0.6174403444194816,
+          0.2968760539920394
+        ],
+        "scale": [
+          0.9999999837001017,
+          1.0000000999262588,
+          0.9999999425098238
+        ],
+        "orthogonalError": 9.357665737034712e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6044121638539826,
+        0.7963195746533199,
+        -0.02368625359793551,
+        0.0,
+        0.06310654101327305,
+        0.018217883692918088,
+        -0.9978406050304923,
+        0.0,
+        -0.7941683235484358,
+        -0.6046017458324707,
+        -0.06126408269325789,
+        0.0,
+        0.23811395191513487,
+        1.0843394004402733,
+        0.010260698860743904,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.196249992,
+          0,
+          0
+        ],
+        "rotation": [
+          -9.98491068e-10,
+          5.95981113e-08,
+          0.0245620403,
+          0.999698281
+        ],
+        "scale": [
+          0.999999821,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 287,
+      "name": "Bip001 R Hand",
+      "parentNodeId": 245,
+      "meshSpace": {
+        "position": [
+          0.35402587629858545,
+          0.931624244962109,
+          0.014803159403040084
+        ],
+        "rotation": [
+          0.025701176914483086,
+          0.022978961192969976,
+          0.881566887763472,
+          0.4707985123667324
+        ],
+        "scale": [
+          0.9999999555239659,
+          1.0000001421301374,
+          1.0000000469542278
+        ],
+        "orthogonalError": 8.613590586322231e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.5553764326631103,
+        0.8312618700343168,
+        0.023677679729692164,
+        0.0,
+        -0.8288997283539293,
+        -0.5556414998065385,
+        0.06471513183033446,
+        0.0,
+        0.06695154855494256,
+        0.016314843360249878,
+        0.9976228796196904,
+        0.0,
+        0.35402587629858545,
+        0.931624244962109,
+        0.014803159403040084,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.19177635,
+          2.38418574e-09,
+          -7.62939436e-08
+        ],
+        "rotation": [
+          0.749704242,
+          0.004490247,
+          -0.0380400009,
+          0.660663664
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 276,
+      "name": "Bip001 L Hand",
+      "parentNodeId": 227,
+      "meshSpace": {
+        "position": [
+          -0.3540256425328694,
+          0.9316250249736614,
+          0.014804582688210326
+        ],
+        "rotation": [
+          0.8815659559129879,
+          0.47080125502349646,
+          0.02566837864222446,
+          0.022995173002176173
+        ],
+        "scale": [
+          0.9999999713120715,
+          1.0000000412574206,
+          0.9999999577002697
+        ],
+        "orthogonalError": 9.795565063101287e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.5553745686383612,
+        0.8312652178065945,
+        0.023604423289991548,
+        0.0,
+        0.8289042263160487,
+        -0.5556348643538523,
+        0.06471293243789732,
+        0.0,
+        0.066909048223333,
+        -0.016374116218111006,
+        -0.9976246703968706,
+        0.0,
+        -0.3540256425328694,
+        0.9316250249736614,
+        0.014804582688210326,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.191776276,
+          0,
+          0
+        ],
+        "rotation": [
+          -0.749704242,
+          -0.00449024886,
+          -0.0380400009,
+          0.660663664
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 187,
+      "name": "+AmiceB R B01",
+      "parentNodeId": 161,
+      "meshSpace": {
+        "position": [
+          0.09775958838693098,
+          1.3119612249318289,
+          -0.014854455204359839
+        ],
+        "rotation": [
+          -0.4376146953709388,
+          -0.6772638661727852,
+          0.3938468107708038,
+          0.44123885098408866
+        ],
+        "scale": [
+          1.0000199702488053,
+          1.000017153927326,
+          1.00000994250814
+        ],
+        "orthogonalError": 5.716325852250792e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.2276078579106302,
+        0.9403410435926969,
+        0.2529690211246298,
+        0.0,
+        0.2452044248972773,
+        0.30676135737294863,
+        -0.9196774259393403,
+        0.0,
+        -0.9423859226738198,
+        -0.1472926710384594,
+        -0.3003889593838342,
+        0.0,
+        0.09775958838693098,
+        1.3119612249318289,
+        -0.014854455204359839,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0467631519,
+          0.0254612155,
+          -0.055005338
+        ],
+        "rotation": [
+          -0.259000659,
+          0.395067573,
+          -0.0613531582,
+          0.879247427
+        ],
+        "scale": [
+          1.00002015,
+          1.00001717,
+          1.00000989
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 184,
+      "name": "+AmiceB L B01",
+      "parentNodeId": 159,
+      "meshSpace": {
+        "position": [
+          -0.09775574016957109,
+          1.3119615692069662,
+          -0.014854445483416249
+        ],
+        "rotation": [
+          -0.39384668723330624,
+          -0.4412365890032656,
+          0.4376192707001649,
+          0.6772624553243517
+        ],
+        "scale": [
+          1.0000154318716818,
+          1.0000130698469223,
+          1.0000010525906446
+        ],
+        "orthogonalError": 5.7320654708870045e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.22760278123872646,
+        0.9403398514801948,
+        0.2529600792063993,
+        0.0,
+        -0.2452102774253723,
+        0.30675230613153764,
+        -0.9196744436987583,
+        0.0,
+        -0.9423767249757466,
+        0.14728803426808101,
+        0.30039049313822813,
+        0.0,
+        -0.09775574016957109,
+        1.3119615692069662,
+        -0.014854445483416249,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0467600636,
+          0.0254612528,
+          0.0550037362
+        ],
+        "rotation": [
+          0.259002119,
+          -0.395069748,
+          -0.061347574,
+          0.879246414
+        ],
+        "scale": [
+          1.0000155,
+          1.00001311,
+          1.00000119
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 179,
+      "name": "+AmiceB L B12",
+      "parentNodeId": 154,
+      "meshSpace": {
+        "position": [
+          -0.04262561888311348,
+          1.1550040356853946,
+          -0.08709337528188418
+        ],
+        "rotation": [
+          -0.43022373921984736,
+          -0.5248724616780542,
+          0.42940369733697215,
+          0.5958430144736535
+        ],
+        "scale": [
+          1.0000105274811082,
+          1.0000098288351267,
+          1.000010059326576
+        ],
+        "orthogonalError": 1.752371753607762e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.08024356493704397,
+        0.9633497135577578,
+        0.25600655215721463,
+        0.0,
+        -0.06008979589669813,
+        0.2610425534326733,
+        -0.9634654428121967,
+        0.0,
+        -0.9949725149943561,
+        0.06192789200942585,
+        0.07883368157974496,
+        0.0,
+        -0.04262561888311348,
+        1.1550040356853946,
+        -0.08709337528188418,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.171265945,
+          3.56674173e-05,
+          -0.000111770627
+        ],
+        "rotation": [
+          0.025795741,
+          -0.00404949486,
+          0.0703592151,
+          0.997179925
+        ],
+        "scale": [
+          1.0000031,
+          1.00000536,
+          1.00000966
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 180,
+      "name": "+AmiceB R B12",
+      "parentNodeId": 155,
+      "meshSpace": {
+        "position": [
+          0.0426267283903912,
+          1.155005409280873,
+          -0.08709159792314655
+        ],
+        "rotation": [
+          -0.4294018128270381,
+          -0.595844733306864,
+          0.43022777844293625,
+          0.5248687412938411
+        ],
+        "scale": [
+          1.0000142698238286,
+          1.0000108053135461,
+          1.0000160434151053
+        ],
+        "orthogonalError": 1.4497039632112296e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.08025491920319835,
+        0.9633535857559036,
+        0.25600304022846315,
+        0.0,
+        0.06008802773689838,
+        0.26103910198469743,
+        -0.9634675017360781,
+        0.0,
+        -0.9949776905736446,
+        -0.06193971854930723,
+        -0.07883497710008676,
+        0.0,
+        0.0426267283903912,
+        1.155005409280873,
+        -0.08709159792314655,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.171266481,
+          3.45611552e-05,
+          0.000111742018
+        ],
+        "rotation": [
+          -0.025794534,
+          0.00404718332,
+          0.0703596696,
+          0.997179925
+        ],
+        "scale": [
+          1.00001025,
+          1.00000966,
+          1.00001371
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 224,
+      "name": "+AmiceB L B02",
+      "parentNodeId": 184,
+      "meshSpace": {
+        "position": [
+          -0.13233120052925806,
+          1.1691122708192099,
+          -0.053282498407993685
+        ],
+        "rotation": [
+          -0.38293276470849996,
+          -0.4329514192760716,
+          0.44752471673625865,
+          0.6823761383355016
+        ],
+        "scale": [
+          1.0000225885090204,
+          1.0000173903209923,
+          0.9999997812448967
+        ],
+        "orthogonalError": 3.386175126407487e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.2245544895420417,
+        0.9423642263382283,
+        0.24813327804377103,
+        0.0,
+        -0.2791826679605169,
+        0.30617357952652413,
+        -0.9101371094811875,
+        0.0,
+        -0.9336149939310148,
+        0.13509541412148904,
+        0.3318310333292775,
+        0.0,
+        -0.13233120052925806,
+        1.1691122708192099,
+        -0.053282498407993685,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.151912302,
+          3.05175774e-07,
+          -3.62396236e-07
+        ],
+        "rotation": [
+          0.017401766,
+          -0.000809783465,
+          0.00291821151,
+          0.999844015
+        ],
+        "scale": [
+          1.00000715,
+          1.00000453,
+          0.999998569
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 275,
+      "name": "+AmiceB L B03",
+      "parentNodeId": 224,
+      "meshSpace": {
+        "position": [
+          -0.16690315580953516,
+          1.0240306616135377,
+          -0.09148557872539848
+        ],
+        "rotation": [
+          -0.3968151444264569,
+          -0.4205057211717351,
+          0.46688670796873133,
+          0.6691259085835564
+        ],
+        "scale": [
+          1.0000253804149581,
+          1.000021907304132,
+          1.0000048611912737
+        ],
+        "orthogonalError": 1.9364549963540867e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.21038884250623224,
+        0.9585623853301374,
+        0.1922119919598334,
+        0.0,
+        -0.2910922942413585,
+        0.24911453528051503,
+        -0.9237158868577878,
+        0.0,
+        -0.93328251763881,
+        0.13838220102785595,
+        0.331426961960896,
+        0.0,
+        -0.16690315580953516,
+        1.0240306616135377,
+        -0.09148557872539848,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.15395546,
+          1.71661372e-06,
+          1.14440915e-07
+        ],
+        "rotation": [
+          -0.000593696313,
+          0.00155434792,
+          0.0299183689,
+          0.999550998
+        ],
+        "scale": [
+          1.00000286,
+          1.00000441,
+          1.00000501
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 216,
+      "name": "+AmiceB L B13",
+      "parentNodeId": 179,
+      "meshSpace": {
+        "position": [
+          -0.055407435780283176,
+          1.001554194071165,
+          -0.12787153021887787
+        ],
+        "rotation": [
+          -0.4381087155003887,
+          -0.5185616003900381,
+          0.4372260341715291,
+          0.5899050898629022
+        ],
+        "scale": [
+          1.0000143042168503,
+          1.0000139344376693,
+          1.000005013488946
+        ],
+        "orthogonalError": 2.0404295079934354e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.07985567603058893,
+        0.9702303182306983,
+        0.22870244692605948,
+        0.0,
+        -0.06147186329877991,
+        0.23379154120265566,
+        -0.9703559111759819,
+        0.0,
+        -0.9949143162242972,
+        0.0634281675977285,
+        0.07830962859163992,
+        0.0,
+        -0.055407435780283176,
+        1.001554194071165,
+        -0.12787153021887787,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.159287944,
+          -4.95910626e-07,
+          4.7683713e-08
+        ],
+        "rotation": [
+          -0.000437104929,
+          0.000664117979,
+          0.014064353,
+          0.999900818
+        ],
+        "scale": [
+          1.0000037,
+          1.00000405,
+          0.999994814
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 266,
+      "name": "+AmiceB L B14",
+      "parentNodeId": 216,
+      "meshSpace": {
+        "position": [
+          -0.07011758074646597,
+          0.8228286831524891,
+          -0.17000017583079832
+        ],
+        "rotation": [
+          -0.4528066767001942,
+          -0.5133594945330169,
+          0.4429911435005028,
+          0.5789533570924761
+        ],
+        "scale": [
+          1.0000190828147126,
+          1.00001421391555,
+          0.9999990826517675
+        ],
+        "orthogonalError": 5.560492197503181e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.08044330153069629,
+        0.9778662879692523,
+        0.19324741676321452,
+        0.0,
+        -0.048037907225438416,
+        0.19745269329669274,
+        -0.9791492334738447,
+        0.0,
+        -0.9956001842756592,
+        0.06948041633817531,
+        0.0628562655597967,
+        0.0,
+        -0.07011758074646597,
+        0.8228286831524891,
+        -0.17000017583079832,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.184209287,
+          -4.95910626e-07,
+          1.90734859e-08
+        ],
+        "rotation": [
+          -0.00820399262,
+          0.00129021821,
+          0.0180901568,
+          0.999801874
+        ],
+        "scale": [
+          1.00000477,
+          1.00000036,
+          0.999994159
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 322,
+      "name": "+AmiceB L B04",
+      "parentNodeId": 275,
+      "meshSpace": {
+        "position": [
+          -0.20640163362316574,
+          0.8440692928814376,
+          -0.12757149970948478
+        ],
+        "rotation": [
+          -0.40832489128358346,
+          -0.41868250770591947,
+          0.4723237207464017,
+          0.6594589022218198
+        ],
+        "scale": [
+          1.0000294687797748,
+          1.0000268349153176,
+          1.0000061359079349
+        ],
+        "orthogonalError": 1.0366376754916695e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.2032365706098921,
+        0.9649015640711618,
+        0.16648965868099566,
+        0.0,
+        -0.2810467600190726,
+        0.22036810930227718,
+        -0.934079378659046,
+        0.0,
+        -0.937936647219575,
+        0.14304051918293084,
+        0.3159533629001269,
+        0.0,
+        -0.20640163362316574,
+        0.8440692928814376,
+        -0.12757149970948478,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.187740862,
+          -2.28881831e-07,
+          -1.14440915e-07
+        ],
+        "rotation": [
+          -0.00839956757,
+          0.000371213566,
+          0.0137148667,
+          0.999870598
+        ],
+        "scale": [
+          1.00000405,
+          1.00000489,
+          1.00000131
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 309,
+      "name": "+AmiceB L B15",
+      "parentNodeId": 266,
+      "meshSpace": {
+        "position": [
+          -0.08457221446416517,
+          0.6471171890816096,
+          -0.20472475295148396
+        ],
+        "rotation": [
+          -0.4614232236977939,
+          -0.5057249519193202,
+          0.44608171986675427,
+          0.576491093460476
+        ],
+        "scale": [
+          1.0000224694135496,
+          1.0000187597042713,
+          1.0000006327108841
+        ],
+        "orthogonalError": 2.459324829374998e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.0905087718330567,
+        0.9810527929927888,
+        0.17143079919983376,
+        0.0,
+        -0.047618709901812516,
+        0.17620272258788477,
+        -0.983220513811817,
+        0.0,
+        -0.9947574184051439,
+        0.08082351002705837,
+        0.06266182392021574,
+        0.0,
+        -0.08457221446416517,
+        0.6471171890816096,
+        -0.20472475295148396,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.179688677,
+          2.28881831e-07,
+          -1.43051139e-07
+        ],
+        "rotation": [
+          -0.00113335648,
+          0.00557377329,
+          0.0107604433,
+          0.999925971
+        ],
+        "scale": [
+          1.00000334,
+          1.00000441,
+          1.00000143
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 242,
+      "name": "+AmiceB R B02",
+      "parentNodeId": 187,
+      "meshSpace": {
+        "position": [
+          0.13233613430039967,
+          1.1691108437647464,
+          -0.05328389110176819
+        ],
+        "rotation": [
+          -0.44752148690635357,
+          -0.6823779036535711,
+          0.38293249907800636,
+          0.432952210425535
+        ],
+        "scale": [
+          1.0000286062072574,
+          1.0000246600425509,
+          1.0000144287299992
+        ],
+        "orthogonalError": 7.524927986279906e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.22456022877053122,
+        0.9423674432577583,
+        0.24814011923748278,
+        0.0,
+        0.27918149686245086,
+        0.3061819378014438,
+        -0.9101426445711758,
+        0.0,
+        -0.9336285392072711,
+        -0.13510045438142293,
+        -0.33183501272743476,
+        0.0,
+        0.13233613430039967,
+        1.1691108437647464,
+        -0.05328389110176819,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.151913375,
+          -3.81469718e-08,
+          1.52587887e-07
+        ],
+        "rotation": [
+          -0.0174034573,
+          0.000809286837,
+          0.00291942246,
+          0.999844015
+        ],
+        "scale": [
+          1.00000858,
+          1.00000763,
+          1.00000465
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 286,
+      "name": "+AmiceB R B03",
+      "parentNodeId": 242,
+      "meshSpace": {
+        "position": [
+          0.16690825080556113,
+          1.0240280089847302,
+          -0.09148614505916725
+        ],
+        "rotation": [
+          -0.46688324789261715,
+          -0.6691294208037515,
+          0.3968131722131219,
+          0.4205058351678802
+        ],
+        "scale": [
+          1.0000335858950922,
+          1.0000298855096978,
+          1.0000205661582793
+        ],
+        "orthogonalError": 8.398345488491721e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.21039687610634655,
+        0.958567322744666,
+        0.19222126627668043,
+        0.0,
+        0.2910948558814041,
+        0.24912613212488469,
+        -0.9237205892933308,
+        0.0,
+        -0.9332957024890578,
+        -0.13838734869681907,
+        -0.33143507082933515,
+        0.0,
+        0.16690825080556113,
+        1.0240280089847302,
+        -0.09148614505916725,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.153955534,
+          -3.05175774e-07,
+          1.14440915e-07
+        ],
+        "rotation": [
+          0.00059193687,
+          -0.00155486725,
+          0.0299169235,
+          0.999551058
+        ],
+        "scale": [
+          1.00000525,
+          1.00000525,
+          1.00000596
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 217,
+      "name": "+AmiceB R B13",
+      "parentNodeId": 180,
+      "meshSpace": {
+        "position": [
+          0.05541043555401133,
+          1.0015557968391626,
+          -0.12786956917380826
+        ],
+        "rotation": [
+          -0.43722509474582794,
+          -0.5899084195466913,
+          0.4381107809875238,
+          0.5185568596161163
+        ],
+        "scale": [
+          1.00002065889762,
+          1.0000148467727406,
+          1.000018350823326
+        ],
+        "orthogonalError": 1.7739037589531437e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.0798676359939361,
+        0.9702362733243715,
+        0.22870079332701349,
+        0.0,
+        0.061475732809504094,
+        0.23378979432009675,
+        -0.9703570271365117,
+        0.0,
+        -0.9949264275687257,
+        -0.06343948992361424,
+        -0.07831690000867933,
+        0.0,
+        0.05541043555401133,
+        1.0015557968391626,
+        -0.12786956917380826,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.159286723,
+          7.62939436e-08,
+          -1.62124635e-07
+        ],
+        "rotation": [
+          0.000434308371,
+          -0.00066431216,
+          0.0140636545,
+          0.999900818
+        ],
+        "scale": [
+          1.00000644,
+          1.00000393,
+          1.00000238
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 267,
+      "name": "+AmiceB R B14",
+      "parentNodeId": 217,
+      "meshSpace": {
+        "position": [
+          0.0701223398789084,
+          0.8228303920440273,
+          -0.16999484763760767
+        ],
+        "rotation": [
+          -0.44299492527296114,
+          -0.5789625672375515,
+          0.45280349954275295,
+          0.5133486463622393
+        ],
+        "scale": [
+          1.0000247947774077,
+          1.0000157500836955,
+          1.0000177115897482
+        ],
+        "orthogonalError": 9.916094033130679e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.08045932707734535,
+        0.9778713325427101,
+        0.19324477702386028,
+        0.0,
+        0.048063598132633334,
+        0.19745208475962742,
+        -0.979149664338439,
+        0.0,
+        -0.9956162380443704,
+        -0.06949210089907298,
+        -0.06288543510389112,
+        0.0,
+        0.0701223398789084,
+        0.8228303920440273,
+        -0.16999484763760767,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.184207529,
+          -3.16619867e-06,
+          1.04904174e-07
+        ],
+        "rotation": [
+          0.00819318835,
+          -0.00129255897,
+          0.0180904008,
+          0.999801934
+        ],
+        "scale": [
+          1.00000405,
+          1.00000107,
+          0.999999285
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 331,
+      "name": "+AmiceB R B04",
+      "parentNodeId": 286,
+      "meshSpace": {
+        "position": [
+          0.2064085351260791,
+          0.8440630056822855,
+          -0.12757367147484724
+        ],
+        "rotation": [
+          -0.472321153378144,
+          -0.6594649939285181,
+          0.4083215598060127,
+          0.41867905805280486
+        ],
+        "scale": [
+          1.0000372998818914,
+          1.0000330073583439,
+          1.0000198906645628
+        ],
+        "orthogonalError": 3.9361688276839946e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.2032487608188688,
+        0.9649058857505131,
+        0.16649676881151865,
+        0.0,
+        0.2810564623385284,
+        0.22037973821334117,
+        -0.9340803240454989,
+        0.0,
+        -0.9379448411114375,
+        -0.14304846518378142,
+        -0.3159689753215795,
+        0.0,
+        0.2064085351260791,
+        0.8440630056822855,
+        -0.12757367147484724,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.187743455,
+          -8.01086401e-07,
+          5.72204577e-08
+        ],
+        "rotation": [
+          0.00839571469,
+          -0.00037366405,
+          0.0137151089,
+          0.999870658
+        ],
+        "scale": [
+          1.00000358,
+          1.00000322,
+          0.999999464
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 310,
+      "name": "+AmiceB R B15",
+      "parentNodeId": 267,
+      "meshSpace": {
+        "position": [
+          0.08457967236816794,
+          0.6471199422486965,
+          -0.20471905779981955
+        ],
+        "rotation": [
+          -0.4460920255998189,
+          -0.5765047305881102,
+          0.46141352355294546,
+          0.5057091660116875
+        ],
+        "scale": [
+          1.0000313155301543,
+          1.0000203399301848,
+          1.000021034857823
+        ],
+        "orthogonalError": 5.817605778970364e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.09052310034073172,
+        0.9810611388142036,
+        0.17142707561599035,
+        0.0,
+        0.047667157278388106,
+        0.1762024927478504,
+        -0.9832198146602433,
+        0.0,
+        -0.9947741691043579,
+        -0.08083017611615582,
+        -0.0627128796171631,
+        0.0,
+        0.08457967236816794,
+        0.6471199422486965,
+        -0.20471905779981955,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.179686815,
+          6.86645478e-07,
+          1.62124635e-07
+        ],
+        "rotation": [
+          0.00112257083,
+          -0.00557311717,
+          0.0107610989,
+          0.999925971
+        ],
+        "scale": [
+          1.00000656,
+          1.00000441,
+          1.00000322
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 160,
+      "name": "Bip001 Neck",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          7.577859295801709e-08,
+          1.3063818677373904,
+          0.029172610048685172
+        ],
+        "rotation": [
+          0.524335613787586,
+          -0.47441697766536983,
+          -0.524336365916701,
+          0.4744176122301102
+        ],
+        "scale": [
+          1.0000000311747903,
+          0.9999998508323978,
+          0.9999999999990282
+        ],
+        "orthogonalError": 4.439490260888317e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -1.8864806601495766e-07,
+        -0.9950162785961705,
+        -0.09971292633442366,
+        0.0,
+        1.381315822351308e-06,
+        -0.09971290393475818,
+        0.9950160995942767,
+        0.0,
+        -0.9999999999980564,
+        4.997282907844754e-08,
+        1.3932427577905926e-06,
+        0.0,
+        7.577859295801709e-08,
+        1.3063818677373904,
+        0.029172610048685172,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.187691107,
+          -0.00270896894,
+          -6.43212816e-09
+        ],
+        "rotation": [
+          -5.52323385e-14,
+          2.63397197e-07,
+          -0.0949658081,
+          0.995480537
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 370,
+      "name": "Bip001 R Finger01",
+      "parentNodeId": 332,
+      "meshSpace": {
+        "position": [
+          0.36108005539039745,
+          0.8882745920089924,
+          0.055056701307912875
+        ],
+        "rotation": [
+          -0.5942191351231025,
+          -0.1127997269561218,
+          0.6961328978513138,
+          0.3867542237407483
+        ],
+        "scale": [
+          1.0000003204104715,
+          1.0000000827207016,
+          0.9999999212383971
+        ],
+        "orthogonalError": 1.2547409516385985e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.005350440160532414,
+        0.6725203766877772,
+        -0.740059697964201,
+        0.0,
+        -0.4044092146026373,
+        -0.675394768362639,
+        -0.616680840836056,
+        0.0,
+        -0.9145624030246482,
+        0.3025863662104654,
+        0.268359729531328,
+        0.0,
+        0.36108005539039745,
+        0.8882745920089924,
+        0.055056701307912875,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0265581887,
+          7.62939436e-08,
+          -1.90734859e-08
+        ],
+        "rotation": [
+          2.94152036e-10,
+          7.44477191e-09,
+          -0.0394804142,
+          0.999220371
+        ],
+        "scale": [
+          0.99999994,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 332,
+      "name": "Bip001 R Finger0",
+      "parentNodeId": 287,
+      "meshSpace": {
+        "position": [
+          0.36037428943302335,
+          0.9046646986337155,
+          0.03417115285490412
+        ],
+        "rotation": [
+          -0.5982092200214537,
+          -0.0892517176382076,
+          0.7108593614201193,
+          0.35896911881293325
+        ],
+        "scale": [
+          1.0000003102168973,
+          1.0000002661361196,
+          0.9999999961171431
+        ],
+        "orthogonalError": 6.432356409839801e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.026573844687446918,
+        0.6171356935320792,
+        -0.7864082826249338,
+        0.0,
+        -0.40357084288244405,
+        -0.7263507724761196,
+        -0.556368279443399,
+        0.0,
+        -0.9145624598211511,
+        0.3025864533574834,
+        0.26835971673243186,
+        0.0,
+        0.36037428943302335,
+        0.9046646986337155,
+        0.03417115285490412,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0254774857,
+          0.010970993,
+          0.0193071123
+        ],
+        "rotation": [
+          -0.385878205,
+          0.495362997,
+          0.00676399097,
+          0.778246582
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 334,
+      "name": "Bip001 R Finger2",
+      "parentNodeId": 287,
+      "meshSpace": {
+        "position": [
+          0.40146467275331904,
+          0.8593879802303076,
+          0.019508003067822022
+        ],
+        "rotation": [
+          0.0028640581204077325,
+          0.002691074174879119,
+          0.900155614249067,
+          0.4355507151030213
+        ],
+        "scale": [
+          0.9999999374263807,
+          0.9999998980054601,
+          1.0000000455857236
+        ],
+        "orthogonalError": 2.6320431971717218e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6205747149797726,
+        0.7841422005313964,
+        0.002811996856088739,
+        0.0,
+        -0.7841113563877515,
+        -0.6205765917714624,
+        0.007339655305709837,
+        0.0,
+        0.007500395296348816,
+        0.0023498861603198345,
+        0.9999691561627695,
+        0.0,
+        0.40146467275331904,
+        0.8593879802303076,
+        0.019508003067822022,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0862821564,
+          0.00111976627,
+          0.00669125048
+        ],
+        "rotation": [
+          -0.028158024,
+          0.0118686538,
+          0.0398214757,
+          0.998739481
+        ],
+        "scale": [
+          1.00000012,
+          0.99999994,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 333,
+      "name": "Bip001 R Finger1",
+      "parentNodeId": 287,
+      "meshSpace": {
+        "position": [
+          0.3989853736853927,
+          0.8591272603935981,
+          0.03957809997989468
+        ],
+        "rotation": [
+          -0.12675539588887333,
+          0.014342499667959866,
+          0.8865688037666972,
+          0.44466067793770236
+        ],
+        "scale": [
+          0.9999998600801828,
+          0.9999999185776646,
+          1.0000002854949528
+        ],
+        "orthogonalError": 8.270307010060929e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.572419787169273,
+        0.7848084914969634,
+        -0.23750987156691022,
+        0.0,
+        -0.7920804710831101,
+        -0.6041423150657954,
+        -0.08729506074821985,
+        0.0,
+        -0.21199967328745495,
+        0.13815755825187007,
+        0.9674550111575632,
+        0.0,
+        0.3989853736853927,
+        0.8591272603935981,
+        0.03957809997989468,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0846467167,
+          0.00461860653,
+          0.0265433546
+        ],
+        "rotation": [
+          -0.0788330659,
+          0.131063789,
+          0.0221158676,
+          0.987987101
+        ],
+        "scale": [
+          1,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 335,
+      "name": "Bip001 R Finger3",
+      "parentNodeId": 287,
+      "meshSpace": {
+        "position": [
+          0.3966308397702917,
+          0.8609764583351959,
+          -0.0008843238317498261
+        ],
+        "rotation": [
+          0.14017826261437347,
+          0.03865692224069568,
+          0.897274794074809,
+          0.41683766740939054
+        ],
+        "scale": [
+          0.9999999364920023,
+          0.9999998987055031,
+          1.0000002287501017
+        ],
+        "orthogonalError": 9.036247473198644e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6131927777898036,
+        0.75887353479122,
+        0.21932954302581334,
+        0.0,
+        -0.73719806675605,
+        -0.6495039291206527,
+        0.18623494258326756,
+        0.0,
+        0.28378419338761024,
+        -0.04749144494106307,
+        0.9577116224318305,
+        0.0,
+        0.3966308397702917,
+        0.8609764583351959,
+        -0.0008843238317498261,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0827598199,
+          0.0029244232,
+          -0.0139502948
+        ],
+        "rotation": [
+          0.0687426776,
+          -0.0918943658,
+          0.0571929701,
+          0.991745353
+        ],
+        "scale": [
+          1.00000012,
+          0.99999994,
+          1.00000024
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 336,
+      "name": "Bip001 R Finger4",
+      "parentNodeId": 287,
+      "meshSpace": {
+        "position": [
+          0.38591801720622687,
+          0.869951754919309,
+          -0.014387608401447908
+        ],
+        "rotation": [
+          0.3021309561923577,
+          0.07843371571295729,
+          0.8495292796315792,
+          0.4252823069425778
+        ],
+        "scale": [
+          1.0000000691868287,
+          1.0000000678562766,
+          0.9999999677326392
+        ],
+        "orthogonalError": 6.977794829443607e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.4557037525137575,
+        0.7699741054126898,
+        0.44662524034415063,
+        0.0,
+        -0.6751850846437618,
+        -0.6259662670057169,
+        0.39024539684419285,
+        0.0,
+        0.5800511486292346,
+        -0.12371841368466086,
+        0.805130023384134,
+        0.0,
+        0.38591801720622687,
+        0.869951754919309,
+        -0.014387608401447908,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0696692243,
+          0.00594337471,
+          -0.0279922951
+        ],
+        "rotation": [
+          0.1809358,
+          -0.217360809,
+          0.0299691632,
+          0.958706617
+        ],
+        "scale": [
+          1.00000024,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 374,
+      "name": "Bip001 R Finger41",
+      "parentNodeId": 336,
+      "meshSpace": {
+        "position": [
+          0.39903071898653236,
+          0.8477960582814207,
+          -0.027239139649054167
+        ],
+        "rotation": [
+          0.3002923766708277,
+          0.08520242013877233,
+          0.8397592411543285,
+          0.4442628197495129
+        ],
+        "scale": [
+          1.0000001069841347,
+          0.9999999394904351,
+          0.9999999302077682
+        ],
+        "orthogonalError": 1.536924488232394e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.42491007298021705,
+        0.7973190226327747,
+        0.4286420651267725,
+        0.0,
+        -0.6949762515320332,
+        -0.5907422195034814,
+        0.4099164779360041,
+        0.0,
+        0.5800511319026852,
+        -0.12371841588805378,
+        0.805129988488881,
+        0.0,
+        0.39903071898653236,
+        0.8477960582814207,
+        -0.027239139649054167,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0287747942,
+          -7.62939436e-08,
+          -9.53674295e-09
+        ],
+        "rotation": [
+          -1.7868425e-08,
+          3.39376633e-08,
+          -0.0224687867,
+          0.999747574
+        ],
+        "scale": [
+          0.99999994,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 400,
+      "name": "Bip001 R Finger02",
+      "parentNodeId": 370,
+      "meshSpace": {
+        "position": [
+          0.36090143102611794,
+          0.8658247480688024,
+          0.07976112411621875
+        ],
+        "rotation": [
+          -0.5981870639221376,
+          -0.08939994962733872,
+          0.710770447582236,
+          0.3591451745556242
+        ],
+        "scale": [
+          1.000000316341616,
+          1.0000002999309479,
+          0.9999999142144064
+        ],
+        "orthogonalError": 8.504299947587057e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.026373923771171027,
+        0.6174955366048912,
+        -0.7861325022547293,
+        0.0,
+        -0.40358387005893054,
+        -0.726044979896934,
+        -0.5567578889038777,
+        0.0,
+        -0.9145623906620246,
+        0.30258633099550614,
+        0.2683597851952866,
+        0.0,
+        0.36090143102611794,
+        0.8658247480688024,
+        0.07976112411621875,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0333816148,
+          -7.62939436e-08,
+          5.72204577e-08
+        ],
+        "rotation": [
+          -7.44484474e-09,
+          -2.92307401e-10,
+          0.0392328314,
+          0.999230087
+        ],
+        "scale": [
+          1.00000012,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 371,
+      "name": "Bip001 R Finger11",
+      "parentNodeId": 333,
+      "meshSpace": {
+        "position": [
+          0.41482739300788796,
+          0.8374073357588527,
+          0.04615123499001728
+        ],
+        "rotation": [
+          -0.12661498099508411,
+          0.015533534057364405,
+          0.8907098720899488,
+          0.4363064057159947
+        ],
+        "scale": [
+          0.9999999932880878,
+          1.0000000341719388,
+          1.0000002879912693
+        ],
+        "orthogonalError": 6.803659162446518e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.587210755725081,
+        0.7733112615594545,
+        -0.23910919614745027,
+        0.0,
+        -0.781178451885444,
+        -0.6187908523669522,
+        -0.08281410315109818,
+        0.0,
+        -0.2119997175922305,
+        0.13815762866520667,
+        0.967454993973902,
+        0.0,
+        0.41482739300788796,
+        0.8374073357588527,
+        0.04615123499001728,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0276753996,
+          7.62939436e-08,
+          -4.76837148e-09
+        ],
+        "rotation": [
+          -3.7601473e-09,
+          3.69010444e-09,
+          0.00940099172,
+          0.999955833
+        ],
+        "scale": [
+          0.99999994,
+          0.99999994,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 401,
+      "name": "Bip001 R Finger12",
+      "parentNodeId": 371,
+      "meshSpace": {
+        "position": [
+          0.42737119948979596,
+          0.8208884044211997,
+          0.051259030505998254
+        ],
+        "rotation": [
+          -0.12585458613607695,
+          0.020815115189970847,
+          0.9081775506407929,
+          0.3986739151740871
+        ],
+        "scale": [
+          0.9999999180903303,
+          1.0000002493949067,
+          1.0000002791349525
+        ],
+        "orthogonalError": 5.275932703392716e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.65043942518058,
+        0.7188939652408528,
+        -0.24519350948120064,
+        0.0,
+        -0.7293729558603811,
+        -0.6812518299975039,
+        -0.06254225910868909,
+        0.0,
+        -0.2119997683713096,
+        0.13815756333809845,
+        0.9674549830214185,
+        0.0,
+        0.42737119948979596,
+        0.8208884044211997,
+        0.051259030505998254,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0213615038,
+          0,
+          4.76837148e-09
+        ],
+        "rotation": [
+          6.82087409e-09,
+          1.51997188e-08,
+          0.0418213829,
+          0.999125123
+        ],
+        "scale": [
+          1,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 372,
+      "name": "Bip001 R Finger21",
+      "parentNodeId": 334,
+      "meshSpace": {
+        "position": [
+          0.42037893884620886,
+          0.8354885761669572,
+          0.01942229996052551
+        ],
+        "rotation": [
+          0.002852388440686742,
+          0.002703418611369643,
+          0.8982628077357413,
+          0.43944110372915485
+        ],
+        "scale": [
+          0.9999999675596807,
+          0.9999999155001339,
+          1.0000000458138338
+        ],
+        "orthogonalError": 1.7384958962381788e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6137666719295626,
+        0.7894826494821714,
+        0.002748402168892392,
+        0.0,
+        -0.7894516568780355,
+        -0.613768432523983,
+        0.0073636736655226485,
+        0.0,
+        0.007500375883499148,
+        0.0023498473892322185,
+        0.9999691566276048,
+        0.0,
+        0.42037893884620886,
+        0.8354885761669572,
+        0.01942229996052551,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0304785147,
+          0,
+          0
+        ],
+        "rotation": [
+          -3.48487184e-10,
+          1.76132359e-10,
+          -0.00432648836,
+          0.999990642
+        ],
+        "scale": [
+          1,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 402,
+      "name": "Bip001 R Finger22",
+      "parentNodeId": 372,
+      "meshSpace": {
+        "position": [
+          0.43601186393159996,
+          0.8153801761684984,
+          0.0193522955220943
+        ],
+        "rotation": [
+          0.002915055085617753,
+          0.0026356635603126594,
+          0.9083295568881747,
+          0.4182367413496532
+        ],
+        "scale": [
+          1.000000060357816,
+          1.000000118373479,
+          1.000000046449033
+        ],
+        "orthogonalError": 3.1502190112116815e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.650139088537985,
+        0.7598090102046249,
+        0.0030910002429829775,
+        0.0,
+        -0.7597783013684704,
+        -0.6501422518467029,
+        0.00722647080615109,
+        0.0,
+        0.007500323068841131,
+        0.002349734613776704,
+        0.9999691579239712,
+        0.0,
+        0.43601186393159996,
+        0.8153801761684984,
+        0.0193522955220943,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0254704282,
+          1.52587887e-07,
+          0
+        ],
+        "rotation": [
+          1.16383243e-10,
+          2.73240762e-12,
+          0.0234712046,
+          0.999724507
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 373,
+      "name": "Bip001 R Finger31",
+      "parentNodeId": 335,
+      "meshSpace": {
+        "position": [
+          0.41537327893716797,
+          0.8377813614392017,
+          -0.007588202339554122
+        ],
+        "rotation": [
+          0.14073005692694712,
+          0.03659697003143208,
+          0.9032914037043075,
+          0.4036339342222835
+        ],
+        "scale": [
+          0.9999999531231871,
+          1.000000107579594,
+          1.0000002227923914
+        ],
+        "orthogonalError": 4.3161178575612524e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6345493628736038,
+        0.7394986899929686,
+        0.22469690656918992,
+        0.0,
+        -0.7188976064001075,
+        -0.6714807046767552,
+        0.17972231335647795,
+        0.0,
+        0.2837841493452459,
+        -0.047491390732305634,
+        0.9577116319495859,
+        0.0,
+        0.41537327893716797,
+        0.8377813614392017,
+        -0.007588202339554122,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0305653382,
+          -7.62939436e-08,
+          4.76837148e-09
+        ],
+        "rotation": [
+          -7.80489184e-09,
+          2.41025191e-08,
+          0.0146653494,
+          0.999892473
+        ],
+        "scale": [
+          0.99999994,
+          1,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 403,
+      "name": "Bip001 R Finger32",
+      "parentNodeId": 373,
+      "meshSpace": {
+        "position": [
+          0.43140988656195484,
+          0.8190923418693257,
+          -0.01326683190488647
+        ],
+        "rotation": [
+          0.14170100680454778,
+          0.032635994796828514,
+          0.9142554720852096,
+          0.3781436873417955
+        ],
+        "scale": [
+          0.999999907821689,
+          0.9999999443062009,
+          1.0000002220847684
+        ],
+        "orthogonalError": 9.550528116963886e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6738563229065262,
+        0.700688880501266,
+        0.23441963327367546,
+        0.0,
+        -0.68219075763344,
+        -0.7118844129126337,
+        0.16684196553611086,
+        0.0,
+        0.2837840913151553,
+        -0.04749143812715414,
+        0.9577116460556552,
+        0.0,
+        0.43140988656195484,
+        0.8190923418693257,
+        -0.01326683190488647,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0252724066,
+          0,
+          -9.53674295e-09
+        ],
+        "rotation": [
+          -2.03765698e-08,
+          -4.29841229e-09,
+          0.0280435421,
+          0.999606729
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 404,
+      "name": "Bip001 R Finger42",
+      "parentNodeId": 374,
+      "meshSpace": {
+        "position": [
+          0.40643837077540157,
+          0.8338961167248125,
+          -0.03471177304544971
+        ],
+        "rotation": [
+          0.30443679521544165,
+          0.06894345692426473,
+          0.8624180931478371,
+          0.3984972648306782
+        ],
+        "scale": [
+          0.9999999866749613,
+          0.9999999460520048,
+          0.9999999858149593
+        ],
+        "orthogonalError": 1.2279927465164153e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.49703632233975964,
+        0.7293203006199345,
+        0.4701561088920761,
+        0.0,
+        -0.6453646602087515,
+        -0.6728933789955388,
+        0.36155061604375865,
+        0.0,
+        0.5800510785170746,
+        -0.12371829511520761,
+        0.8051301145745846,
+        0.0,
+        0.40643837077540157,
+        0.8338961167248125,
+        -0.03471177304544971,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0174331274,
+          0,
+          3.81469718e-08
+        ],
+        "rotation": [
+          -6.03859007e-09,
+          -2.64397038e-08,
+          0.0537340827,
+          0.998555303
+        ],
+        "scale": [
+          1.00000012,
+          1.00000024,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 363,
+      "name": "Bip001 L Finger01",
+      "parentNodeId": 323,
+      "meshSpace": {
+        "position": [
+          -0.36107800819037444,
+          0.8882778920460962,
+          0.055060987642775894
+        ],
+        "rotation": [
+          -0.6961229960244018,
+          -0.38673532194282056,
+          0.5942455950840665,
+          0.11278624867853909
+        ],
+        "scale": [
+          1.0000001667965526,
+          1.0000001154694895,
+          0.9999998869730445
+        ],
+        "orthogonalError": 4.4090086276371565e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.005384119586453604,
+        0.6724762886332805,
+        -0.7400993082522243,
+        0.0,
+        0.4043852622525594,
+        -0.6754301927876774,
+        -0.6166578024177772,
+        0.0,
+        -0.9145727896460646,
+        -0.30260529511644035,
+        -0.2683028545368261,
+        0.0,
+        -0.36107800819037444,
+        0.8882778920460962,
+        0.055060987642775894,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0265581887,
+          7.62939436e-08,
+          0
+        ],
+        "rotation": [
+          -7.73892328e-09,
+          -7.15061921e-09,
+          -0.0394803956,
+          0.999220371
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 323,
+      "name": "Bip001 L Finger0",
+      "parentNodeId": 276,
+      "meshSpace": {
+        "position": [
+          -0.3603731149396032,
+          0.904666713921364,
+          0.03417442860539229
+        ],
+        "rotation": [
+          -0.7108487243913124,
+          -0.35895060434023324,
+          0.5982351297968476,
+          0.08923723523269002
+        ],
+        "scale": [
+          1.0000002026361043,
+          1.0000002240033041,
+          0.9999999169393816
+        ],
+        "orthogonalError": 1.7374300415040622e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.02653839906266297,
+        0.6170889829353688,
+        -0.7864459967392756,
+        0.0,
+        0.4035495478882063,
+        -0.7263825171712777,
+        -0.5563422050804712,
+        0.0,
+        -0.9145727998062619,
+        -0.30260535635697317,
+        -0.26830286252176777,
+        0.0,
+        -0.3603731149396032,
+        0.904666713921364,
+        0.03417442860539229,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0254774466,
+          0.0109709166,
+          -0.0193071216
+        ],
+        "rotation": [
+          0.385878235,
+          -0.495362967,
+          0.00676400401,
+          0.778246582
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 325,
+      "name": "Bip001 L Finger2",
+      "parentNodeId": 276,
+      "meshSpace": {
+        "position": [
+          -0.401464045692307,
+          0.8593890908601841,
+          0.019515761936231554
+        ],
+        "rotation": [
+          0.9001548816795807,
+          0.4355523307702345,
+          0.0028318470930130406,
+          0.0027086511547666633
+        ],
+        "scale": [
+          1.0000001419695521,
+          0.999999935922018,
+          0.9999999246992016
+        ],
+        "orthogonalError": 3.831696434530933e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6205723822081576,
+        0.7841445670245509,
+        0.002738683168269039,
+        0.0,
+        0.784113721133422,
+        -0.620573622474426,
+        0.007343246101453127,
+        0.0,
+        0.00745772059874351,
+        -0.002409575485476874,
+        -0.9999692123999917,
+        0.0,
+        -0.401464045692307,
+        0.8593890908601841,
+        0.019515761936231554,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0862820446,
+          0.0011196899,
+          -0.00669125048
+        ],
+        "rotation": [
+          0.028158024,
+          -0.0118686538,
+          0.0398214757,
+          0.998739481
+        ],
+        "scale": [
+          1.00000012,
+          0.999999881,
+          0.999999881
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 324,
+      "name": "Bip001 L Finger1",
+      "parentNodeId": 276,
+      "meshSpace": {
+        "position": [
+          -0.3989837162678297,
+          0.8591295787048321,
+          0.039585751254070815
+        ],
+        "rotation": [
+          0.8865649515249224,
+          0.44465864029037866,
+          -0.12678753716343583,
+          0.014359692293150244
+        ],
+        "scale": [
+          1.0000000957171633,
+          0.9999999491181365,
+          1.0000000514290146
+        ],
+        "orthogonalError": 5.5120590980450856e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.5724072589646295,
+        0.7847963661306748,
+        -0.23758111252164618,
+        0.0,
+        0.7920787294592995,
+        -0.6041449791991536,
+        -0.08729277566254738,
+        0.0,
+        -0.21204046730468185,
+        -0.1382159867317082,
+        -0.9674374833006131,
+        0.0,
+        -0.3989837162678297,
+        0.8591295787048321,
+        0.039585751254070815,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.084646754,
+          0.00461860653,
+          -0.0265433546
+        ],
+        "rotation": [
+          0.078833051,
+          -0.131063789,
+          0.0221158508,
+          0.987987101
+        ],
+        "scale": [
+          0.99999994,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 326,
+      "name": "Bip001 L Finger3",
+      "parentNodeId": 276,
+      "meshSpace": {
+        "position": [
+          -0.3966307523966945,
+          0.8609764409094692,
+          -0.0008768075615316338
+        ],
+        "rotation": [
+          0.8972759264739978,
+          0.41684419992354266,
+          0.14014672464335848,
+          0.03867454372153962
+        ],
+        "scale": [
+          1.0000000045239164,
+          0.999999893646305,
+          1.0000002276368738
+        ],
+        "orthogonalError": 9.335106088831369e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6131995730586911,
+        0.758888786044386,
+        0.21925807411484236,
+        0.0,
+        0.7372081996656055,
+        -0.6494903507449024,
+        0.1862421593723661,
+        0.0,
+        0.2837431195665035,
+        0.047435241972852954,
+        -0.9577265764253622,
+        0.0,
+        -0.3966307523966945,
+        0.8609764409094692,
+        -0.0008768075615316338,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0827598572,
+          0.00292434683,
+          0.0139502948
+        ],
+        "rotation": [
+          -0.0687426776,
+          0.0918943658,
+          0.0571929701,
+          0.991745353
+        ],
+        "scale": [
+          1.00000012,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 327,
+      "name": "Bip001 L Finger4",
+      "parentNodeId": 276,
+      "meshSpace": {
+        "position": [
+          -0.3859187787790211,
+          0.8699507894502692,
+          -0.014381114807031367
+        ],
+        "rotation": [
+          0.8495327001811716,
+          0.42529436835298307,
+          0.30210026761451153,
+          0.07844947340400282
+        ],
+        "scale": [
+          1.0000001430360288,
+          0.9999999692119894,
+          1.0000000451991506
+        ],
+        "orthogonalError": 5.797547483754606e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.45572035587988446,
+        0.7700022574615325,
+        0.44655992522049404,
+        0.0,
+        0.6752037234617596,
+        -0.6259407173238127,
+        0.3902538771665264,
+        0.0,
+        0.5800163885175094,
+        0.12367232306308518,
+        -0.8051622420093908,
+        0.0,
+        -0.3859187787790211,
+        0.8699507894502692,
+        -0.014381114807031367,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0696691126,
+          0.00594322197,
+          0.0279922951
+        ],
+        "rotation": [
+          -0.18093577,
+          0.217360809,
+          0.0299691372,
+          0.958706617
+        ],
+        "scale": [
+          1.00000012,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 367,
+      "name": "Bip001 L Finger41",
+      "parentNodeId": 327,
+      "meshSpace": {
+        "position": [
+          -0.39903211707871955,
+          0.8477940474956999,
+          -0.027230869825737924
+        ],
+        "rotation": [
+          0.8397623822458383,
+          0.44427495173037745,
+          0.30026133935832916,
+          0.08521758454982972
+        ],
+        "scale": [
+          1.000000173088457,
+          0.9999999890472032,
+          0.9999999768054332
+        ],
+        "orthogonalError": 1.215761916695257e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.424925938263832,
+        0.7973459791687155,
+        0.42857634404039135,
+        0.0,
+        0.6949957376011986,
+        -0.5907154243866096,
+        0.40992217578745377,
+        0.0,
+        0.5800164400872073,
+        0.12367208651692405,
+        -0.805162156249274,
+        0.0,
+        -0.39903211707871955,
+        0.8477940474956999,
+        -0.027230869825737924,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0287747942,
+          0,
+          -9.53674295e-09
+        ],
+        "rotation": [
+          7.19759097e-09,
+          -1.13404548e-08,
+          -0.022468755,
+          0.999747574
+        ],
+        "scale": [
+          1,
+          1.00000012,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 395,
+      "name": "Bip001 L Finger02",
+      "parentNodeId": 363,
+      "meshSpace": {
+        "position": [
+          -0.3608981700632761,
+          0.8658296531990315,
+          0.07976673001676665
+        ],
+        "rotation": [
+          -0.7107597435881731,
+          -0.3591267195275405,
+          0.5982130176450656,
+          0.08938552307754463
+        ],
+        "scale": [
+          1.0000001221659425,
+          1.0000001464019863,
+          0.9999997532308876
+        ],
+        "orthogonalError": 7.036202102905786e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.026338393205201014,
+        0.6174488458393111,
+        -0.7861701190880832,
+        0.0,
+        0.4035625547633212,
+        -0.7260765315903774,
+        -0.5567319170575574,
+        0.0,
+        -0.9145726849596045,
+        -0.30260523359602776,
+        -0.2683027822962513,
+        0.0,
+        -0.3608981700632761,
+        0.8658296531990315,
+        0.07976673001676665,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0333816148,
+          0,
+          -1.90734859e-08
+        ],
+        "rotation": [
+          1.48896886e-08,
+          5.84614579e-10,
+          0.039232824,
+          0.999230087
+        ],
+        "scale": [
+          0.99999994,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 364,
+      "name": "Bip001 L Finger11",
+      "parentNodeId": 324,
+      "meshSpace": {
+        "position": [
+          -0.4148255428305709,
+          0.8374100608212097,
+          0.0461609354543098
+        ],
+        "rotation": [
+          0.8907060083297789,
+          0.4363044090198451,
+          -0.12664689716496297,
+          0.015550975325134444
+        ],
+        "scale": [
+          1.000000097680027,
+          1.000000059298409,
+          1.0000000662246824
+        ],
+        "orthogonalError": 6.485883824458583e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.5871980734491691,
+        0.7732990449485215,
+        -0.239180277153766,
+        0.0,
+        0.7811769081098436,
+        -0.6187933210058902,
+        -0.08281052295009347,
+        0.0,
+        -0.21204036831673276,
+        -0.13821591571234998,
+        -0.9674375304366014,
+        0.0,
+        -0.4148255428305709,
+        0.8374100608212097,
+        0.0461609354543098,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0276755132,
+          0,
+          0
+        ],
+        "rotation": [
+          -7.48527285e-09,
+          3.6550829e-09,
+          0.00940097682,
+          0.999955833
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 396,
+      "name": "Bip001 L Finger12",
+      "parentNodeId": 364,
+      "meshSpace": {
+        "position": [
+          -0.4273688122283957,
+          0.8208911053437333,
+          0.05127014438061568
+        ],
+        "rotation": [
+          0.9081735625777422,
+          0.39867217480620665,
+          -0.1258857609871568,
+          0.020833925478066204
+        ],
+        "scale": [
+          0.9999999523527602,
+          0.9999999122677707,
+          1.0000000483899054
+        ],
+        "orthogonalError": 1.2739714832718518e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.650426454975497,
+        0.7188816747749811,
+        -0.24526408022017565,
+        0.0,
+        0.729372342257269,
+        -0.6812528741981545,
+        -0.06253264973154321,
+        0.0,
+        -0.2120403978874412,
+        -0.13821594310205776,
+        -0.9674375016071878,
+        0.0,
+        -0.4273688122283957,
+        0.8208911053437333,
+        0.05127014438061568,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0213615038,
+          0,
+          -1.90734859e-08
+        ],
+        "rotation": [
+          -7.44406048e-09,
+          -3.11593473e-10,
+          0.0418213755,
+          0.999125123
+        ],
+        "scale": [
+          1.00000012,
+          1.00000024,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 365,
+      "name": "Bip001 L Finger21",
+      "parentNodeId": 325,
+      "meshSpace": {
+        "position": [
+          -0.4203781960849154,
+          0.8354895242554919,
+          0.019432289307453048
+        ],
+        "rotation": [
+          0.8982620003507086,
+          0.43944285489562757,
+          0.002820068260052649,
+          0.002720886277085059
+        ],
+        "scale": [
+          1.0000002075238414,
+          1.0000000337871642,
+          0.9999999249890841
+        ],
+        "orthogonalError": 1.333053390581421e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6137642289903675,
+        0.7894851048522811,
+        0.0026749721434531017,
+        0.0,
+        0.7894543571720948,
+        -0.6137651162345358,
+        0.007366655274323708,
+        0.0,
+        0.007457668477865735,
+        -0.0024096197937549307,
+        -0.9999692129718282,
+        0.0,
+        -0.4203781960849154,
+        0.8354895242554919,
+        0.019432289307453048,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0304785538,
+          0,
+          -2.38418574e-09
+        ],
+        "rotation": [
+          1.74369505e-10,
+          -5.89626195e-11,
+          -0.00432650326,
+          0.999990642
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 397,
+      "name": "Bip001 L Finger22",
+      "parentNodeId": 365,
+      "meshSpace": {
+        "position": [
+          -0.43601099456039505,
+          0.8153811932358843,
+          0.019364156438971495
+        ],
+        "rotation": [
+          0.9083288324479386,
+          0.41823842035403547,
+          0.0028831589243730775,
+          0.002653917508669818
+        ],
+        "scale": [
+          1.0000002293557324,
+          1.000000107791161,
+          0.9999997462369022
+        ],
+        "orthogonalError": 5.680708850181907e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6501367735507999,
+        0.7598115078377713,
+        0.0030177716556222035,
+        0.0,
+        0.7597808125089248,
+        -0.6501392288488278,
+        0.007232954960708925,
+        0.0,
+        0.007457652662206079,
+        -0.0024095643757448826,
+        -0.9999690344656468,
+        0.0,
+        -0.43601099456039505,
+        0.8153811932358843,
+        0.019364156438971495,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0254704282,
+          7.62939436e-08,
+          4.76837148e-09
+        ],
+        "rotation": [
+          5.81916217e-11,
+          1.36620554e-12,
+          0.0234712344,
+          0.999724507
+        ],
+        "scale": [
+          1.00000012,
+          1.00000012,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 366,
+      "name": "Bip001 L Finger31",
+      "parentNodeId": 326,
+      "meshSpace": {
+        "position": [
+          -0.415373598716816,
+          0.8377807600788255,
+          -0.0075785028550290155
+        ],
+        "rotation": [
+          0.9032925841431826,
+          0.4036405358021836,
+          0.14069882158129776,
+          0.03661511839242959
+        ],
+        "scale": [
+          1.0000001937082144,
+          1.0000001277993162,
+          1.0000002483709014
+        ],
+        "orthogonalError": 6.866845855130199e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6345564753074663,
+        0.739514532411768,
+        0.22462574076368705,
+        0.0,
+        0.7189077157454199,
+        -0.6714673636013511,
+        0.17973183206823018,
+        0.0,
+        0.28374318259788006,
+        0.04743516101385601,
+        -0.9577265834102549,
+        0.0,
+        -0.415373598716816,
+        0.8377807600788255,
+        -0.0075785028550290155,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0305653382,
+          0,
+          -4.76837148e-09
+        ],
+        "rotation": [
+          5.61465052e-09,
+          -1.78049597e-09,
+          0.0146653177,
+          0.999892473
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 398,
+      "name": "Bip001 L Finger32",
+      "parentNodeId": 366,
+      "meshSpace": {
+        "position": [
+          -0.4314103460920875,
+          0.8190913638339645,
+          -0.013255360071875508
+        ],
+        "rotation": [
+          0.9142568340265513,
+          0.3781502406858947,
+          0.1416703456549223,
+          0.032655015954090864
+        ],
+        "scale": [
+          0.9999998779051157,
+          0.9999999154190503,
+          1.0000000992224172
+        ],
+        "orthogonalError": 5.4368775134761016e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6738637521791374,
+        0.7007052865922636,
+        0.23434909995763606,
+        0.0,
+        0.6822003383639826,
+        -0.7118720244724409,
+        0.16685547622923208,
+        0.0,
+        0.2837432266835071,
+        0.047435208968743835,
+        -0.9577264122421224,
+        0.0,
+        -0.4314103460920875,
+        0.8190913638339645,
+        -0.013255360071875508,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0252724458,
+          -7.62939436e-08,
+          -4.76837148e-09
+        ],
+        "rotation": [
+          -7.81329668e-09,
+          1.28244473e-08,
+          0.0280435402,
+          0.999606729
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 399,
+      "name": "Bip001 L Finger42",
+      "parentNodeId": 367,
+      "meshSpace": {
+        "position": [
+          -0.406440073195266,
+          0.8338938593568286,
+          -0.03470224025541846
+        ],
+        "rotation": [
+          0.8624218864286639,
+          0.39850917839612,
+          0.3044066604936569,
+          0.06896020294324491
+        ],
+        "scale": [
+          1.0000001023691625,
+          0.9999999951886194,
+          1.0000000278359604
+        ],
+        "orthogonalError": 1.6017266446510803e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.4970541800784823,
+        0.7293499936540108,
+        0.4700914097936034,
+        0.0,
+        0.6453822463063127,
+        -0.6728698160461247,
+        0.36156321326140334,
+        0.0,
+        0.5800165344006376,
+        0.12367206194071634,
+        -0.8051621554625671,
+        0.0,
+        -0.406440073195266,
+        0.8338938593568286,
+        -0.03470224025541846,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0174330901,
+          0,
+          0
+        ],
+        "rotation": [
+          -3.92008381e-09,
+          3.51973295e-09,
+          0.0537341163,
+          0.998555303
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 218,
+      "name": "+AmiceF L A13",
+      "parentNodeId": 181,
+      "meshSpace": {
+        "position": [
+          -0.10598450918006654,
+          0.9286826021214181,
+          0.14316743221851197
+        ],
+        "rotation": [
+          0.3809753689771735,
+          0.40523390040006,
+          0.5781067340924385,
+          0.5970224938779402
+        ],
+        "scale": [
+          1.000022075030175,
+          1.0000269584753732,
+          1.0000061865241996
+        ],
+        "orthogonalError": 1.2821979056168269e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.0031563234890598386,
+        0.9990757710897045,
+        -0.043379624147771544,
+        0.0,
+        -0.38152751847068744,
+        0.04130190084339763,
+        0.9234634932220263,
+        0.0,
+        0.9243621050098989,
+        0.013635188030697043,
+        0.3812888059669579,
+        0.0,
+        -0.10598450918006654,
+        0.9286826021214181,
+        0.14316743221851197,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.179394215,
+          -1.31607055e-06,
+          1.14440915e-07
+        ],
+        "rotation": [
+          0.000449398212,
+          0.00658968603,
+          0.0382540263,
+          0.99924624
+        ],
+        "scale": [
+          1.00000405,
+          1.00000703,
+          1.00000072
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 181,
+      "name": "+AmiceF L A12",
+      "parentNodeId": 156,
+      "meshSpace": {
+        "position": [
+          -0.09799901891529379,
+          1.106835963950062,
+          0.12364915110110825
+        ],
+        "rotation": [
+          0.3687285837639625,
+          0.41530948785077954,
+          0.5525032918368611,
+          0.6215282562570893
+        ],
+        "scale": [
+          1.000017883125483,
+          1.0000200966191701,
+          1.0000054677390224
+        ],
+        "orthogonalError": 3.735316106442499e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.04451708969696898,
+        0.9930835335683068,
+        -0.10880758544866957,
+        0.0,
+        -0.3805275052960532,
+        0.11756107473837109,
+        0.9172886160101059,
+        0.0,
+        0.9237057398395999,
+        0.0005692487120903186,
+        0.38311658493364925,
+        0.0,
+        -0.09799901891529379,
+        1.106835963950062,
+        0.12364915110110825,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.164250106,
+          2.28881831e-07,
+          -4.7683713e-08
+        ],
+        "rotation": [
+          -0.000983908656,
+          0.000359976868,
+          0.0334390104,
+          0.999440253
+        ],
+        "scale": [
+          1.00001323,
+          1.00001383,
+          1.00001633
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 156,
+      "name": "+AmiceF L A11",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          -0.08642657728821052,
+          1.2682925148170112,
+          0.09578818954881291
+        ],
+        "rotation": [
+          0.3554451226857266,
+          0.4277269024325229,
+          0.5308692305703037,
+          0.6394421957676093
+        ],
+        "scale": [
+          1.0000047122107956,
+          1.0000064566843534,
+          0.9999890058040997
+        ],
+        "orthogonalError": 1.5395465791369855e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.07045537375960498,
+        0.9829918918631804,
+        -0.1696243062872649,
+        0.0,
+        -0.3748558680575684,
+        0.18367437415017893,
+        0.9087132198189605,
+        0.0,
+        0.9243928178271966,
+        -0.0004390558613961565,
+        0.38141281744130945,
+        0.0,
+        -0.08642657728821052,
+        1.2682925148170112,
+        0.09578818954881291,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.143747181,
+          0.0601985343,
+          0.0864267424
+        ],
+        "rotation": [
+          -0.0462309532,
+          0.979828537,
+          0.192553565,
+          0.0268674307
+        ],
+        "scale": [
+          1.00000477,
+          1.00000632,
+          0.999989092
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 229,
+      "name": "+EardropS L A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -0.0727884353365319,
+          1.4294325216294042,
+          0.03689386295569186
+        ],
+        "rotation": [
+          0.10198479170180941,
+          0.10681256515810833,
+          0.698992948102844,
+          0.6997135390203468
+        ],
+        "scale": [
+          1.0000027574572832,
+          0.9999855482222265,
+          0.9999896442623096
+        ],
+        "orthogonalError": 9.963361805322802e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -1.2886937740845192e-07,
+        0.999978930774796,
+        -0.006903110070753565,
+        0.0,
+        -0.9563893242586321,
+        0.00201589302480356,
+        0.2920385133381153,
+        0.0,
+        0.2920466767175746,
+        0.006602107174091127,
+        0.9563704509398766,
+        0.0,
+        -0.0727884353365319,
+        1.4294325216294042,
+        0.03689386295569186,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0371174626,
+          -0.00904680975,
+          0.072788544
+        ],
+        "rotation": [
+          -0.00277354661,
+          0.803751528,
+          0.594955087,
+          -0.00205333857
+        ],
+        "scale": [
+          1.00000298,
+          0.999985576,
+          0.999989808
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 59,
+      "name": "Bip001",
+      "parentNodeId": 32,
+      "meshSpace": {
+        "position": [
+          1.3726511146301873e-09,
+          0.8860134805300973,
+          0.031000678699977333
+        ],
+        "rotation": [
+          -0.5000003665687572,
+          0.4999996643614505,
+          0.49999965767211735,
+          0.5000003113972139
+        ],
+        "scale": [
+          1.0000000041976442,
+          0.9999997602268366,
+          0.9999999692796607
+        ],
+        "orthogonalError": 3.9469362770894767e-10
+      },
+      "meshSpaceMatrixColumnMajor": [
+        1.3557347475417004e-06,
+        -6.205813705098576e-08,
+        -1.0000000041967234,
+        0.0,
+        -0.9999997602259163,
+        -4.86792708096567e-08,
+        -1.3557347834723978e-06,
+        0.0,
+        -4.867946011516906e-08,
+        0.9999999692796576,
+        -6.166350726494881e-08,
+        0.0,
+        1.3726511146301873e-09,
+        0.8860134805300973,
+        0.031000678699977333,
+        1.0
+      ],
+      "local": null,
+      "localStatus": "parent-not-in-skin-array"
+    },
+    {
+      "nodeId": 89,
+      "name": "Bip001 Footsteps",
+      "parentNodeId": 59,
+      "meshSpace": {
+        "position": [
+          4.427087521454416e-08,
+          0.004774808602051883,
+          0.03100073304024625
+        ],
+        "rotation": [
+          -0.7071068030576624,
+          -1.953540910924011e-08,
+          1.488597332787777e-08,
+          0.7071067593154318
+        ],
+        "scale": [
+          0.9999997602268366,
+          1.0000000041976445,
+          0.9999999692796607
+        ],
+        "orthogonalError": 3.946936273541178e-10
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.9999997602268353,
+        4.8679187083271014e-08,
+        6.575016121412308e-09,
+        0.0,
+        6.575309346310903e-09,
+        -6.205820272704269e-08,
+        -1.0000000041976425,
+        0.0,
+        -4.867946011516906e-08,
+        0.9999999692796576,
+        -6.166350726494881e-08,
+        0.0,
+        4.427087521454416e-08,
+        0.004774808602051883,
+        0.03100073304024625,
+        1.0
+      ],
+      "local": {
+        "position": [
+          0,
+          0,
+          -0.881238699
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.707106292,
+          0.707107246
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 90,
+      "name": "Bip001 Pelvis",
+      "parentNodeId": 59,
+      "meshSpace": {
+        "position": [
+          1.3726511146301873e-09,
+          0.8860134805300973,
+          0.031000678699977333
+        ],
+        "rotation": [
+          0.500000693637635,
+          -0.5000007003274628,
+          -0.49999927543079703,
+          0.4999993306021606
+        ],
+        "scale": [
+          0.999999969279661,
+          0.9999999441976443,
+          0.9999997002268509
+        ],
+        "orthogonalError": 3.946934060401629e-10
+      },
+      "meshSpaceMatrixColumnMajor": [
+        4.8679460115168763e-08,
+        -0.9999999692796578,
+        6.166350748699343e-08,
+        0.0,
+        -2.7877342366101065e-06,
+        6.205806361872231e-08,
+        0.9999999441937566,
+        0.0,
+        -0.999999700222964,
+        -4.867935697814205e-08,
+        -2.787734622129021e-06,
+        0.0,
+        1.3726511146301873e-09,
+        0.8860134805300973,
+        0.031000678699977333,
+        1.0
+      ],
+      "local": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          -0.499999642,
+          0.500000358,
+          0.499999642,
+          0.500000358
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 157,
+      "name": "+AmiceF R A11",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          0.08642688582448405,
+          1.2682947730265957,
+          0.09578797295442426
+        ],
+        "rotation": [
+          0.5310217907069636,
+          0.6395570094776637,
+          0.35520364097072576,
+          0.4275664426302617
+        ],
+        "scale": [
+          1.0000049739315178,
+          1.0000017551666576,
+          0.999986630610438
+        ],
+        "orthogonalError": 2.113905053620642e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.0704057961721993,
+        0.9829886363154466,
+        -0.16966529588526041,
+        0.0,
+        0.3754916649129437,
+        0.18369275086619918,
+        0.9084417940608576,
+        0.0,
+        0.9241355892339069,
+        0.0002516564615675858,
+        -0.3820295941153533,
+        0.0,
+        0.08642688582448405,
+        1.2682947730265957,
+        0.09578797295442426,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.143749312,
+          0.0601987839,
+          -0.0864273757
+        ],
+        "rotation": [
+          -0.0462554656,
+          0.979762614,
+          -0.192889333,
+          -0.0268226769
+        ],
+        "scale": [
+          1.00000501,
+          1.00000191,
+          0.999987006
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 158,
+      "name": "+FlycloakRootB CB A01",
+      "parentNodeId": 132,
+      "meshSpace": {
+        "position": [
+          -3.902260216166716e-07,
+          1.321845589134597,
+          -0.03520983292757372
+        ],
+        "rotation": [
+          0.3912590743508387,
+          -0.5889929368884295,
+          -0.39128048144788313,
+          0.5889849249951822
+        ],
+        "scale": [
+          0.9999954845460798,
+          1.0000177789296254,
+          0.9999845002332212
+        ],
+        "orthogonalError": 6.434330193931125e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -2.6210980784228787e-05,
+        -0.9218101226732565,
+        0.38763006354338564,
+        0.0,
+        1.89156139251338e-05,
+        0.38763876447612466,
+        0.9218306493564663,
+        0.0,
+        -0.9999844997108238,
+        3.14934653469329e-05,
+        7.276007627822802e-06,
+        0.0,
+        -3.902260216166716e-07,
+        1.321845589134597,
+        -0.03520983292757372,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.208900064,
+          -0.0654337779,
+          -3.05175689e-07
+        ],
+        "rotation": [
+          -6.82023483e-06,
+          -1.51397808e-05,
+          0.153254479,
+          0.988186777
+        ],
+        "scale": [
+          0.99999553,
+          1.00001788,
+          0.99998492
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 177,
+      "name": "Bip001 L Toe0Nub",
+      "parentNodeId": 150,
+      "meshSpace": null,
+      "meshSpaceMatrixColumnMajor": [
+        0.11371704986847474,
+        8.660307286048106e-08,
+        -0.9935130601864753,
+        0.0,
+        -1.3899180645366588e-06,
+        0.9999997902786639,
+        -7.160030833316519e-08,
+        0.0,
+        -0.9935128161982993,
+        -1.389075364133346e-06,
+        -0.11371705547125918,
+        0.0,
+        -0.07269323794015285,
+        0.004774717675787659,
+        0.17870527470908337,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0745270997,
+          0,
+          0
+        ],
+        "rotation": [
+          3.72528985e-09,
+          -1.77635705e-15,
+          1,
+          6.12323492e-17
+        ],
+        "scale": [
+          -1,
+          -0.99999994,
+          -1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 178,
+      "name": "Bip001 R Toe0Nub",
+      "parentNodeId": 152,
+      "meshSpace": {
+        "position": [
+          0.07269549047721133,
+          0.004774839697576417,
+          0.17870550792405884
+        ],
+        "rotation": [
+          -5.766322956073844e-07,
+          0.7462286190231384,
+          4.631431497197222e-07,
+          0.6656897536767955
+        ],
+        "scale": [
+          1.0000001820091424,
+          0.9999999692568762,
+          0.9999998834380599
+        ],
+        "orthogonalError": 5.548299354301526e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.11371429683427894,
+        -2.43086161930048e-07,
+        -0.9935136751518544,
+        0.0,
+        -1.4763246693153849e-06,
+        0.9999999692557836,
+        -7.494099440168061e-08,
+        0.0,
+        0.993513372207175,
+        1.4604916763564926e-06,
+        -0.11371431800581543,
+        0.0,
+        0.07269549047721133,
+        0.004774839697576417,
+        0.17870550792405884,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0745271072,
+          0,
+          4.76837148e-09
+        ],
+        "rotation": [
+          -3.01035851e-31,
+          3.38936263e-16,
+          8.88178314e-16,
+          1
+        ],
+        "scale": [
+          1.00000012,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 182,
+      "name": "+AmiceF R A12",
+      "parentNodeId": 157,
+      "meshSpace": {
+        "position": [
+          0.09799181289142855,
+          1.106837439027683,
+          0.12365723440196176
+        ],
+        "rotation": [
+          0.552990690057997,
+          0.6218610053177338,
+          0.36804982524716034,
+          0.41476440651282076
+        ],
+        "scale": [
+          1.0000137829846403,
+          1.0000159553042216,
+          1.0000003413053398
+        ],
+        "orthogonalError": 3.793251899808503e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.04434418773395106,
+        0.9930883053311995,
+        -0.10879695302660633,
+        0.0,
+        0.3824648427584093,
+        0.11748282588722106,
+        0.9164880471333781,
+        0.0,
+        0.9229080840894943,
+        -0.000970105808565854,
+        -0.38502001224322746,
+        0.0,
+        0.09799181289142855,
+        1.106837439027683,
+        0.12365723440196176,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.164251775,
+          1.6021728e-06,
+          5.24520871e-08
+        ],
+        "rotation": [
+          0.00168983685,
+          -0.000360375823,
+          0.033487279,
+          0.99943769
+        ],
+        "scale": [
+          1.00000882,
+          1.00001419,
+          1.00001371
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 185,
+      "name": "Bip001 L UpperArm",
+      "parentNodeId": 159,
+      "meshSpace": {
+        "position": [
+          -0.11903409173657475,
+          1.2402543137487767,
+          0.015210609656171062
+        ],
+        "rotation": [
+          -0.6099737257357161,
+          -0.3119314144649432,
+          0.3151329038026996,
+          0.6567511701724387
+        ],
+        "scale": [
+          0.9999999460260687,
+          1.0000001239351521,
+          0.9999998437429465
+        ],
+        "orthogonalError": 3.749363405181755e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6067799066220357,
+        0.7944678083096938,
+        0.02527723346186459,
+        0.0,
+        -0.03338783127770173,
+        0.05724681096220581,
+        -0.9978017354302151,
+        0.0,
+        -0.7941679912736568,
+        0.6046022521809954,
+        0.061261780744199336,
+        0.0,
+        -0.11903409173657475,
+        1.2402543137487767,
+        0.015210609656171062,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0999094769,
+          0,
+          0
+        ],
+        "rotation": [
+          0.100233749,
+          -0.194284365,
+          0.00196271855,
+          0.975808918
+        ],
+        "scale": [
+          1,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 188,
+      "name": "Bip001 R UpperArm",
+      "parentNodeId": 161,
+      "meshSpace": {
+        "position": [
+          0.11903312940855328,
+          1.240254672689704,
+          0.015210943789661889
+        ],
+        "rotation": [
+          -0.3151328112219228,
+          -0.6567520637917371,
+          0.6099737392500643,
+          0.31192960010546683
+        ],
+        "scale": [
+          0.999999945877548,
+          1.0000000087109338,
+          0.9999998391156856
+        ],
+        "orthogonalError": 3.732814747529206e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.6067822936629343,
+        0.7944660395847988,
+        0.02527551777298351,
+        0.0,
+        0.03339048180566267,
+        0.05724691201193242,
+        -0.9978015254607258,
+        0.0,
+        -0.7941660544556794,
+        -0.6046045651435396,
+        -0.06126398607083311,
+        0.0,
+        0.11903312940855328,
+        1.240254672689704,
+        0.015210943789661889,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0999094397,
+          0,
+          0
+        ],
+        "rotation": [
+          -0.100233763,
+          0.194284335,
+          0.00196272158,
+          0.975808918
+        ],
+        "scale": [
+          1,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 219,
+      "name": "+AmiceF R A13",
+      "parentNodeId": 182,
+      "meshSpace": {
+        "position": [
+          0.10594874797603125,
+          0.9286530973959466,
+          0.1431782347134955
+        ],
+        "rotation": [
+          0.5781054435348042,
+          0.5971406924134962,
+          0.38083242159090125,
+          0.4051959480110428
+        ],
+        "scale": [
+          1.0000186542469711,
+          1.0000207424217635,
+          1.0000049930705437
+        ],
+        "orthogonalError": 3.7481959850454993e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.0032207673613992237,
+        0.9990627226332276,
+        -0.0435960060580011,
+        0.0,
+        0.38180473014764393,
+        0.04152217499004381,
+        0.9233323032878011,
+        0.0,
+        0.9242452079204984,
+        -0.013671235783138166,
+        -0.38156765994273517,
+        0.0,
+        0.10594874797603125,
+        0.9286530973959466,
+        0.1431782347134955,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.179424509,
+          3.43322739e-07,
+          4.005432e-07
+        ],
+        "rotation": [
+          -0.00133947399,
+          -0.00647770939,
+          0.0381114669,
+          0.999251604
+        ],
+        "scale": [
+          1.00000489,
+          1.00000477,
+          1.00000465
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 230,
+      "name": "+EardropS R A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          0.07278412728872505,
+          1.4294326058867535,
+          0.03689383278483574
+        ],
+        "rotation": [
+          0.6990021555427459,
+          0.6997094477260842,
+          0.1019728053115069,
+          0.10679055335728231
+        ],
+        "scale": [
+          1.0000066491410953,
+          0.9999848343946747,
+          0.9999872131750859
+        ],
+        "orthogonalError": 2.3688828556631604e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        1.6523889459061824e-05,
+        0.9999829373032952,
+        -0.006886447243433052,
+        0.0,
+        0.956402819641767,
+        0.001995019997893085,
+        0.2919920127260858,
+        0.0,
+        0.29199929566384536,
+        -0.006591020887066956,
+        -0.9563824529387598,
+        0.0,
+        0.07278412728872505,
+        1.4294326058867535,
+        0.03689383278483574,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0371173099,
+          -0.00904658809,
+          -0.0727849305
+        ],
+        "rotation": [
+          -0.00276155374,
+          0.803737879,
+          -0.594973564,
+          0.00205544103
+        ],
+        "scale": [
+          1.00000656,
+          0.999985218,
+          0.999987245
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 231,
+      "name": "+EyeBone L A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -0.025483412426397324,
+          1.4605966030590793,
+          0.06572115170138959
+        ],
+        "rotation": [
+          0.016478431808570743,
+          0.5728688379856669,
+          0.011822181646024957,
+          0.8193961140811021
+        ],
+        "scale": [
+          1.000154564227645,
+          0.9998324212393177,
+          0.9999911662183272
+        ],
+        "orthogonalError": 2.734664094512784e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.34341600416387685,
+        0.038259972189085736,
+        -0.9385684711077806,
+        0.0,
+        -0.0004940565167612345,
+        0.9990099538611499,
+        0.040543045714128145,
+        0.0,
+        0.9391942778207737,
+        -0.013459492056397472,
+        0.3430966089849756,
+        0.0,
+        -0.025483412426397324,
+        1.4605966030590793,
+        0.06572115170138959,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0682814047,
+          0.0197806396,
+          0.0254826453
+        ],
+        "rotation": [
+          -0.681981683,
+          0.710283101,
+          0.120935425,
+          0.125592828
+        ],
+        "scale": [
+          1.00015461,
+          0.999832332,
+          0.999991536
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 232,
+      "name": "+EyeBone R A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          0.025443549639252896,
+          1.4605946869053041,
+          0.06575071269860391
+        ],
+        "rotation": [
+          0.011634775068412106,
+          0.8189832790383297,
+          0.016612798118253964,
+          0.5734588351428679
+        ],
+        "scale": [
+          1.0001272746193672,
+          0.9998641312422625,
+          0.9999931328270626
+        ],
+        "orthogonalError": 2.72538593754177e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.34206259512856885,
+        0.03811574055203017,
+        -0.9390393691287083,
+        0.0,
+        3.866052572487561e-06,
+        0.9990415369005555,
+        0.040549827093022094,
+        0.0,
+        0.9396864670877211,
+        0.013866983840205016,
+        -0.34173574005751284,
+        0.0,
+        0.025443549639252896,
+        1.4605946869053041,
+        0.06575071269860391,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0682794154,
+          0.0198102705,
+          -0.0254443381
+        ],
+        "rotation": [
+          -0.682096779,
+          0.710345507,
+          -0.120273128,
+          -0.12525034
+        ],
+        "scale": [
+          1.00012732,
+          0.999864042,
+          0.999993503
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 234,
+      "name": "+HairF L A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -0.016771397570767167,
+          1.612639975795578,
+          0.10569291119236793
+        ],
+        "rotation": [
+          0.5066394435651229,
+          -0.8118854746571341,
+          -0.18070479171801482,
+          0.22694543069850887
+        ],
+        "scale": [
+          1.0000071604784764,
+          0.999985005902209,
+          0.9999819943289973
+        ],
+        "orthogonalError": 3.4363600493261814e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.38362697495236864,
+        -0.9046932330422228,
+        0.1854044745542298,
+        0.0,
+        -0.7406349162013435,
+        0.42131829201391857,
+        0.5233744641718243,
+        0.0,
+        -0.5516016961131123,
+        0.06346291219781838,
+        -0.8316682130529629,
+        0.0,
+        -0.016771397570767167,
+        1.612639975795578,
+        0.10569291119236793,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.220324695,
+          0.0597526245,
+          0.0167704634
+        ],
+        "rotation": [
+          0.45543775,
+          -0.129503697,
+          0.175742999,
+          0.863087356
+        ],
+        "scale": [
+          1.00000715,
+          0.999985218,
+          0.999982119
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 238,
+      "name": "+ToothBone D A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -1.233226072308364e-06,
+          1.3988297322290373,
+          0.11400933671343895
+        ],
+        "rotation": [
+          0.04776268874373029,
+          0.7054921435348017,
+          0.04776372583156479,
+          0.705491451024977
+        ],
+        "scale": [
+          1.0000000051358322,
+          1.0000000883414584,
+          0.9999995802268905
+        ],
+        "orthogonalError": 1.7602608364446232e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -1.0767848695045488e-06,
+        0.1347862132256408,
+        -0.9908747080205434,
+        0.0,
+        -1.3883594833786974e-06,
+        0.9908747928389003,
+        0.13478620700006066,
+        0.0,
+        0.9999995802253471,
+        1.5208258541281346e-06,
+        -8.798273598506642e-07,
+        0.0,
+        -1.233226072308364e-06,
+        1.3988297322290373,
+        0.11400933671343895,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0065144347,
+          0.0680687726,
+          6.10351606e-07
+        ],
+        "rotation": [
+          -0.657728076,
+          0.753255486,
+          2.13683805e-07,
+          1.29933014e-07
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 239,
+      "name": "+ToothBone U A01",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -1.2432120921852735e-06,
+          1.4058467922442588,
+          0.11407275355469912
+        ],
+        "rotation": [
+          0.038471828951958754,
+          0.7060599096177181,
+          0.03847290093379356,
+          0.7060588915249559
+        ],
+        "scale": [
+          1.0000000047302713,
+          1.0000000887470195,
+          0.9999995802268905
+        ],
+        "orthogonalError": 1.3199018040774557e-08
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -1.5205104032601643e-06,
+        0.10865510679412672,
+        -0.9940795125269345,
+        0.0,
+        -1.4288291489261253e-06,
+        0.9940795974803012,
+        0.10865510280427527,
+        0.0,
+        0.9999995802247138,
+        1.5855808362940831e-06,
+        -1.3562590377900685e-06,
+        0.0,
+        -1.2432120921852735e-06,
+        1.4058467922442588,
+        0.11407275355469912,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.013531494,
+          0.0681321993,
+          6.10351833e-07
+        ],
+        "rotation": [
+          -0.667586505,
+          0.744532228,
+          5.62105811e-08,
+          -5.04014146e-08
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 240,
+      "name": "Bip001 HeadNub",
+      "parentNodeId": 186,
+      "meshSpace": {
+        "position": [
+          -1.0589529069932185e-06,
+          1.6375250208210799,
+          0.04594022845179479
+        ],
+        "rotation": [
+          0.499999663794121,
+          -0.4999996485574043,
+          -0.4999996323858432,
+          0.5000010552611464
+        ],
+        "scale": [
+          1.000000089180766,
+          0.9999999442965246,
+          0.9999995202269159
+        ],
+        "orthogonalError": 5.262474998733626e-09
+      },
+      "meshSpaceMatrixColumnMajor": [
+        1.4354811510301793e-06,
+        -1.0000000891787488,
+        1.4050062571863598e-06,
+        0.0,
+        1.3726629098261655e-06,
+        1.4102704987603897e-06,
+        0.999999944294588,
+        0.0,
+        -0.9999995202249434,
+        -1.435478904893941e-06,
+        1.3726653148591315e-06,
+        0.0,
+        -1.0589529069932185e-06,
+        1.6375250208210799,
+        0.04594022845179479,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.245209798,
+          0,
+          4.54747341e-15
+        ],
+        "rotation": [
+          -4.11746566e-20,
+          -3.38813179e-21,
+          -1.39504867e-40,
+          1
+        ],
+        "scale": [
+          1,
+          0.99999994,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 269,
+      "name": "+AmiceF R A04",
+      "parentNodeId": 219,
+      "meshSpace": {
+        "position": [
+          0.06243933523132541,
+          0.7725828920072308,
+          0.15888276710013638
+        ],
+        "rotation": [
+          0.49865248146765667,
+          0.5013267074369026,
+          0.5013108610512574,
+          0.49870297345080034
+        ],
+        "scale": [
+          1.0000250981392864,
+          1.0000256661644518,
+          1.0000132957620227
+        ],
+        "orthogonalError": 1.0973288347045607e-05
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.005287571413449495,
+        1.0000111165992303,
+        -7.193745954168075e-05,
+        0.0,
+        -2.9316643123809584e-05,
+        7.184790012257787e-05,
+        1.0000256631537359,
+        0.0,
+        0.9999993153153467,
+        0.005287672162655476,
+        3.990940659973748e-05,
+        0.0,
+        0.06243933523132541,
+        0.7725828920072308,
+        0.15888276710013638,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.156462625,
+          -0.00859163236,
+          -0.0440716557
+        ],
+        "rotation": [
+          -0.194682553,
+          0.00524939876,
+          0.0211495291,
+          0.980624199
+        ],
+        "scale": [
+          1.00000644,
+          1.00000715,
+          1.00000608
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 282,
+      "name": "+HairF L A02",
+      "parentNodeId": 234,
+      "meshSpace": {
+        "position": [
+          0.015204601649171635,
+          1.688046852142712,
+          0.09023899149123574
+        ],
+        "rotation": [
+          -0.1471589806259644,
+          -0.9481751732755992,
+          0.012507186828367904,
+          0.28133902232458724
+        ],
+        "scale": [
+          0.9999949640650916,
+          1.0000154343752272,
+          0.9999823621917072
+        ],
+        "orthogonalError": 6.088685677474448e-06
+      },
+      "meshSpaceMatrixColumnMajor": [
+        -0.7983818520690791,
+        0.286098174133447,
+        0.5298341072447098,
+        0.0,
+        0.2720345548535225,
+        0.956389441123265,
+        -0.10652373849170414,
+        0.0,
+        -0.5371884608731492,
+        0.05908503580498982,
+        -0.8413692653901537,
+        0.0,
+        0.015204601649171635,
+        1.688046852142712,
+        0.09023899149123574,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0833509788,
+          -4.57763662e-07,
+          4.29153424e-08
+        ],
+        "rotation": [
+          0.00555929448,
+          -0.00702501973,
+          0.653536975,
+          0.7568416
+        ],
+        "scale": [
+          1.00000954,
+          1.0000087,
+          1.00000036
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 425,
+      "name": "Bip001 L Finger0Nub",
+      "parentNodeId": 395,
+      "meshSpace": {
+        "position": [
+          -0.3616048770556489,
+          0.8492743427987747,
+          0.10084543461116839
+        ],
+        "rotation": [
+          -0.7107604515258414,
+          -0.35912792679632316,
+          0.5982113347250111,
+          0.0893863062682278
+        ],
+        "scale": [
+          1.0000004032592307,
+          1.0000003161336959,
+          0.9999998543113271
+        ],
+        "orthogonalError": 3.977724328807497e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.026340532970729587,
+        0.6174519723066461,
+        -0.7861679494459658,
+        0.0,
+        0.40356403158166543,
+        -0.7260745945822054,
+        -0.556733677608361,
+        0.0,
+        -0.9145719307486575,
+        -0.3026044723922079,
+        -0.268306588434913,
+        0.0,
+        -0.3616048770556489,
+        0.8492743427987747,
+        0.10084543461116839,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0268111788,
+          0,
+          3.81469718e-08
+        ],
+        "rotation": [
+          7.4505806e-09,
+          7.4505806e-09,
+          -1.49011612e-08,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 426,
+      "name": "Bip001 L Finger1Nub",
+      "parentNodeId": 396,
+      "meshSpace": {
+        "position": [
+          -0.4423627279720308,
+          0.8043190883484637,
+          0.05692408101796079
+        ],
+        "rotation": [
+          0.9081737190972408,
+          0.39867256985582344,
+          -0.12588357183946444,
+          0.02083277049693567
+        ],
+        "scale": [
+          1.000000106052427,
+          1.0000001831530594,
+          1.0000003444986945
+        ],
+        "orthogonalError": 3.919943016919558e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6504269178247314,
+        0.7188830985354802,
+        -0.24525930627381412,
+        0.0,
+        0.7293729078894257,
+        -0.6812526223334994,
+        -0.06253312807469533,
+        0.0,
+        -0.21203739756079043,
+        -0.13821226260513814,
+        -0.9674389910990374,
+        0.0,
+        -0.4423627279720308,
+        0.8043190883484637,
+        0.05692408101796079,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0230515469,
+          -7.62939436e-08,
+          0
+        ],
+        "rotation": [
+          3.72529008e-09,
+          3.72529008e-09,
+          -4.47034836e-08,
+          1
+        ],
+        "scale": [
+          1,
+          1.00000012,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 427,
+      "name": "Bip001 L Finger2Nub",
+      "parentNodeId": 397,
+      "meshSpace": {
+        "position": [
+          -0.4521726985885822,
+          0.7964926878164307,
+          0.019289241394260515
+        ],
+        "rotation": [
+          0.908328754189425,
+          0.4182385821618927,
+          0.0028853942773516016,
+          0.002652772843846787
+        ],
+        "scale": [
+          1.0000002840953928,
+          0.9999998675083965,
+          1.000000364100424
+        ],
+        "orthogonalError": 4.1640816160245833e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6501363521829425,
+        0.7598119204444183,
+        0.0030227986515987226,
+        0.0,
+        0.7597807158705484,
+        -0.6501389743581182,
+        0.007232760788369511,
+        0.0,
+        0.0074607512805478435,
+        -0.002405598538598459,
+        -0.999969638782589,
+        0.0,
+        -0.4521726985885822,
+        0.7964926878164307,
+        0.019289241394260515,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0248585697,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          -5.82076609e-11,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1.00000012
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 428,
+      "name": "Bip001 L Finger3Nub",
+      "parentNodeId": 398,
+      "meshSpace": {
+        "position": [
+          -0.4472315978497491,
+          0.8026397936286893,
+          -0.018757306750362954
+        ],
+        "rotation": [
+          0.9142566346275135,
+          0.37815006172188415,
+          0.14167240623319657,
+          0.03265373135500381
+        ],
+        "scale": [
+          1.0000001523661215,
+          0.9999998613534203,
+          1.0000003199846939
+        ],
+        "orthogonalError": 3.954093093574973e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.6738628383207024,
+        0.7007049224978281,
+        0.23435398748462982,
+        0.0,
+        0.6821998909093847,
+        -0.7118725639749119,
+        0.16685467991599323,
+        0.0,
+        0.28374588462974343,
+        0.04743915694892241,
+        -0.9577256597341172,
+        0.0,
+        -0.4472315978497491,
+        0.8026397936286893,
+        -0.018757306750362954,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0234780684,
+          0,
+          4.76837148e-09
+        ],
+        "rotation": [
+          -5.58793545e-09,
+          -7.4505806e-09,
+          -4.16333634e-17,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 429,
+      "name": "Bip001 L Finger4Nub",
+      "parentNodeId": 399,
+      "meshSpace": {
+        "position": [
+          -0.416852750157523,
+          0.8186145212126723,
+          -0.04454992229316439
+        ],
+        "rotation": [
+          0.8624215403661496,
+          0.39850863923110613,
+          0.30440864184625827,
+          0.06895890036801942
+        ],
+        "scale": [
+          1.0000001800142309,
+          0.9999998995392215,
+          1.000000255150756
+        ],
+        "orthogonalError": 4.1229825104016626e-07
+      },
+      "meshSpaceMatrixColumnMajor": [
+        0.49705233889146627,
+        0.7293484552798,
+        0.4700959085250443,
+        0.0,
+        0.6453813049938386,
+        -0.6728710540334042,
+        0.361562325037992,
+        0.0,
+        0.5800185695631022,
+        0.12367583624960003,
+        -0.8051603919664156,
+        0.0,
+        -0.416852750157523,
+        0.8186145212126723,
+        -0.04454992229316439,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0209491719,
+          0,
+          -9.53674295e-09
+        ],
+        "rotation": [
+          1.86264533e-08,
+          -7.4505806e-09,
+          2.98023259e-08,
+          1
+        ],
+        "scale": [
+          0.99999994,
+          0.999999881,
+          0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 430,
+      "name": "Bip001 R Finger0Nub",
+      "parentNodeId": 400,
+      "meshSpace": null,
+      "meshSpaceMatrixColumnMajor": [
+        -0.02633986801461084,
+        0.6174518131792813,
+        -0.7861678769031722,
+        0.0,
+        -0.40356060454589454,
+        -0.7260756963682282,
+        -0.5567346559183624,
+        0.0,
+        0.9145733627061939,
+        -0.3026018416942385,
+        -0.2683039034782823,
+        0.0,
+        0.36160465101268724,
+        0.8492753348202989,
+        0.10084650195599618,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0268112551,
+          7.62939436e-08,
+          -1.90734859e-08
+        ],
+        "rotation": [
+          1.11022302e-16,
+          7.4505806e-09,
+          1,
+          1.49011612e-08
+        ],
+        "scale": [
+          -1,
+          -1,
+          -0.999999881
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 431,
+      "name": "Bip001 R Finger1Nub",
+      "parentNodeId": 401,
+      "meshSpace": null,
+      "meshSpaceMatrixColumnMajor": [
+        -0.6504281357403944,
+        0.7188808794294351,
+        -0.24526110048064798,
+        0.0,
+        -0.7293707331950522,
+        -0.6812547507343707,
+        -0.06253513709230045,
+        0.0,
+        0.21204054575533487,
+        -0.13821163176322676,
+        -0.9674380342005215,
+        0.0,
+        0.4423626174021925,
+        0.8043204621953014,
+        0.05692525445135979,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0230515283,
+          0,
+          -4.76837148e-09
+        ],
+        "rotation": [
+          5.55111578e-17,
+          -3.7252903e-09,
+          1,
+          -1.4901163e-08
+        ],
+        "scale": [
+          -0.99999994,
+          -1,
+          -1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 432,
+      "name": "Bip001 R Finger2Nub",
+      "parentNodeId": 402,
+      "meshSpace": null,
+      "meshSpaceMatrixColumnMajor": [
+        -0.6501383627132739,
+        0.7598099732841049,
+        0.0030209678803017185,
+        0.0,
+        -0.7597790823341211,
+        -0.6501411761663047,
+        0.00723063619952502,
+        0.0,
+        -0.007457908635246312,
+        -0.002405620445649367,
+        -0.9999694818231557,
+        0.0,
+        0.4521728488255996,
+        0.7964938893994105,
+        0.019290520468040927,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0248585884,
+          0,
+          0
+        ],
+        "rotation": [
+          2.91038305e-10,
+          2.32830644e-10,
+          1,
+          -1.49011612e-08
+        ],
+        "scale": [
+          -1,
+          -1,
+          -0.99999994
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 433,
+      "name": "Bip001 R Finger3Nub",
+      "parentNodeId": 403,
+      "meshSpace": null,
+      "meshSpaceMatrixColumnMajor": [
+        -0.6738653660078124,
+        0.7007028253699421,
+        0.2343519869926262,
+        0.0,
+        -0.6821984343501619,
+        -0.7118745013946054,
+        0.16685264048160756,
+        0.0,
+        -0.2837432135211323,
+        0.04743834507058299,
+        -0.957726251916957,
+        0.0,
+        0.4472318138927376,
+        0.8026411540109207,
+        -0.01875604373255258,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.023478087,
+          0,
+          -9.53674295e-09
+        ],
+        "rotation": [
+          1.14054126e-25,
+          1.86264515e-09,
+          1,
+          6.12323426e-17
+        ],
+        "scale": [
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    },
+    {
+      "nodeId": 434,
+      "name": "Bip001 R Finger4Nub",
+      "parentNodeId": 404,
+      "meshSpace": null,
+      "meshSpaceMatrixColumnMajor": [
+        -0.4970555857738642,
+        0.7293471788848515,
+        0.47009443915049826,
+        0.0,
+        -0.6453806979196218,
+        -0.6728729358463286,
+        0.3615606140332392,
+        0.0,
+        -0.5800166333653898,
+        0.12367408916668633,
+        -0.8051617483575471,
+        0.0,
+        0.4168531029650242,
+        0.818615617012525,
+        -0.044548773270279715,
+        1.0
+      ],
+      "local": {
+        "position": [
+          -0.0209491719,
+          0,
+          -9.53674295e-09
+        ],
+        "rotation": [
+          5.55111645e-17,
+          -3.72529074e-09,
+          1,
+          -1.4901163e-08
+        ],
+        "scale": [
+          -0.99999994,
+          -0.999999881,
+          -1
+        ]
+      },
+      "localStatus": "avatar-reference-verified-against-skin"
+    }
+  ]
+}

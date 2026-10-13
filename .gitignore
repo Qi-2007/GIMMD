@@ -1,0 +1,9 @@
+/build/
+/build-*/
+*.obj
+*.pdb
+*.ilk
+*.probe.json
+__pycache__/
+/testmmd/
+

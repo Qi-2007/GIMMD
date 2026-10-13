@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    {
+      "bytes": 803840,
+      "file": "gimmd-probe.dll",
+      "sha256": "69AB1053CC36EA160BB3D42F90C1EB17512D30E3805F26D572ABD969F580C66A"
+    },
+    {
+      "bytes": 2505216,
+      "file": "gimmd-runtime-tests.exe",
+      "sha256": "4A1BBFE220B2776764BE081C44690A823F675C2BCC67E74DF95D8239748DF65A"
+    }
+  ],
+  "stage": "hierarchy-and-rotation-observer",
+  "bindPreviewTestsPassed": 7,
+  "coreChecksPassed": 657,
+  "gameEntryBytesRestored": true,
+  "date": "2026-10-12",
+  "gameEngineException": 0,
+  "observerChecksPassed": 32,
+  "gameNodes": 465,
+  "poseSettersCalled": false,
+  "gameHookDisabled": true,
+  "finalSourceCmakeReleaseChecks": "2/2 CTest and 32 observer checks passed, including pointer cleanup"
+}

@@ -1,0 +1,156 @@
+{
+  "retrievedDate": "2026-10-12",
+  "betterEndfieldCommit": "44612aa5e4810536b91b3bf73bec7b236883deda",
+  "eiemCommit": null,
+  "note": "EIEM main commit could not be resolved; file hashes identify the read-only research snapshot. No upstream code was executed.",
+  "files": [
+    {
+      "file": "BE_audio_timeline.h",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/native/modules/camera/eiem/upstream/audio_timeline.h",
+      "sha256": "3746CB9A475204C91B966AB23611111F8CEB149AAF2353BA5EE0F9297D6C9D2B",
+      "bytes": 3753
+    },
+    {
+      "file": "BE_eiem_slot.inc",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/native/modules/camera/eiem/eiem_slot.inc",
+      "sha256": "BE98576BCD5BC48E2B57F345DC5F6AB623C5D75DF9002B884FC6483BD6FBDA83",
+      "bytes": 46505
+    },
+    {
+      "file": "BE_LICENSE",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/LICENSE",
+      "sha256": "0D96A4FF68AD6D4B6F1F30F713B18D5184912BA8DD389F86AA7710DB079ABCB0",
+      "bytes": 34523
+    },
+    {
+      "file": "BE_mmd_director_runtime.inc",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/native/modules/camera/mmd_director_runtime.inc",
+      "sha256": "AD8918C171AB3B2E47F0A795834A20E41E7F58357DC18644A77BCB60D8DADD24",
+      "bytes": 37448
+    },
+    {
+      "file": "BE_mmd_library.h",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/native/modules/camera/mmd_library.h",
+      "sha256": "DC3E38340251E8E22F7B28C449781317755E6EFBA8480607C3AB66AFBDA15A82",
+      "bytes": 6567
+    },
+    {
+      "file": "BE_THIRD_PARTY_NOTICES.md",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/main/THIRD_PARTY_NOTICES.md",
+      "sha256": "3446B9EBBF89C264293281469F63A3F016C48C0D94EAB5D65A191CC40673B8BF",
+      "bytes": 2157
+    },
+    {
+      "file": "BE_UPSTREAM.md",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/native/modules/camera/eiem/UPSTREAM.md",
+      "sha256": "14CB035CCE3A0725501405BFFBE3B5BDAF8ABBC3062FED9ABEC1D98D550B0D9B",
+      "bytes": 14142
+    },
+    {
+      "file": "BE_vmd.h",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/44612aa5e4810536b91b3bf73bec7b236883deda/native/shared/motion/vmd.h",
+      "sha256": "A4F1F8CA997BD539C631288E519D16A4692B0B4739A8A79B1553140DAC27E46B",
+      "bytes": 14637
+    },
+    {
+      "file": "CAMERA_EIEM_PORT_PLAN.md",
+      "source": "https://raw.githubusercontent.com/Dr-hydra/Better-Endfield/main/docs/camera/research/1.5.3/eiem-port/CAMERA_EIEM_PORT_PLAN.md",
+      "sha256": "1E98ECF02FED2EA773E186EB4C8232D59F655A1511DE53C0F45DE03F27B6ED93",
+      "bytes": 22804
+    },
+    {
+      "file": "EIEM_audio.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/audio.h",
+      "sha256": "8E85741BF8378AE2C49F45E2CD88EE37FDD7490A219F4BFA7483C5530D4AA48E",
+      "bytes": 27716
+    },
+    {
+      "file": "EIEM_bone_map.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/bone_map.h",
+      "sha256": "E2DCA3B2CF709FC01DDCFA074FECD30E30FB399B19EAA0DCA3D846338931932B",
+      "bytes": 7131
+    },
+    {
+      "file": "EIEM_camera_player.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/camera_player.h",
+      "sha256": "6266FA72BB0BDEDDFA9DF1CDB2047EC2D4BB66C8D23A689C2B5C2E4269C9384F",
+      "bytes": 9531
+    },
+    {
+      "file": "EIEM_cloth.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/cloth.h",
+      "sha256": "15994BED65A822819B4B0214E8A8091D073E614ADC9A8D8E58D178B8E0C804DF",
+      "bytes": 67196
+    },
+    {
+      "file": "EIEM_direct_vmd_runtime.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/direct_vmd_runtime.h",
+      "sha256": "0986B8BDC90ED1EC2AFC850A7EE405BEC70B88C3FB19D129FCF46D3AC67C73B1",
+      "bytes": 29762
+    },
+    {
+      "file": "EIEM_ghost_rig.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/ghost_rig.h",
+      "sha256": "F252BE3945BD61E7B2610167A59CCF35BFD25F5BE24EA3FE8BB31D1EADCBC8E2",
+      "bytes": 419087
+    },
+    {
+      "file": "EIEM_leg_ik_player.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/leg_ik_player.h",
+      "sha256": "454BD659104B31FFE423E8BC7590E6E40AF57F97477ECDA2F199376058C7C47E",
+      "bytes": 10968
+    },
+    {
+      "file": "EIEM_LICENSE",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/LICENSE",
+      "sha256": "580818D328146B4DC80E1495F78145BCD1F26E650E80DECFAC908EF4BB92B230",
+      "bytes": 34527
+    },
+    {
+      "file": "EIEM_smc_face.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/smc_face.h",
+      "sha256": "E8D7E0BCCF8F8CF4CD0B43BAE027DD985E7E5A2F330E8241BB8112B4FC1FE470",
+      "bytes": 58978
+    },
+    {
+      "file": "EIEM_THIRD_PARTY_NOTICES",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/THIRD_PARTY_NOTICES",
+      "sha256": "161F725A2C60EE41F0FCC79B21B9720AECD8BB7C7CF091E03416D1DE9471BC13",
+      "bytes": 6427
+    },
+    {
+      "file": "EIEM_vmd_parser.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/vmd_parser.h",
+      "sha256": "DB0E2FED3AC9A28C2C2852CAD7E21FAF7398B565210371C704009FDA6BC88823",
+      "bytes": 41127
+    },
+    {
+      "file": "EIEM_direct_vmd_source.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/direct_vmd_source.h",
+      "sha256": "94D727A80C3D699324F9176D6E457DD03746E89C979FE4655279D7C6E273274E",
+      "bytes": 19943,
+      "retrievedDate": "2026-10-13"
+    },
+    {
+      "file": "EIEM_direct_vmd_source_sample.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/direct_vmd_source_sample.h",
+      "sha256": "F05E61C12B48A065A173AEF8DE0639D7D35830A24F4D1E1FBA6D19A7AA12551A",
+      "bytes": 14963,
+      "retrievedDate": "2026-10-13"
+    },
+    {
+      "file": "EIEM_direct_vmd_source_runtime.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/direct_vmd_source_runtime.h",
+      "sha256": "F19AFD42EB878A97C413936C9C4A62EAB763C0B00EE5254759C252DF3A2D063F",
+      "bytes": 10402,
+      "retrievedDate": "2026-10-13"
+    },
+    {
+      "file": "EIEM_direct_vmd_pose.h",
+      "source": "https://raw.githubusercontent.com/Sasye/EIEM/main/src/direct_vmd_pose.h",
+      "sha256": "30CFE42C2FF5420FCD3119BB1EF21456DF77C5D22DB4644119230BB86459E560",
+      "bytes": 123997,
+      "retrievedDate": "2026-10-13"
+    }
+  ]
+}

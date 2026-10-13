@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "target": "YuanShen CN 7.1.0",
+  "pid": 9620,
+  "loadedBuild": "build-single-track",
+  "coreChecks": 657,
+  "playbackRuntimeChecks": 53,
+  "readonlyRuntimeChecks": 34,
+  "roundtripRuntimeChecks": 47,
+  "bindPreviewTests": 8,
+  "cliPeakSampleVerified": true,
+  "unknownBuildRejected": true,
+  "liveStatus": "single-track-stopped-restored",
+  "liveSamples": 43,
+  "liveSetterCalls": 44,
+  "liveOverwrites": 42,
+  "liveRestoreError": 0,
+  "hookDisabled": true,
+  "entryBytesRestored": true,
+  "visualPlaybackVerified": false,
+  "artifacts": [
+    {
+      "path": "src/windows/single_track_playback.h",
+      "sha256": "8854D15412F38DA07A708ADF827149F14DFB1DA4B0CF2613C248E9F3321260D5"
+    },
+    {
+      "path": "src/windows/runtime_probe.cpp",
+      "sha256": "D7D5D4D19C0D8FFEBA62D244F7CD179BC3A382D05FA169228438AAA4D95EF4C6"
+    },
+    {
+      "path": "src/windows/hierarchy_observer.h",
+      "sha256": "7CAC36348F4DDD8B3ED0B47007A8D1AC687623365B3581B62B120DC33EC029CA"
+    },
+    {
+      "path": "scripts/generate-single-track-fixture.py",
+      "sha256": "10523E19454AEE1338FF59226D79A9346B16910B5E7D61370485B5E8AA7A5BFC"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "D5243F0E8D2A29BA9B22316CAAC344BF7F7EF7D6DDA712B9E02B35F65DBCC2D8"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "sha256": "AD46CA9E269A616471D3FFEEB136C1884B1F621E9CA43BBA3560629B443D18D0"
+    },
+    {
+      "path": "build-single-track/gimmd-probe.dll",
+      "sha256": "447DE99C0AE7345BF68408531FEC13D5344CD2B74AC40DC5066CB100D58D3316"
+    },
+    {
+      "path": "build-single-track/single-track.vmd",
+      "sha256": "4B0BD0F11991DEC6A7B55C7F2A72A91C63614A3A9A3ACF659C43E0A00102C8D2"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-single-track-playback.json",
+      "sha256": "73E2C8990316CA14DEBBE42E5F913D865339C7EAEB8CC7CC901D80F489F01BEA"
+    }
+  ]
+}

@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 1,
+  "mode": "offline-motion-admission",
+  "motionPath": "E:\\code\\gimmd\\testmmd\\It's me x mosi mosi\\Motion.vmd",
+  "summary": {
+    "durationSeconds": 23.4667,
+    "boneTracks": 252,
+    "boneKeys": 37967,
+    "morphTracks": 11,
+    "cameraKeys": 0,
+    "ikTracks": 0
+  },
+  "exactMappedTracks": 51,
+  "previewSourceReady": true,
+  "preview": {
+    "durationSeconds": 2,
+    "maxRelativeAngleDegrees": 5,
+    "targets": 10,
+    "sourceReferenceFrame": 0,
+    "positions": false,
+    "morphs": false,
+    "camera": false,
+    "audioPlayback": false,
+    "bindPoseCalibrated": false
+  },
+  "credits": {
+    "choreography": "ILLIT",
+    "motion": "Aileen_71",
+    "authorNotifiedForGameImport": true
+  },
+  "assets": [
+    {
+      "path": "E:\\code\\gimmd\\testmmd\\It's me x mosi mosi\\It's me x mosi mosi.wav",
+      "bytes": 4517966,
+      "sha256": "32E0CB02E6203183B6A591C99F1ACF6015252EC3D66DA55CEFD5B5EADF39DF76"
+    },
+    {
+      "path": "E:\\code\\gimmd\\testmmd\\It's me x mosi mosi\\Motion.vmd",
+      "bytes": 4216435,
+      "sha256": "572300FCE1C3C0CA913025878023F9138C935279CDC818DBCCE8B87A3910421C"
+    },
+    {
+      "path": "E:\\code\\gimmd\\testmmd\\It's me x mosi mosi\\Readme.txt",
+      "bytes": 2438,
+      "sha256": "CA5572F23D221573D9719414AEF1D7250069CA05A3FFACF02105F3A0681811C9"
+    }
+  ],
+  "audio": [
+    {
+      "path": "E:\\code\\gimmd\\testmmd\\It's me x mosi mosi\\It's me x mosi mosi.wav",
+      "seconds": 23.530666666666665,
+      "channels": 2,
+      "sampleRate": 48000,
+      "sampleBytes": 2
+    }
+  ],
+  "mappings": [
+    {
+      "mmdName": "下半身",
+      "cp932Hex": "89ba94bc9067",
+      "target": "Bip001 Pelvis",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "上半身",
+      "cp932Hex": "8fe394bc9067",
+      "target": "Bip001 Spine",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "上半身2",
+      "cp932Hex": "8fe394bc906732",
+      "target": "Bip001 Spine1",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "上半身3",
+      "cp932Hex": "8fe394bc906733",
+      "target": "Bip001 Spine2",
+      "sourcePresent": false,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "首",
+      "cp932Hex": "8ef1",
+      "target": "Bip001 Neck",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "頭",
+      "cp932Hex": "93aa",
+      "target": "Bip001 Head",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "左肩",
+      "cp932Hex": "8db68ca8",
+      "target": "Bip001 L Clavicle",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左腕",
+      "cp932Hex": "8db69872",
+      "target": "Bip001 L UpperArm",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "左ひじ",
+      "cp932Hex": "8db682d082b6",
+      "target": "Bip001 L Forearm",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "左手首",
+      "cp932Hex": "8db68ee88ef1",
+      "target": "Bip001 L Hand",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "左足",
+      "cp932Hex": "8db691ab",
+      "target": "Bip001 L Thigh",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左ひざ",
+      "cp932Hex": "8db682d082b4",
+      "target": "Bip001 L Calf",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左足首",
+      "cp932Hex": "8db691ab8ef1",
+      "target": "Bip001 L Foot",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左つま先",
+      "cp932Hex": "8db682c282dc90e6",
+      "target": "Bip001 L Toe0",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左親指０",
+      "cp932Hex": "8db690658e77824f",
+      "target": "Bip001 L Finger0",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左親指１",
+      "cp932Hex": "8db690658e778250",
+      "target": "Bip001 L Finger01",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左親指２",
+      "cp932Hex": "8db690658e778251",
+      "target": "Bip001 L Finger02",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左人指１",
+      "cp932Hex": "8db6906c8e778250",
+      "target": "Bip001 L Finger1",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "左人指２",
+      "cp932Hex": "8db6906c8e778251",
+      "target": "Bip001 L Finger11",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左人指３",
+      "cp932Hex": "8db6906c8e778252",
+      "target": "Bip001 L Finger12",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左中指１",
+      "cp932Hex": "8db692868e778250",
+      "target": "Bip001 L Finger2",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左中指２",
+      "cp932Hex": "8db692868e778251",
+      "target": "Bip001 L Finger21",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左中指３",
+      "cp932Hex": "8db692868e778252",
+      "target": "Bip001 L Finger22",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左薬指１",
+      "cp932Hex": "8db696f28e778250",
+      "target": "Bip001 L Finger3",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左薬指２",
+      "cp932Hex": "8db696f28e778251",
+      "target": "Bip001 L Finger31",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左薬指３",
+      "cp932Hex": "8db696f28e778252",
+      "target": "Bip001 L Finger32",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左小指１",
+      "cp932Hex": "8db68fac8e778250",
+      "target": "Bip001 L Finger4",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左小指２",
+      "cp932Hex": "8db68fac8e778251",
+      "target": "Bip001 L Finger41",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "左小指３",
+      "cp932Hex": "8db68fac8e778252",
+      "target": "Bip001 L Finger42",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右肩",
+      "cp932Hex": "89458ca8",
+      "target": "Bip001 R Clavicle",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右腕",
+      "cp932Hex": "89459872",
+      "target": "Bip001 R UpperArm",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "右ひじ",
+      "cp932Hex": "894582d082b6",
+      "target": "Bip001 R Forearm",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "右手首",
+      "cp932Hex": "89458ee88ef1",
+      "target": "Bip001 R Hand",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "右足",
+      "cp932Hex": "894591ab",
+      "target": "Bip001 R Thigh",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右ひざ",
+      "cp932Hex": "894582d082b4",
+      "target": "Bip001 R Calf",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右足首",
+      "cp932Hex": "894591ab8ef1",
+      "target": "Bip001 R Foot",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右つま先",
+      "cp932Hex": "894582c282dc90e6",
+      "target": "Bip001 R Toe0",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右親指０",
+      "cp932Hex": "894590658e77824f",
+      "target": "Bip001 R Finger0",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右親指１",
+      "cp932Hex": "894590658e778250",
+      "target": "Bip001 R Finger01",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右親指２",
+      "cp932Hex": "894590658e778251",
+      "target": "Bip001 R Finger02",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右人指１",
+      "cp932Hex": "8945906c8e778250",
+      "target": "Bip001 R Finger1",
+      "sourcePresent": true,
+      "previewTarget": true
+    },
+    {
+      "mmdName": "右人指２",
+      "cp932Hex": "8945906c8e778251",
+      "target": "Bip001 R Finger11",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右人指３",
+      "cp932Hex": "8945906c8e778252",
+      "target": "Bip001 R Finger12",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右中指１",
+      "cp932Hex": "894592868e778250",
+      "target": "Bip001 R Finger2",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右中指２",
+      "cp932Hex": "894592868e778251",
+      "target": "Bip001 R Finger21",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右中指３",
+      "cp932Hex": "894592868e778252",
+      "target": "Bip001 R Finger22",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右薬指１",
+      "cp932Hex": "894596f28e778250",
+      "target": "Bip001 R Finger3",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右薬指２",
+      "cp932Hex": "894596f28e778251",
+      "target": "Bip001 R Finger31",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右薬指３",
+      "cp932Hex": "894596f28e778252",
+      "target": "Bip001 R Finger32",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右小指１",
+      "cp932Hex": "89458fac8e778250",
+      "target": "Bip001 R Finger4",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右小指２",
+      "cp932Hex": "89458fac8e778251",
+      "target": "Bip001 R Finger41",
+      "sourcePresent": true,
+      "previewTarget": false
+    },
+    {
+      "mmdName": "右小指３",
+      "cp932Hex": "89458fac8e778252",
+      "target": "Bip001 R Finger42",
+      "sourcePresent": true,
+      "previewTarget": false
+    }
+  ],
+  "stagedPath": "E:\\code\\gimmd\\build-real-motion-preview\\multi-track.vmd"
+}

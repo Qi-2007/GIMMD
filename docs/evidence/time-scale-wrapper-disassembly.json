@@ -1,0 +1,762 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "note": "Instruction boundaries and semantics require review; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x1436a00",
+      "unwindRange": [
+        "0x1436a00",
+        "0x1436a1a"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436a00",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a04",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436a09",
+          "text": "movsd xmm0, qword ptr [rax + 0xb0]"
+        },
+        {
+          "rva": "0x1436a11",
+          "text": "cvtpd2ps xmm0, xmm0"
+        },
+        {
+          "rva": "0x1436a15",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a19",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436a20",
+      "unwindRange": [
+        "0x1436a20",
+        "0x1436a36"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436a20",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a24",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436a29",
+          "text": "movsd xmm0, qword ptr [rax + 0xb0]"
+        },
+        {
+          "rva": "0x1436a31",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a35",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436a40",
+      "unwindRange": [
+        "0x1436a40",
+        "0x1436a57"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436a40",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a44",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436a49",
+          "text": "movsd xmm0, qword ptr [rax + 0x50]"
+        },
+        {
+          "rva": "0x1436a4e",
+          "text": "cvtpd2ps xmm0, xmm0"
+        },
+        {
+          "rva": "0x1436a52",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a56",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436a60",
+      "unwindRange": [
+        "0x1436a60",
+        "0x1436a76"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436a60",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a64",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436a69",
+          "text": "movss xmm0, dword ptr [rax + 0xbc]"
+        },
+        {
+          "rva": "0x1436a71",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a75",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436a80",
+      "unwindRange": [
+        "0x1436a80",
+        "0x1436a93"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436a80",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a84",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436a89",
+          "text": "movss xmm0, dword ptr [rax + 0x5c]"
+        },
+        {
+          "rva": "0x1436a8e",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436a92",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436aa0",
+      "unwindRange": [
+        "0x1436aa0",
+        "0x1436ab3"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436aa0",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436aa4",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436aa9",
+          "text": "movss xmm0, dword ptr [rax + 0x58]"
+        },
+        {
+          "rva": "0x1436aae",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436ab2",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436ac0",
+      "unwindRange": [
+        "0x1436ac0",
+        "0x1436ae5"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436ac0",
+          "text": "sub rsp, 0x38"
+        },
+        {
+          "rva": "0x1436ac4",
+          "text": "movaps xmmword ptr [rsp + 0x20], xmm6"
+        },
+        {
+          "rva": "0x1436ac9",
+          "text": "movaps xmm6, xmm0"
+        },
+        {
+          "rva": "0x1436acc",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436ad1",
+          "text": "mov rcx, rax"
+        },
+        {
+          "rva": "0x1436ad4",
+          "text": "movaps xmm1, xmm6"
+        },
+        {
+          "rva": "0x1436ad7",
+          "text": "movaps xmm6, xmmword ptr [rsp + 0x20]"
+        },
+        {
+          "rva": "0x1436adc",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x1436ae0",
+          "text": "jmp 0x16f30a0",
+          "branchTarget": "0x16f30a0"
+        }
+      ]
+    },
+    {
+      "rva": "0x1436af0",
+      "unwindRange": [
+        "0x1436af0",
+        "0x1436b06"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436af0",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436af4",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436af9",
+          "text": "movss xmm0, dword ptr [rax + 0x108]"
+        },
+        {
+          "rva": "0x1436b01",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b05",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436b10",
+      "unwindRange": [
+        "0x1436b10",
+        "0x1436b35"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436b10",
+          "text": "sub rsp, 0x38"
+        },
+        {
+          "rva": "0x1436b14",
+          "text": "movaps xmmword ptr [rsp + 0x20], xmm6"
+        },
+        {
+          "rva": "0x1436b19",
+          "text": "movaps xmm6, xmm0"
+        },
+        {
+          "rva": "0x1436b1c",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436b21",
+          "text": "mov rcx, rax"
+        },
+        {
+          "rva": "0x1436b24",
+          "text": "movaps xmm1, xmm6"
+        },
+        {
+          "rva": "0x1436b27",
+          "text": "movaps xmm6, xmmword ptr [rsp + 0x20]"
+        },
+        {
+          "rva": "0x1436b2c",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x1436b30",
+          "text": "jmp 0x16f3100",
+          "branchTarget": "0x16f3100"
+        }
+      ]
+    },
+    {
+      "rva": "0x1436b40",
+      "unwindRange": [
+        "0x1436b40",
+        "0x1436b56"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436b40",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b44",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436b49",
+          "text": "movss xmm0, dword ptr [rax + 0xc0]"
+        },
+        {
+          "rva": "0x1436b51",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b55",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436b60",
+      "unwindRange": [
+        "0x1436b60",
+        "0x1436b70"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436b60",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b64",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436b69",
+          "text": "xor al, al"
+        },
+        {
+          "rva": "0x1436b6b",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b6f",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436b80",
+      "unwindRange": [
+        "0x1436b80",
+        "0x1436b96"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436b80",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b84",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436b89",
+          "text": "movss xmm0, dword ptr [rax + 0x10c]"
+        },
+        {
+          "rva": "0x1436b91",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436b95",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436ba0",
+      "unwindRange": [
+        "0x1436ba0",
+        "0x1436bc5"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436ba0",
+          "text": "sub rsp, 0x38"
+        },
+        {
+          "rva": "0x1436ba4",
+          "text": "movaps xmmword ptr [rsp + 0x20], xmm6"
+        },
+        {
+          "rva": "0x1436ba9",
+          "text": "movaps xmm6, xmm0"
+        },
+        {
+          "rva": "0x1436bac",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436bb1",
+          "text": "mov rcx, rax"
+        },
+        {
+          "rva": "0x1436bb4",
+          "text": "movaps xmm1, xmm6"
+        },
+        {
+          "rva": "0x1436bb7",
+          "text": "movaps xmm6, xmmword ptr [rsp + 0x20]"
+        },
+        {
+          "rva": "0x1436bbc",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x1436bc0",
+          "text": "jmp 0x16f3130",
+          "branchTarget": "0x16f3130"
+        }
+      ]
+    },
+    {
+      "rva": "0x1436bc0",
+      "unwindRange": [
+        "0x1436ba0",
+        "0x1436bc5"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436bc0",
+          "text": "jmp 0x16f3130",
+          "branchTarget": "0x16f3130"
+        }
+      ]
+    },
+    {
+      "rva": "0x1436bd0",
+      "unwindRange": [
+        "0x1436bd0",
+        "0x1436be6"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436bd0",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436bd4",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436bd9",
+          "text": "movss xmm0, dword ptr [rax + 0x104]"
+        },
+        {
+          "rva": "0x1436be1",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436be5",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436be0",
+      "unwindRange": [
+        "0x1436bd0",
+        "0x1436be6"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436be0",
+          "text": "add byte ptr [rax - 0x7d], cl"
+        }
+      ]
+    },
+    {
+      "rva": "0x1436bf0",
+      "unwindRange": [
+        "0x1436bf0",
+        "0x1436c15"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436bf0",
+          "text": "sub rsp, 0x38"
+        },
+        {
+          "rva": "0x1436bf4",
+          "text": "movaps xmmword ptr [rsp + 0x20], xmm6"
+        },
+        {
+          "rva": "0x1436bf9",
+          "text": "movaps xmm6, xmm0"
+        },
+        {
+          "rva": "0x1436bfc",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436c01",
+          "text": "mov rcx, rax"
+        },
+        {
+          "rva": "0x1436c04",
+          "text": "movaps xmm1, xmm6"
+        },
+        {
+          "rva": "0x1436c07",
+          "text": "movaps xmm6, xmmword ptr [rsp + 0x20]"
+        },
+        {
+          "rva": "0x1436c0c",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x1436c10",
+          "text": "jmp 0x16f3270",
+          "branchTarget": "0x16f3270"
+        }
+      ]
+    },
+    {
+      "rva": "0x1436c20",
+      "unwindRange": [
+        "0x1436c20",
+        "0x1436c34"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436c20",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c24",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436c29",
+          "text": "mov eax, dword ptr [rax + 0xd4]"
+        },
+        {
+          "rva": "0x1436c2f",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c33",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436c40",
+      "unwindRange": [
+        "0x1436c40",
+        "0x1436c54"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436c40",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c44",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436c49",
+          "text": "mov eax, dword ptr [rax + 0xd8]"
+        },
+        {
+          "rva": "0x1436c4f",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c53",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436c60",
+      "unwindRange": [
+        "0x1436c60",
+        "0x1436c7a"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436c60",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c64",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436c69",
+          "text": "mov rcx, rax"
+        },
+        {
+          "rva": "0x1436c6c",
+          "text": "call 0x16f3300",
+          "branchTarget": "0x16f3300"
+        },
+        {
+          "rva": "0x1436c71",
+          "text": "cvtsd2ss xmm0, xmm0"
+        },
+        {
+          "rva": "0x1436c75",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c79",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436c80",
+      "unwindRange": [
+        "0x1436c80",
+        "0x1436c94"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436c80",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c84",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436c89",
+          "text": "mov eax, dword ptr [rax + 0xe0]"
+        },
+        {
+          "rva": "0x1436c8f",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436c93",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436ca0",
+      "unwindRange": [
+        "0x1436ca0",
+        "0x1436cb9"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436ca0",
+          "text": "push rbx"
+        },
+        {
+          "rva": "0x1436ca2",
+          "text": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x1436ca6",
+          "text": "mov ebx, ecx"
+        },
+        {
+          "rva": "0x1436ca8",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436cad",
+          "text": "mov dword ptr [rax + 0xe0], ebx"
+        },
+        {
+          "rva": "0x1436cb3",
+          "text": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x1436cb7",
+          "text": "pop rbx"
+        },
+        {
+          "rva": "0x1436cb8",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x1436cc0",
+      "unwindRange": [
+        "0x1436cc0",
+        "0x1436cd5"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1436cc0",
+          "text": "sub rsp, 0x28"
+        },
+        {
+          "rva": "0x1436cc4",
+          "text": "call 0x16f2660",
+          "branchTarget": "0x16f2660"
+        },
+        {
+          "rva": "0x1436cc9",
+          "text": "movzx eax, byte ptr [rax + 0x101]"
+        },
+        {
+          "rva": "0x1436cd0",
+          "text": "add rsp, 0x28"
+        },
+        {
+          "rva": "0x1436cd4",
+          "text": "ret "
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

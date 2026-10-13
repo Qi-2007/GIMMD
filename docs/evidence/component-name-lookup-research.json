@@ -1,0 +1,273 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "note": "Instruction boundaries and semantics require review; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x14c8660",
+      "unwindRange": [
+        "0x14c8660",
+        "0x14c86c3"
+      ],
+      "instructions": [
+        {
+          "rva": "0x14c8660",
+          "text": "mov qword ptr [rsp + 8], rcx"
+        },
+        {
+          "rva": "0x14c8665",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x14c8666",
+          "text": "push r12"
+        },
+        {
+          "rva": "0x14c8668",
+          "text": "push r13"
+        },
+        {
+          "rva": "0x14c866a",
+          "text": "sub rsp, 0x70"
+        },
+        {
+          "rva": "0x14c866e",
+          "text": "mov r12, rcx"
+        },
+        {
+          "rva": "0x14c8671",
+          "text": "mov rsi, r8"
+        },
+        {
+          "rva": "0x14c8674",
+          "text": "mov rcx, qword ptr [r8]"
+        },
+        {
+          "rva": "0x14c8677",
+          "text": "mov r13, rdx"
+        },
+        {
+          "rva": "0x14c867a",
+          "text": "test rcx, rcx"
+        },
+        {
+          "rva": "0x14c867d",
+          "text": "jne 0x14c8683"
+        },
+        {
+          "rva": "0x14c867f",
+          "text": "lea rcx, [r8 + 8]"
+        },
+        {
+          "rva": "0x14c8683",
+          "text": "xor edx, edx"
+        },
+        {
+          "rva": "0x14c8685",
+          "text": "call 0x19b9470",
+          "branchTarget": "0x19b9470"
+        },
+        {
+          "rva": "0x14c868a",
+          "text": "test rax, rax"
+        },
+        {
+          "rva": "0x14c868d",
+          "text": "je 0x14c86c3"
+        },
+        {
+          "rva": "0x14c868f",
+          "text": "mov ecx, dword ptr [rax + 0x30]"
+        },
+        {
+          "rva": "0x14c8692",
+          "text": "sub ecx, dword ptr [rip + 0x3ff2768]",
+          "ripReferences": [
+            {
+              "rva": "0x54bae00"
+            }
+          ]
+        },
+        {
+          "rva": "0x14c8698",
+          "text": "cmp ecx, dword ptr [rip + 0x3ff2766]",
+          "ripReferences": [
+            {
+              "rva": "0x54bae04"
+            }
+          ]
+        },
+        {
+          "rva": "0x14c869e",
+          "text": "jae 0x14c86c3"
+        },
+        {
+          "rva": "0x14c86a0",
+          "text": "mov rdx, rax"
+        },
+        {
+          "rva": "0x14c86a3",
+          "text": "mov rcx, r13"
+        },
+        {
+          "rva": "0x14c86a6",
+          "text": "call 0x19c7f10",
+          "branchTarget": "0x19c7f10"
+        },
+        {
+          "rva": "0x14c86ab",
+          "text": "mov rdx, rax"
+        },
+        {
+          "rva": "0x14c86ae",
+          "text": "mov rcx, r12"
+        },
+        {
+          "rva": "0x14c86b1",
+          "text": "call 0x14c8d20",
+          "branchTarget": "0x14c8d20"
+        },
+        {
+          "rva": "0x14c86b6",
+          "text": "mov rax, r12"
+        },
+        {
+          "rva": "0x14c86b9",
+          "text": "add rsp, 0x70"
+        },
+        {
+          "rva": "0x14c86bd",
+          "text": "pop r13"
+        },
+        {
+          "rva": "0x14c86bf",
+          "text": "pop r12"
+        },
+        {
+          "rva": "0x14c86c1",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x14c86c2",
+          "text": "ret "
+        }
+      ]
+    },
+    {
+      "rva": "0x14cc020",
+      "unwindRange": [
+        "0x14cc020",
+        "0x14cc06a"
+      ],
+      "instructions": [
+        {
+          "rva": "0x14cc020",
+          "text": "push rbp"
+        },
+        {
+          "rva": "0x14cc022",
+          "text": "push r13"
+        },
+        {
+          "rva": "0x14cc024",
+          "text": "push r14"
+        },
+        {
+          "rva": "0x14cc026",
+          "text": "push r15"
+        },
+        {
+          "rva": "0x14cc028",
+          "text": "sub rsp, 0x78"
+        },
+        {
+          "rva": "0x14cc02c",
+          "text": "mov r15, rdx"
+        },
+        {
+          "rva": "0x14cc02f",
+          "text": "mov r13, rcx"
+        },
+        {
+          "rva": "0x14cc032",
+          "text": "mov edx, 0x2f"
+        },
+        {
+          "rva": "0x14cc037",
+          "text": "mov rcx, r9"
+        },
+        {
+          "rva": "0x14cc03a",
+          "text": "mov rbp, r9"
+        },
+        {
+          "rva": "0x14cc03d",
+          "text": "mov r14, r8"
+        },
+        {
+          "rva": "0x14cc040",
+          "text": "call 0x1fc8848",
+          "branchTarget": "0x1fc8848"
+        },
+        {
+          "rva": "0x14cc045",
+          "text": "test rax, rax"
+        },
+        {
+          "rva": "0x14cc048",
+          "text": "jne 0x14cc06a"
+        },
+        {
+          "rva": "0x14cc04a",
+          "text": "mov r9, rbp"
+        },
+        {
+          "rva": "0x14cc04d",
+          "text": "mov r8, r14"
+        },
+        {
+          "rva": "0x14cc050",
+          "text": "mov rdx, r15"
+        },
+        {
+          "rva": "0x14cc053",
+          "text": "mov rcx, r13"
+        },
+        {
+          "rva": "0x14cc056",
+          "text": "call 0x14cfa10",
+          "branchTarget": "0x14cfa10"
+        },
+        {
+          "rva": "0x14cc05b",
+          "text": "mov rax, r13"
+        },
+        {
+          "rva": "0x14cc05e",
+          "text": "add rsp, 0x78"
+        },
+        {
+          "rva": "0x14cc062",
+          "text": "pop r15"
+        },
+        {
+          "rva": "0x14cc064",
+          "text": "pop r14"
+        },
+        {
+          "rva": "0x14cc066",
+          "text": "pop r13"
+        },
+        {
+          "rva": "0x14cc068",
+          "text": "pop rbp"
+        },
+        {
+          "rva": "0x14cc069",
+          "text": "ret "
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-12",
+  "timezone": "Asia/Shanghai",
+  "compiler": "MSVC 14.51.36231 x64",
+  "coreChecksPassed": 657,
+  "ownHostRemoteLoad": "passed",
+  "ownHostRepeatedProbe": "passed",
+  "gameVersion": "7.1.0",
+  "gamePid": 9620,
+  "gameProbeLoad": "passed after Windows UAC",
+  "gameEngineCallsMade": false,
+  "boneControl": "unverified",
+  "cameraControl": "unverified",
+  "artifacts": [
+    {
+      "file": "gimmd-vmd.exe",
+      "bytes": 660480,
+      "sha256": "DC85EF5C2411D7806AEAC0F70732823609DAD6FFE49177E71E734F6FBB0929EC"
+    },
+    {
+      "file": "gimmd-probe.dll",
+      "bytes": 407552,
+      "sha256": "DC75FE0A70B4805C28C1600EBB705135F415F59F442EE05206D8FA0BBF1A9532"
+    },
+    {
+      "file": "gimmd-probe-host.exe",
+      "bytes": 347648,
+      "sha256": "945BC2CF102078F0B2792BF477617D81E8A179859F4F1B1B1D9B686BA0FCDD6F"
+    },
+    {
+      "file": "gimmd-inject-probe.exe",
+      "bytes": 450048,
+      "sha256": "D47F53F19BE49AFA7B14CD88B425FF93C238DE0457B97A4EF14316221ACC7E1B"
+    },
+    {
+      "file": "gimmd-tests.exe",
+      "bytes": 683008,
+      "sha256": "0B12E652098C5792D6C6D39CBD6F9FE61A168095F90ADB73DD472F010FA5ED97"
+    }
+  ]
+}

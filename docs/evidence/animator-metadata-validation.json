@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-13",
+  "coreChecks": 657,
+  "animatorRuntimeChecks": 44,
+  "defaultRuntimeChecks": 35,
+  "liveSettersCalled": false,
+  "liveHookDisabled": true,
+  "liveEntryBytesRestored": true,
+  "metadataStatus": "bounded-metadata-parent-unconfirmed",
+  "methodCandidates": 0,
+  "files": [
+    {
+      "path": "src/windows/animator_metadata.h",
+      "sha256": "31C5687B4A01653DA3D6B1B168E0A6A5956D72CA9E1A2DAA2E781E5CCCAB9838"
+    },
+    {
+      "path": "src/windows/animator_observer.h",
+      "sha256": "3A1891AD6667B759AE3F2B31C823551A41DAA879976B4F7DA26CF436296A1BFD"
+    },
+    {
+      "path": "src/windows/runtime_probe.cpp",
+      "sha256": "6ED9F366B45E49E78F24FC34C2998B2B0B9FA5D9DBE910D4B457C60C76594248"
+    },
+    {
+      "path": "src/generated/gi_hierarchy_profile.h",
+      "sha256": "03D98AAB93016B917D6BF6681036B9C4BD91757AB7F1C4633D67BFC2C4D49857"
+    },
+    {
+      "path": "build-animator-metadata-v2/gimmd-probe.dll",
+      "sha256": "19C1CA0916AAF287B6DEC7707B48E9437B14E8E722F327DE3A78ABC1F72CF898"
+    },
+    {
+      "path": "docs/evidence/genshin-7.1-animator-metadata.json",
+      "sha256": "51B606E2381A7DF9CCC4B72F89FE09757D63298C16A11D5B8DF79C4A71667E76"
+    },
+    {
+      "path": "docs/evidence/behaviour-registration-research.json",
+      "sha256": "F7C9FA1C435EDFEBEB9D5817C3E21330CEB3C8067EB69D2510B2BCA2A7F8AE04"
+    }
+  ],
+  "liveActiveCallbacksAtReport": 0,
+  "defaultUnknownBuildRejected": true
+}
