@@ -1,0 +1,2083 @@
+{
+  "cameraPlayback": {
+    "enabled": true,
+    "loaded": true,
+    "status": "camera-stopped-restored",
+    "acquired": false,
+    "restored": true,
+    "cleanupPending": false,
+    "aborted": false,
+    "frontState": 2,
+    "frontPosition": [
+      1.77562594,
+      293.926208,
+      -5.92140865
+    ],
+    "poseWrites": 433,
+    "retainedSamples": 324,
+    "gameOverwrites": 108,
+    "restoreAttempts": 1,
+    "maxWriteError": 0,
+    "restoreError": 0,
+    "exception": 0,
+    "lastSampleSeconds": 0,
+    "manualOnly": true,
+    "controlSequence": 3,
+    "fovMultiplier": 1,
+    "positionOffset": [
+      0,
+      0.100000001,
+      0.600000024
+    ],
+    "baselineFov": 45,
+    "lastFov": 40,
+    "maxFovWriteError": 0,
+    "fovRestoreError": 0,
+    "anchor": "initial-camera-pose",
+    "fovWritten": true,
+    "finalRenderVerified": false,
+    "timelineSamples": [
+      {
+        "seconds": 0,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          1.77562594,
+          293.926208,
+          -5.92140865
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 0,
+        "epoch": 0,
+        "state": 1,
+        "position": [
+          1.77562594,
+          293.926208,
+          -5.92140865
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 0.702,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          1.77562594,
+          293.926208,
+          -5.92140865
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          1.77562594,
+          293.926208,
+          -5.92140865
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          1.97497559,
+          294.026184,
+          -5.90505552
+        ],
+        "error": 0,
+        "fov": 60,
+        "controlSequence": 2
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          1.73469865,
+          294.009521,
+          -5.32025671
+        ],
+        "error": 0,
+        "fov": 40,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 1,
+        "position": [
+          1.73469865,
+          294.009521,
+          -5.32025671
+        ],
+        "error": 0,
+        "fov": 40,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 1.641,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          1.73469865,
+          294.009521,
+          -5.32025671
+        ],
+        "error": 0,
+        "fov": 40,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 1.84,
+        "epoch": 2,
+        "state": 2,
+        "position": [
+          1.73469865,
+          294.009521,
+          -5.32025671
+        ],
+        "error": 0,
+        "fov": 40,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0,
+        "epoch": 3,
+        "state": 2,
+        "position": [
+          1.73469865,
+          294.009521,
+          -5.32025671
+        ],
+        "error": 0,
+        "fov": 40,
+        "controlSequence": 3
+      }
+    ]
+  },
+  "secondaryPhysics": {
+    "requested": true,
+    "status": "restored",
+    "arrays": 4,
+    "particles": 38,
+    "bones": 34,
+    "colliders": 0,
+    "unsupportedRigidArrays": 0,
+    "steps": 98,
+    "resets": 3,
+    "restores": 34,
+    "movedSamples": 1006,
+    "failures": 0,
+    "averageMs": 5.88255772,
+    "maximumMs": 35.2387,
+    "maximumLocalDelta": 8.06413591e-05,
+    "maximumReferenceAngle": 41.9647246,
+    "maximumStepAngle": 36.5848606,
+    "reapplyOnly": false,
+    "bodyCapsules": 13,
+    "contacts": 2913,
+    "contactLimits": 175,
+    "maximumContactCorrection": 0.177329898,
+    "maximumRelativeStretch": 0.000108778477,
+    "segmentContacts": 2251,
+    "clothMargin": 0.0900000036,
+    "maximumRemainingPenetration": 0.0580342487,
+    "temporalLimits": 53,
+    "skirtSupports": 4505,
+    "minimumSkirtRadiusRatio": 0.998716056,
+    "upperSkirtBones": 6,
+    "upperSkirtWrites": 588,
+    "upperSkirtContacts": 1089,
+    "closedSkirtRing": true,
+    "lateralLinks": 12,
+    "lateralContacts": 529,
+    "lateralIterations": 9408,
+    "maximumLateralStretch": 0.690965176,
+    "clothPanels": 24,
+    "panelContacts": 4251,
+    "currentPanelPenetration": 0.01582212,
+    "endHoldSamples": 0,
+    "endHoldResets": 0,
+    "maximumHoldPoseError": 0,
+    "seekSettleSteps": 48,
+    "transportedClothEnds": 588,
+    "maximumParticleBoneError": 3.37174782e-07,
+    "maximumUpperCorrection": 0.0423758812,
+    "maximumUpperPenetration": 0.024687551,
+    "worstContactCapsule": 8,
+    "worstContactSegment": true,
+    "worstContactBone": "+SkirtF R B04",
+    "cleanupPending": false,
+    "chains": [
+      {
+        "root": "+SkirtF L B02",
+        "particles": 8,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 1,
+        "elasticity": 1,
+        "stiffness": 0.699999988,
+        "inert": 0.899999976,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.603820801,
+            0.899999976,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.739396214,
+            0.799710512,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.830796599,
+            0.699421048,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.901382446,
+            0.600674927,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.603820801,
+            0.899999976,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.739396214,
+            0.799710512,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.830796599,
+            0.699421048,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.901382446,
+            0.600674927,
+            0.699999988,
+            0.899999976
+          ]
+        ]
+      },
+      {
+        "root": "+SkirtS L B02",
+        "particles": 16,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 1,
+        "elasticity": 1,
+        "stiffness": 1,
+        "inert": 0.5,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.327611178,
+            0.755222321,
+            0.861944199,
+            0.5
+          ],
+          [
+            0.516504705,
+            0.611922085,
+            0.826038837,
+            0.5
+          ],
+          [
+            0.68739748,
+            0.502285004,
+            0.810244501,
+            0.5
+          ],
+          [
+            0.827611148,
+            0.419027925,
+            0.806721807,
+            0.5
+          ],
+          [
+            0.327611178,
+            0.755222321,
+            0.861944199,
+            0.5
+          ],
+          [
+            0.516504705,
+            0.611922085,
+            0.826038837,
+            0.5
+          ],
+          [
+            0.68739748,
+            0.502285004,
+            0.810244501,
+            0.5
+          ],
+          [
+            0.827611148,
+            0.419027925,
+            0.806721807,
+            0.5
+          ],
+          [
+            0.327611178,
+            0.755222321,
+            0.861944199,
+            0.5
+          ],
+          [
+            0.516504705,
+            0.611922085,
+            0.826038837,
+            0.5
+          ],
+          [
+            0.68739748,
+            0.502285004,
+            0.810244501,
+            0.5
+          ],
+          [
+            0.827611148,
+            0.419027925,
+            0.806721807,
+            0.5
+          ],
+          [
+            0.327611178,
+            0.755222321,
+            0.861944199,
+            0.5
+          ],
+          [
+            0.516504705,
+            0.611922085,
+            0.826038837,
+            0.5
+          ],
+          [
+            0.68739748,
+            0.502285004,
+            0.810244501,
+            0.5
+          ],
+          [
+            0.827611148,
+            0.419027925,
+            0.806721807,
+            0.5
+          ]
+        ]
+      },
+      {
+        "root": "+AmiceB L D12",
+        "particles": 6,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 1,
+        "elasticity": 1,
+        "stiffness": 1,
+        "inert": 0.699999988,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.201497599,
+            0.90020752,
+            0.600000024,
+            0.699999988
+          ],
+          [
+            0.593637288,
+            0.708809316,
+            0.399463713,
+            0.699999988
+          ],
+          [
+            0.89877218,
+            0.553118885,
+            0.299829096,
+            0.699999988
+          ],
+          [
+            0.201497599,
+            0.90020752,
+            0.600000024,
+            0.699999988
+          ],
+          [
+            0.593637288,
+            0.708809316,
+            0.399463713,
+            0.699999988
+          ],
+          [
+            0.89877218,
+            0.553118885,
+            0.299829096,
+            0.699999988
+          ]
+        ]
+      },
+      {
+        "root": "+HairS L F01",
+        "particles": 8,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 0.300000012,
+        "elasticity": 1,
+        "stiffness": 1,
+        "inert": 1,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.300000012,
+            0.800000012,
+            0.800000012,
+            0.800000012
+          ],
+          [
+            0.300000012,
+            0.618518531,
+            0.644444466,
+            0.618518531
+          ],
+          [
+            0.300000012,
+            0.281481564,
+            0.355555534,
+            0.281481564
+          ],
+          [
+            0.300000012,
+            0.100000001,
+            0.200000003,
+            0.100000001
+          ],
+          [
+            0.300000012,
+            0.800000012,
+            0.800000012,
+            0.800000012
+          ],
+          [
+            0.300000012,
+            0.618518531,
+            0.644444466,
+            0.618518531
+          ],
+          [
+            0.300000012,
+            0.281481564,
+            0.355555534,
+            0.281481564
+          ],
+          [
+            0.300000012,
+            0.100000001,
+            0.200000003,
+            0.100000001
+          ]
+        ]
+      }
+    ],
+    "boneAngles": [
+      {
+        "name": "+SkirtF L B02",
+        "step": 28.108334,
+        "reference": 28.108334
+      },
+      {
+        "name": "+SkirtF L B03",
+        "step": 14.7913855,
+        "reference": 16.2031698
+      },
+      {
+        "name": "+SkirtF L B04",
+        "step": 6.84579828,
+        "reference": 9.1376653
+      },
+      {
+        "name": "+SkirtF R B02",
+        "step": 36.3677917,
+        "reference": 41.9647246
+      },
+      {
+        "name": "+SkirtF R B03",
+        "step": 15.3207607,
+        "reference": 18.8618362
+      },
+      {
+        "name": "+SkirtF R B04",
+        "step": 9.50931896,
+        "reference": 14.4980124
+      },
+      {
+        "name": "+SkirtS L B02",
+        "step": 3.56288193,
+        "reference": 7.68322942
+      },
+      {
+        "name": "+SkirtS L B03",
+        "step": 11.6104126,
+        "reference": 16.4010845
+      },
+      {
+        "name": "+SkirtS L B04",
+        "step": 4.77978664,
+        "reference": 12.9589047
+      },
+      {
+        "name": "+SkirtS R B02",
+        "step": 18.403132,
+        "reference": 26.0805836
+      },
+      {
+        "name": "+SkirtS R B03",
+        "step": 27.7391336,
+        "reference": 29.0053159
+      },
+      {
+        "name": "+SkirtS R B04",
+        "step": 11.7235501,
+        "reference": 11.7235501
+      },
+      {
+        "name": "+SkirtB L B02",
+        "step": 31.1148599,
+        "reference": 31.1148599
+      },
+      {
+        "name": "+SkirtB L B03",
+        "step": 17.7442957,
+        "reference": 20.7402764
+      },
+      {
+        "name": "+SkirtB L B04",
+        "step": 7.56375839,
+        "reference": 10.0329923
+      },
+      {
+        "name": "+SkirtB R B02",
+        "step": 36.5848606,
+        "reference": 36.8922122
+      },
+      {
+        "name": "+SkirtB R B03",
+        "step": 20.1122946,
+        "reference": 29.2456919
+      },
+      {
+        "name": "+SkirtB R B04",
+        "step": 9.16192762,
+        "reference": 14.125774
+      },
+      {
+        "name": "+AmiceB L D12",
+        "step": 9.42753257,
+        "reference": 10.0761509
+      },
+      {
+        "name": "+AmiceB L D13",
+        "step": 4.8296982,
+        "reference": 5.06080556
+      },
+      {
+        "name": "+AmiceB R D12",
+        "step": 15.464979,
+        "reference": 30.8759783
+      },
+      {
+        "name": "+AmiceB R D13",
+        "step": 8.17991605,
+        "reference": 14.7971473
+      },
+      {
+        "name": "+HairS L F01",
+        "step": 0.83955506,
+        "reference": 1.18069387
+      },
+      {
+        "name": "+HairS L F02",
+        "step": 3.60986827,
+        "reference": 5.07300976
+      },
+      {
+        "name": "+HairS L F03",
+        "step": 9.06755606,
+        "reference": 12.9841606
+      },
+      {
+        "name": "+HairS R F01",
+        "step": 1.05172638,
+        "reference": 1.50478923
+      },
+      {
+        "name": "+HairS R F02",
+        "step": 4.24141577,
+        "reference": 6.35177075
+      },
+      {
+        "name": "+HairS R F03",
+        "step": 11.4740363,
+        "reference": 21.2832956
+      },
+      {
+        "name": "+SkirtF L B01",
+        "step": 2.05113858,
+        "reference": 4.41916234
+      },
+      {
+        "name": "+SkirtF R B01",
+        "step": 5.52231241,
+        "reference": 10.4008481
+      },
+      {
+        "name": "+SkirtS L B01",
+        "step": 1.59641739,
+        "reference": 5.63913984
+      },
+      {
+        "name": "+SkirtS R B01",
+        "step": 4.39129166,
+        "reference": 15.7953708
+      },
+      {
+        "name": "+SkirtB L B01",
+        "step": 3.40765663,
+        "reference": 9.64319498
+      },
+      {
+        "name": "+SkirtB R B01",
+        "step": 3.40748322,
+        "reference": 9.7629197
+      }
+    ],
+    "settledSamples": [
+      {
+        "seconds": 0.703,
+        "penetration": 0.002595447,
+        "panelPenetration": 0.0142658725,
+        "particleBoneError": 2.38418579e-07
+      },
+      {
+        "seconds": 1.5,
+        "penetration": 0.00144740194,
+        "panelPenetration": 0.0108081475,
+        "particleBoneError": 2.66560079e-07
+      },
+      {
+        "seconds": 1.641,
+        "penetration": 0.00276057422,
+        "panelPenetration": 0.0132841021,
+        "particleBoneError": 3.37174782e-07
+      },
+      {
+        "seconds": 1.84,
+        "penetration": 0.00397905707,
+        "panelPenetration": 0.01582212,
+        "particleBoneError": 3.37174782e-07
+      }
+    ],
+    "settings": {
+      "frontAngle": 24,
+      "rearAngle": 10,
+      "frontPaddingCm": 1.5,
+      "rearPaddingCm": 0.400000006,
+      "frontResponseMs": 60,
+      "rearResponseMs": 160,
+      "skirtSupportPercent": 95
+    },
+    "upperSkirtProfiles": [
+      {
+        "name": "+SkirtF L B01",
+        "frontWeight": 1,
+        "angleLimitDegrees": 24.0000007,
+        "padding": 0.0149999997,
+        "stepLimitDegrees": 3.99999997,
+        "response": 0.242534876
+      },
+      {
+        "name": "+SkirtF R B01",
+        "frontWeight": 1,
+        "angleLimitDegrees": 24.0000007,
+        "padding": 0.0149999997,
+        "stepLimitDegrees": 3.99999997,
+        "response": 0.242534876
+      },
+      {
+        "name": "+SkirtS L B01",
+        "frontWeight": 0.541156888,
+        "angleLimitDegrees": 17.5761958,
+        "padding": 0.00995272584,
+        "stepLimitDegrees": 2.85289211,
+        "response": 0.145641625
+      },
+      {
+        "name": "+SkirtS R B01",
+        "frontWeight": 0.541167438,
+        "angleLimitDegrees": 17.5763426,
+        "padding": 0.00995284133,
+        "stepLimitDegrees": 2.85291858,
+        "response": 0.145642936
+      },
+      {
+        "name": "+SkirtB L B01",
+        "frontWeight": 0,
+        "angleLimitDegrees": 9.99999971,
+        "padding": 0.00400000019,
+        "stepLimitDegrees": 1.50000004,
+        "response": 0.0989248753
+      },
+      {
+        "name": "+SkirtB R B01",
+        "frontWeight": 0,
+        "angleLimitDegrees": 9.99999971,
+        "padding": 0.00400000019,
+        "stepLimitDegrees": 1.50000004,
+        "response": 0.0989248753
+      }
+    ],
+    "particleBoneErrors": [
+      {
+        "name": "+SkirtF L B02",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+SkirtF L B03",
+        "maximum": 1.1920929e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+SkirtF L B04",
+        "maximum": 2.38418579e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+SkirtF R B02",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+SkirtF R B03",
+        "maximum": 2.66560079e-07,
+        "last": 2.38418579e-07
+      },
+      {
+        "name": "+SkirtF R B04",
+        "maximum": 3.37174782e-07,
+        "last": 3.37174782e-07
+      },
+      {
+        "name": "+SkirtS L B02",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+SkirtS L B03",
+        "maximum": 3.37174782e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+SkirtS L B04",
+        "maximum": 3.37174782e-07,
+        "last": 2.38418579e-07
+      },
+      {
+        "name": "+SkirtS R B02",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+SkirtS R B03",
+        "maximum": 2.66560079e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+SkirtS R B04",
+        "maximum": 2.66560079e-07,
+        "last": 2.66560079e-07
+      },
+      {
+        "name": "+SkirtB L B02",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+SkirtB L B03",
+        "maximum": 2.66560079e-07,
+        "last": 0
+      },
+      {
+        "name": "+SkirtB L B04",
+        "maximum": 2.66560079e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+SkirtB R B02",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+SkirtB R B03",
+        "maximum": 1.1920929e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+SkirtB R B04",
+        "maximum": 2.38418579e-07,
+        "last": 0
+      },
+      {
+        "name": "+AmiceB L D12",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+AmiceB L D13",
+        "maximum": 2.38418579e-07,
+        "last": 0
+      },
+      {
+        "name": "+AmiceB R D12",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+AmiceB R D13",
+        "maximum": 2.66560079e-07,
+        "last": 0
+      },
+      {
+        "name": "+HairS L F01",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+HairS L F02",
+        "maximum": 2.66560079e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+HairS L F03",
+        "maximum": 2.66560079e-07,
+        "last": 2.38418579e-07
+      },
+      {
+        "name": "+HairS R F01",
+        "maximum": 0,
+        "last": 0
+      },
+      {
+        "name": "+HairS R F02",
+        "maximum": 2.38418579e-07,
+        "last": 1.1920929e-07
+      },
+      {
+        "name": "+HairS R F03",
+        "maximum": 3.37174782e-07,
+        "last": 1.1920929e-07
+      }
+    ],
+    "collisionGeometry": {
+      "particles": [
+        {
+          "name": "+SkirtF L B02",
+          "parent": -1,
+          "restRadius": 0.141466737,
+          "native": [
+            -0.113368988,
+            0.018919168,
+            0.099554278
+          ],
+          "solved": [
+            -0.113368988,
+            0.018919168,
+            0.099554278
+          ]
+        },
+        {
+          "name": "+SkirtF L B03",
+          "parent": 0,
+          "restRadius": 0.195346564,
+          "native": [
+            -0.162892357,
+            -0.100368463,
+            0.145084769
+          ],
+          "solved": [
+            -0.160048768,
+            -0.0849113464,
+            0.175680354
+          ]
+        },
+        {
+          "name": "+SkirtF L B04",
+          "parent": 1,
+          "restRadius": 0.246443391,
+          "native": [
+            -0.207311183,
+            -0.209521562,
+            0.199453861
+          ],
+          "solved": [
+            -0.198664874,
+            -0.1910045,
+            0.239698797
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 2,
+          "restRadius": 0,
+          "native": [
+            -0.246595889,
+            -0.314441174,
+            0.264962077
+          ],
+          "solved": [
+            -0.231803536,
+            -0.291914523,
+            0.314276695
+          ]
+        },
+        {
+          "name": "+SkirtF R B02",
+          "parent": -1,
+          "restRadius": 0.141459465,
+          "native": [
+            0.118216112,
+            0.0222162511,
+            0.10623464
+          ],
+          "solved": [
+            0.118216112,
+            0.0222162511,
+            0.10623464
+          ]
+        },
+        {
+          "name": "+SkirtF R B03",
+          "parent": 4,
+          "restRadius": 0.19534643,
+          "native": [
+            0.171307296,
+            -0.088211745,
+            0.167421162
+          ],
+          "solved": [
+            0.148640692,
+            -0.040994551,
+            0.223853767
+          ]
+        },
+        {
+          "name": "+SkirtF R B04",
+          "parent": 5,
+          "restRadius": 0.246448115,
+          "native": [
+            0.21915704,
+            -0.174665183,
+            0.251551032
+          ],
+          "solved": [
+            0.192329764,
+            -0.105879724,
+            0.327399015
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 6,
+          "restRadius": 0,
+          "native": [
+            0.256647021,
+            -0.240616262,
+            0.356829703
+          ],
+          "solved": [
+            0.223349452,
+            -0.146871611,
+            0.446547091
+          ]
+        },
+        {
+          "name": "+SkirtS L B02",
+          "parent": -1,
+          "restRadius": 0.149855956,
+          "native": [
+            -0.160453498,
+            0.0119368359,
+            0.0139877051
+          ],
+          "solved": [
+            -0.160453498,
+            0.0119368359,
+            0.0139877051
+          ]
+        },
+        {
+          "name": "+SkirtS L B03",
+          "parent": 8,
+          "restRadius": 0.209900886,
+          "native": [
+            -0.226499617,
+            -0.112962052,
+            0.0105308369
+          ],
+          "solved": [
+            -0.217292979,
+            -0.117431551,
+            0.0116754808
+          ]
+        },
+        {
+          "name": "+SkirtS L B04",
+          "parent": 9,
+          "restRadius": 0.268208683,
+          "native": [
+            -0.283856928,
+            -0.236962482,
+            0.0169243813
+          ],
+          "solved": [
+            -0.270204335,
+            -0.241968796,
+            0.0316453576
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 10,
+          "restRadius": 0,
+          "native": [
+            -0.331347525,
+            -0.36211434,
+            0.0447158217
+          ],
+          "solved": [
+            -0.312329978,
+            -0.365429044,
+            0.0725697353
+          ]
+        },
+        {
+          "name": "+SkirtS R B02",
+          "parent": -1,
+          "restRadius": 0.149851948,
+          "native": [
+            0.165492684,
+            0.0135473032,
+            0.0146492235
+          ],
+          "solved": [
+            0.165492684,
+            0.0135473032,
+            0.0146492235
+          ]
+        },
+        {
+          "name": "+SkirtS R B03",
+          "parent": 12,
+          "restRadius": 0.209897712,
+          "native": [
+            0.241244033,
+            -0.105233632,
+            0.026114352
+          ],
+          "solved": [
+            0.235092625,
+            -0.102703221,
+            0.0549246445
+          ]
+        },
+        {
+          "name": "+SkirtS R B04",
+          "parent": 13,
+          "restRadius": 0.268210411,
+          "native": [
+            0.299713373,
+            -0.223271087,
+            0.0628794581
+          ],
+          "solved": [
+            0.278169692,
+            -0.217254877,
+            0.11596781
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 14,
+          "restRadius": 0,
+          "native": [
+            0.353513926,
+            -0.340074629,
+            0.109383419
+          ],
+          "solved": [
+            0.31577304,
+            -0.328638554,
+            0.185848936
+          ]
+        },
+        {
+          "name": "+SkirtB L B02",
+          "parent": -1,
+          "restRadius": 0.1163164,
+          "native": [
+            -0.0855365992,
+            0.0185970422,
+            -0.107740827
+          ],
+          "solved": [
+            -0.0855365992,
+            0.0185970422,
+            -0.107740827
+          ]
+        },
+        {
+          "name": "+SkirtB L B03",
+          "parent": 16,
+          "restRadius": 0.166263685,
+          "native": [
+            -0.10994488,
+            -0.105024494,
+            -0.169993579
+          ],
+          "solved": [
+            -0.0663250238,
+            -0.105783477,
+            -0.170285434
+          ]
+        },
+        {
+          "name": "+SkirtB L B04",
+          "parent": 17,
+          "restRadius": 0.215719089,
+          "native": [
+            -0.120473497,
+            -0.232486159,
+            -0.223633081
+          ],
+          "solved": [
+            -0.0807398111,
+            -0.237040833,
+            -0.212701619
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 18,
+          "restRadius": 0,
+          "native": [
+            -0.114319637,
+            -0.36587745,
+            -0.26108256
+          ],
+          "solved": [
+            -0.078323625,
+            -0.373238921,
+            -0.238748968
+          ]
+        },
+        {
+          "name": "+SkirtB R B02",
+          "parent": -1,
+          "restRadius": 0.116317019,
+          "native": [
+            0.0822286233,
+            0.0170665719,
+            -0.108236745
+          ],
+          "solved": [
+            0.0822286233,
+            0.0170665719,
+            -0.108236745
+          ]
+        },
+        {
+          "name": "+SkirtB R B03",
+          "parent": 20,
+          "restRadius": 0.166262984,
+          "native": [
+            0.132929534,
+            -0.095882386,
+            -0.174730897
+          ],
+          "solved": [
+            0.165932566,
+            -0.0765613019,
+            -0.17128557
+          ]
+        },
+        {
+          "name": "+SkirtB R B04",
+          "parent": 21,
+          "restRadius": 0.215717643,
+          "native": [
+            0.194171697,
+            -0.213397697,
+            -0.215672404
+          ],
+          "solved": [
+            0.226215169,
+            -0.200831577,
+            -0.183868974
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 22,
+          "restRadius": 0,
+          "native": [
+            0.260534078,
+            -0.334127128,
+            -0.231624424
+          ],
+          "solved": [
+            0.289343059,
+            -0.323647708,
+            -0.170941174
+          ]
+        },
+        {
+          "name": "+AmiceB L D12",
+          "parent": -1,
+          "restRadius": 0,
+          "native": [
+            -0.0429123938,
+            0.202682763,
+            -0.140147954
+          ],
+          "solved": [
+            -0.0429123938,
+            0.202682763,
+            -0.140147954
+          ]
+        },
+        {
+          "name": "+AmiceB L D13",
+          "parent": 24,
+          "restRadius": 0,
+          "native": [
+            -0.06969098,
+            0.0828855485,
+            -0.174091518
+          ],
+          "solved": [
+            -0.0685220361,
+            0.086089775,
+            -0.184539676
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 25,
+          "restRadius": 0,
+          "native": [
+            -0.0960812718,
+            -0.0359953828,
+            -0.211428583
+          ],
+          "solved": [
+            -0.0949123204,
+            -0.0327911489,
+            -0.221876755
+          ]
+        },
+        {
+          "name": "+AmiceB R D12",
+          "parent": -1,
+          "restRadius": 0,
+          "native": [
+            0.0480844267,
+            0.202855945,
+            -0.138469666
+          ],
+          "solved": [
+            0.0480844267,
+            0.202855945,
+            -0.138469666
+          ]
+        },
+        {
+          "name": "+AmiceB R D13",
+          "parent": 27,
+          "restRadius": 0,
+          "native": [
+            0.0770012885,
+            0.0848507509,
+            -0.176593557
+          ],
+          "solved": [
+            0.0767305791,
+            0.0945165083,
+            -0.198949605
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 28,
+          "restRadius": 0,
+          "native": [
+            0.105981231,
+            -0.0305942744,
+            -0.22202456
+          ],
+          "solved": [
+            0.105710521,
+            -0.0209285095,
+            -0.244380608
+          ]
+        },
+        {
+          "name": "+HairS L F01",
+          "parent": -1,
+          "restRadius": 0,
+          "native": [
+            -0.0864293352,
+            0.609637737,
+            -0.0948902071
+          ],
+          "solved": [
+            -0.0864293352,
+            0.609637737,
+            -0.0948902071
+          ]
+        },
+        {
+          "name": "+HairS L F02",
+          "parent": 30,
+          "restRadius": 0,
+          "native": [
+            -0.158436254,
+            0.558385015,
+            -0.0849236846
+          ],
+          "solved": [
+            -0.158436254,
+            0.558385015,
+            -0.0849236846
+          ]
+        },
+        {
+          "name": "+HairS L F03",
+          "parent": 31,
+          "restRadius": 0,
+          "native": [
+            -0.168194979,
+            0.44051975,
+            -0.0878461003
+          ],
+          "solved": [
+            -0.168194979,
+            0.44051975,
+            -0.0878461003
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 32,
+          "restRadius": 0,
+          "native": [
+            -0.177903146,
+            0.322682768,
+            -0.090801537
+          ],
+          "solved": [
+            -0.177903146,
+            0.322682768,
+            -0.090801537
+          ]
+        },
+        {
+          "name": "+HairS R F01",
+          "parent": -1,
+          "restRadius": 0,
+          "native": [
+            0.102641679,
+            0.591593146,
+            -0.139875948
+          ],
+          "solved": [
+            0.102641679,
+            0.591593146,
+            -0.139875948
+          ]
+        },
+        {
+          "name": "+HairS R F02",
+          "parent": 34,
+          "restRadius": 0,
+          "native": [
+            0.161033005,
+            0.527896047,
+            -0.16093424
+          ],
+          "solved": [
+            0.161033005,
+            0.527896047,
+            -0.16093424
+          ]
+        },
+        {
+          "name": "+HairS R F03",
+          "parent": 35,
+          "restRadius": 0,
+          "native": [
+            0.14716883,
+            0.410397053,
+            -0.162874028
+          ],
+          "solved": [
+            0.14716883,
+            0.410397053,
+            -0.162874028
+          ]
+        },
+        {
+          "name": "endpoint",
+          "parent": 36,
+          "restRadius": 0,
+          "native": [
+            0.133237764,
+            0.292929918,
+            -0.164787427
+          ],
+          "solved": [
+            0.133237764,
+            0.292929918,
+            -0.164787427
+          ]
+        }
+      ],
+      "capsules": [
+        {
+          "a": [
+            -1.14951121e-07,
+            -3.91032623e-10,
+            3.1574384e-08
+          ],
+          "b": [
+            -1.14552677e-07,
+            0.207693711,
+            3.35276127e-08
+          ],
+          "radius": 0.0683608055
+        },
+        {
+          "a": [
+            0.006110752,
+            0.473457307,
+            -0.0693361163
+          ],
+          "b": [
+            0.006110752,
+            0.473457307,
+            -0.0693361163
+          ],
+          "radius": 0.0611218587
+        },
+        {
+          "a": [
+            -0.103593707,
+            0.334209919,
+            -0.0574029088
+          ],
+          "b": [
+            -0.0949521288,
+            0.190101877,
+            0.0981107652
+          ],
+          "radius": 0.0339479186
+        },
+        {
+          "a": [
+            -0.0949521288,
+            0.190101877,
+            0.0981107652
+          ],
+          "b": [
+            -0.0187351927,
+            0.32472688,
+            0.191916212
+          ],
+          "radius": 0.0289457068
+        },
+        {
+          "a": [
+            0.106669664,
+            0.355439216,
+            -0.0651165694
+          ],
+          "b": [
+            0.221628159,
+            0.293574333,
+            0.102140397
+          ],
+          "radius": 0.0339479707
+        },
+        {
+          "a": [
+            0.221628159,
+            0.293574333,
+            0.102140397
+          ],
+          "b": [
+            0.235570148,
+            0.451889634,
+            0.18853943
+          ],
+          "radius": 0.0289457403
+        },
+        {
+          "a": [
+            -0.0760904104,
+            -0.00055600889,
+            -2.25938857e-06
+          ],
+          "b": [
+            0.00227395445,
+            -0.362711698,
+            0.138032898
+          ],
+          "radius": 0.0790830925
+        },
+        {
+          "a": [
+            0.00227395445,
+            -0.362711698,
+            0.138032898
+          ],
+          "b": [
+            0.107689828,
+            -0.756929338,
+            0.206355631
+          ],
+          "radius": 0.0827516839
+        },
+        {
+          "a": [
+            0.0760888234,
+            0.00058615068,
+            -2.25566328e-06
+          ],
+          "b": [
+            0.0724102855,
+            -0.270408928,
+            0.287950397
+          ],
+          "radius": 0.0790830776
+        },
+        {
+          "a": [
+            0.0724102855,
+            -0.270408928,
+            0.287950397
+          ],
+          "b": [
+            0.0279987007,
+            -0.640895367,
+            0.46668601
+          ],
+          "radius": 0.082751669
+        },
+        {
+          "a": [
+            -0.0760904104,
+            -0.00055600889,
+            -2.25938857e-06
+          ],
+          "b": [
+            0.0760888234,
+            0.00058615068,
+            -2.25566328e-06
+          ],
+          "radius": 0.0578299053
+        },
+        {
+          "a": [
+            -0.0854945108,
+            0.0429123305,
+            -0.0165678803
+          ],
+          "b": [
+            -0.0486630499,
+            -0.12730597,
+            0.0483093895
+          ],
+          "radius": 0.110728294
+        },
+        {
+          "a": [
+            0.0765295997,
+            0.0331200324,
+            -0.0345587432
+          ],
+          "b": [
+            0.0748008639,
+            -0.0942515731,
+            0.100779608
+          ],
+          "radius": 0.110728294
+        }
+      ]
+    }
+  },
+  "session": "E:\\code\\gimmd\\sessions\\20261124-210726-84fb1483",
+  "passed": true,
+  "events": [
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 0,
+      "loop": false,
+      "seconds": 0,
+      "state": 0,
+      "epoch": 0,
+      "commandSequence": 0,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 0
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": false,
+      "seconds": 0.625,
+      "state": 1,
+      "epoch": 0,
+      "commandSequence": 1,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 1
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": false,
+      "seconds": 0.702,
+      "state": 2,
+      "epoch": 0,
+      "commandSequence": 2,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 2
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": false,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 3,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 3
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 4
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 2,
+      "acknowledgedSequence": 4
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 4
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.547,
+      "state": 1,
+      "epoch": 1,
+      "commandSequence": 5,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 5
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.641,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 6,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 6
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.84,
+      "state": 2,
+      "epoch": 2,
+      "commandSequence": 7,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 7
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096199599182,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 0,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 0,
+      "state": 0,
+      "epoch": 0,
+      "commandSequence": 8,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 8
+    }
+  ],
+  "finalStatus": {
+    "schemaVersion": 2,
+    "sessionToken": 79096199599182,
+    "closed": true,
+    "dynamicSession": true,
+    "mmdPhase": 0,
+    "cameraActive": true,
+    "holdAtEnd": true,
+    "holdingEnd": false,
+    "durationSeconds": 15.1667,
+    "loop": true,
+    "seconds": 0,
+    "state": 0,
+    "epoch": 0,
+    "commandSequence": 9,
+    "bgmState": 0,
+    "uidTextState": 0,
+    "cameraEnabled": true,
+    "cameraAcknowledgedSequence": 3,
+    "acknowledgedSequence": 9
+  },
+  "probeReport": "E:\\code\\gimmd\\sessions\\20261124-210726-84fb1483\\gimmd-18416.probe.json",
+  "cameraSamples": [
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -1.14480233,
+          292.863922,
+          -3.48366308
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -1.14480233,
+          292.863922,
+          -3.48366308
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -1.14480221,
+          292.863922,
+          -3.48366308
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -1.14480221,
+          292.863922,
+          -3.48366308
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -1.14480221,
+          292.863922,
+          -3.48366308
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -1.14480221,
+          292.863922,
+          -3.48366308
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          1.77562594,
+          293.926208,
+          -5.92140865
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          1.77562594,
+          293.926208,
+          -5.92140865
+        ]
+      }
+    ]
+  ]
+}

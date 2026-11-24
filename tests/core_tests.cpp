@@ -1,5 +1,12 @@
 #include "core/root_controls.h"
 #include "core/camera_control.h"
+#include "core/secondary_physics.h"
+#include "core/body_collision.h"
+#include "core/physics_controls.h"
+#include "core/cloth_links.h"
+#include "core/cloth_surface.h"
+#include "core/skinned_cloth.h"
+#include <sstream>
 #include "vmd.h"
 #include "core/timeline.h"
 #include "core/player_transport.h"
@@ -118,6 +125,127 @@ int wmain(int argc, wchar_t** argv) {
         const auto q=vmd::Slerp({0,0,0,1},{0,0,0,-1},0.5);
         check(near(std::abs(q.w),1),"quaternion sign discontinuity");
 
+        {
+            namespace physics=gimmd::secondary_physics;
+            physics::Clock slow,fast;unsigned slow_steps=0,fast_steps=0;
+            check(slow.sample(0,0,true).reset&&fast.sample(0,0,true).reset,"physics did not reset on start");
+            for(unsigned i=1;i<=30;++i)slow_steps+=slow.sample(double(i)/30,0,true).steps;
+            for(unsigned i=1;i<=120;++i)fast_steps+=fast.sample(double(i)/120,0,true).steps;
+            check(slow_steps==60&&fast_steps==60,"physics depends on callback frequency");
+            check(fast.sample(1,0,false).steps==0&&fast.sample(1,0,false).steps==0,"paused physics advanced");
+            check(!fast.sample(1,0,true).reset&&fast.sample(1+physics::Clock::Step,0,true).steps==1,"resume lost simulation state");
+            auto seek=fast.sample(5,1,false);check(seek.reset&&!seek.steps,"paused seek simulated stale velocity");
+            auto loop=slow.sample(0,1,true);check(loop.reset&&!loop.steps,"loop failed to reset physics");
+            auto stall=slow.sample(.5,1,true);check(stall.reset&&!stall.steps,"long stall triggered unbounded catch-up");
+            check(!slow.sample(std::numeric_limits<double>::infinity(),1,true).valid,"nonfinite physics time accepted");
+            gimmd::Timeline ending(1);physics::Clock end_physics;ending.play(0);end_physics.sample(0,0,true);
+            for(unsigned i=1;i<60;++i){const auto f=ending.sample(double(i)/60);end_physics.sample(f.seconds,f.epoch,true);}
+            const auto before_hold=ending.sample(1);ending.hold_end(1);const auto held=ending.sample(1);
+            const auto final_step=end_physics.sample(held.seconds,held.epoch,false);
+            check(held.epoch==before_hold.epoch&&held.state==gimmd::PlaybackState::Paused&&!final_step.reset&&final_step.steps==1,"natural end hold discarded the last physics step or reset the skirt");
+            for(unsigned i=0;i<10;++i){ending.hold_end(2+i);const auto f=ending.sample(2+i);const auto hold=end_physics.sample(f.seconds,f.epoch,false);
+                check(f.epoch==held.epoch&&!hold.reset&&!hold.steps,"held end changed physics epoch or advanced simulation");}
+            ending.seek(0,12);check(end_physics.sample(0,ending.sample(12).epoch,false).reset,"explicit replay no longer resets physics");
+        }
+        {
+            namespace cloth=gimmd::cloth_links;namespace bc=gimmd::body_collision;
+            cloth::Vertex ring[7]{};for(unsigned i=0;i<7;++i)ring[i]={i,float(i)*6.283185307f/7,0};
+            check(cloth::closed_ring(ring,7,.1f),"closed seven-panel skirt was not recognized");
+            check(!cloth::closed_ring(ring,5,.1f),"open sparse petals were joined");
+            ring[6].angle=ring[5].angle;check(!cloth::closed_ring(ring,7,.1f),"duplicate directions formed a skirt link");
+            bc::Vec a{0,.3f,0},old_a=a,b{1,0,0},old_b=b;
+            check(cloth::distance_constraint(a,old_a,b,old_b,1,1)&&b.y>0&&near(a.y+b.y,.3)&&near(bc::length(bc::sub(a,b)),1),"neighbor stretch was not distributed symmetrically");
+            check(near(bc::length(bc::sub(a,old_a)),0)&&near(bc::length(bc::sub(b,old_b)),0),"cloth link injected velocity");
+            a={-1,0,.05f};b={1,0,.05f};old_a=a;old_b=b;
+            check(cloth::project_pair({{0,-1,0},{0,1,0},.2f},.2f,a,old_a,b,old_b,{0,0,1})&&a.z>=.2f&&near(a.z,b.z),"cloth panel contact between noncontact endpoints was missed");
+            check(near(a.z,old_a.z)&&near(b.z,old_b.z),"panel contact injected velocity");
+            bc::Vec center{0,0,.2f},old_center=center; a={-.2f,0,0};b={.2f,0,0};old_a=a;old_b=b;
+            check(cloth::arch_constraint(center,old_center,a,old_a,b,old_b,{0,0,1},.02f)&&center.z<.2f&&a.z>0&&near(a.z,b.z),"central skirt peak was not shared with both neighbors");
+            check(near(center.z+a.z+b.z,.2f)&&near(center.z,old_center.z)&&near(a.z,old_a.z)&&near(b.z,old_b.z),"arch smoothing injected momentum or velocity");
+            center={0,0,.02f};old_center=center;a={-.2f,0,0};b={.2f,0,0};old_a=a;old_b=b;
+            check(!cloth::arch_constraint(center,old_center,a,old_a,b,old_b,{0,0,1},.02f),"fitted skirt arch was flattened");
+        }
+        {
+            namespace bc=gimmd::body_collision;
+            bc::Capsule capsule{{0,-1,0},{0,1,0},.2f};bc::Vec point{.1f,0,0},previous{.15f,0,0};
+            check(bc::project(capsule,.2f,point,previous,{1,0,0})&&near(point.x,.2)&&near(previous.x,.2),"capsule contact retained inward velocity");
+            point={0,0,0};previous=point;
+            check(bc::project(capsule,.2f,point,previous,{0,1,0})&&bc::finite(point)&&near(bc::distance(capsule,point),.2),"capsule axis produced invalid contact normal");
+            bc::Capsule sphere{{0,0,0},{0,0,0},.2f};point={0,.1f,0};previous=point;
+            check(bc::project(sphere,.2f,point,previous,{0,1,0})&&near(point.y,.2),"degenerate capsule did not behave as a sphere");
+            point={.4f,0,0};previous={.3f,0,0};
+            check(!bc::project(capsule,.2f,point,previous,{1,0,0})&&near(point.x,.4),"noncontact particle was moved");
+            point={0,0,0};check(bc::length_constraint({0,0,0},.3f,point,{0,0,1})&&near(point.z,.3),"collapsed chain segment did not recover its length");
+            point={-1,0,0};check(bc::limit_direction({1,0,0},point,.2f)&&near(bc::length(point),1)&&near(point.x,std::cos(.2f)),"collision correction flipped a strand or changed its length");
+            auto pair=bc::closest_segment({-1,0,0},{1,0,0},capsule);
+            check(near(pair.fraction,.5)&&near(bc::length(bc::sub(pair.point,pair.axis)),0),"crossing segments were missed");
+            pair=bc::closest_segment({.4f,-2,0},{.4f,2,0},capsule);
+            check(near(bc::length(bc::sub(pair.point,pair.axis)),.4),"parallel segment distance is wrong");
+            pair=bc::closest_segment({1,0,0},{1,0,0},sphere);
+            check(near(bc::length(bc::sub(pair.point,pair.axis)),1),"two degenerate segments are invalid");
+            pair=bc::closest_segment({0,2,0},{0,3,0},capsule);
+            check(near(pair.point.y,2)&&near(pair.axis.y,1),"segment endpoints were not clamped");
+            point={1,0,.1f};previous=point;
+            check(bc::distance(capsule,point)>.2&&bc::project_segment(capsule,.2f,{-1,0,.1f},{-1,0,.1f},point,previous,{0,0,1}),"interior cloth contact with noncontact endpoints was missed");
+            check(point.z>.29f&&near(point.z,previous.z),"segment contact injected velocity");
+            point={1,0,.4f};previous=point;
+            check(!bc::project_segment(capsule,.2f,{-1,0,.4f},{-1,0,.4f},point,previous,{0,0,1})&&near(point.z,.4),"noncontact segment was moved");
+            point={-.1f,0,0};previous=point;
+            check(bc::project_outward(capsule,.2f,point,previous,{1,0,0})&&point.x>=.2f&&point.x<.201f&&near(point.x,previous.x),"skirt contact exited toward the inner side or injected velocity");
+            point={.1f,-.4f,0};previous={.15f,-.4f,0};
+            check(bc::support_radius({}, {0,1,0},.3f,{1,0,0},point,previous)&&near(point.x,.3)&&near(point.y,-.4)&&near(point.x,previous.x),"skirt support changed height or retained inward velocity");
+            point={.4f,-.4f,0};previous=point;
+            check(!bc::support_radius({}, {0,1,0},.3f,{1,0,0},point,previous)&&near(point.x,.4),"skirt support blocked outward swing");
+            point={0,-.4f,0};previous=point;
+            check(bc::support_radius({}, {0,1,0},.3f,{1,0,0},point,previous)&&near(point.x,.3)&&bc::finite(point),"collapsed skirt support failed");
+            bc::Capsule hip{{0,0,0},{0,0,0},.08f};point={.9f,0,.05f};previous=point;
+            check(!bc::project_segment_outward(hip,.08f,{-.1f,0,.05f},{-.1f,0,.05f},point,previous,{0,0,1}),"lower skirt exclusion unexpectedly covered its fixed end");
+            check(bc::project_segment_outward(hip,.08f,{-.1f,0,.05f},{-.1f,0,.05f},point,previous,{0,0,1},.05f)&&point.z>.2f&&near(point.z,previous.z),"upper skirt contact near the anchor was skipped or injected velocity");
+            const auto transported=bc::transport_direction({0,-1,0},{.5f,-.8660254f,0},{0,-.2f,0});
+            check(near(transported.x,.1)&&near(transported.y,-.17320508)&&near(bc::length(transported),.2),"cloth end did not follow its parent correction or changed length");
+            const auto reversed=bc::transport_direction({0,-1,0},{0,1,0},{0,-.2f,0});
+            check(bc::finite(reversed)&&near(reversed.y,.2),"opposite direction transport became singular");
+        }
+        {
+            gimmd::physics_controls::Settings settings;
+            std::istringstream valid("GIMMD_PHYSICS_V1\n25 9 1.6 .3 80 220 94\n");
+            check(gimmd::physics_controls::read(valid,settings)&&near(settings.front_angle,25)&&near(settings.rear_response_ms,220)&&near(settings.support_percent,94),"custom physics controls were not read");
+            for(const char* input:{"GIMMD_PHYSICS_V2 24 10 1.5 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10", "GIMMD_PHYSICS_V1 46 10 1.5 .4 60 160 95",
+                "GIMMD_PHYSICS_V1 24 10 -1 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 0 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 60 160 101",
+                "GIMMD_PHYSICS_V1 24 10 nan .4 60 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 60 160 95 extra"}){
+                std::istringstream invalid_controls(input);check(!gimmd::physics_controls::read(invalid_controls,settings)&&near(settings.front_angle,25)&&near(settings.support_percent,94),"invalid physics controls partially replaced settings");}
+        }
+        {
+            namespace surface=gimmd::cloth_surface;namespace bc=gimmd::body_collision;
+            bc::Vec triangle[3]{{-1,-1,.05f},{1,-1,.05f},{0,1,.05f}};
+            const bc::Capsule leg{{0,-.3f,0},{0,.3f,0},.2f};
+            const auto nearest=surface::nearest_capsule(triangle,leg);
+            check(near(bc::length(bc::sub(nearest.point,nearest.axis)),.05)&&near(nearest.weights[0]+nearest.weights[1]+nearest.weights[2],1),"triangle interior contact was missed");
+            const auto crossing=surface::nearest_capsule(triangle,{{0,0,-1},{0,0,1},.2f});
+            check(near(bc::length(bc::sub(crossing.point,crossing.axis)),0),"capsule axis crossing a panel was missed");
+            bc::Vec previous[3]{triangle[0],triangle[1],triangle[2]};const bool movable[3]{true,true,true};
+            check(surface::project(leg,.2f,triangle,previous,movable,{0,0,1})&&triangle[0].z>.05f&&triangle[1].z>.05f&&triangle[2].z>.05f,"panel contact was not distributed across its bones");
+            check(near(triangle[0].z,previous[0].z)&&near(triangle[1].z,previous[1].z)&&near(triangle[2].z,previous[2].z),"panel surface contact injected velocity");
+            bc::Vec collapsed[3]{};const auto degenerate=surface::nearest_capsule(collapsed,{{1,0,0},{1,0,0},.2f});
+            check(bc::finite(degenerate.point)&&near(bc::length(bc::sub(degenerate.point,degenerate.axis)),1),"degenerate panel generated invalid geometry");
+        }
+        {
+            namespace skin=gimmd::skinned_cloth;namespace bc=gimmd::body_collision;
+            // Barbara's B04 failure at 6 s: a roughly 13 cm segment predicted
+            // more than four metres of travel after a contact correction.
+            const bc::Vec tip{.019f,.023f,.428f};
+            const auto spike=skin::predict_tip(tip,bc::sub(tip,{0,0,4.17f/.88f}),tip,.13f);
+            check(near(spike.z-tip.z,.065f)&&near(spike.y-tip.y,-.0004f),"contact history launched the skirt tip");
+            const auto ordinary=skin::predict_tip(tip,bc::sub(tip,{0,0,.01f}),bc::add(tip,{.01f,0,0}),.13f);
+            check(near(ordinary.z-tip.z,.0088f)&&near(ordinary.x-tip.x,.0004f),"ordinary skirt inertia or spring changed");
+            skin::Frame mirrored{{{-2,0,0},{.1f,1,0},{0,0,.5f}},{3,2,1}};bc::Vec local{},input{.2f,-.4f,.7f};
+            check(skin::inverse(mirrored,skin::point(mirrored,input),local)&&bc::length(bc::sub(local,input))<1e-5f,"skinned cloth inverse lost reflection or shear");
+            auto aimed=skin::aim({}, {0,-1,0},{0,0,1},{1,2,3});
+            check(bc::length(bc::sub(skin::point(aimed,{0,-1,0}),{1,2,4}))<1e-5f,"skinned cloth child aim does not match particle direction");
+            const auto gradient=skin::angular_gradient({0,-.2f,.1f},{0,0,1},{0,-1,0},.5f);
+            check(bc::dot(bc::cross(gradient,{0,-.2f,.1f}),{0,0,1})>0&&std::abs(gradient.y)<1e-6f,"skin contact gradient moves inward or introduces twist");
+            check(bc::length(skin::angular_gradient({0,0,1},{1,0,0},{0,1,0},1))<1e-6f,"unactuated twist entered skin correction");
+        }
         gimmd::Timeline clock(2);
         clock.play(100);
         check(near(clock.sample(100.5).seconds,0.5),"clock advance wrong");

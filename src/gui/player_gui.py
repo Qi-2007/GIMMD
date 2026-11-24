@@ -12,6 +12,7 @@ from tkinter import filedialog, messagebox, ttk
 from work_import import import_work
 from camera_authoring import validate_keys, encode_vmd, atomic_bytes, load_keys, sample_keys
 from session import Controller, atomic_json, game_processes, run_tool, stage_session, start_loader, validate_uid_text, validate_camera_adjustments
+from session import PHYSICS_DEFAULTS, PHYSICS_RANGES, validate_physics_controls
 
 ROOT = Path(__file__).resolve().parents[2]
 def actor_choices():
@@ -33,7 +34,7 @@ class Studio:
         self.close_stop_sent=False
         self.dragging=False
         self.author_preview=None; self.preview_generation=0
-        root.title('GIMMD · 创作控制台 · 7.2 MMD 表情'); root.geometry('820x690'); root.minsize(760, 650)
+        root.title('GIMMD · 创作控制台 · 7.2 动作与角色物理'); root.geometry('820x690'); root.minsize(760, 650)
         root.configure(background='#f4f6f9')
         style = ttk.Style(root); style.theme_use('clam')
         style.configure('TFrame', background='#f4f6f9'); style.configure('TLabel', background='#f4f6f9', font=('Microsoft YaHei UI', 10))
@@ -54,6 +55,8 @@ class Studio:
         self.fov_multiplier=tk.StringVar(value="1")
         self.camera_values=[tk.StringVar(value="0") for _ in range(7)]
         self.face_enabled=tk.BooleanVar(value=False)
+        self.physics_enabled=tk.BooleanVar(value=False)
+        self.physics_values={key:tk.StringVar(value=str(value)) for key,value in PHYSICS_DEFAULTS.items()}
         self.front_camera=tk.BooleanVar(value=True)
         self.pid = tk.StringVar(); self.position = tk.StringVar(value='0.000')
         self.state = tk.StringVar(value='选择动作和构建目录，或连接正在运行的会话。')
@@ -68,6 +71,8 @@ class Studio:
         notebook.add(playback, text='动作与播放'); notebook.add(camera_tab, text='相机轨道')
         notebook.add(authoring,text='运镜编排')
         shooting=ttk.Frame(notebook,padding=14); notebook.add(shooting,text='拍摄辅助')
+        physics_tab=ttk.Frame(notebook,padding=14); notebook.add(physics_tab,text='角色物理')
+        self.physics_tab=physics_tab; self.notebook=notebook
         actors=ttk.Frame(notebook,padding=14); notebook.add(actors,text='本地演员')
         ttk.Label(actors,text='最多创建三名演员。选择一名播放全身 FK 与根位移，支持暂停、结束定格和恢复；暂不含脚部 IK、音频及相机同步。',wraplength=650).pack(anchor='w',pady=10)
         ttk.Label(actors,text='角色（直接加载无需先打开预览）').pack(anchor='w',pady=6)
@@ -98,6 +103,23 @@ class Studio:
         ttk.Button(shooting,text='应用 UID 文字（当前会话）',command=self.apply_uid).pack(anchor='w',pady=6)
         ttk.Label(shooting,text='最多 64 字；留空可清空文字。仅修改画面文字，不修改账号 UID。UID 可应用至当前会话；停止时恢复。',wraplength=650).pack(anchor='w',pady=10)
 
+        ttk.Checkbutton(physics_tab,text='启用当前角色动态物理（实验）',variable=self.physics_enabled).pack(anchor='w',pady=(4,10))
+        ttk.Label(physics_tab,text='头发、衣物随动作摆动。需关闭披风/辫子静态稳定，暂不适用于载入演员。',wraplength=650).pack(anchor='w')
+        settings_box=ttk.LabelFrame(physics_tab,text='裙摆上段 · 前后独立避让',padding=8); settings_box.pack(fill='x',pady=8)
+        for column,title in enumerate(['位置','最大角度（°）','接触余量（厘米）','过渡时间（毫秒）']):
+            ttk.Label(settings_box,text=title).grid(row=0,column=column,padx=8,pady=4,sticky='w')
+        for row,(prefix,label) in enumerate([('front','前侧'),('rear','后侧')],1):
+            ttk.Label(settings_box,text=label).grid(row=row,column=0,padx=8,pady=4,sticky='w')
+            for column,(suffix,increment) in enumerate([('Angle',1),('PaddingCm',.1),('ResponseMs',10)],1):
+                key=prefix+suffix; low,high=PHYSICS_RANGES[key]
+                ttk.Spinbox(settings_box,textvariable=self.physics_values[key],from_=low,to=high,increment=increment,width=13).grid(row=row,column=column,padx=8,pady=4,sticky='w')
+        ttk.Label(physics_tab,text='角度越大，可抬起越多；余量越大，越早避开腿部；过渡时间越长，变化越缓和。侧面裙片自动在前后参数之间过渡。',wraplength=650).pack(anchor='w',pady=6)
+        support_row=ttk.Frame(physics_tab);support_row.pack(anchor='w',pady=8)
+        ttk.Label(support_row,text='裙形支撑（原始开口 %）').pack(side='left',padx=(0,12))
+        ttk.Spinbox(support_row,textvariable=self.physics_values['skirtSupportPercent'],from_=0,to=100,increment=1,width=10).pack(side='left')
+        ttk.Label(physics_tab,text='支撑越高越不易贴腿；0 表示关闭这项支撑，仍保留碰撞与摆动。',wraplength=650).pack(anchor='w')
+        ttk.Button(physics_tab,text='恢复已验证的默认参数',command=self.reset_physics_controls).pack(anchor='w',pady=6)
+        ttk.Label(physics_tab,text='参数随工程保存。修改后点击“恢复游戏动画”，再点“播放”生效，无需重新连接；暂停后继续不会重新载入参数。',wraplength=650).pack(anchor='w',pady=4)
         ttk.Label(authoring,text='从相机页的手动参数添加关键帧，保存运镜工程或导出可播放的相机 VMD。',wraplength=650).pack(anchor='w',pady=8)
         timing=ttk.Frame(authoring); timing.pack(anchor='w',pady=8)
         ttk.Label(timing,text='关键帧时间（秒）').pack(side='left')
@@ -199,6 +221,13 @@ class Studio:
                 candidates=list(Path(value).parent.glob('*.wav'))
                 if len(candidates)==1: self.audio.set(str(candidates[0]))
 
+    def physics_controls(self):
+        return validate_physics_controls({key:float(value.get()) for key,value in self.physics_values.items()})
+
+    def reset_physics_controls(self):
+        for key,value in PHYSICS_DEFAULTS.items(): self.physics_values[key].set(str(value))
+        self.state.set('已恢复物理默认参数；恢复游戏动画后重新播放生效。')
+
     def refresh_processes(self):
         try:
             values = [str(pid) for pid, _ in game_processes()]; self.process_list['values'] = values
@@ -257,6 +286,7 @@ class Studio:
                 if operation=='camera-on': self.controller.prepare_camera(Path(self.camera.get()) if self.camera.get().strip() and not self.camera_manual.get() else None)
                 if operation=='play' and self.controller.status.get('mmdPhase') not in (1,2):
                     if not self.motion.get().strip(): raise ValueError('请选择动作 VMD')
+                    self.controller.prepare_physics(self.physics_enabled.get(),self.physics_controls() if self.physics_enabled.get() else None)
                     self.controller.prepare_face(self.face_enabled.get())
                     self.controller.load_motion(Path(self.motion.get()),Path(self.audio.get()) if self.audio.get().strip() else None,float(self.audio_offset.get()))
                     self.controller.prepare_front_camera(self.front_camera.get(),Path(self.camera.get()) if self.camera.get().strip() and not self.camera_manual.get() else None)
@@ -385,7 +415,8 @@ class Studio:
                 offset=float(self.audio_offset.get())
                 if not math.isfinite(offset) or abs(offset)>600: raise ValueError('音频偏移应为 ±600 秒内的有限数值')
                 values=validate_camera_adjustments([float(v.get()) for v in self.camera_values],float(self.fov_multiplier.get()))
-                atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get(), 'manualCamera': self.camera_manual.get(),'frontCamera':self.front_camera.get(),'faceEnabled':self.face_enabled.get(), 'holdAtEnd':self.hold_at_end.get(),'cameraKeys':validate_keys(self.camera_keys) if self.camera_keys else [],'cameraValues':values,'fovMultiplier':float(self.fov_multiplier.get()),'stabilizeBraid':self.braid_static.get(),'pauseBgm':self.pause_bgm.get(),'uidEnabled':self.uid_enabled.get(),'uidText':validate_uid_text(self.uid_text.get()),'stabilizeCloth': self.cloth_static.get(), 'audioOffset': offset, 'importedWork': self.imported_work})
+                physics_controls=self.physics_controls()
+                atomic_json(Path(value), {'schemaVersion': 1, 'build': self.build.get(), 'motion': self.motion.get(), 'audio': self.audio.get(), 'camera': self.camera.get(), 'cameraEnabled': self.camera_enabled.get(), 'manualCamera': self.camera_manual.get(),'frontCamera':self.front_camera.get(),'faceEnabled':self.face_enabled.get(),'physicsEnabled':self.physics_enabled.get(),'physicsControls':physics_controls, 'holdAtEnd':self.hold_at_end.get(),'cameraKeys':validate_keys(self.camera_keys) if self.camera_keys else [],'cameraValues':values,'fovMultiplier':float(self.fov_multiplier.get()),'stabilizeBraid':self.braid_static.get(),'pauseBgm':self.pause_bgm.get(),'uidEnabled':self.uid_enabled.get(),'uidText':validate_uid_text(self.uid_text.get()),'stabilizeCloth': self.cloth_static.get(), 'audioOffset': offset, 'importedWork': self.imported_work})
             except Exception as exc: self.error(exc)
 
     def open_project(self):
@@ -401,7 +432,8 @@ class Studio:
                 raise ValueError('工程路径格式无效')
             if type(project.get('stabilizeCloth',False)) is not bool or type(project.get('cameraEnabled', False)) is not bool or type(project.get('manualCamera', False)) is not bool:
                 raise ValueError('工程相机开关无效')
-            if any(type(project.get(k,False)) is not bool for k in ['stabilizeBraid','pauseBgm','uidEnabled','holdAtEnd','frontCamera','faceEnabled']): raise ValueError('拍摄辅助开关无效')
+            if any(type(project.get(k,False)) is not bool for k in ['stabilizeBraid','pauseBgm','uidEnabled','holdAtEnd','frontCamera','faceEnabled','physicsEnabled']): raise ValueError('拍摄辅助开关无效')
+            physics_controls=validate_physics_controls(project.get('physicsControls'))
             validate_uid_text(project.get('uidText','MMD 创作中'))
             camera_keys=project.get('cameraKeys',[])
             if camera_keys: camera_keys=validate_keys(camera_keys)
@@ -420,6 +452,8 @@ class Studio:
             self.camera_manual.set(project.get('manualCamera', False))
             self.front_camera.set(project.get('frontCamera',True))
             self.face_enabled.set(project.get('faceEnabled',False))
+            self.physics_enabled.set(project.get('physicsEnabled',False))
+            for key,value in physics_controls.items(): self.physics_values[key].set(str(value))
             self.braid_static.set(project.get('stabilizeBraid',False)); self.pause_bgm.set(project.get('pauseBgm',False))
             self.uid_enabled.set(project.get('uidEnabled',False)); self.uid_text.set(project.get('uidText','MMD 创作中'))
             self.cloth_static.set(project.get('stabilizeCloth',False))

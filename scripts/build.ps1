@@ -30,7 +30,7 @@ $taskBuild = if($OutputDirectory) { [IO.Path]::GetFullPath($OutputDirectory) } e
 New-Item -ItemType Directory -Path $taskBuild -Force | Out-Null
 Push-Location $taskBuild
 try {
-    $common = @('/nologo','/std:c++20','/EHsc','/W4','/WX','/utf-8','/MD','/Zi',
+    $common = @('/nologo','/std:c++20','/EHsc','/W4','/WX','/utf-8','/MD','/Zi','/O2','/fp:precise',
         "/I$taskRoot/src", "/I$taskRoot/third_party/better_endfield")
     if ($SdkPrefabs) { $common += '/DGIMMD_SDK_PREFABS' }
     if ($ResourceTrace) { $common += '/DGIMMD_RESOURCE_TRACE' }
@@ -85,6 +85,9 @@ try {
     }
     $taskManifest = [ordered]@{
         gameVersion='CN 7.2.0'; runtimeValidation='see-docs/GENSHIN_7_2_PORT.md'
+        compilerOptimization='O2'; floatingPoint='precise'
+        secondaryPhysics=[bool]($LocalActors -and $FullBodyFK)
+        secondaryPhysicsControls=[bool]($LocalActors -and $FullBodyFK)
         gameExeSha256='8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5'
         schemaVersion=1; faceMotion=[bool]$LocalActors; cameraFront=[bool]($LocalActors -and $CameraPlayback); actorShooting=[bool]($LocalActors -and $CameraPlayback); resourceTrace=[bool]$ResourceTrace; cachedActorSources=[bool]$LocalActors; actorInspection=[bool]$LocalActors; actorMotion=[bool]$LocalActors; actorTemplateLoading=[bool]($ActorTemplates -or $SdkPrefabs); sdkPrefabLoading=[bool]$SdkPrefabs; gameActorResourceIds=[bool]$ActorTemplates; actorMaterialRestore=[bool]$LocalActors; localActors=[bool]$LocalActors; actorSurvey=[bool]$ActorSurvey; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
         dynamicSession=[bool]$PlayerSession; cameraLivePreview=[bool]$CameraPlayback; uidLiveText=[bool]$PlayerSession; holdAtEnd=[bool]$PlayerSession; cameraAdjustments=[bool]$CameraPlayback; cameraPlayback=[bool]$CameraPlayback; cameraFov=[bool]$CameraPlayback; manualCamera=[bool]$CameraPlayback; braidStabilization=[bool]$RootMotion; bgmPause=[bool]$PlayerSession; uidText=[bool]$PlayerSession; clothStabilization=[bool]$RootMotion; centerYaw=[bool]$RootMotion; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK

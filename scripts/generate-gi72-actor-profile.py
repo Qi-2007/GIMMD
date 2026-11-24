@@ -12,6 +12,17 @@ def generate(executable):
     if hashlib.sha256(image.data).hexdigest().upper() != SHA:
         raise ValueError('Unreviewed executable')
     entries = dict(EmoManagerTickGet=0x6f34ff0,EmoManagerTickSet=0x6f35000,
+        DiagnosticMeshClone=0x1a2268e0,DiagnosticMeshCloneBridge=0x1449480,
+        DiagnosticMeshBake=0x1a20e1e0,DiagnosticMeshBakeBridge=0x98b450,
+        DiagnosticMeshVertices=0x1a2140d0,DiagnosticMeshTriangles=0x1a214880,
+        DiagnosticMeshReadable=0x1a213e80,DiagnosticMeshReadableBridge=0x9857e0,
+        DiagnosticRendererMatrix=0x1a2463e0,DiagnosticRendererMatrixBridge=0x98c8b0,
+        ClothTransformMatrix=0x1a22acf0,ClothTransformMatrixBridge=0x14485f0,
+        DynamicBoneResetTransforms=0xd203ff0,DynamicBoneResetParticles=0xd2040d0,
+        DynamicBoneStep=0xd2034b0,DynamicBoneCachePose=0xd203810,
+        DynamicBoneApply=0xd20a900,DynamicBoneThreadApply=0xd208e10,
+        DynamicBoneVerlet=0xd2043f0,DynamicBoneConstraints=0xd206d20,
+        DynamicBoneFlushPose=0xd209460,DynamicBoneOwnerLossyScale=0x1447d50,
         EmoBindingBanApply=0x716e5a0,EmoBindingApply=0x716e750,
         EmoUserTickGet=0x6db0bb0,EmoUserTickSet=0x6db0bc0,
         MeshBlendShapeCount=0x1a213e10,MeshBlendShapeCountBridge=0x9851d0,

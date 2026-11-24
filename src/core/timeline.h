@@ -53,6 +53,11 @@ public:
         anchor_seconds_ = f.seconds;
         if (f.state == PlaybackState::Playing) state_ = PlaybackState::Paused;
     }
+    // Holding a naturally reached end is continuous, unlike an explicit seek.
+    void hold_end(double now) {
+        const auto f=sample(now);
+        if(f.state==PlaybackState::Ended){anchor_seconds_=f.seconds;anchor_clock_=now;state_=PlaybackState::Paused;}
+    }
     void seek(double seconds, double now) {
         validate(now);
         if (!std::isfinite(seconds)) throw std::invalid_argument("invalid seek");

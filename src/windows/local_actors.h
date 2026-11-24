@@ -341,6 +341,7 @@ static void* find_model(void* actor) {
 }
 #include "actor_shooting.h"
 #include "actor_driver_lease.h"
+#include "native_secondary_physics.h"
 static void spawn(const Request& command) {
     if (state.orphan) { publish("rollback-failed-restart-game"); return; }
     state.removed_class_count=0;

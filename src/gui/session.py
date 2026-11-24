@@ -12,6 +12,21 @@ import subprocess
 import time
 import uuid
 
+PHYSICS_DEFAULTS = {'frontAngle':24, 'rearAngle':10, 'frontPaddingCm':1.5, 'rearPaddingCm':.4,
+                    'frontResponseMs':60, 'rearResponseMs':160, 'skirtSupportPercent':95}
+PHYSICS_RANGES = {'frontAngle':(0,45), 'rearAngle':(0,45), 'frontPaddingCm':(0,5), 'rearPaddingCm':(0,5),
+                  'frontResponseMs':(20,1000), 'rearResponseMs':(20,1000), 'skirtSupportPercent':(0,100)}
+
+def validate_physics_controls(value=None):
+    if value is None: return dict(PHYSICS_DEFAULTS)
+    if not isinstance(value,dict) or set(value)-set(PHYSICS_DEFAULTS): raise ValueError('物理参数格式无效')
+    settings={**PHYSICS_DEFAULTS,**value}
+    for key,number in settings.items():
+        low,high=PHYSICS_RANGES[key]
+        if type(number) not in (int,float) or not math.isfinite(number) or not low<=number<=high:
+            raise ValueError(f'物理参数 {key} 应在 {low}–{high} 之间')
+    return settings
+
 
 def atomic_json(path: Path, value: dict):
     atomic_text(path, json.dumps(value, ensure_ascii=False, indent=2))
@@ -282,6 +297,23 @@ class Controller:
                 output.setnchannels(channels); output.setsampwidth(2); output.setframerate(rate); output.writeframes(data)
             os.replace(temporary_audio,audio_target)
         temporary=self.directory/'motion-load.tmp'; shutil.copy2(motion,temporary); os.replace(temporary,self.directory/'multi-track.vmd')
+
+    def prepare_physics(self, enabled, controls=None):
+        if not self.fresh: raise ValueError('请先连接正在运行的会话')
+        manifest=json.loads((self.directory/'build-manifest.json').read_text(encoding='utf-8-sig'))
+        if enabled and not manifest.get('secondaryPhysics'): raise ValueError('当前构建不支持动态物理，请选择物理实验构建')
+        settings=validate_physics_controls(controls)
+        if enabled and controls is not None and not manifest.get('secondaryPhysicsControls'):
+            raise ValueError('当前构建不支持物理参数调整，请使用新版物理构建重新连接会话')
+        if enabled and self.status.get('mmdPhase') in (1,2,4): raise ValueError('请先恢复游戏动画，再应用物理参数')
+        if enabled and any((self.directory/name).exists() for name in ('cloth-static.flag','braid-static.flag')):
+            raise ValueError('动态物理与静态稳定冲突，请取消披风/辫子静态稳定后重新连接会话')
+        flag=self.directory/'physics-enabled.flag'
+        if enabled:
+            if manifest.get('secondaryPhysicsControls'):
+                atomic_text(self.directory/'physics-controls.txt','GIMMD_PHYSICS_V1\n'+' '.join(format(settings[k],'.9g') for k in PHYSICS_DEFAULTS)+'\n')
+            atomic_text(flag,'1')
+        else: flag.unlink(missing_ok=True)
 
     def prepare_face(self, enabled):
         if not self.fresh: raise ValueError('请先连接正在运行的会话')

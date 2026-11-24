@@ -1,0 +1,53 @@
+{
+  "status": "live-runtime-validated-visual-experimental",
+  "date": "2026-11-24",
+  "game": "CN 7.2.0",
+  "exeSha256": "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5",
+  "sdk": "端游genshen7,2.cs",
+  "interfaces": {
+    "DynamicBoneArray.ResetBoneTransforms": "0xd203ff0",
+    "DynamicBoneArray.ResetParticlesPosition": "0xd2040d0",
+    "DynamicBoneArray.UpdateDynamicBones(float)": "0xd2034b0",
+    "DynamicBoneArray.CacheAnimatorPoseToParticles": "0xd203810",
+    "DynamicBoneArray.ApplyParticlesToTransforms": "0xd20a900",
+    "DynamicBoneArray.ShouldTickMultiThread": "0xd203df0",
+    "DynamicBoneArray.ApplyParticlesToTransformsByComputeThreadResult": "0xd208e10",
+    "DynamicBoneArray.Verlet": "0xd2043f0",
+    "DynamicBoneArray.Constraints": "0xd206d20",
+    "DynamicBoneArray.FlushAnimToPose": "0xd209460",
+    "Transform.get_lossyScale_injected_this_first": "0x1447d50",
+    "Transform.INTERNAL_get_localToWorldMatrix_this_first": "0x1a22acf0",
+    "Object.Internal_CloneSingle_diagnostic_mesh_only": "0x1a2268e0",
+    "SkinnedMeshRenderer.BakeMesh_owned_copy_only": "0x1a20e1e0",
+    "Renderer.get_localToWorldMatrix_Injected_this_first": "0x1a2463e0",
+    "Mesh.get_vertices": "0x1a2140d0",
+    "Mesh.get_triangles": "0x1a214880",
+    "Mesh.set_isReadable_owned_copy_only": "0x1a213e80"
+  },
+  "review": [
+    "UpdateDynamicBones calls Verlet integration, constraints and transform application.",
+    "ShouldTickMultiThread delegates to ShouldTickGeneral, which checks Behaviour.enabled.",
+    "Thread result application checks Behaviour.enabled before writing transforms.",
+    "ResetBoneTransforms uses each particle initial local position/rotation.",
+    "ResetParticlesPosition resets previous/current particle positions and owner previous position.",
+    "ApplyParticlesToTransforms is not idempotent: live no-contact reapply diagnostic produced excessive rotation. Custom contacts run before the single apply call.",
+    "Legacy Verlet last-step argument is -1.0, verified from the executable constant; mode 3 receives the fixed timestep.",
+    "Barbara and Nahida tested arrays have no native colliders. Additional body capsules and cloth segment contacts are approximate, not mesh collision.",
+    "Opt-in mesh diagnostics clone and bake into an owned Mesh; readability is changed only on that copy, which is destroyed in a finally guard. No renderer sharedMesh replacement occurs.",
+    "Reversible subtree translation diagnostics found zero influence from the original 24 controlled skirt bones on several central front vertices. The omitted SkirtF CF B01-B04 chain is now owned and restored explicitly.",
+    "Supplemental chain bending uses the reset reference shape, not the already deformed integration result. Native arrays retain their original stiffness and are applied once."
+  ],
+  "bounds": {
+    "arrays": 32,
+    "particles": 512,
+    "particlesPerArray": 256,
+    "colliders": 256,
+    "collidersPerArray": 64,
+    "nodes": 768,
+    "stepSeconds": 0.016666666666666666,
+    "maximumSubsteps": 4
+  },
+  "liveValidated": true,
+  "visualAcceptance": "user-accepted-nahida-directional-upper-skirt-defaults; user-accepted-barbara-Moonride-1.84s-after-central-chain-reference-fix; not-all-poses-or-characters",
+  "latestShortEvidence": "genshin-7.2-physics-center-skirt-reference.json"
+}

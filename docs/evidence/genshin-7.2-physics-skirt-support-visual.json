@@ -1,0 +1,1046 @@
+{
+  "cameraPlayback": {
+    "enabled": true,
+    "loaded": true,
+    "status": "camera-stopped-restored",
+    "acquired": false,
+    "restored": true,
+    "cleanupPending": false,
+    "aborted": false,
+    "frontState": 2,
+    "frontPosition": [
+      0.204222038,
+      294.44162,
+      -2.38749766
+    ],
+    "poseWrites": 6818,
+    "retainedSamples": 4792,
+    "gameOverwrites": 2025,
+    "restoreAttempts": 1,
+    "maxWriteError": 0,
+    "restoreError": 0,
+    "exception": 0,
+    "lastSampleSeconds": 0,
+    "manualOnly": true,
+    "controlSequence": 3,
+    "fovMultiplier": 1,
+    "positionOffset": [
+      1.79999995,
+      0,
+      2
+    ],
+    "baselineFov": 45,
+    "lastFov": 45,
+    "maxFovWriteError": 0,
+    "fovRestoreError": 0,
+    "anchor": "initial-camera-pose",
+    "fovWritten": true,
+    "finalRenderVerified": false,
+    "timelineSamples": [
+      {
+        "seconds": 0,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          0.204222038,
+          294.44162,
+          -2.38749766
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 0,
+        "epoch": 0,
+        "state": 1,
+        "position": [
+          0.204222038,
+          294.44162,
+          -2.38749766
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 0.672,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          0.204222038,
+          294.44162,
+          -2.38749766
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          0.204222038,
+          294.44162,
+          -2.38749766
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          0.403257787,
+          294.541595,
+          -2.36768651
+        ],
+        "error": 0,
+        "fov": 60,
+        "controlSequence": 2
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 1,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0.005,
+        "epoch": 2,
+        "state": 1,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0.01,
+        "epoch": 3,
+        "state": 1,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0,
+        "epoch": 4,
+        "state": 1,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0.005,
+        "epoch": 5,
+        "state": 1,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0,
+        "epoch": 6,
+        "state": 2,
+        "position": [
+          1.82728469,
+          294.386108,
+          -0.242133856
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      }
+    ]
+  },
+  "secondaryPhysics": {
+    "requested": true,
+    "status": "restored",
+    "arrays": 4,
+    "particles": 38,
+    "bones": 28,
+    "colliders": 0,
+    "unsupportedRigidArrays": 0,
+    "steps": 3633,
+    "resets": 7,
+    "restores": 28,
+    "movedSamples": 54087,
+    "failures": 0,
+    "averageMs": 1.99280715,
+    "maximumMs": 18.4294,
+    "maximumLocalDelta": 0.000292894954,
+    "maximumReferenceAngle": 71.5566877,
+    "maximumStepAngle": 55.3832065,
+    "reapplyOnly": false,
+    "bodyCapsules": 10,
+    "contacts": 104902,
+    "contactLimits": 2020,
+    "maximumContactCorrection": 0.150330797,
+    "maximumRelativeStretch": 0.000116109848,
+    "segmentContacts": 64762,
+    "clothMargin": 0.0900000036,
+    "maximumRemainingPenetration": 0.045114167,
+    "temporalLimits": 762,
+    "skirtSupports": 2362,
+    "minimumSkirtRadiusRatio": 0.949892998,
+    "worstContactCapsule": 8,
+    "worstContactSegment": true,
+    "worstContactBone": "+SkirtF R B04",
+    "cleanupPending": false,
+    "chains": [
+      {
+        "root": "+SkirtF L B02",
+        "particles": 8,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 1,
+        "elasticity": 1,
+        "stiffness": 0.699999988,
+        "inert": 0.899999976,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.603820801,
+            0.899999976,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.739396214,
+            0.799710512,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.830796599,
+            0.699421048,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.901382446,
+            0.600674927,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.603820801,
+            0.899999976,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.739396214,
+            0.799710512,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.830796599,
+            0.699421048,
+            0.699999988,
+            0.899999976
+          ],
+          [
+            0.901382446,
+            0.600674927,
+            0.699999988,
+            0.899999976
+          ]
+        ]
+      },
+      {
+        "root": "+SkirtS L B02",
+        "particles": 16,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 1,
+        "elasticity": 1,
+        "stiffness": 1,
+        "inert": 0.5,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.300000012,
+            0.699999988,
+            1,
+            0.5
+          ],
+          [
+            0.466666698,
+            0.540183783,
+            1,
+            0.5
+          ],
+          [
+            0.633333325,
+            0.426870912,
+            1,
+            0.5
+          ],
+          [
+            0.800000012,
+            0.349999994,
+            1,
+            0.5
+          ],
+          [
+            0.300000012,
+            0.699999988,
+            1,
+            0.5
+          ],
+          [
+            0.466666698,
+            0.540183783,
+            1,
+            0.5
+          ],
+          [
+            0.633333325,
+            0.426870912,
+            1,
+            0.5
+          ],
+          [
+            0.800000012,
+            0.349999994,
+            1,
+            0.5
+          ],
+          [
+            0.300000012,
+            0.699999988,
+            1,
+            0.5
+          ],
+          [
+            0.466666698,
+            0.540183783,
+            1,
+            0.5
+          ],
+          [
+            0.633333325,
+            0.426870912,
+            1,
+            0.5
+          ],
+          [
+            0.800000012,
+            0.349999994,
+            1,
+            0.5
+          ],
+          [
+            0.300000012,
+            0.699999988,
+            1,
+            0.5
+          ],
+          [
+            0.466666698,
+            0.540183783,
+            1,
+            0.5
+          ],
+          [
+            0.633333325,
+            0.426870912,
+            1,
+            0.5
+          ],
+          [
+            0.800000012,
+            0.349999994,
+            1,
+            0.5
+          ]
+        ]
+      },
+      {
+        "root": "+AmiceB L D12",
+        "particles": 6,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 1,
+        "elasticity": 1,
+        "stiffness": 1,
+        "inert": 0.699999988,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.201497599,
+            0.90020752,
+            0.600000024,
+            0.699999988
+          ],
+          [
+            0.593637288,
+            0.708809316,
+            0.399463713,
+            0.699999988
+          ],
+          [
+            0.89877218,
+            0.553118885,
+            0.299829096,
+            0.699999988
+          ],
+          [
+            0.201497599,
+            0.90020752,
+            0.600000024,
+            0.699999988
+          ],
+          [
+            0.593637288,
+            0.708809316,
+            0.399463713,
+            0.699999988
+          ],
+          [
+            0.89877218,
+            0.553118885,
+            0.299829096,
+            0.699999988
+          ]
+        ]
+      },
+      {
+        "root": "+HairS L F01",
+        "particles": 8,
+        "weights": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "damping": 0.300000012,
+        "elasticity": 1,
+        "stiffness": 1,
+        "inert": 1,
+        "positionWeight": 1,
+        "rotationWeight": 1,
+        "particleParameters": [
+          [
+            0.300000012,
+            0.800000012,
+            0.800000012,
+            0.800000012
+          ],
+          [
+            0.300000012,
+            0.618518531,
+            0.644444466,
+            0.618518531
+          ],
+          [
+            0.300000012,
+            0.281481564,
+            0.355555534,
+            0.281481564
+          ],
+          [
+            0.300000012,
+            0.100000001,
+            0.200000003,
+            0.100000001
+          ],
+          [
+            0.300000012,
+            0.800000012,
+            0.800000012,
+            0.800000012
+          ],
+          [
+            0.300000012,
+            0.618518531,
+            0.644444466,
+            0.618518531
+          ],
+          [
+            0.300000012,
+            0.281481564,
+            0.355555534,
+            0.281481564
+          ],
+          [
+            0.300000012,
+            0.100000001,
+            0.200000003,
+            0.100000001
+          ]
+        ]
+      }
+    ],
+    "boneAngles": [
+      {
+        "name": "+SkirtF L B02",
+        "step": 26.4599345,
+        "reference": 57.2708819
+      },
+      {
+        "name": "+SkirtF L B03",
+        "step": 32.7105089,
+        "reference": 51.7048133
+      },
+      {
+        "name": "+SkirtF L B04",
+        "step": 20.1009999,
+        "reference": 24.2157698
+      },
+      {
+        "name": "+SkirtF R B02",
+        "step": 28.3601263,
+        "reference": 56.7104331
+      },
+      {
+        "name": "+SkirtF R B03",
+        "step": 39.3401591,
+        "reference": 67.0077785
+      },
+      {
+        "name": "+SkirtF R B04",
+        "step": 30.4895928,
+        "reference": 42.0717585
+      },
+      {
+        "name": "+SkirtS L B02",
+        "step": 7.38476929,
+        "reference": 27.5385021
+      },
+      {
+        "name": "+SkirtS L B03",
+        "step": 20.4930063,
+        "reference": 50.6433684
+      },
+      {
+        "name": "+SkirtS L B04",
+        "step": 16.3015597,
+        "reference": 23.1048302
+      },
+      {
+        "name": "+SkirtS R B02",
+        "step": 21.4839704,
+        "reference": 45.0060742
+      },
+      {
+        "name": "+SkirtS R B03",
+        "step": 39.0512395,
+        "reference": 71.5566877
+      },
+      {
+        "name": "+SkirtS R B04",
+        "step": 21.0581796,
+        "reference": 26.8436485
+      },
+      {
+        "name": "+SkirtB L B02",
+        "step": 31.0163189,
+        "reference": 37.587876
+      },
+      {
+        "name": "+SkirtB L B03",
+        "step": 55.3832065,
+        "reference": 59.5067216
+      },
+      {
+        "name": "+SkirtB L B04",
+        "step": 24.3658822,
+        "reference": 25.0800937
+      },
+      {
+        "name": "+SkirtB R B02",
+        "step": 0.55884142,
+        "reference": 1.06609967
+      },
+      {
+        "name": "+SkirtB R B03",
+        "step": 1.13221781,
+        "reference": 2.15138925
+      },
+      {
+        "name": "+SkirtB R B04",
+        "step": 0.578220165,
+        "reference": 1.08514056
+      },
+      {
+        "name": "+AmiceB L D12",
+        "step": 2.59171614,
+        "reference": 2.61612357
+      },
+      {
+        "name": "+AmiceB L D13",
+        "step": 3.42744273,
+        "reference": 4.21039704
+      },
+      {
+        "name": "+AmiceB R D12",
+        "step": 2.89624416,
+        "reference": 2.722244
+      },
+      {
+        "name": "+AmiceB R D13",
+        "step": 3.91834282,
+        "reference": 4.27253281
+      },
+      {
+        "name": "+HairS L F01",
+        "step": 6.58287467,
+        "reference": 4.41099152
+      },
+      {
+        "name": "+HairS L F02",
+        "step": 8.59733252,
+        "reference": 8.83523148
+      },
+      {
+        "name": "+HairS L F03",
+        "step": 13.8972316,
+        "reference": 27.5286339
+      },
+      {
+        "name": "+HairS R F01",
+        "step": 7.96985953,
+        "reference": 5.53556983
+      },
+      {
+        "name": "+HairS R F02",
+        "step": 6.76232746,
+        "reference": 10.2629883
+      },
+      {
+        "name": "+HairS R F03",
+        "step": 16.7929577,
+        "reference": 23.8095667
+      }
+    ]
+  },
+  "session": "E:\\code\\gimmd\\sessions\\20261124-191928-39793479",
+  "passed": true,
+  "events": [
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 0,
+      "loop": false,
+      "seconds": 0,
+      "state": 0,
+      "epoch": 0,
+      "commandSequence": 0,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 0
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": false,
+      "seconds": 0.625,
+      "state": 1,
+      "epoch": 0,
+      "commandSequence": 1,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 1
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": false,
+      "seconds": 0.672,
+      "state": 2,
+      "epoch": 0,
+      "commandSequence": 2,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 2
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": false,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 3,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 3
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 1,
+      "acknowledgedSequence": 4
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 2,
+      "acknowledgedSequence": 4
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 4
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 2,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 1.531,
+      "state": 1,
+      "epoch": 1,
+      "commandSequence": 5,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 5
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 79096193122511,
+      "closed": false,
+      "dynamicSession": true,
+      "mmdPhase": 0,
+      "cameraActive": true,
+      "holdAtEnd": true,
+      "holdingEnd": false,
+      "durationSeconds": 15.1667,
+      "loop": true,
+      "seconds": 0,
+      "state": 0,
+      "epoch": 0,
+      "commandSequence": 6,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": true,
+      "cameraAcknowledgedSequence": 3,
+      "acknowledgedSequence": 6
+    }
+  ],
+  "finalStatus": {
+    "schemaVersion": 2,
+    "sessionToken": 79096193122511,
+    "closed": true,
+    "dynamicSession": true,
+    "mmdPhase": 0,
+    "cameraActive": true,
+    "holdAtEnd": true,
+    "holdingEnd": false,
+    "durationSeconds": 15.1667,
+    "loop": true,
+    "seconds": 0,
+    "state": 0,
+    "epoch": 0,
+    "commandSequence": 7,
+    "bgmState": 0,
+    "uidTextState": 0,
+    "cameraEnabled": true,
+    "cameraAcknowledgedSequence": 3,
+    "acknowledgedSequence": 7
+  },
+  "probeReport": "E:\\code\\gimmd\\sessions\\20261124-191928-39793479\\gimmd-18416.probe.json",
+  "cameraSamples": [
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          -3.16992497,
+          295.82373,
+          2.25382352
+        ]
+      }
+    ]
+  ]
+}

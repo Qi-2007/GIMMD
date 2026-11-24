@@ -16,6 +16,13 @@
 #include "vmd.h"
 #include "core/face_bridge.h"
 #include "core/face_profile.h"
+#include "core/physics_bridge.h"
+#include "core/secondary_physics.h"
+#include "core/physics_controls.h"
+#include "core/body_collision.h"
+#include "core/cloth_links.h"
+#include "core/cloth_surface.h"
+#include "core/skinned_cloth.h"
 #include "core/rotation_preview.h"
 #include "generated/fk_profile.h"
 #include "core/root_translation.h"
@@ -352,6 +359,8 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         if(local_actors::Enabled&&local_actors::configured){
             gimmd::face_bridge::prepare=local_actors::face_motion::prepare;gimmd::face_bridge::tick=local_actors::face_motion::tick;
             gimmd::face_bridge::restore=local_actors::face_motion::restore;gimmd::face_bridge::matched=local_actors::face_motion::matched;
+            gimmd::physics_bridge::prepare=local_actors::secondary_physics::prepare;gimmd::physics_bridge::tick=local_actors::secondary_physics::tick;
+            gimmd::physics_bridge::restore=local_actors::secondary_physics::restore;gimmd::physics_bridge::release_ready=local_actors::secondary_physics::release_ready;
         }
         if(local_actors::Enabled&&local_actors::configured) {
             hierarchy::playback::multi::reference_pose::enabled=true;
@@ -548,6 +557,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
         resource_trace::report(report);
         camera_playback::report(report); bgm_pause::report(report); uid_text::report(report);
         local_actors::driver_lease::report(report);
+        local_actors::secondary_physics::report(report);
         local_actors::face_motion::report(report);
         report << "\n}\n"; report.flush();
         busy.store(false);
@@ -2016,6 +2026,28 @@ int wmain(int argc,wchar_t** argv) {
             check(values[0]==0&&values[1]==100,"facial seek did not return neutral expression");
             check(gimmd::face_profile::bounded(-1)==0&&gimmd::face_profile::bounded(2)==1,"morph values escaped engine weight limits");
         }
+#ifdef GIMMD_MULTI_TRACK_PLAYBACK
+        {
+            namespace physics=local_actors::secondary_physics;
+            mock_multi_fixture(true,true);physics::reset_context();
+            auto& context=physics::s;
+            check(physics::tick(nullptr,0,0,true,nullptr,0),"disabled physics touched the model");
+            context.dirty=true;
+            check(!physics::prepare()&&!physics::release_ready(),"pending physics restoration was discarded");
+            context.bound=true;context.model=local_actors::identity(&mock_nodes[1]);context.path_count=2;
+            auto* secondary=mock_nodes[1].children[0];
+            context.paths[0].identity=context.model;wcscpy_s(context.paths[0].name,mock_nodes[1].name);
+            context.paths[1].identity=local_actors::identity(secondary);context.paths[1].parent_node=0;context.paths[1].child=0;
+            wcscpy_s(context.paths[1].name,secondary->name);
+            context.bone_count=1;auto& bone=context.bones[0];bone.path=1;bone.rotation={0,0,0,1};bone.local={.1f,.2f,.3f};bone.dirty=true;
+            secondary->position={1,2,3};
+            check(!physics::restore(&mock_nodes[2])&&context.dirty&&secondary->position.x==1,"physics restored a different character");
+            check(physics::restore(&mock_nodes[1])&&!context.dirty&&context.restores==1&&
+                physics::position::error(secondary->position,bone.local)<.00002f,"physics local pose restoration failed");
+            check(physics::restore(nullptr)&&context.restores==1&&physics::release_ready(),"physics restoration was not idempotent");
+            physics::reset_context();
+        }
+#endif
         std::cout << checks << " runtime observer checks passed in synthetic host\n";
         return 0;
     } catch (const std::exception& error) {

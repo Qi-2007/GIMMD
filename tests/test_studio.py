@@ -49,6 +49,21 @@ class TransportTests(unittest.TestCase):
         reject_gaze_only_motion(mixed)  # A normal motion may include ignored eye tracks.
     def write(self): atomic_json(self.directory/'player.status.json',self.status)
 
+    def test_physics_opt_in_and_static_conflict(self):
+        atomic_json(self.directory/'build-manifest.json',{})
+        with self.assertRaisesRegex(ValueError,'不支持动态物理'):
+            self.controller.prepare_physics(True)
+        flag=self.directory/'physics-enabled.flag'
+        self.assertFalse(flag.exists())
+        atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True})
+        for name in ('cloth-static.flag','braid-static.flag'):
+            (self.directory/name).write_text('1')
+            with self.assertRaisesRegex(ValueError,'静态稳定冲突'):
+                self.controller.prepare_physics(True)
+            self.assertFalse(flag.exists()); (self.directory/name).unlink()
+        self.controller.prepare_physics(True); self.assertTrue(flag.exists())
+        self.controller.prepare_physics(False); self.assertFalse(flag.exists())
+
     def test_face_opt_in_requires_capability_and_preserves_disabled_flag_on_error(self):
         atomic_json(self.directory/'build-manifest.json',{})
         self.controller.prepare_face(False)
@@ -62,6 +77,25 @@ class TransportTests(unittest.TestCase):
         self.assertFalse(flag.exists())
         self.controller.prepare_face(False)
         self.assertTrue(flag.exists())
+
+    def test_physics_controls_validation_transport_and_active_guard(self):
+        from session import PHYSICS_DEFAULTS, validate_physics_controls
+        settings={**PHYSICS_DEFAULTS,'frontAngle':25,'rearResponseMs':220,'skirtSupportPercent':94}
+        path=self.directory/'physics-controls.txt'
+        atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True})
+        with self.assertRaisesRegex(ValueError,'不支持物理参数调整'): self.controller.prepare_physics(True,settings)
+        self.assertFalse(path.exists())
+        atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True,'secondaryPhysicsControls':True})
+        self.controller.prepare_physics(True,settings)
+        self.assertEqual(path.read_text(),'GIMMD_PHYSICS_V1\n25 10 1.5 0.4 60 220 94\n')
+        before=path.read_bytes()
+        for invalid in [{'frontAngle':46},{'rearPaddingCm':-1},{'frontResponseMs':0},{'rearResponseMs':math.inf},{'skirtSupportPercent':True},{'frontAngle':math.nan},{'typo':1},[]]:
+            with self.assertRaises(ValueError): self.controller.prepare_physics(True,invalid)
+            self.assertEqual(path.read_bytes(),before)
+        self.status.update(mmdPhase=1);self.write();self.controller.poll()
+        with self.assertRaisesRegex(ValueError,'恢复游戏动画'): self.controller.prepare_physics(True,settings)
+        self.assertEqual(path.read_bytes(),before)
+        self.assertEqual(validate_physics_controls(),PHYSICS_DEFAULTS)
 
     def test_atomic_command_retries_transient_windows_reader(self):
         from unittest.mock import patch
@@ -242,12 +276,19 @@ class TransportTests(unittest.TestCase):
         try:
             app=Studio(root,test=True); app.camera_values[0].set('2'); app.fov_multiplier.set('.75'); app.hold_at_end.set(True)
             self.assertFalse(app.face_enabled.get()); app.face_enabled.set(True)
+            self.assertFalse(app.physics_enabled.get()); app.physics_enabled.set(True)
+            app.physics_values['frontAngle'].set('25');app.physics_values['rearResponseMs'].set('220')
             path=self.directory/'adjust-project.json'
             with patch('player_gui.filedialog.asksaveasfilename',return_value=str(path)): app.save_project()
             app.face_enabled.set(False)
+            app.physics_enabled.set(False)
             self.assertFalse(app.last_error); app.camera_values[0].set('0'); app.fov_multiplier.set('1'); app.hold_at_end.set(False); app.load_project(path)
             self.assertTrue(app.hold_at_end.get())
             self.assertTrue(app.face_enabled.get())
+            self.assertTrue(app.physics_enabled.get())
+            self.assertEqual(app.physics_controls()['frontAngle'],25);self.assertEqual(app.physics_controls()['rearResponseMs'],220)
+            app.reset_physics_controls();self.assertEqual(app.physics_controls()['frontAngle'],24)
+            self.assertEqual(app.physics_controls()['rearResponseMs'],160)
             self.assertEqual(float(app.camera_values[0].get()),2); self.assertEqual(float(app.fov_multiplier.get()),.75)
             project=json.loads(path.read_text(encoding='utf-8')); project['fovMultiplier']=0; atomic_json(path,project); app.load_project(path)
             self.assertEqual(float(app.fov_multiplier.get()),.75); self.assertTrue(app.last_error)

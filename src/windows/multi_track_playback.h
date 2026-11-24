@@ -59,6 +59,7 @@ static void reset() {
 }
 static bool prepare(const vmd::Motion& motion) {
     reset(); state = "source-tracks-missing";
+    if(gimmd::physics_bridge::prepare&&!gimmd::physics_bridge::prepare()){state="physics-prepare-refused";return false;}
     if(gimmd::face_bridge::prepare&&!gimmd::face_bridge::prepare(false,motion)){state="face-prepare-refused";return false;}
     if (motion.last_frame < 1 || motion.zero_quaternions) return false;
     for (unsigned i = 0; i < TrackCount; ++i) {
@@ -183,6 +184,7 @@ static void restore_all() {
     if (!cloth_stabilizer::restore(&batch)) pending=true;
     if (!pelvis_helper::restore(&batch)) pending=true;
     if (!root_motion::restore(&batch)) pending = true;
+    if(gimmd::physics_bridge::restore){bool active=true;if(!gimmd::physics_bridge::restore(resolve_model(&active)))pending=true;}
     if (!pending&&!reference_pose::restore(&batch)) pending=true;
     if(gimmd::face_bridge::restore){bool active=true;if(!gimmd::face_bridge::restore(false,resolve_model(&active)))pending=true;}
     dirty.store(pending);
@@ -218,7 +220,7 @@ static void tick(ULONGLONG now) {
             if (gimmd::command_op(word) == gimmd::PlayerOp::Stop) stop_requested.store(true);
         }
         auto f = clock.sample(seconds);
-        if (gimmd::player_session::dynamic_session&&f.state==gimmd::PlaybackState::Ended) { clock.seek(f.seconds,seconds); f=clock.sample(seconds); }
+        if (gimmd::player_session::dynamic_session&&f.state==gimmd::PlaybackState::Ended) { clock.hold_end(seconds); f=clock.sample(seconds); }
         source_seconds = f.seconds;
         timeline_playing = f.state == gimmd::PlaybackState::Playing;
         gimmd::player_session::holding_end.store((f.state==gimmd::PlaybackState::Ended||(gimmd::player_session::dynamic_session&&f.state==gimmd::PlaybackState::Paused&&f.seconds>=double(last_frame)/30))&&gimmd::player_session::hold_at_end&&!stop_requested.load());
@@ -306,6 +308,8 @@ static void tick(ULONGLONG now) {
     if (!root_motion::apply(&batch)) { dirty.store(root_motion::dirty || dirty.load()); stop_requested.store(true); restore_all(); return; }
     if (!cloth_stabilizer::apply(&batch,entry_blend_seconds/0.5)) { stop_requested.store(true); restore_all(); return; }
     if(gimmd::face_bridge::tick){bool active=true;if(!gimmd::face_bridge::tick(false,resolve_model(&active),source_seconds)){stop_requested.store(true);restore_all();return;}}
+    if(gimmd::physics_bridge::tick){bool active=true;const auto frame=gimmd::unpack_player_frame(gimmd::player_session::frame.load());
+        if(!gimmd::physics_bridge::tick(resolve_model(&active),source_seconds,frame.epoch,timeline_playing,bones,TrackCount)){stop_requested.store(true);restore_all();return;}}
     const double batch_end = precise_ms(); ++performance.batches;
     performance.total_ms += batch_end-batch_start; performance.max_ms = std::max(performance.max_ms,batch_end-batch_start);
     performance.resolve_ms += write_start-batch_start; performance.write_ms += batch_end-write_start;

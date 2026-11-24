@@ -48,6 +48,7 @@ static bool apply(void* model,bool restore) {
 }
 static bool begin(void* model) {face_motion::inspect(model);return apply(model,false);}
 static bool release() {
+    if(gimmd::physics_bridge::release_ready&&!gimmd::physics_bridge::release_ready())return false;
     if(!captured)return true;
     bool active=true;void* model=hierarchy::animator_lease::model?hierarchy::animator_lease::model(&active):nullptr;
     const bool result=apply(model,true);if(result)captured=false;return result;
