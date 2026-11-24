@@ -88,8 +88,13 @@ class TransportTests(unittest.TestCase):
         atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True,'secondaryPhysicsControls':True})
         self.controller.prepare_physics(True,settings)
         self.assertEqual(path.read_text(),'GIMMD_PHYSICS_V1\n25 10 1.5 0.4 60 220 94\n')
+        extended={**settings,'frontAngle':80}
+        with self.assertRaisesRegex(ValueError,'45°'): self.controller.prepare_physics(True,extended)
+        atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True,'secondaryPhysicsControls':True,'extendedFrontAngle':True})
+        self.controller.prepare_physics(True,extended)
+        self.assertEqual(path.read_text(),'GIMMD_PHYSICS_V1\n80 10 1.5 0.4 60 220 94\n')
         before=path.read_bytes()
-        for invalid in [{'frontAngle':46},{'rearPaddingCm':-1},{'frontResponseMs':0},{'rearResponseMs':math.inf},{'skirtSupportPercent':True},{'frontAngle':math.nan},{'typo':1},[]]:
+        for invalid in [{'frontAngle':81},{'rearPaddingCm':-1},{'frontResponseMs':0},{'rearResponseMs':math.inf},{'skirtSupportPercent':True},{'frontAngle':math.nan},{'typo':1},[]]:
             with self.assertRaises(ValueError): self.controller.prepare_physics(True,invalid)
             self.assertEqual(path.read_bytes(),before)
         self.status.update(mmdPhase=1);self.write();self.controller.poll()

@@ -11,6 +11,15 @@ inline float dot(Vec a,Vec b){return a.x*b.x+a.y*b.y+a.z*b.z;}
 inline float length(Vec a){return std::sqrt(dot(a,a));}
 inline bool finite(Vec a){return std::isfinite(a.x)&&std::isfinite(a.y)&&std::isfinite(a.z);}
 struct Capsule {Vec a,b;float radius=0;};
+// As the thigh approaches horizontal, pushing a flap along the thigh can
+// slide it toward the knee. Tilt the contact direction over the raised leg.
+inline Vec flap_contact_direction(Vec outward,Vec up,const Capsule& thigh) {
+    const auto axis=sub(thigh.b,thigh.a);
+    const float size=length(axis);
+    if(size<1e-6f)return outward;
+    const float lift=std::clamp((dot(axis,up)/size+.5f)*2,0.0f,1.0f);
+    return add(outward,scale(up,length(outward)*lift));
+}
 inline Vec nearest(const Capsule& c,Vec p){const auto axis=sub(c.b,c.a);const auto d=dot(axis,axis);
     return add(c.a,scale(axis,d>1e-10f?std::clamp(dot(sub(p,c.a),axis)/d,0.0f,1.0f):0));}
 inline float distance(const Capsule& c,Vec p){return length(sub(p,nearest(c,p)));}
@@ -30,6 +39,29 @@ inline SegmentContact closest_segment(Vec a,Vec b,const Capsule& capsule,float m
         if(t<0){t=0;s=std::clamp(-uw/uu,0.0f,1.0f);}
         else if(t>1){t=1;s=std::clamp((uv-uw)/uu,0.0f,1.0f);}}
     return {add(origin,scale(u,s)),add(capsule.a,scale(v,t)),start+(1-start)*s};
+}
+// Approximate the inner half of an open flap by a horizontal strip. Find the
+// thigh beneath that strip in the hip plane, then recover its vertical height.
+inline float inner_flap_lift(Vec at,Vec inner_edge,Vec up,const Capsule& thigh) {
+    const Vec axis=sub(thigh.b,thigh.a);
+    const float size=length(axis);
+    if(size<1e-6f||thigh.radius<=0)return 0;
+    const float raised=std::clamp(2*(dot(axis,up)/size+.5f),0.f,1.f);
+    if(raised<=0)return 0;
+    const auto flatten=[&](Vec p){return sub(p,scale(up,dot(p,up)));};
+    const Vec flat_axis=flatten(axis);
+    const float squared=dot(flat_axis,flat_axis);
+    if(squared<1e-8f)return 0;
+    const Capsule flat_thigh{{},flat_axis,thigh.radius};
+    const auto pair=closest_segment(flatten(sub(at,thigh.a)),flatten(sub(inner_edge,thigh.a)),flat_thigh);
+    const Vec gap=sub(pair.point,pair.axis);
+    const float thickness2=thigh.radius*thigh.radius-dot(gap,gap);
+    if(thickness2<=0)return 0;
+    const float t=std::clamp(dot(pair.axis,flat_axis)/squared,0.f,1.f);
+    const float above=dot(sub(add(thigh.a,scale(axis,t)),at),up);
+    const float thickness=std::sqrt(thickness2);
+    const float overlap=std::max(0.f,above+thickness);
+    return raised*std::min(overlap,2*thickness);
 }
 // Project a secondary particle out of a capsule. Preserve tangential velocity,
 // but remove inward normal velocity so contact does not continually inject energy.

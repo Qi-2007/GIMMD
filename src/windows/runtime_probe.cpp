@@ -2046,6 +2046,86 @@ int wmain(int argc,wchar_t** argv) {
                 physics::position::error(secondary->position,bone.local)<.00002f,"physics local pose restoration failed");
             check(physics::restore(nullptr)&&context.restores==1&&physics::release_ready(),"physics restoration was not idempotent");
             physics::reset_context();
+            // Open skirt with a single real bone and a virtual tip, beside
+            // an unrelated hair strand. The hem has no other movable point.
+            context.particle_count=4;
+            context.particles[0].real=context.particles[0].skirt=true;
+            context.particles[1].parent_global=0;
+            context.particles[2].real=true;
+            context.particles[3].parent_global=2;
+            check(physics::skirt_tip_contact(1)&&!physics::skirt_tip_contact(3),"open skirt tip or hair incorrectly classified");
+            context.particles[3].parent_global=0;
+            check(!physics::skirt_tip_contact(1),"branched open skirt classified as a single-bone flap");
+            context.upper_ring=true;
+            check(physics::skirt_tip_contact(1),"closed skirt lost hem collision");
+            // Nahida, 14.731 s. E22's center line misses the raised left thigh;
+            // the inner portion of the same flap overlaps it in the hip plane.
+            namespace bc=gimmd::body_collision;
+            context.hip_up={0,1,0};context.hip_right={1,0,0};
+            bc::Capsule thighs[physics::BodyCapsules]{};
+            thighs[6]={{-.05824f,.00120f,0},{-.00046f,.07111f,.30284f},.06323f};
+            thighs[8]={{.05824f,-.00123f,0},{.03095f,-.25172f,.19091f},.06323f};
+            const bc::Vec anchor{-.12390f,.03880f,.15916f},tip{-.20273f,.03857f,.26101f};
+            const auto inner=[](bc::Vec v){v.x*=.2f;return v;};
+            const auto base=bc::sub(tip,anchor);
+            const float depth=bc::inner_flap_lift(tip,inner(tip),context.hip_up,thighs[6]);
+            check(bc::distance(thighs[6],tip)>.18f&&depth>.07f,"recorded inner hem contact missed");
+            const auto lifted=physics::lift_front_flap(anchor,base,bc::length(base),thighs);
+            const auto hem=bc::add(anchor,lifted);
+            check(bc::inner_flap_lift(hem,inner(hem),context.hip_up,thighs[6])<.012f&&
+                  std::abs(bc::length(lifted)-bc::length(base))<.00001f,"inner hem clearance or length regressed");
+            check(bc::inner_flap_lift(tip,inner(tip),context.hip_up,thighs[8])==0,"lowered leg lifted the opposite flap");
+            // After the hem fix, Nahida's left E22 still overlapped the raised
+            // thigh at 14.734 s. Move the attachment by the residual, measured
+            // from the restored local position every step.
+            thighs[6]={{-.05824f,.00122f,0},{.00003f,.07589f,.30160f},.06323f};
+            const bc::Vec elbow{-.12515f,.04112f,.16065f};
+            const float needed=physics::inner_clearance(elbow,thighs);
+            physics::UpperSkirt attachment{};
+            attachment.response=.21f;attachment.step_limit=.065f;
+            constexpr float test_length=.14f;
+            for(unsigned i=0;i<90;++i)attachment.root_lift=physics::next_root_lift(attachment,needed,test_length);
+            const auto displaced=bc::add(elbow,bc::scale(context.hip_up,attachment.root_lift));
+            check(needed>.05f&&attachment.root_lift<=.060001f&&physics::inner_clearance(displaced,thighs)<.01f,
+                  "bounded root lift did not clear the front attachment");
+            for(unsigned i=0;i<90;++i)attachment.root_lift=physics::next_root_lift(attachment,0,test_length);
+            check(attachment.root_lift<.00001f,"attachment stayed raised after thigh clearance");
+            {
+                // 14.342 s, opposite knee raised. Isolate the root feedback
+                // using midpoint samples from the recorded front chains.
+                namespace sc=gimmd::skinned_cloth;
+                const bc::Vec joints[]={{-.090541f,.012508f,.139026f},{.129338f,.081474f,.180699f}};
+                const bc::Vec ends[]={{-.138340f,-.082936f,.211114f},{.203233f,.099562f,.284601f}};
+                const bc::Capsule down{{-.058247f,-.000789f,0},{-.018107f,-.299867f,.094206f},.063226f};
+                const bc::Capsule knee{{.058249f,.000819f,0},{.036570f,.039799f,.312962f},.063226f};
+                sc::FrontPose base_pose{};
+                for(unsigned row=0;row<3;++row){
+                    const float t=.5f*row;
+                    for(unsigned b=0;b<4;++b){
+                        const auto side=b/2;
+                        base_pose.offset[row][b]=bc::add(bc::scale(joints[side],1-t),bc::scale(ends[side],t));
+                    }
+                }
+                const float no_twist[4]{};
+                const auto gap=[&](const sc::FrontPose& pose,float remove){
+                    return sc::front_overlap(pose,no_twist,context.hip_up,down,knee,remove);
+                };
+                const float before_gap=gap(base_pose,0);
+                auto corrected_pose=base_pose;
+                attachment.root_lift=0;
+                for(unsigned i=0;i<60;++i){
+                    const float requested_lift=gap(corrected_pose,attachment.root_lift);
+                    attachment.root_lift=physics::next_root_lift(attachment,requested_lift,test_length);
+                    for(auto& origin:corrected_pose.origin)origin=bc::scale(context.hip_up,attachment.root_lift);
+                }
+                check(before_gap>.085f&&gap(corrected_pose,0)<.028f&&attachment.root_lift<=.06f,
+                      "central contact failed to engage the available root travel");
+                check(std::abs(gap(corrected_pose,attachment.root_lift)-before_gap)<.00001f,
+                      "seam feedback counted applied translation twice");
+                check(sc::front_overlap(corrected_pose,no_twist,context.hip_up,down,down,attachment.root_lift)==0,
+                      "lowered knees kept requesting shared root lift");
+            }
+            physics::reset_context();
         }
 #endif
         std::cout << checks << " runtime observer checks passed in synthetic host\n";

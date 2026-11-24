@@ -207,16 +207,46 @@ int wmain(int argc, wchar_t** argv) {
             check(bc::finite(reversed)&&near(reversed.y,.2),"opposite direction transport became singular");
         }
         {
+            namespace bc=gimmd::body_collision;
+            const bc::Vec outward{0,0,1},up{0,1,0};
+            const bc::Capsule raised{{0,0,0},{0,.048f,.312f},.063f};
+            const auto push=bc::flap_contact_direction(outward,up,raised);
+            bc::Vec flap{0,.025f,.18f},history=flap;
+            check(bc::project_outward(raised,raised.radius,flap,history,push)&&flap.y>.08f&&bc::distance(raised,flap)>=raised.radius,"front flap failed to lift above a horizontal thigh");
+            check(bc::flap_contact_direction(outward,up,{{},{0,-1,0},.06f}).y==0,"standing thigh lifted the flap");
             gimmd::physics_controls::Settings settings;
+            std::istringstream extended("GIMMD_PHYSICS_V1 80 45 3 3 20 20 95");
+            check(gimmd::physics_controls::read(extended,settings),"extended front angle refused");
             std::istringstream valid("GIMMD_PHYSICS_V1\n25 9 1.6 .3 80 220 94\n");
             check(gimmd::physics_controls::read(valid,settings)&&near(settings.front_angle,25)&&near(settings.rear_response_ms,220)&&near(settings.support_percent,94),"custom physics controls were not read");
-            for(const char* input:{"GIMMD_PHYSICS_V2 24 10 1.5 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10", "GIMMD_PHYSICS_V1 46 10 1.5 .4 60 160 95",
+            for(const char* input:{"GIMMD_PHYSICS_V2 24 10 1.5 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10", "GIMMD_PHYSICS_V1 81 10 1.5 .4 60 160 95",
                 "GIMMD_PHYSICS_V1 24 10 -1 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 0 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 60 160 101",
                 "GIMMD_PHYSICS_V1 24 10 nan .4 60 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 60 160 95 extra"}){
                 std::istringstream invalid_controls(input);check(!gimmd::physics_controls::read(invalid_controls,settings)&&near(settings.front_angle,25)&&near(settings.support_percent,94),"invalid physics controls partially replaced settings");}
         }
         {
             namespace surface=gimmd::cloth_surface;namespace bc=gimmd::body_collision;
+            {
+                // Nahida at 19.075 s: the extended leg crosses the middle
+                // of the left side panel, without touching any corner.
+                const bc::Vec side[4]={{-.067893f,-.003904f,.133190f},{-.107714f,-.070624f,.235909f},
+                                       {-.135932f,-.033900f,-.079260f},{-.222987f,-.129041f,-.116729f}};
+                const bc::Capsule leg{{-.058066f,.004667f,0},{-.264077f,-.204606f,.117011f},.063226f};
+                for(const auto p:side)check(bc::distance(leg,p)>leg.radius,"side-contact fixture touches a corner");
+                const float before_depth=surface::side_depth(side,leg);
+                const auto shift=surface::side_offset(side,leg,{-1,0,0},{0,1,0},.085f);
+                check(before_depth>.059f&&surface::side_depth(side,leg,shift)<.018f,"side panel still intersects the extended thigh");
+                check(shift.x<0&&shift.y>0&&bc::length(shift)<=.08501f,"side panel correction exceeded travel or moved inward");
+                const bc::Capsule forward{{-.058f,0,0},{-.058f,.04f,.313f},.063f};
+                check(bc::length(surface::side_offset(side,forward,{-1,0,0},{0,1,0},.085f))==0,"front knee lift activated side correction");
+                const bc::Vec far_side[4]={{.118455f,.017079f,.123590f},{.164356f,-.094544f,.168509f},
+                                          {.180498f,.000993f,-.070253f},{.251626f,-.112624f,-.078745f}};
+                check(surface::side_depth(far_side,leg)==0,"side contact crossed to the far panel");
+                bc::Vec mirrored[4];for(unsigned i=0;i<4;++i)mirrored[i]={-side[i].x,side[i].y,side[i].z};
+                const bc::Capsule other{{-leg.a.x,leg.a.y,leg.a.z},{-leg.b.x,leg.b.y,leg.b.z},leg.radius};
+                const auto opposite=surface::side_offset(mirrored,other,{1,0,0},{0,1,0},.085f);
+                check(bc::length(bc::sub(opposite,{-shift.x,shift.y,shift.z}))<.0001f,"mirrored side contact is asymmetric");
+            }
             bc::Vec triangle[3]{{-1,-1,.05f},{1,-1,.05f},{0,1,.05f}};
             const bc::Capsule leg{{0,-.3f,0},{0,.3f,0},.2f};
             const auto nearest=surface::nearest_capsule(triangle,leg);
@@ -231,6 +261,33 @@ int wmain(int argc, wchar_t** argv) {
         }
         {
             namespace skin=gimmd::skinned_cloth;namespace bc=gimmd::body_collision;
+            {
+                // Reconstruct front-center samples between the measured flap
+                // chains at 14.797 s. Both centerlines clear the raised thigh.
+                skin::FrontPose pose{};
+                const bc::Vec left_joint{-.13562f,.11004f,.17004f},right_joint{.10973f,.10576f,.18887f};
+                const bc::Vec left_tip{-.20979f,.14406f,.26969f},right_tip{.16772f,.16214f,.28908f};
+                for(unsigned i=0;i<4;++i){
+                    pose.origin[i]=i<2?left_joint:right_joint;
+                    auto d=bc::sub(i<2?left_tip:right_tip,pose.origin[i]);pose.axis[i]=bc::scale(d,1/bc::length(d));
+                }
+                for(unsigned row=0;row<3;++row){
+                    const float t=1-.5f*row;
+                    const auto mid=bc::scale(bc::add(bc::scale(bc::add(left_tip,right_tip),t),
+                                                     bc::scale(bc::add(left_joint,right_joint),1-t)),.5f);
+                    for(unsigned i=0;i<4;++i)pose.offset[row][i]=bc::sub(mid,pose.origin[i]);
+                }
+                const bc::Capsule knee{{-.05824f,.00120f,0},{.00493f,.10711f,.29108f},.06323f},down{{},{0,-.3f,0},.063f};
+                float angles[4]{};
+                const auto deficit=[&](){float result=0;for(unsigned row=0;row<3;++row){
+                    const auto v=pose.sample(row,angles);result=std::max(result,bc::inner_flap_lift(v,v,{0,1,0},knee));}return result;};
+                check(deficit()>.02f,"fixture failed to reproduce front seam contact");
+                for(unsigned step=0;step<30;++step)skin::support_front(pose,{0,1,0},knee,down,.523599f,angles);
+                check(deficit()<.005f,"paired axial support did not clear the centerline");
+                for(unsigned i=0;i<4;++i)check(bc::length(bc::sub(skin::axial_turn(pose.axis[i],pose.axis[i],angles[i]),pose.axis[i]))<1e-5f,"seam support displaced a joint endpoint");
+                for(unsigned step=0;step<30;++step)skin::support_front(pose,{0,1,0},down,down,.523599f,angles);
+                for(float angle:angles)check(std::abs(angle)<1e-5f,"front seam twist did not release");
+            }
             // Barbara's B04 failure at 6 s: a roughly 13 cm segment predicted
             // more than four metres of travel after a contact correction.
             const bc::Vec tip{.019f,.023f,.428f};
