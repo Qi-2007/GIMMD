@@ -16,8 +16,10 @@ static unsigned checks = 0, overrides = 0, resolve_failures = 0, restore_attempt
 static DWORD exception = 0;
 static std::atomic<bool> dirty{false};
 static std::atomic<unsigned> setter_calls{0};
+static bool (*aux_begin)(void*)=nullptr;
+static bool (*aux_release)()=nullptr;
 static void configure(uintptr_t base) {
-    model = nullptr; component_identity = 0; bound = before = acquired = restored = refused = false;
+    model = nullptr; aux_begin=nullptr;aux_release=nullptr; component_identity = 0; bound = before = acquired = restored = refused = false;
     checks = overrides = resolve_failures = restore_attempts = 0; exception = 0;
     dirty.store(false); setter_calls.store(0);
     set = Enabled ? reinterpret_cast<Setter>(entry("BehaviourEnabledSet", base)) : nullptr;
@@ -63,7 +65,7 @@ static bool begin() {
         const bool enabled = animator_observer::metadata::enabled_get(component);
         if (acquired) {
             ++checks;
-            if (!enabled) return true;
+            if (!enabled) { if(!aux_begin||aux_begin(model(&active)))return true;refused=true;return false; }
             ++overrides; refused = true; return false;
         }
         before = enabled;
@@ -71,12 +73,14 @@ static bool begin() {
         dirty.store(true); setter_calls.fetch_add(1); set(component, false);
         component = resolve(&active);
         acquired = component && active && !animator_observer::metadata::enabled_get(component);
+        if(acquired&&aux_begin&&!aux_begin(model(&active)))acquired=false;
         refused = !acquired;
         return acquired;
     } __except (EXCEPTION_EXECUTE_HANDLER) { exception = GetExceptionCode(); refused = true; return false; }
 }
 static bool release() {
     if (!dirty.load()) return true;
+    if(aux_release&&!aux_release())return false;
     if (restore_attempts >= 8) return false;
     __try {
         bool active = true; void* component = resolve(&active);

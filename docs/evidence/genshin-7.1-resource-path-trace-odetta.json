@@ -1,0 +1,1541 @@
+{
+  "enabled": true,
+  "status": "trace-observed",
+  "calls": 152,
+  "entryRestored": true,
+  "activeCallbacks": 0,
+  "records": [
+    {
+      "thread": 24280,
+      "index": 16004179,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16004179.blk"
+    },
+    {
+      "thread": 24280,
+      "index": 16004179,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16004179.blk"
+    },
+    {
+      "thread": 24280,
+      "index": 16004179,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16004179.blk"
+    },
+    {
+      "thread": 24280,
+      "index": 16004179,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16004179.blk"
+    },
+    {
+      "thread": 24280,
+      "index": 16004179,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16004179.blk"
+    },
+    {
+      "thread": 24280,
+      "index": 16004179,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16004179.blk"
+    },
+    {
+      "thread": 24280,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 15715429,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15715429.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 676204,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00676204.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 676204,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00676204.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 9921188,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/09921188.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 12005369,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/12005369.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 11372219,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/11372219.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 15009257,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15009257.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 15009257,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15009257.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 14338897,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/14338897.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 15009257,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15009257.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2807196,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02807196.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 12005369,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/12005369.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 12005369,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/12005369.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 15009257,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15009257.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 18308,
+      "index": 1519603,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/01519603.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4338396,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04338396.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 265660,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 3950401,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/03950401.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 682376,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00682376.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 630208,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00630208.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 11206375,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/11206375.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 612967,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00612967.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 2807196,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02807196.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 2050112,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02050112.blk"
+    },
+    {
+      "thread": 27104,
+      "index": 4592171,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/04592171.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 35183,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00035183.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 3950401,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/03950401.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 9908980,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/09908980.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 2518699,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02518699.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 14977922,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/14977922.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 730246,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00730246.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 12581393,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/12581393.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 7164775,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/07164775.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 2168901,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/02168901.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10348240,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10348240.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 6948878,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/06948878.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 15637447,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15637447.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 5785566,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/05785566.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 5785566,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/05785566.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 5785566,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/05785566.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 5785566,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/05785566.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 5785566,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/05785566.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 5785566,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/05785566.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 15241445,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/15241445.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 14754328,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/14754328.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 10724632,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/10724632.blk"
+    },
+    {
+      "thread": 13984,
+      "index": 14754328,
+      "category": 0,
+      "success": true,
+      "stringsValid": true,
+      "root": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks",
+      "suffix": ".blk",
+      "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/14754328.blk"
+    }
+  ],
+  "hashStatus": "hash-loads-observed",
+  "hashCalls": 1,
+  "hashRecords": [
+    {
+      "thread": 13984,
+      "hash": 1530916610,
+      "returnedObject": true,
+      "namesRead": true,
+      "bundle": "66178/f784a1098a90cf1a.asb",
+      "asset": "EventPattern_Girl_Bow_Linnea"
+    }
+  ]
+}

@@ -1,0 +1,2097 @@
+{
+  "mode": "offline-explicit-rva-disassembly",
+  "sha256": "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5",
+  "linearWindow": true,
+  "note": "Instruction boundaries and semantics require review; linear windows may include adjacent functions; this output does not authorize engine calls.",
+  "functions": [
+    {
+      "rva": "0x4bbb60",
+      "unwindRange": null,
+      "instructions": [
+        {
+          "rva": "0x4bbb60",
+          "text": "mov rdx, qword ptr [rcx + 0x30]"
+        },
+        {
+          "rva": "0x4bbb64",
+          "text": "test rdx, rdx"
+        },
+        {
+          "rva": "0x4bbb67",
+          "text": "je 0x4bbb7a"
+        },
+        {
+          "rva": "0x4bbb69",
+          "text": "movabs rax, 0xbac097f389642a26"
+        },
+        {
+          "rva": "0x4bbb73",
+          "text": "add rax, qword ptr [rdx + 8]"
+        },
+        {
+          "rva": "0x4bbb77",
+          "text": "je 0x4bbb7a"
+        },
+        {
+          "rva": "0x4bbb79",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbb7a",
+          "text": "jmp 0x531e50",
+          "branchTarget": "0x531e50"
+        },
+        {
+          "rva": "0x4bbb7f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb80",
+          "text": "movzx eax, byte ptr [rcx + 0x2f]"
+        },
+        {
+          "rva": "0x4bbb84",
+          "text": "and al, 1"
+        },
+        {
+          "rva": "0x4bbb86",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbb87",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb88",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb89",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb8a",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb8b",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb8c",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb8d",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb8e",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb8f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb90",
+          "text": "movzx eax, byte ptr [rcx + 0x2f]"
+        },
+        {
+          "rva": "0x4bbb94",
+          "text": "and al, 0x20"
+        },
+        {
+          "rva": "0x4bbb96",
+          "text": "shr al, 5"
+        },
+        {
+          "rva": "0x4bbb99",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbb9a",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb9b",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb9c",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb9d",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb9e",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbb9f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbba0",
+          "text": "test byte ptr [rcx + 0x2c], 0x10"
+        },
+        {
+          "rva": "0x4bbba4",
+          "text": "sete al"
+        },
+        {
+          "rva": "0x4bbba7",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbba8",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbba9",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbaa",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbab",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbac",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbad",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbae",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbaf",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbb0",
+          "text": "movzx eax, byte ptr [rcx + 0x2e]"
+        },
+        {
+          "rva": "0x4bbbb4",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbbb5",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbb6",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbb7",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbb8",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbb9",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbba",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbbb",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbbc",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbbd",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbbe",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbbf",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbbc0",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x4bbbc1",
+          "text": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x4bbbc5",
+          "text": "movzx eax, byte ptr [rcx + 0x2e]"
+        },
+        {
+          "rva": "0x4bbbc9",
+          "text": "cmp eax, edx"
+        },
+        {
+          "rva": "0x4bbbcb",
+          "text": "jbe 0x4bbbff"
+        },
+        {
+          "rva": "0x4bbbcd",
+          "text": "mov esi, edx"
+        },
+        {
+          "rva": "0x4bbbcf",
+          "text": "mov rdx, qword ptr [rcx + 0x30]"
+        },
+        {
+          "rva": "0x4bbbd3",
+          "text": "test rdx, rdx"
+        },
+        {
+          "rva": "0x4bbbd6",
+          "text": "je 0x4bbbf8"
+        },
+        {
+          "rva": "0x4bbbd8",
+          "text": "movabs rax, 0x5ffd551a449b9525"
+        },
+        {
+          "rva": "0x4bbbe2",
+          "text": "xor rax, qword ptr [rdx]"
+        },
+        {
+          "rva": "0x4bbbe5",
+          "text": "je 0x4bbbf8"
+        },
+        {
+          "rva": "0x4bbbe7",
+          "text": "mov ecx, esi"
+        },
+        {
+          "rva": "0x4bbbe9",
+          "text": "lea rcx, [rcx + rcx*2]"
+        },
+        {
+          "rva": "0x4bbbed",
+          "text": "mov rax, qword ptr [rax + rcx*8 + 8]"
+        },
+        {
+          "rva": "0x4bbbf2",
+          "text": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x4bbbf6",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x4bbbf7",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbbf8",
+          "text": "call 0x532210",
+          "branchTarget": "0x532210"
+        },
+        {
+          "rva": "0x4bbbfd",
+          "text": "jmp 0x4bbbe7",
+          "branchTarget": "0x4bbbe7"
+        },
+        {
+          "rva": "0x4bbbff",
+          "text": "xor eax, eax"
+        },
+        {
+          "rva": "0x4bbc01",
+          "text": "add rsp, 0x20"
+        },
+        {
+          "rva": "0x4bbc05",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x4bbc06",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbc07",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc08",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc09",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc0a",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc0b",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc0c",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc0d",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc0e",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc0f",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbc10",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x4bbc11",
+          "text": "push rdi"
+        },
+        {
+          "rva": "0x4bbc12",
+          "text": "sub rsp, 0x38"
+        },
+        {
+          "rva": "0x4bbc16",
+          "text": "mov rdi, rdx"
+        },
+        {
+          "rva": "0x4bbc19",
+          "text": "test byte ptr [rcx + 0x2f], 0x20"
+        },
+        {
+          "rva": "0x4bbc1d",
+          "text": "jne 0x4bbc25"
+        },
+        {
+          "rva": "0x4bbc1f",
+          "text": "lea rax, [rcx + 0x18]"
+        },
+        {
+          "rva": "0x4bbc23",
+          "text": "jmp 0x4bbc29",
+          "branchTarget": "0x4bbc29"
+        },
+        {
+          "rva": "0x4bbc25",
+          "text": "mov rax, qword ptr [rcx + 0x20]"
+        },
+        {
+          "rva": "0x4bbc29",
+          "text": "mov edx, 0x6000000"
+        },
+        {
+          "rva": "0x4bbc2e",
+          "text": "or edx, dword ptr [rax]"
+        },
+        {
+          "rva": "0x4bbc30",
+          "text": "mov rax, qword ptr [rcx]"
+        },
+        {
+          "rva": "0x4bbc33",
+          "text": "mov rax, qword ptr [rax]"
+        },
+        {
+          "rva": "0x4bbc36",
+          "text": "mov rcx, qword ptr [rip + 0x570d2bb]",
+          "ripReferences": [
+            {
+              "rva": "0x5bc8ef8"
+            }
+          ]
+        },
+        {
+          "rva": "0x4bbc3d",
+          "text": "mov esi, 0xdb2820c6"
+        },
+        {
+          "rva": "0x4bbc42",
+          "text": "add esi, dword ptr [rcx + 0x1c8]"
+        },
+        {
+          "rva": "0x4bbc48",
+          "text": "movsxd rsi, esi"
+        },
+        {
+          "rva": "0x4bbc4b",
+          "text": "add rsi, qword ptr [rip + 0x570d2ae]",
+          "ripReferences": [
+            {
+              "rva": "0x5bc8f00"
+            }
+          ]
+        },
+        {
+          "rva": "0x4bbc52",
+          "text": "mov qword ptr [rsp + 0x30], 0"
+        },
+        {
+          "rva": "0x4bbc5b",
+          "text": "mov dword ptr [rsp + 0x30], edx"
+        },
+        {
+          "rva": "0x4bbc5f",
+          "text": "mov r8d, 0x951660af"
+        },
+        {
+          "rva": "0x4bbc65",
+          "text": "add r8d, dword ptr [rax + 0x14]"
+        },
+        {
+          "rva": "0x4bbc69",
+          "text": "mov ecx, 0xf5d0f948"
+        },
+        {
+          "rva": "0x4bbc6e",
+          "text": "add ecx, dword ptr [rax + 0x10]"
+        },
+        {
+          "rva": "0x4bbc71",
+          "text": "movsxd rax, ecx"
+        },
+        {
+          "rva": "0x4bbc74",
+          "text": "lea rdx, [rsi + rax*8]"
+        },
+        {
+          "rva": "0x4bbc78",
+          "text": "lea rax, [rip + 0x73191]",
+          "ripReferences": [
+            {
+              "rva": "0x52ee10"
+            }
+          ]
+        },
+        {
+          "rva": "0x4bbc7f",
+          "text": "mov qword ptr [rsp + 0x20], rax"
+        },
+        {
+          "rva": "0x4bbc84",
+          "text": "lea rcx, [rsp + 0x30]"
+        },
+        {
+          "rva": "0x4bbc89",
+          "text": "mov r9d, 8"
+        },
+        {
+          "rva": "0x4bbc8f",
+          "text": "call 0x1cbb218",
+          "branchTarget": "0x1cbb218"
+        },
+        {
+          "rva": "0x4bbc94",
+          "text": "mov rdx, rax"
+        },
+        {
+          "rva": "0x4bbc97",
+          "text": "sub rdx, rsi"
+        },
+        {
+          "rva": "0x4bbc9a",
+          "text": "shr rdx, 3"
+        },
+        {
+          "rva": "0x4bbc9e",
+          "text": "xor ecx, ecx"
+        },
+        {
+          "rva": "0x4bbca0",
+          "text": "cmp rax, 1"
+        },
+        {
+          "rva": "0x4bbca4",
+          "text": "sbb ecx, ecx"
+        },
+        {
+          "rva": "0x4bbca6",
+          "text": "or ecx, edx"
+        },
+        {
+          "rva": "0x4bbca8",
+          "text": "mov rdx, rdi"
+        },
+        {
+          "rva": "0x4bbcab",
+          "text": "call 0x52f910",
+          "branchTarget": "0x52f910"
+        },
+        {
+          "rva": "0x4bbcb0",
+          "text": "nop "
+        },
+        {
+          "rva": "0x4bbcb1",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x4bbcb5",
+          "text": "pop rdi"
+        },
+        {
+          "rva": "0x4bbcb6",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x4bbcb7",
+          "text": "ret "
+        },
+        {
+          "rva": "0x4bbcb8",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcb9",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcba",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcbb",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcbc",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcbd",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcbe",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcbf",
+          "text": "int3 "
+        },
+        {
+          "rva": "0x4bbcc0",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x4bbcc1",
+          "text": "sub rsp, 0x20"
+        },
+        {
+          "rva": "0x4bbcc5",
+          "text": "movzx eax, byte ptr [rcx + 0x2e]"
+        },
+        {
+          "rva": "0x4bbcc9",
+          "text": "cmp eax, edx"
+        },
+        {
+          "rva": "0x4bbccb",
+          "text": "jbe 0x4bbcf7"
+        },
+        {
+          "rva": "0x4bbccd",
+          "text": "mov esi, edx"
+        },
+        {
+          "rva": "0x4bbccf",
+          "text": "mov rdx, qword ptr [rcx + 0x30]"
+        },
+        {
+          "rva": "0x4bbcd3",
+          "text": "test rdx, rdx"
+        },
+        {
+          "rva": "0x4bbcd6",
+          "text": "je 0x4bbcff"
+        },
+        {
+          "rva": "0x4bbcd8",
+          "text": "movabs rax, 0x5ffd551a449b9525"
+        },
+        {
+          "rva": "0x4bbce2",
+          "text": "xor rax, qword ptr [rdx]"
+        },
+        {
+          "rva": "0x4bbce5",
+          "text": "je 0x4bbcff"
+        },
+        {
+          "rva": "0x4bbce7",
+          "text": "mov ecx, esi"
+        },
+        {
+          "rva": "0x4bbce9",
+          "text": "lea rcx, [rcx + rcx*2]"
+        }
+      ]
+    },
+    {
+      "rva": "0x51aa40",
+      "unwindRange": [
+        "0x51aa40",
+        "0x51abd1"
+      ],
+      "instructions": [
+        {
+          "rva": "0x51aa40",
+          "text": "push rbp"
+        },
+        {
+          "rva": "0x51aa41",
+          "text": "push r15"
+        },
+        {
+          "rva": "0x51aa43",
+          "text": "push r14"
+        },
+        {
+          "rva": "0x51aa45",
+          "text": "push r13"
+        },
+        {
+          "rva": "0x51aa47",
+          "text": "push r12"
+        },
+        {
+          "rva": "0x51aa49",
+          "text": "push rsi"
+        },
+        {
+          "rva": "0x51aa4a",
+          "text": "push rdi"
+        },
+        {
+          "rva": "0x51aa4b",
+          "text": "push rbx"
+        },
+        {
+          "rva": "0x51aa4c",
+          "text": "sub rsp, 0x38"
+        },
+        {
+          "rva": "0x51aa50",
+          "text": "lea rbp, [rsp + 0x30]"
+        },
+        {
+          "rva": "0x51aa55",
+          "text": "mov qword ptr [rbp], 0xfffffffffffffffe"
+        },
+        {
+          "rva": "0x51aa5d",
+          "text": "test rcx, rcx"
+        },
+        {
+          "rva": "0x51aa60",
+          "text": "je 0x51abbb"
+        },
+        {
+          "rva": "0x51aa66",
+          "text": "mov r12d, r9d"
+        },
+        {
+          "rva": "0x51aa69",
+          "text": "mov edi, r8d"
+        },
+        {
+          "rva": "0x51aa6c",
+          "text": "mov r14, rdx"
+        },
+        {
+          "rva": "0x51aa6f",
+          "text": "mov rbx, rcx"
+        },
+        {
+          "rva": "0x51aa72",
+          "text": "mov ecx, dword ptr [rbp + 0x70]"
+        },
+        {
+          "rva": "0x51aa75",
+          "text": "movabs r15, 0xbac097f389642a26"
+        },
+        {
+          "rva": "0x51aa7f",
+          "text": "nop "
+        },
+        {
+          "rva": "0x51aa80",
+          "text": "xor r13d, r13d"
+        },
+        {
+          "rva": "0x51aa83",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x51aa90",
+          "text": "test r13, r13"
+        },
+        {
+          "rva": "0x51aa93",
+          "text": "je 0x51aad0"
+        },
+        {
+          "rva": "0x51aa95",
+          "text": "add r13, 8"
+        },
+        {
+          "rva": "0x51aa99",
+          "text": "movzx eax, word ptr [rbx + 0xc2]"
+        },
+        {
+          "rva": "0x51aaa0",
+          "text": "shl rax, 3"
+        },
+        {
+          "rva": "0x51aaa4",
+          "text": "add rax, qword ptr [rbx + 0x98]"
+        },
+        {
+          "rva": "0x51aaab",
+          "text": "cmp r13, rax"
+        },
+        {
+          "rva": "0x51aaae",
+          "text": "jae 0x51aba0"
+        },
+        {
+          "rva": "0x51aab4",
+          "text": "mov rsi, qword ptr [r13]"
+        },
+        {
+          "rva": "0x51aab8",
+          "text": "test rsi, rsi"
+        },
+        {
+          "rva": "0x51aabb",
+          "text": "jne 0x51ab38"
+        },
+        {
+          "rva": "0x51aabd",
+          "text": "jmp 0x51aba0",
+          "branchTarget": "0x51aba0"
+        },
+        {
+          "rva": "0x51aac2",
+          "text": "nop word ptr cs:[rax + rax]"
+        },
+        {
+          "rva": "0x51aad0",
+          "text": "movzx eax, word ptr [rbx + 0xc2]"
+        },
+        {
+          "rva": "0x51aad7",
+          "text": "test ax, ax"
+        },
+        {
+          "rva": "0x51aada",
+          "text": "jne 0x51aae9"
+        },
+        {
+          "rva": "0x51aadc",
+          "text": "test byte ptr [rbx + 0xc8], 0xe"
+        },
+        {
+          "rva": "0x51aae3",
+          "text": "je 0x51aba0"
+        },
+        {
+          "rva": "0x51aae9",
+          "text": "cmp qword ptr [rbx + 0x98], 0"
+        },
+        {
+          "rva": "0x51aaf1",
+          "text": "jne 0x51ab23"
+        },
+        {
+          "rva": "0x51aaf3",
+          "text": "mov rcx, qword ptr [rip + 0x56aeaae]",
+          "ripReferences": [
+            {
+              "rva": "0x5bc95a8"
+            }
+          ]
+        },
+        {
+          "rva": "0x51aafa",
+          "text": "call qword ptr [rip + 0x36916f0]",
+          "ripReferences": [
+            {
+              "rva": "0x3bac1f0"
+            }
+          ]
+        },
+        {
+          "rva": "0x51ab00",
+          "text": "mov rcx, rbx"
+        },
+        {
+          "rva": "0x51ab03",
+          "text": "lea rdx, [rbp - 8]"
+        },
+        {
+          "rva": "0x51ab07",
+          "text": "call 0x51e2c0",
+          "branchTarget": "0x51e2c0"
+        },
+        {
+          "rva": "0x51ab0c",
+          "text": "mov rcx, qword ptr [rip + 0x56aea95]",
+          "ripReferences": [
+            {
+              "rva": "0x5bc95a8"
+            }
+          ]
+        },
+        {
+          "rva": "0x51ab13",
+          "text": "call qword ptr [rip + 0x3691adf]",
+          "ripReferences": [
+            {
+              "rva": "0x3bac5f8"
+            }
+          ]
+        },
+        {
+          "rva": "0x51ab19",
+          "text": "movzx eax, word ptr [rbx + 0xc2]"
+        },
+        {
+          "rva": "0x51ab20",
+          "text": "mov ecx, dword ptr [rbp + 0x70]"
+        },
+        {
+          "rva": "0x51ab23",
+          "text": "test ax, ax"
+        },
+        {
+          "rva": "0x51ab26",
+          "text": "je 0x51aba0"
+        },
+        {
+          "rva": "0x51ab28",
+          "text": "mov r13, qword ptr [rbx + 0x98]"
+        },
+        {
+          "rva": "0x51ab2f",
+          "text": "mov rsi, qword ptr [r13]"
+        },
+        {
+          "rva": "0x51ab33",
+          "text": "test rsi, rsi"
+        },
+        {
+          "rva": "0x51ab36",
+          "text": "je 0x51aba0"
+        },
+        {
+          "rva": "0x51ab38",
+          "text": "mov rax, qword ptr [rsi + 0x30]"
+        },
+        {
+          "rva": "0x51ab3c",
+          "text": "test rax, rax"
+        },
+        {
+          "rva": "0x51ab3f",
+          "text": "je 0x51ab8b"
+        },
+        {
+          "rva": "0x51ab41",
+          "text": "mov rdx, qword ptr [rax + 8]"
+        },
+        {
+          "rva": "0x51ab45",
+          "text": "add rdx, r15"
+        },
+        {
+          "rva": "0x51ab48",
+          "text": "je 0x51ab8b"
+        },
+        {
+          "rva": "0x51ab4a",
+          "text": "cmp edi, -1"
+        },
+        {
+          "rva": "0x51ab4d",
+          "text": "je 0x51ab5b"
+        },
+        {
+          "rva": "0x51ab4f",
+          "text": "movzx eax, byte ptr [rsi + 0x2e]"
+        },
+        {
+          "rva": "0x51ab53",
+          "text": "cmp eax, edi"
+        },
+        {
+          "rva": "0x51ab55",
+          "text": "jne 0x51aa90"
+        },
+        {
+          "rva": "0x51ab5b",
+          "text": "movzx eax, word ptr [rsi + 0x2c]"
+        },
+        {
+          "rva": "0x51ab5f",
+          "text": "and eax, r12d"
+        },
+        {
+          "rva": "0x51ab62",
+          "text": "cmp eax, ecx"
+        },
+        {
+          "rva": "0x51ab64",
+          "text": "jne 0x51aa90"
+        },
+        {
+          "rva": "0x51ab6a",
+          "text": "movzx eax, byte ptr [rdx]"
+        },
+        {
+          "rva": "0x51ab6d",
+          "text": "cmp al, byte ptr [r14]"
+        },
+        {
+          "rva": "0x51ab70",
+          "text": "jne 0x51aa90"
+        },
+        {
+          "rva": "0x51ab76",
+          "text": "mov rcx, r14"
+        },
+        {
+          "rva": "0x51ab79",
+          "text": "call 0x1c46640",
+          "branchTarget": "0x1c46640"
+        },
+        {
+          "rva": "0x51ab7e",
+          "text": "mov ecx, dword ptr [rbp + 0x70]"
+        },
+        {
+          "rva": "0x51ab81",
+          "text": "test eax, eax"
+        },
+        {
+          "rva": "0x51ab83",
+          "text": "jne 0x51aa90"
+        },
+        {
+          "rva": "0x51ab89",
+          "text": "jmp 0x51abbd",
+          "branchTarget": "0x51abbd"
+        },
+        {
+          "rva": "0x51ab8b",
+          "text": "mov rcx, rsi"
+        },
+        {
+          "rva": "0x51ab8e",
+          "text": "call 0x531e50",
+          "branchTarget": "0x531e50"
+        },
+        {
+          "rva": "0x51ab93",
+          "text": "mov ecx, dword ptr [rbp + 0x70]"
+        },
+        {
+          "rva": "0x51ab96",
+          "text": "mov rdx, rax"
+        },
+        {
+          "rva": "0x51ab99",
+          "text": "cmp edi, -1"
+        },
+        {
+          "rva": "0x51ab9c",
+          "text": "jne 0x51ab4f"
+        },
+        {
+          "rva": "0x51ab9e",
+          "text": "jmp 0x51ab5b",
+          "branchTarget": "0x51ab5b"
+        },
+        {
+          "rva": "0x51aba0",
+          "text": "mov ebx, dword ptr [rbx + 0xb0]"
+        },
+        {
+          "rva": "0x51aba6",
+          "text": "test rbx, rbx"
+        },
+        {
+          "rva": "0x51aba9",
+          "text": "je 0x51abbb"
+        },
+        {
+          "rva": "0x51abab",
+          "text": "mov rax, qword ptr [rip + 0x56adf1e]",
+          "ripReferences": [
+            {
+              "rva": "0x5bc8ad0"
+            }
+          ]
+        },
+        {
+          "rva": "0x51abb2",
+          "text": "add rbx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x51abb5",
+          "text": "jne 0x51aa80"
+        },
+        {
+          "rva": "0x51abbb",
+          "text": "xor esi, esi"
+        },
+        {
+          "rva": "0x51abbd",
+          "text": "mov rax, rsi"
+        },
+        {
+          "rva": "0x51abc0",
+          "text": "add rsp, 0x38"
+        },
+        {
+          "rva": "0x51abc4",
+          "text": "pop rbx"
+        },
+        {
+          "rva": "0x51abc5",
+          "text": "pop rdi"
+        },
+        {
+          "rva": "0x51abc6",
+          "text": "pop rsi"
+        },
+        {
+          "rva": "0x51abc7",
+          "text": "pop r12"
+        },
+        {
+          "rva": "0x51abc9",
+          "text": "pop r13"
+        },
+        {
+          "rva": "0x51abcb",
+          "text": "pop r14"
+        },
+        {
+          "rva": "0x51abcd",
+          "text": "pop r15"
+        },
+        {
+          "rva": "0x51abcf",
+          "text": "pop rbp"
+        }
+      ]
+    },
+    {
+      "rva": "0x1b1e501",
+      "unwindRange": [
+        "0x1b1e2b0",
+        "0x1b1e6a4"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1b1e501",
+          "text": "lea r9, [rip + 0x1fdcde0]",
+          "ripReferences": [
+            {
+              "rva": "0x3afb2e8",
+              "asciiPrefix": "Animator"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e508",
+          "text": "lea r8, [rip + 0x2000cf9]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e50f",
+          "text": "lea rdx, [rip + 0x1ff0aba]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e516",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e51b",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1b1e520",
+          "text": "lea r9, [rip + 0x1fe9139]",
+          "ripReferences": [
+            {
+              "rva": "0x3b07660",
+              "asciiPrefix": "AnimatorClipInfo"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e527",
+          "text": "lea r8, [rip + 0x2000cda]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e52e",
+          "text": "lea rdx, [rip + 0x1ff0a9b]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e535",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e538",
+          "text": "mov rax, qword ptr [rip + 0x3c95799]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e53f",
+          "text": "mov qword ptr [rax + 0x50], rcx"
+        },
+        {
+          "rva": "0x1b1e543",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e548",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1b1e54d",
+          "text": "lea r9, [rip + 0x1fdebac]",
+          "ripReferences": [
+            {
+              "rva": "0x3afd100",
+              "asciiPrefix": "AnimatorControllerParameter"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e554",
+          "text": "lea r8, [rip + 0x2000cad]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e55b",
+          "text": "lea rdx, [rip + 0x1ff0a6e]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e562",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e565",
+          "text": "mov rax, qword ptr [rip + 0x3c9576c]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e56c",
+          "text": "mov qword ptr [rax + 0x58], rcx"
+        },
+        {
+          "rva": "0x1b1e570",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e575",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1b1e57a",
+          "text": "lea r9, [rip + 0x1fe927f]",
+          "ripReferences": [
+            {
+              "rva": "0x3b07800",
+              "asciiPrefix": "AnimatorStateInfo"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e581",
+          "text": "lea r8, [rip + 0x2000c80]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e588",
+          "text": "lea rdx, [rip + 0x1ff0a41]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e58f",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e592",
+          "text": "mov rax, qword ptr [rip + 0x3c9573f]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e599",
+          "text": "mov qword ptr [rax + 0x60], rcx"
+        },
+        {
+          "rva": "0x1b1e59d",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e5a2",
+          "text": "call 0x14dd1d0",
+          "branchTarget": "0x14dd1d0"
+        },
+        {
+          "rva": "0x1b1e5a7",
+          "text": "lea r9, [rip + 0x1fe911a]",
+          "ripReferences": [
+            {
+              "rva": "0x3b076c8",
+              "asciiPrefix": "AnimatorTransitionInfo"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5ae",
+          "text": "lea r8, [rip + 0x2000c53]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5b5",
+          "text": "lea rdx, [rip + 0x1ff0a14]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5bc",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e5bf",
+          "text": "mov rax, qword ptr [rip + 0x3c95712]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5c6",
+          "text": "mov qword ptr [rax + 0x68], rcx"
+        },
+        {
+          "rva": "0x1b1e5ca",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e5cf",
+          "text": "call 0x14dd1d0",
+          "branchTarget": "0x14dd1d0"
+        },
+        {
+          "rva": "0x1b1e5d4",
+          "text": "lea r9, [rip + 0x200074d]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1ed28",
+              "asciiPrefix": "HumanBone"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5db",
+          "text": "lea r8, [rip + 0x2000c26]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5e2",
+          "text": "lea rdx, [rip + 0x1ff09e7]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5e9",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e5ec",
+          "text": "mov rax, qword ptr [rip + 0x3c956e5]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e5f3",
+          "text": "mov qword ptr [rax + 0x70], rcx"
+        },
+        {
+          "rva": "0x1b1e5f7",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e5fc",
+          "text": "call 0x14dd1d0",
+          "branchTarget": "0x14dd1d0"
+        },
+        {
+          "rva": "0x1b1e601",
+          "text": "lea r9, [rip + 0x1ffac80]",
+          "ripReferences": [
+            {
+              "rva": "0x3b19288",
+              "asciiPrefix": "SharedBetweenAnimatorsAttribute"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e608",
+          "text": "lea r8, [rip + 0x2000bf9]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e60f",
+          "text": "lea rdx, [rip + 0x1ff09ba]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e616",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e619",
+          "text": "mov rax, qword ptr [rip + 0x3c956b8]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e620",
+          "text": "mov qword ptr [rax + 0x78], rcx"
+        },
+        {
+          "rva": "0x1b1e624",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e629",
+          "text": "call 0x14dd1d0",
+          "branchTarget": "0x14dd1d0"
+        },
+        {
+          "rva": "0x1b1e62e",
+          "text": "lea r9, [rip + 0x20006e3]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1ed18",
+              "asciiPrefix": "SkeletonBone"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e635",
+          "text": "lea r8, [rip + 0x2000bcc]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e63c",
+          "text": "lea rdx, [rip + 0x1ff098d]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e643",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e646",
+          "text": "mov rax, qword ptr [rip + 0x3c9568b]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e64d",
+          "text": "mov qword ptr [rax + 0x80], rcx"
+        },
+        {
+          "rva": "0x1b1e654",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e659",
+          "text": "call 0x14dd1d0",
+          "branchTarget": "0x14dd1d0"
+        },
+        {
+          "rva": "0x1b1e65e",
+          "text": "lea r9, [rip + 0x1fdc0cb]",
+          "ripReferences": [
+            {
+              "rva": "0x3afa730",
+              "asciiPrefix": "StateMachineBehaviour"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e665",
+          "text": "lea r8, [rip + 0x2000b9c]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e66c",
+          "text": "lea rdx, [rip + 0x1ff095d]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0efd0",
+              "asciiPrefix": "UnityEngine.AnimationModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e673",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1b1e676",
+          "text": "mov rax, qword ptr [rip + 0x3c9565b]",
+          "ripReferences": [
+            {
+              "rva": "0x57b3cd8"
+            }
+          ]
+        },
+        {
+          "rva": "0x1b1e67d",
+          "text": "mov qword ptr [rax + 0x88], rcx"
+        },
+        {
+          "rva": "0x1b1e684",
+          "text": "lea rcx, [rsp + 0x40]"
+        },
+        {
+          "rva": "0x1b1e689",
+          "text": "call 0x14dd1d0",
+          "branchTarget": "0x14dd1d0"
+        },
+        {
+          "rva": "0x1b1e68e",
+          "text": "mov rcx, qword ptr [rax]"
+        }
+      ]
+    },
+    {
+      "rva": "0x1c25e37",
+      "unwindRange": [
+        "0x1c25720",
+        "0x1c27fc4"
+      ],
+      "instructions": [
+        {
+          "rva": "0x1c25e37",
+          "text": "lea r9, [rip + 0x1ed4912]",
+          "ripReferences": [
+            {
+              "rva": "0x3afa750",
+              "asciiPrefix": "Behaviour"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e3e",
+          "text": "lea r8, [rip + 0x1ef93c3]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e45",
+          "text": "lea rdx, [rip + 0x1ee928c]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e4c",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25e4f",
+          "text": "mov rax, qword ptr [rip + 0x3b8edc2]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e56",
+          "text": "mov qword ptr [rax + 0x100], rcx"
+        },
+        {
+          "rva": "0x1c25e5d",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25e61",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25e66",
+          "text": "lea r9, [rip + 0x1ec4f5b]",
+          "ripReferences": [
+            {
+              "rva": "0x3aeadc8",
+              "asciiPrefix": "BoneWeight"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e6d",
+          "text": "lea r8, [rip + 0x1ef9394]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e74",
+          "text": "lea rdx, [rip + 0x1ee925d]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e7b",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25e7e",
+          "text": "mov rax, qword ptr [rip + 0x3b8ed93]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e85",
+          "text": "mov qword ptr [rax + 0x108], rcx"
+        },
+        {
+          "rva": "0x1c25e8c",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25e90",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25e95",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25e98",
+          "text": "mov rax, qword ptr [rip + 0x3b8ed79]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25e9f",
+          "text": "mov qword ptr [rax + 0x110], rcx"
+        },
+        {
+          "rva": "0x1c25ea6",
+          "text": "lea r9, [rip + 0x1eb3f8f]",
+          "ripReferences": [
+            {
+              "rva": "0x3ad9e3c",
+              "asciiPrefix": "Bounds"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25ead",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25eb1",
+          "text": "lea r8, [rip + 0x1ef9350]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25eb8",
+          "text": "lea rdx, [rip + 0x1ee9219]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25ebf",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25ec4",
+          "text": "lea r9, [rip + 0x1ec3a1d]",
+          "ripReferences": [
+            {
+              "rva": "0x3ae98e8",
+              "asciiPrefix": "BoundsInt"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25ecb",
+          "text": "lea r8, [rip + 0x1ef9336]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25ed2",
+          "text": "lea rdx, [rip + 0x1ee91ff]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25ed9",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25edc",
+          "text": "mov rax, qword ptr [rip + 0x3b8ed35]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25ee3",
+          "text": "mov qword ptr [rax + 0x118], rcx"
+        },
+        {
+          "rva": "0x1c25eea",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25eee",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25ef3",
+          "text": "lea r9, [rip + 0x1efc3be]",
+          "ripReferences": [
+            {
+              "rva": "0x3b222b8",
+              "asciiPrefix": "CachedAssetBundle"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25efa",
+          "text": "lea r8, [rip + 0x1ef9307]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f01",
+          "text": "lea rdx, [rip + 0x1ee91d0]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f08",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25f0b",
+          "text": "mov rax, qword ptr [rip + 0x3b8ed06]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f12",
+          "text": "mov qword ptr [rax + 0x120], rcx"
+        },
+        {
+          "rva": "0x1c25f19",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25f1d",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25f22",
+          "text": "lea r9, [rip + 0x1ebbf37]",
+          "ripReferences": [
+            {
+              "rva": "0x3ae1e60",
+              "asciiPrefix": "CacheIndex"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f29",
+          "text": "lea r8, [rip + 0x1ef92d8]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f30",
+          "text": "lea rdx, [rip + 0x1ee91a1]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f37",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25f3a",
+          "text": "mov rax, qword ptr [rip + 0x3b8ecd7]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f41",
+          "text": "mov qword ptr [rax + 0x128], rcx"
+        },
+        {
+          "rva": "0x1c25f48",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25f4c",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25f51",
+          "text": "lea r9, [rip + 0x1eb5374]",
+          "ripReferences": [
+            {
+              "rva": "0x3adb2cc",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f58",
+          "text": "lea r8, [rip + 0x1ef92a9]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f5f",
+          "text": "lea rdx, [rip + 0x1ee9172]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f66",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25f69",
+          "text": "mov rax, qword ptr [rip + 0x3b8eca8]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f70",
+          "text": "mov qword ptr [rax + 0x130], rcx"
+        },
+        {
+          "rva": "0x1c25f77",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25f7b",
+          "text": "call 0x14dd290",
+          "branchTarget": "0x14dd290"
+        },
+        {
+          "rva": "0x1c25f80",
+          "text": "lea r9, [rip + 0x1eb5345]",
+          "ripReferences": [
+            {
+              "rva": "0x3adb2cc",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f87",
+          "text": "lea r8, [rip + 0x1ef927a]",
+          "ripReferences": [
+            {
+              "rva": "0x3b1f208",
+              "asciiPrefix": "UnityEngine"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f8e",
+          "text": "lea rdx, [rip + 0x1ee9143]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0f0d8",
+              "asciiPrefix": "UnityEngine.CoreModule.dll"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f95",
+          "text": "mov rcx, qword ptr [rax]"
+        },
+        {
+          "rva": "0x1c25f98",
+          "text": "mov rax, qword ptr [rip + 0x3b8ec79]",
+          "ripReferences": [
+            {
+              "rva": "0x57b4c18"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25f9f",
+          "text": "mov qword ptr [rax + 0x138], rcx"
+        },
+        {
+          "rva": "0x1c25fa6",
+          "text": "lea rax, [rip + 0x1ee8ccb]",
+          "ripReferences": [
+            {
+              "rva": "0x3b0ec78",
+              "asciiPrefix": "FireOnBeforeCull"
+            }
+          ]
+        },
+        {
+          "rva": "0x1c25fad",
+          "text": "lea rcx, [rbp + 0x10]"
+        },
+        {
+          "rva": "0x1c25fb1",
+          "text": "mov qword ptr [rsp + 0x20], rax"
+        },
+        {
+          "rva": "0x1c25fb6",
+          "text": "call 0x14dd090",
+          "branchTarget": "0x14dd090"
+        },
+        {
+          "rva": "0x1c25fbb",
+          "text": "lea r9, [rip + 0x1eb530a]",
+          "ripReferences": [
+            {
+              "rva": "0x3adb2cc",
+              "asciiPrefix": "Camera"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "directBranchCandidates": []
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "snapshotComplete": true,
+  "executableSha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "activeRootCount": 1,
+  "actors": [
+    {
+      "snapshotNode": 1,
+      "name": "Avatar_Boy_Sword_PlayerBoy(Clone)",
+      "upstreamActive": true,
+      "nodeCount": 273,
+      "pelvisNodes": [
+        82
+      ],
+      "modelNodes": [
+        1,
+        22,
+        20
+      ],
+      "skinCandidates": [
+        {
+          "node": 38,
+          "name": "Face"
+        },
+        {
+          "node": 34,
+          "name": "Body"
+        }
+      ],
+      "renderingIdentityVerified": false,
+      "spawnSourceApproved": false
+    },
+    {
+      "snapshotNode": 2,
+      "name": "Avatar_Boy_Sword_PlayerBoy(Clone)",
+      "upstreamActive": false,
+      "nodeCount": 191,
+      "pelvisNodes": [
+        90
+      ],
+      "modelNodes": [
+        2,
+        32,
+        30
+      ],
+      "skinCandidates": [
+        {
+          "node": 62,
+          "name": "Face"
+        },
+        {
+          "node": 58,
+          "name": "Body"
+        }
+      ],
+      "renderingIdentityVerified": false,
+      "spawnSourceApproved": false
+    }
+  ],
+  "creationCandidates": {},
+  "spawnEnabled": false
+}

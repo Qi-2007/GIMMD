@@ -1,0 +1,525 @@
+{
+  "schemaVersion": 1,
+  "safety": {
+    "engineException": 0,
+    "entryBytesRestored": true,
+    "traceEntriesRestored": true,
+    "activeCallbacks": 0
+  },
+  "pipelineHooks": [
+    {
+      "rva": 27102112,
+      "status": "restored"
+    },
+    {
+      "rva": 27103280,
+      "status": "restored"
+    },
+    {
+      "rva": 27104720,
+      "status": "restored"
+    },
+    {
+      "rva": 27104864,
+      "status": "restored"
+    },
+    {
+      "rva": 27105216,
+      "status": "restored"
+    },
+    {
+      "rva": 27141392,
+      "status": "restored"
+    }
+  ],
+  "counts": {
+    "template-clone": 24,
+    "instance": 12,
+    "instance-cache": 11,
+    "bundle-file": 83,
+    "load-template": 10
+  },
+  "bufferTruncated": false,
+  "cacheChains": [
+    {
+      "hash": 350073614,
+      "hashHex": "0x14DDB30E",
+      "bundle": "",
+      "cacheThread": 15052,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1e67e",
+        "0x6de1b00",
+        "0x156766e0",
+        "0x701ebb9",
+        "0x53f5ac",
+        "0x4b2ec7",
+        "0x14cf9d3",
+        "0x14c32a0",
+        "0x14c352e",
+        "0x1691264",
+        "0x7047cf0",
+        "0x70496ad",
+        "0x53f5ac",
+        "0x4b2ec7"
+      ],
+      "fileLoads": [],
+      "templateLoads": 0,
+      "templateClones": 0,
+      "instances": []
+    },
+    {
+      "hash": 2926359418,
+      "hashHex": "0xAE6CB37A",
+      "bundle": "66173/f1596f7683d4248d.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12917634,
+          "option1": 0,
+          "option2": 2701,
+          "bundle": "66173/f1596f7683d4248d.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_02_Book_SkillObj(Clone)"
+      ]
+    },
+    {
+      "hash": 2322029081,
+      "hashHex": "0x8A675A19",
+      "bundle": "66179/f9a17ae5d0548083.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12920335,
+          "option1": 0,
+          "option2": 4944,
+          "bundle": "66179/f9a17ae5d0548083.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_02_CrystalCoreBug_SkillObj(Clone)"
+      ]
+    },
+    {
+      "hash": 1993718106,
+      "hashHex": "0x76D5B95A",
+      "bundle": "66111/9b26cc96ef4b5191.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/03950401.blk",
+          "offset": 27473801,
+          "option1": 0,
+          "option2": 2388,
+          "bundle": "66111/9b26cc96ef4b5191.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_02_Head(Clone)"
+      ]
+    },
+    {
+      "hash": 4257172559,
+      "hashHex": "0xFDBF4C4F",
+      "bundle": "66164/e4091fcf243f8af6.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12914390,
+          "option1": 0,
+          "option2": 3244,
+          "bundle": "66164/e4091fcf243f8af6.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_02(Clone)"
+      ]
+    },
+    {
+      "hash": 4185291188,
+      "hashHex": "0xF97679B4",
+      "bundle": "66987/89074bd44641d998.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12911381,
+          "option1": 0,
+          "option2": 3009,
+          "bundle": "66987/89074bd44641d998.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_01_SnackBag(Clone)"
+      ]
+    },
+    {
+      "hash": 1011843353,
+      "hashHex": "0x3C4F8119",
+      "bundle": "66665/5c58bc7859c329ce.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12898567,
+          "option1": 0,
+          "option2": 12814,
+          "bundle": "66665/5c58bc7859c329ce.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_01_Partner_SkillObj(Clone)"
+      ]
+    },
+    {
+      "hash": 181344200,
+      "hashHex": "0x0ACF17C8",
+      "bundle": "66186/19d0e75a224edc0d.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12893561,
+          "option1": 0,
+          "option2": 5006,
+          "bundle": "66186/19d0e75a224edc0d.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_01_BagBody(Clone)"
+      ]
+    },
+    {
+      "hash": 422516444,
+      "hashHex": "0x192F16DC",
+      "bundle": "66162/e10b34680e919dcf.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12925279,
+          "option1": 0,
+          "option2": 6288,
+          "bundle": "66162/e10b34680e919dcf.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_Cola_01(Clone)"
+      ]
+    },
+    {
+      "hash": 1015452171,
+      "hashHex": "0x3C86920B",
+      "bundle": "66820/71d4bfae9dca8fa2.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12888860,
+          "option1": 0,
+          "option2": 2982,
+          "bundle": "66820/71d4bfae9dca8fa2.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_01(Clone)"
+      ]
+    },
+    {
+      "hash": 1598900236,
+      "hashHex": "0x5F4D480C",
+      "bundle": "66102/8e839131e724447c.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/00265660.blk",
+          "offset": 12931567,
+          "option1": 0,
+          "option2": 4077,
+          "bundle": "66102/8e839131e724447c.asb"
+        }
+      ],
+      "templateLoads": 1,
+      "templateClones": 2,
+      "instances": [
+        "Eff_Avatar_Girl_Bow_Linnea_Show_Cola_02(Clone)"
+      ]
+    }
+  ],
+  "unlinkedAsyncClones": [
+    {
+      "templateData": 2328520858192,
+      "objects": 605,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2336017963024,
+      "objects": 34,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x9a7bcc6",
+        "0x13d31b04",
+        "0x13d3309f",
+        "0x13d370e0",
+        "0xb9512c0",
+        "0x10c497ce",
+        "0xb950625"
+      ]
+    },
+    {
+      "templateData": 2329152365584,
+      "objects": 467,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2328723609488,
+      "objects": 30,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x9a7bcc6",
+        "0x13d31b04",
+        "0x13d3309f",
+        "0x13d370e0",
+        "0xb9512c0",
+        "0x10c497ce",
+        "0xb950625"
+      ]
+    }
+  ],
+  "note": "Same native identities and event order establish the links. Missing file/template events can reflect prior caching or unhooked asynchronous paths. option2 semantics are not yet fully verified.",
+  "confirmedRoleCache": {
+    "hash": 350073614,
+    "sourceInstanceId": 0,
+    "getterSizeRva": 19566512,
+    "getterFormatRva": 9922928,
+    "descriptors": 467,
+    "size48": 277,
+    "size50": 512,
+    "key": "14ddb30e",
+    "name": "Avatar_Girl_Bow_Linnea_Manekin",
+    "type": "ObjectInstanceCache",
+    "bundle": "531/49b93d843d36f52a.asb"
+  },
+  "sourceTrace": "sessions/actor-survey-20261015-172003-468/resources.json",
+  "postPreviewSurvey": "sessions/actor-survey-20261015-172749-308/resources.json",
+  "roleFileLoadCaptured": false
+}

@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-24",
+  "build": "build-studio-7.2-face",
+  "motion": "testmmd/Moonride/Moonride配布/Motion.vmd",
+  "playerReport": "E:\\code\\gimmd\\sessions\\20261124-115241-c3716a8f\\gimmd-14720.probe.json",
+  "actorReport": "E:\\code\\gimmd\\sessions\\20261124-115402-510bd63a\\gimmd-14720.probe.json",
+  "player": {
+    "target": "player",
+    "status": "restored",
+    "sourceTracks": 4,
+    "mappedTracks": 4,
+    "channels": 32,
+    "writes": 363,
+    "restores": 32,
+    "overwrites": 0,
+    "averageMs": 0.291825108,
+    "maximumMs": 36.4868,
+    "cleanupPending": false
+  },
+  "playerBindingLease": {
+    "bindings": 32,
+    "restores": 32,
+    "pending": 0
+  },
+  "actorFinalReplay": {
+    "target": "actor",
+    "status": "restored",
+    "sourceTracks": 4,
+    "mappedTracks": 4,
+    "channels": 32,
+    "writes": 32,
+    "restores": 32,
+    "overwrites": 0,
+    "averageMs": 34.8091,
+    "maximumMs": 34.8091,
+    "cleanupPending": false
+  },
+  "actorLifecycle": "E:\\code\\gimmd\\sessions\\20261124-115402-510bd63a\\actor-motion-test.json",
+  "userVisualFeedback": "修正版 Moonride 不再抽搐",
+  "limitations": [
+    "非全部嘴形",
+    "仅动作 VMD 内的表情，未合并独立表情文件",
+    "纳西妲视觉确认，其他角色待验证"
+  ]
+}

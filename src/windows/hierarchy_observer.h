@@ -20,7 +20,10 @@ static ObjectTransformFn object_transform;
 static ParentFn component_game_object;
 static ActiveFn get_active;
 static RotationFn rotation_world, rotation_local;
-constexpr unsigned MaxNodes = 1024, MaxDepth = 24, MaxChildren = 128, MaxName = 96;
+// AvatarRoot also retains inactive party models during single-character playback.
+// Capacity must not shrink when the optional actor/resource extensions are disabled.
+constexpr unsigned MaxNodes = 4096;
+constexpr unsigned MaxDepth = 24, MaxChildren = 128, MaxName = 96;
 struct Node {
     void* object = nullptr;
     uintptr_t identity = 0;
@@ -70,6 +73,8 @@ static bool unit_quat(const Quat& q);
 #include "animator_observer.h"
 #include "animator_lease.h"
 #include "single_track_playback.h"
+static void json_string(std::ostream& report, const wchar_t* text);
+#include "actor_survey.h"
 static void configure(uintptr_t base, const std::string& sha) {
     roundtrip::reset();
     time_control::configure(base);
@@ -163,6 +168,11 @@ static void capture(void* root_object, unsigned time_budget_ms = 12) {
         if (node.children < 0 || node.children > static_cast<int>(MaxChildren)) {
             invalid_count = truncated = true; continue;
         }
+#if !defined(GIMMD_ACTOR_SURVEY) && !defined(GIMMD_LOCAL_ACTORS)
+        // Single-character binding needs all active avatar bones, but no bones
+        // below inactive party roots. Keep the roots for ambiguity checks.
+        if (node.parent == 0 && !node.active && !std::wcsncmp(node.name, L"Avatar_", 7)) continue;
+#endif
         if (node.depth >= MaxDepth) { truncated = truncated || node.children != 0; continue; }
         for (int child = 0; child < node.children; ++child) {
             if (GetTickCount64() >= deadline) { timed_out = truncated = true; break; }
@@ -187,6 +197,7 @@ static void capture(void* root_object, unsigned time_budget_ms = 12) {
     roundtrip::run();
     animator_observer::capture();
     playback::bind();
+    actor_survey::capture();
     for (unsigned i = 0; i < count; ++i) { nodes[i].object = nullptr; nodes[i].identity = 0; }
     published.store(true);
 }
@@ -231,6 +242,8 @@ static void report(std::ostream& out) {
         }
         out << ']';
     }
+    out << ",\"actorSurvey\":";
+    actor_survey::report(out);
     out << '}';
 }
 }

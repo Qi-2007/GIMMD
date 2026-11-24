@@ -1,4 +1,9 @@
-﻿param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK, [switch]$CameraRoundTrip, [switch]$CameraPlayback)
+param([switch]$Test, [string]$OutputDirectory, [switch]$RuntimeProbe, [switch]$PoseRoundTrip, [switch]$SingleTrackPlayback, [switch]$FreezeTime, [switch]$AnimatorProbe, [switch]$AnimatorToggle, [switch]$AnimatorLease, [switch]$MultiTrackPlayback, [switch]$PlayerSession, [switch]$BindPoseProbe, [switch]$FullBodyFK, [switch]$RootMotion, [switch]$LegIK, [switch]$ToeIK, [switch]$CameraRoundTrip, [switch]$CameraPlayback, [switch]$ActorSurvey, [switch]$LocalActors, [switch]$ResourceTrace, [switch]$ActorTemplates, [switch]$SdkPrefabs)
+if ($ActorSurvey -and (-not $RuntimeProbe -or -not $AnimatorProbe -or $SingleTrackPlayback -or $PoseRoundTrip -or $AnimatorToggle -or $CameraRoundTrip)) { throw '-ActorSurvey requires read-only -RuntimeProbe -AnimatorProbe.' }
+if ($ResourceTrace -and (-not $ActorSurvey -or $PlayerSession)) { throw '-ResourceTrace requires read-only ActorSurvey without PlayerSession.' }
+if ($LocalActors -and -not $PlayerSession) { throw '-LocalActors requires -PlayerSession.' }
+if ($ActorTemplates -and -not $LocalActors) { throw '-ActorTemplates requires -LocalActors.' }
+if ($SdkPrefabs -and (-not $LocalActors -or $ActorTemplates)) { throw '-SdkPrefabs requires -LocalActors and excludes legacy -ActorTemplates.' }
 $ErrorActionPreference = 'Stop'
 if ($CameraPlayback -and (-not $PlayerSession -or $CameraRoundTrip)) { throw '-CameraPlayback requires -PlayerSession and excludes -CameraRoundTrip.' }
 if ($CameraRoundTrip -and (-not $RuntimeProbe -or $SingleTrackPlayback -or $PoseRoundTrip -or $AnimatorToggle)) { throw '-CameraRoundTrip requires a read-only -RuntimeProbe build.' }
@@ -27,6 +32,11 @@ Push-Location $taskBuild
 try {
     $common = @('/nologo','/std:c++20','/EHsc','/W4','/WX','/utf-8','/MD','/Zi',
         "/I$taskRoot/src", "/I$taskRoot/third_party/better_endfield")
+    if ($SdkPrefabs) { $common += '/DGIMMD_SDK_PREFABS' }
+    if ($ResourceTrace) { $common += '/DGIMMD_RESOURCE_TRACE' }
+    if ($LocalActors) { $common += '/DGIMMD_LOCAL_ACTORS' }
+    if ($ActorTemplates) { $common += '/DGIMMD_ACTOR_TEMPLATES' }
+    if ($ActorSurvey) { $common += '/DGIMMD_ACTOR_SURVEY' }
     if ($PoseRoundTrip) { $common += '/DGIMMD_POSE_ROUNDTRIP' }
     if ($SingleTrackPlayback) { $common += '/DGIMMD_SINGLE_TRACK_PLAYBACK' }
     if ($FreezeTime) { $common += '/DGIMMD_FREEZE_TIME' }
@@ -74,8 +84,10 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Runtime observer test build failed.' }
     }
     $taskManifest = [ordered]@{
-        schemaVersion=1; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
-        holdAtEnd=[bool]$PlayerSession; cameraAdjustments=[bool]$CameraPlayback; cameraPlayback=[bool]$CameraPlayback; cameraFov=[bool]$CameraPlayback; manualCamera=[bool]$CameraPlayback; braidStabilization=[bool]$RootMotion; bgmPause=[bool]$PlayerSession; uidText=[bool]$PlayerSession; clothStabilization=[bool]$RootMotion; centerYaw=[bool]$RootMotion; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
+        gameVersion='CN 7.2.0'; runtimeValidation='see-docs/GENSHIN_7_2_PORT.md'
+        gameExeSha256='8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5'
+        schemaVersion=1; faceMotion=[bool]$LocalActors; cameraFront=[bool]($LocalActors -and $CameraPlayback); actorShooting=[bool]($LocalActors -and $CameraPlayback); resourceTrace=[bool]$ResourceTrace; cachedActorSources=[bool]$LocalActors; actorInspection=[bool]$LocalActors; actorMotion=[bool]$LocalActors; actorTemplateLoading=[bool]($ActorTemplates -or $SdkPrefabs); sdkPrefabLoading=[bool]$SdkPrefabs; gameActorResourceIds=[bool]$ActorTemplates; actorMaterialRestore=[bool]$LocalActors; localActors=[bool]$LocalActors; actorSurvey=[bool]$ActorSurvey; playerSession=[bool]$PlayerSession; fullBodyFK=[bool]$FullBodyFK
+        dynamicSession=[bool]$PlayerSession; cameraLivePreview=[bool]$CameraPlayback; uidLiveText=[bool]$PlayerSession; holdAtEnd=[bool]$PlayerSession; cameraAdjustments=[bool]$CameraPlayback; cameraPlayback=[bool]$CameraPlayback; cameraFov=[bool]$CameraPlayback; manualCamera=[bool]$CameraPlayback; braidStabilization=[bool]$RootMotion; bgmPause=[bool]$PlayerSession; uidText=[bool]$PlayerSession; clothStabilization=[bool]$RootMotion; centerYaw=[bool]$RootMotion; rootMotion=[bool]$RootMotion; legIK=[bool]$LegIK; toeIK=[bool]$ToeIK
         dllSha256=(Get-FileHash -LiteralPath './gimmd-probe.dll' -Algorithm SHA256).Hash
         loaderSha256=(Get-FileHash -LiteralPath './gimmd-inject-probe.exe' -Algorithm SHA256).Hash
     }

@@ -117,6 +117,7 @@ static void finish(const char* status_text) {
     else { result.status = time_ok ? "animator-restoration-pending" : "time-restoration-pending"; stop_requested.store(true); }
 }
 static void bind() {
+    if (gimmd::player_session::dynamic_session&&!gimmd::player_session::mmd_requested.load()) return;
     if (!Enabled || !loaded || done.load() || started.load()) return;
     if (stop_requested.load()) { finish("cancelled-before-binding"); return; }
     if (std::strcmp(status, "hierarchy-read-observed")) { finish("incomplete-hierarchy-refused"); return; }
@@ -225,6 +226,7 @@ static void restore(void* bone) {
     result.status = "restoration-pending"; stop_requested.store(true);
 }
 static void tick(ULONGLONG now) {
+    if (gimmd::player_session::dynamic_session&&!gimmd::player_session::mmd_requested.load()) return;
     if (!Enabled || done.load()) return;
     if (!started.load()) {
         if (stop_requested.load()) finish("cancelled-before-binding");

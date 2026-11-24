@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "status": "actor-created",
+  "acknowledgedSequence": 1,
+  "exception": 0,
+  "orphanedObject": false,
+  "detail": "components-validated",
+  "failedNode": "PRIVATE_Right_Finger01",
+  "failedComponent": "Transform",
+  "nodeIndex": 277,
+  "componentIndex": 0,
+  "boneCount": 19,
+  "attemptNodes": 278,
+  "attemptSkins": 16,
+  "attemptRemoved": 41,
+  "slots": [
+    {
+      "slot": 1,
+      "created": true,
+      "source": "Avatar_Girl_Catalyst_Vodyanitsa_Manekin",
+      "nodes": 278,
+      "skins": 16,
+      "removedComponents": 41
+    },
+    {
+      "slot": 2,
+      "created": false,
+      "source": "",
+      "nodes": 0,
+      "skins": 0,
+      "removedComponents": 0
+    },
+    {
+      "slot": 3,
+      "created": false,
+      "source": "",
+      "nodes": 0,
+      "skins": 0,
+      "removedComponents": 0
+    }
+  ]
+}

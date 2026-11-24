@@ -13,9 +13,9 @@ static void capture(int model_node) {
         uint16_t length = 0; char class_name[64]{};
         if (!transform || !roundtrip::identity_current(nodes[model_node]) ||
             !read_bytes(reinterpret_cast<uintptr_t>(transform),&klass,sizeof(klass)) || !klass ||
-            !read_bytes(klass+0x28,&name_pointer,sizeof(name_pointer)) || !read_bytes(name_pointer,class_name,sizeof(class_name)) ||
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassName,&name_pointer,sizeof(name_pointer)) || !read_bytes(name_pointer,class_name,sizeof(class_name)) ||
             !std::memchr(class_name,0,sizeof(class_name)) || std::strcmp(class_name,"Transform") ||
-            !read_bytes(klass+0x58,&table,sizeof(table)) || !table || !read_bytes(klass+0xc0,&length,sizeof(length)) || length > 384) {
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassMethodTable,&table,sizeof(table)) || !table || !read_bytes(klass + gimmd::hierarchy_profile::ClassMethodCount,&length,sizeof(length)) || length > 384) {
             status = "transform-class-or-table-refused"; return;
         }
         const auto deadline = GetTickCount64()+12;
@@ -30,12 +30,12 @@ static void capture(int model_node) {
             if (std::strcmp(name,"get_localPosition") && std::strcmp(name,"set_localPosition") &&
                 std::strcmp(name,"INTERNAL_get_localPosition") && std::strcmp(name,"INTERNAL_set_localPosition") &&
                 std::strcmp(name,"get_localScale") && std::strcmp(name,"INTERNAL_get_localScale")) continue;
-            if (method_count >= 8 || !executable(info[1],metadata::image_base) || !executable(info[4],metadata::image_base)) {
+            if (method_count >= 8 || !executable(info[1],metadata::image_base) || !executable(info[gimmd::hierarchy_profile::MethodInvokerIndex],metadata::image_base)) {
                 status = "transform-method-code-refused"; return;
             }
             auto& method = methods[method_count++]; method = {}; strcpy_s(method.name,name);
             method.parameters = reinterpret_cast<const uint8_t*>(info)[0x2e]; method.code = info[1]-metadata::image_base;
-            method.invoker = info[4]-metadata::image_base;
+            method.invoker = info[gimmd::hierarchy_profile::MethodInvokerIndex]-metadata::image_base;
         }
         status = "transform-position-methods-observed";
     } __except (EXCEPTION_EXECUTE_HANDLER) { exception = GetExceptionCode(); status = "transform-method-read-exception"; }

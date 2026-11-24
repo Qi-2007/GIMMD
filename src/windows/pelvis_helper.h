@@ -4,9 +4,11 @@
 namespace pelvis_helper {
 static Track track;
 static bool bound=false;
+static vmd::Quaternion reference{0,0,0,1};
 static unsigned overwritten=0;
 static const char* status="not-bound";
-static void reset() { track={}; bound=false; overwritten=0; status="not-bound"; }
+static void reset() { track={}; bound=false; overwritten=0; status="not-bound";
+    const auto* q=gimmd::fk_profile::AvatarReference[123].rotation;reference={q[0],q[1],q[2],q[3]}; }
 static bool bind() {
     if (!full_mode) return true;
     int helper=-1,pelvis=-1; unsigned matches=0;
@@ -16,8 +18,15 @@ static bool bind() {
     if (!matches) { status="helper-not-present"; return true; }
     namespace bp=animator_observer::bind_pose;
     if (matches!=1||!nodes[helper].processed||!nodes[helper].active||!nodes[helper].aliases_equal||!nodes[helper].owner_valid||
-        !nodes[helper].parent_valid||!nodes[helper].rotation_relation_valid||!roundtrip::identity_current(nodes[helper])||bp::avatar_links[helper]!=123||
-        gimmd::fk_profile::AvatarReference[123].parent!=gimmd::fk_profile::AvatarReference[gimmd::fk_profile::AvatarIndices[0]].parent) return false;
+        !nodes[helper].parent_valid||!nodes[helper].rotation_relation_valid||!roundtrip::identity_current(nodes[helper])) return false;
+    if(adaptive_reference) {
+        const int ref=bp::avatar_links[helper],p=bp::avatar_links[pelvis];
+        if(ref<0||p<0||unsigned(ref)>=bp::avatar_rest_count||unsigned(p)>=bp::avatar_rest_count||bp::avatar_parents[ref]!=bp::avatar_parents[p])return false;
+        const auto* q=bp::avatar_local[ref]+4;reference={q[0],q[1],q[2],q[3]};
+    } else {
+        if(bp::avatar_links[helper]!=123||gimmd::fk_profile::AvatarReference[123].parent!=gimmd::fk_profile::AvatarReference[gimmd::fk_profile::AvatarIndices[0]].parent)return false;
+        const auto* q=gimmd::fk_profile::AvatarReference[123].rotation;reference={q[0],q[1],q[2],q[3]};
+    }
     track.length=tracks[0].length;
     for (unsigned i=0;i<track.length;++i) track.steps[i]=tracks[0].steps[i];
     auto& leaf=track.steps[track.length-1]; leaf.identity=nodes[helper].identity; wcscpy_s(leaf.name,nodes[helper].name); leaf.child=0;
@@ -34,10 +43,9 @@ static bool preflight(ResolutionBatch* batch) {
 }
 static bool apply(ResolutionBatch* batch,Quat pelvis,double blend=1) {
     if (!bound) return true;
-    const auto& p=gimmd::fk_profile::Bindings[0].rest;
+    const auto& p=bindings[0].rest;
     const auto delta=gimmd::rotation_preview::multiply({pelvis.x,pelvis.y,pelvis.z,pelvis.w},{-p.x,-p.y,-p.z,p.w});
-    const auto& r=gimmd::fk_profile::AvatarReference[123].rotation;
-    const auto desired=gimmd::rotation_preview::multiply(delta,{r[0],r[1],r[2],r[3]});
+    const auto desired=gimmd::rotation_preview::multiply(delta,reference);
     const auto applied=vmd::Slerp({track.baseline.x,track.baseline.y,track.baseline.z,track.baseline.w},desired,blend);
     track.applied={applied.x,applied.y,applied.z,applied.w}; track.dirty=true;
     bool active=true; void* bone=resolve_batch_steps(batch,&active,track.steps,track.length); Quat observed{};

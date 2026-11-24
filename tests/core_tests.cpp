@@ -255,6 +255,10 @@ int wmain(int argc, wchar_t** argv) {
         check(gimmd::parse_camera_control("3 1 2 3 0 0 0 0 0.75",&camera_control)&&near(camera_control.fov_multiplier,.75f),"FOV multiplier command rejected");
         for (const char* invalid_multiplier:{"3 0 0 0 0 0 0 0 0","3 0 0 0 0 0 0 0 4.1","3 0 0 0 0 0 0 0 nan","3 0 0 0 0 0 0 0 1 extra"})
             check(!gimmd::parse_camera_control(invalid_multiplier,&camera_control),"invalid multiplier command accepted");
+        check(gimmd::parse_camera_control("4 1 2 3 0 0 0 45 1 1",&camera_control)&&camera_control.preview_override,"live camera preview flag rejected");
+        check(!gimmd::parse_camera_control("4 1 2 3 0 0 0 45 1 2",&camera_control),"invalid preview flag accepted");
+        for (const char* independent_command:{"5 restore","6 exit","7 camera-on","8 camera-off"})
+            check(gimmd::parse_player_command(independent_command)!=0,"dynamic lifecycle command rejected");
         std::vector<vmd::BoneKey> root_controls[3]; root_controls[1].resize(1); root_controls[2].resize(1);
         root_controls[1][0].rotation={0,0.70710678f,0,0.70710678f}; root_controls[2][0].position={1,0,0};
         vmd::Vec3 root_position{}; vmd::Quaternion center_yaw{};

@@ -1,0 +1,206 @@
+{
+  "session": "E:\\code\\gimmd\\sessions\\20261124-110830-5eda2300",
+  "build": "build-studio-7.2-camera-front",
+  "userVisualConfirmation": "已正对角色。别的可以手动调节",
+  "cameraPlayback": {
+    "enabled": true,
+    "loaded": true,
+    "status": "camera-stopped-restored",
+    "acquired": false,
+    "restored": true,
+    "cleanupPending": false,
+    "aborted": false,
+    "frontState": 2,
+    "frontPosition": [
+      0.218565285,
+      294.531097,
+      -2.65093875
+    ],
+    "poseWrites": 12393,
+    "retainedSamples": 8015,
+    "gameOverwrites": 4377,
+    "restoreAttempts": 1,
+    "maxWriteError": 5.96046448e-08,
+    "restoreError": 0,
+    "exception": 0,
+    "lastSampleSeconds": 22.488,
+    "manualOnly": true,
+    "controlSequence": 3,
+    "fovMultiplier": 1,
+    "positionOffset": [
+      0,
+      0,
+      0
+    ],
+    "baselineFov": 45,
+    "lastFov": 45,
+    "maxFovWriteError": 0,
+    "fovRestoreError": 0,
+    "anchor": "initial-camera-pose",
+    "fovWritten": true,
+    "finalRenderVerified": false,
+    "timelineSamples": [
+      {
+        "seconds": 0,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 0,
+        "epoch": 0,
+        "state": 1,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 0.703,
+        "epoch": 0,
+        "state": 2,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 1
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          0.417656362,
+          294.631042,
+          -2.63168359
+        ],
+        "error": 5.96046448e-08,
+        "fov": 60,
+        "controlSequence": 2
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 2,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 1.5,
+        "epoch": 1,
+        "state": 1,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0.002,
+        "epoch": 2,
+        "state": 1,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      },
+      {
+        "seconds": 0.004,
+        "epoch": 3,
+        "state": 1,
+        "position": [
+          0.218565285,
+          294.531097,
+          -2.65093875
+        ],
+        "error": 0,
+        "fov": 45,
+        "controlSequence": 3
+      }
+    ]
+  },
+  "referencePose": {
+    "status": "reference-pose-restored",
+    "bones": 140,
+    "initialized": true,
+    "writes": 140,
+    "restores": 140,
+    "cleanupPending": false
+  },
+  "auxiliaryDrivers": {
+    "status": "drivers-restored",
+    "count": 5,
+    "checks": 13805,
+    "restored": 5,
+    "components": [
+      {
+        "class": "MonoAnimationIKEventHelper",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      }
+    ]
+  },
+  "engineException": 0,
+  "entryBytesRestored": true,
+  "messageHookRemoved": true
+}

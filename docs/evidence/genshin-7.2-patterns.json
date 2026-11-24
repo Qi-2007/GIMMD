@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "mode": "offline-file-only",
+  "capturedAt": "2026-11-23T22:07:20.0980445+08:00",
+  "executable": "E:\\Game\\Genshin Impact Game\\YuanShen.exe",
+  "sha256": "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5",
+  "patternsRepository": "https://github.com/FufuLauncher/FufuLauncher.UnlockerIsland",
+  "patternsCommit": "2433a01d4fb4f96d340e82d035750e55b6a2c534",
+  "note": "File matches are unverified candidates, not callable runtime addresses. No process memory was accessed or modified.",
+  "patterns": [
+    {
+      "name": "ChangeFOV",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 26934784,
+          "rva": "0x19B0A00"
+        }
+      ]
+    },
+    {
+      "name": "FindGameObject",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 21380096,
+          "rva": "0x1464800"
+        }
+      ]
+    },
+    {
+      "name": "FindString",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 4960960,
+          "rva": "0x4BBEC0"
+        }
+      ]
+    },
+    {
+      "name": "GameUpdate",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 421483616,
+          "rva": "0x19A4CC60"
+        }
+      ]
+    },
+    {
+      "name": "GetName",
+      "matchCount": 2,
+      "countCappedAt": 16,
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "fileOffset": 21269536,
+          "rva": "0x1449820"
+        },
+        {
+          "fileOffset": 21269920,
+          "rva": "0x14499A0"
+        }
+      ]
+    },
+    {
+      "name": "FreeCamCameraGetMain",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 429688912,
+          "rva": "0x1A220050"
+        }
+      ]
+    },
+    {
+      "name": "FreeCamComponentGetTransform",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 429755472,
+          "rva": "0x1A230450"
+        }
+      ]
+    },
+    {
+      "name": "FreeCamTransformSetPosition",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 429729456,
+          "rva": "0x1A229EB0"
+        }
+      ]
+    },
+    {
+      "name": "FreeCamTransformSetRotation",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 429730592,
+          "rva": "0x1A22A320"
+        }
+      ]
+    },
+    {
+      "name": "FreeCamTransformGetRotation",
+      "matchCount": 2,
+      "countCappedAt": 16,
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "fileOffset": 429730448,
+          "rva": "0x1A22A290"
+        },
+        {
+          "fileOffset": 429730864,
+          "rva": "0x1A22A430"
+        }
+      ]
+    },
+    {
+      "name": "FreeCamTransformGetPosition",
+      "matchCount": 1,
+      "countCappedAt": 16,
+      "status": "unique-file-candidate",
+      "candidates": [
+        {
+          "fileOffset": 429729392,
+          "rva": "0x1A229E70"
+        }
+      ]
+    }
+  ]
+}

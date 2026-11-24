@@ -68,3 +68,15 @@ def load_keys(path: Path):
     if value.get('schemaVersion') != 1 or value.get('type') != 'gimmd-camera-keys':
         raise ValueError('不支持的运镜工程')
     return validate_keys(value.get('keys'))
+
+
+def sample_keys(keys, seconds):
+    """Sample an already validated authoring snapshot, without file conversion."""
+    import bisect
+    if not math.isfinite(seconds): raise ValueError('无效预览时间')
+    index=bisect.bisect_right([key['seconds'] for key in keys],seconds)
+    if index==0: return list(keys[0]['values'])
+    if index==len(keys): return list(keys[-1]['values'])
+    a,b=keys[index-1],keys[index]
+    fraction=(seconds-a['seconds'])/(b['seconds']-a['seconds'])
+    return [x+(y-x)*fraction for x,y in zip(a['values'],b['values'])]

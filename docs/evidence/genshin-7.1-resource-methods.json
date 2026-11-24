@@ -1,0 +1,1008 @@
+{
+  "enabled": true,
+  "status": "read-only-candidates-observed",
+  "complete": true,
+  "methodAbiVerified": false,
+  "spawnEnabled": false,
+  "rendererQueries": 6,
+  "renderersObserved": 6,
+  "methods": [
+    {
+      "class": "Resources",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432844208
+    },
+    {
+      "class": "Resources",
+      "name": "FindObjectsOfTypeAll",
+      "parameters": 1,
+      "codeRva": 432844064
+    },
+    {
+      "class": "Resources",
+      "name": "Load",
+      "parameters": 1,
+      "codeRva": 432844080
+    },
+    {
+      "class": "Resources",
+      "name": "Load",
+      "parameters": 2,
+      "codeRva": 432844144
+    },
+    {
+      "class": "Resources",
+      "name": "LoadAll",
+      "parameters": 2,
+      "codeRva": 432844160
+    },
+    {
+      "class": "Resources",
+      "name": "GetBuiltinResource",
+      "parameters": 2,
+      "codeRva": 432844176
+    },
+    {
+      "class": "Resources",
+      "name": "UnloadAsset",
+      "parameters": 1,
+      "codeRva": 432844192
+    },
+    {
+      "class": "Object",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 425211696
+    },
+    {
+      "class": "Object",
+      "name": "Equals",
+      "parameters": 1,
+      "codeRva": 425306352
+    },
+    {
+      "class": "Object",
+      "name": "Equals",
+      "parameters": 2,
+      "codeRva": 425306368
+    },
+    {
+      "class": "Object",
+      "name": "Finalize",
+      "parameters": 0,
+      "codeRva": 425306432
+    },
+    {
+      "class": "Object",
+      "name": "GetHashCode",
+      "parameters": 0,
+      "codeRva": 425306448
+    },
+    {
+      "class": "Object",
+      "name": "GetType",
+      "parameters": 0,
+      "codeRva": 425262768
+    },
+    {
+      "class": "Object",
+      "name": "MemberwiseClone",
+      "parameters": 0,
+      "codeRva": 425263184
+    },
+    {
+      "class": "Object",
+      "name": "ToString",
+      "parameters": 0,
+      "codeRva": 425306480
+    },
+    {
+      "class": "Object",
+      "name": "ReferenceEquals",
+      "parameters": 2,
+      "codeRva": 425306544
+    },
+    {
+      "class": "Object",
+      "name": "InternalGetHashCode",
+      "parameters": 1,
+      "codeRva": 425306464
+    },
+    {
+      "class": "Object",
+      "name": "FieldGetter",
+      "parameters": 3,
+      "codeRva": 425306560
+    },
+    {
+      "class": "Object",
+      "name": "FieldSetter",
+      "parameters": 3,
+      "codeRva": 425306576
+    },
+    {
+      "class": "AssetBundle",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432826688
+    },
+    {
+      "class": "AssetBundle",
+      "name": "CallBatchAsyncASBJobsSubmitInternal",
+      "parameters": 0,
+      "codeRva": 432825744
+    },
+    {
+      "class": "AssetBundle",
+      "name": "CallBatchAsyncASBJobsSubmitter",
+      "parameters": 0,
+      "codeRva": 432825792
+    },
+    {
+      "class": "AssetBundle",
+      "name": "set_enableASBAsyncLoadOptimize",
+      "parameters": 1,
+      "codeRva": 432825808
+    },
+    {
+      "class": "AssetBundle",
+      "name": "set_enableMHYProrityIntegrateQueue",
+      "parameters": 1,
+      "codeRva": 432825824
+    },
+    {
+      "class": "AssetBundle",
+      "name": "set_isLoadedForNonInstantiationTask",
+      "parameters": 1,
+      "codeRva": 432825840
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromFile",
+      "parameters": 5,
+      "codeRva": 432825856
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromFile",
+      "parameters": 4,
+      "codeRva": 432825872
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromFile",
+      "parameters": 1,
+      "codeRva": 432825904
+    },
+    {
+      "class": "AssetBundle",
+      "name": "get_allowLoadSameAsbMultTimeInternal",
+      "parameters": 0,
+      "codeRva": 432825936
+    },
+    {
+      "class": "AssetBundle",
+      "name": "set_allowLoadSameAsbMultTimeInternal",
+      "parameters": 1,
+      "codeRva": 432825952
+    },
+    {
+      "class": "AssetBundle",
+      "name": "get_allowLoadSameAsbMultTime",
+      "parameters": 0,
+      "codeRva": 432825968
+    },
+    {
+      "class": "AssetBundle",
+      "name": "set_allowLoadSameAsbMultTime",
+      "parameters": 1,
+      "codeRva": 432825984
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromFileWithMiHoYoPath",
+      "parameters": 8,
+      "codeRva": 432826000
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromMemoryAsync",
+      "parameters": 3,
+      "codeRva": 432826016
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromMemoryAsync",
+      "parameters": 1,
+      "codeRva": 432826032
+    },
+    {
+      "class": "AssetBundle",
+      "name": "ContainsHash",
+      "parameters": 1,
+      "codeRva": 432826048
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAsset",
+      "parameters": 2,
+      "codeRva": 432826064
+    },
+    {
+      "class": "AssetBundle",
+      "name": "MHY_CheckState",
+      "parameters": 0,
+      "codeRva": 432826256
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAssetByHash",
+      "parameters": 3,
+      "codeRva": 432826272
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAsset_Internal",
+      "parameters": 2,
+      "codeRva": 432826240
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAssetByHash_Internal2",
+      "parameters": 3,
+      "codeRva": 432826352
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAssetInstanceCacheByHash",
+      "parameters": 2,
+      "codeRva": 432826368
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAssetWithSubAssets_Internal",
+      "parameters": 2,
+      "codeRva": 432826384
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadAllAssets",
+      "parameters": 1,
+      "codeRva": 432826400
+    },
+    {
+      "class": "AssetBundle",
+      "name": "Unload",
+      "parameters": 1,
+      "codeRva": 432826528
+    },
+    {
+      "class": "AssetBundle",
+      "name": "AsyncUnloadAssetBundle",
+      "parameters": 1,
+      "codeRva": 432826544
+    },
+    {
+      "class": "AssetBundle",
+      "name": "BatchDeleteUnloadOjbects",
+      "parameters": 2,
+      "codeRva": 432826560
+    },
+    {
+      "class": "AssetBundle",
+      "name": "get_assetNameCount",
+      "parameters": 0,
+      "codeRva": 432826576
+    },
+    {
+      "class": "AssetBundle",
+      "name": "LoadFromMemoryMHY",
+      "parameters": 6,
+      "codeRva": 432826592
+    },
+    {
+      "class": "AssetBundle",
+      "name": "GetFileContentSize",
+      "parameters": 0,
+      "codeRva": 432826608
+    },
+    {
+      "class": "AssetBundle",
+      "name": "HasGPUType",
+      "parameters": 0,
+      "codeRva": 432826624
+    },
+    {
+      "class": "AssetBundle",
+      "name": "GetBinDataCount",
+      "parameters": 0,
+      "codeRva": 432826640
+    },
+    {
+      "class": "AssetBundle",
+      "name": "set_miHoYoDebugLogAsbLoading",
+      "parameters": 1,
+      "codeRva": 432826656
+    },
+    {
+      "class": "AssetBundle",
+      "name": "FindAssetMHYHash",
+      "parameters": 1,
+      "codeRva": 432826672
+    },
+    {
+      "class": "Object",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432747792
+    },
+    {
+      "class": "Object",
+      "name": ".cctor",
+      "parameters": 0,
+      "codeRva": 432747808
+    },
+    {
+      "class": "Object",
+      "name": "Internal_CloneSingle",
+      "parameters": 1,
+      "codeRva": 432745712
+    },
+    {
+      "class": "Object",
+      "name": "Internal_CloneSingleWithParent",
+      "parameters": 3,
+      "codeRva": 432745728
+    },
+    {
+      "class": "Object",
+      "name": "Internal_InstantiateSingle",
+      "parameters": 3,
+      "codeRva": 432745744
+    },
+    {
+      "class": "Object",
+      "name": "INTERNAL_CALL_Internal_InstantiateSingle",
+      "parameters": 3,
+      "codeRva": 432745760
+    },
+    {
+      "class": "Object",
+      "name": "Internal_InstantiateSingleWithParent",
+      "parameters": 4,
+      "codeRva": 432745776
+    },
+    {
+      "class": "Object",
+      "name": "INTERNAL_CALL_Internal_InstantiateSingleWithParent",
+      "parameters": 4,
+      "codeRva": 432745792
+    },
+    {
+      "class": "Object",
+      "name": "GetOffsetOfInstanceIDInCPlusPlusObject",
+      "parameters": 0,
+      "codeRva": 432745808
+    },
+    {
+      "class": "Object",
+      "name": "EnsureRunningOnMainThread",
+      "parameters": 0,
+      "codeRva": 432745824
+    },
+    {
+      "class": "Object",
+      "name": "Destroy",
+      "parameters": 2,
+      "codeRva": 432745840
+    },
+    {
+      "class": "Object",
+      "name": "Destroy",
+      "parameters": 1,
+      "codeRva": 432745856
+    },
+    {
+      "class": "Object",
+      "name": "get_miHoYoDonotAllowToDestroyAsset",
+      "parameters": 0,
+      "codeRva": 432745872
+    },
+    {
+      "class": "Object",
+      "name": "set_miHoYoDonotAllowToDestroyAsset",
+      "parameters": 1,
+      "codeRva": 432745888
+    },
+    {
+      "class": "Object",
+      "name": "get_editorDeleteCheck",
+      "parameters": 0,
+      "codeRva": 432745904
+    },
+    {
+      "class": "Object",
+      "name": "set_editorDeleteCheck",
+      "parameters": 1,
+      "codeRva": 432745920
+    },
+    {
+      "class": "Object",
+      "name": "DestroyImmediate",
+      "parameters": 2,
+      "codeRva": 432745936
+    },
+    {
+      "class": "Object",
+      "name": "DestroyImmediate",
+      "parameters": 1,
+      "codeRva": 432745952
+    },
+    {
+      "class": "Object",
+      "name": "GetObjectCount",
+      "parameters": 0,
+      "codeRva": 432745968
+    },
+    {
+      "class": "Object",
+      "name": "GetGameObjectCount",
+      "parameters": 0,
+      "codeRva": 432745984
+    },
+    {
+      "class": "Object",
+      "name": "GetLoadedArraySize",
+      "parameters": 0,
+      "codeRva": 432746000
+    },
+    {
+      "class": "Object",
+      "name": "GetInstancedArraySize",
+      "parameters": 0,
+      "codeRva": 432746016
+    },
+    {
+      "class": "Object",
+      "name": "SetOverrideObjectVersionCount",
+      "parameters": 1,
+      "codeRva": 432746032
+    },
+    {
+      "class": "Object",
+      "name": "GetOverrideMaxObjectVersionCount",
+      "parameters": 0,
+      "codeRva": 432746048
+    },
+    {
+      "class": "Object",
+      "name": "FindObjectsOfType",
+      "parameters": 1,
+      "codeRva": 432746064
+    },
+    {
+      "class": "Object",
+      "name": "get_name",
+      "parameters": 0,
+      "codeRva": 432746080
+    },
+    {
+      "class": "Object",
+      "name": "set_name",
+      "parameters": 1,
+      "codeRva": 432746096
+    },
+    {
+      "class": "Object",
+      "name": "GetNameNoThreadCheck",
+      "parameters": 0,
+      "codeRva": 432746112
+    },
+    {
+      "class": "Object",
+      "name": "GetInstanceIDNoThreadCheck",
+      "parameters": 0,
+      "codeRva": 432746128
+    },
+    {
+      "class": "Object",
+      "name": "DontDestroyOnLoad",
+      "parameters": 1,
+      "codeRva": 432746144
+    },
+    {
+      "class": "Object",
+      "name": "get_hideFlags",
+      "parameters": 0,
+      "codeRva": 432746160
+    },
+    {
+      "class": "Object",
+      "name": "set_hideFlags",
+      "parameters": 1,
+      "codeRva": 432741712
+    },
+    {
+      "class": "Object",
+      "name": "DestroyObject",
+      "parameters": 2,
+      "codeRva": 432746176
+    },
+    {
+      "class": "Object",
+      "name": "DestroyObject",
+      "parameters": 1,
+      "codeRva": 432746192
+    },
+    {
+      "class": "Object",
+      "name": "FindSceneObjectsOfType",
+      "parameters": 1,
+      "codeRva": 432746208
+    },
+    {
+      "class": "Object",
+      "name": "FindObjectsOfTypeIncludingAssets",
+      "parameters": 1,
+      "codeRva": 432746224
+    },
+    {
+      "class": "Object",
+      "name": "ToString",
+      "parameters": 0,
+      "codeRva": 432746240
+    },
+    {
+      "class": "Object",
+      "name": "IsNameEqual",
+      "parameters": 1,
+      "codeRva": 432746256
+    },
+    {
+      "class": "Object",
+      "name": "INTERNAL_CALL_IsNameEqual",
+      "parameters": 2,
+      "codeRva": 432746272
+    },
+    {
+      "class": "Object",
+      "name": "IsNameEqualIgnoreCase",
+      "parameters": 1,
+      "codeRva": 432746288
+    },
+    {
+      "class": "Object",
+      "name": "INTERNAL_CALL_IsNameEqualIgnoreCase",
+      "parameters": 2,
+      "codeRva": 432746304
+    },
+    {
+      "class": "Object",
+      "name": "IsNameEqual",
+      "parameters": 1,
+      "codeRva": 432746320
+    },
+    {
+      "class": "Object",
+      "name": "IsNameEqualIgnoreCase",
+      "parameters": 1,
+      "codeRva": 432746336
+    },
+    {
+      "class": "Object",
+      "name": "DoesObjectWithInstanceIDExist",
+      "parameters": 1,
+      "codeRva": 432746352
+    },
+    {
+      "class": "Object",
+      "name": "AddDeleteTrace",
+      "parameters": 1,
+      "codeRva": 432746368
+    },
+    {
+      "class": "Object",
+      "name": "ReleaseDeleteTrace",
+      "parameters": 1,
+      "codeRva": 432746384
+    },
+    {
+      "class": "Object",
+      "name": "LogNearestObjectInfo",
+      "parameters": 2,
+      "codeRva": 432746400
+    },
+    {
+      "class": "Object",
+      "name": "get_defaultDeactivateAfterInstantiate",
+      "parameters": 0,
+      "codeRva": 432746416
+    },
+    {
+      "class": "Object",
+      "name": "set_defaultDeactivateAfterInstantiate",
+      "parameters": 1,
+      "codeRva": 432746432
+    },
+    {
+      "class": "Object",
+      "name": "ReserveObjectIDMap",
+      "parameters": 1,
+      "codeRva": 432746448
+    },
+    {
+      "class": "Object",
+      "name": "FindObjectFromInstanceID",
+      "parameters": 1,
+      "codeRva": 432746464
+    },
+    {
+      "class": "Object",
+      "name": "GetInstanceID",
+      "parameters": 0,
+      "codeRva": 432746480
+    },
+    {
+      "class": "Object",
+      "name": "GetHashCode",
+      "parameters": 0,
+      "codeRva": 432746544
+    },
+    {
+      "class": "Object",
+      "name": "Equals",
+      "parameters": 1,
+      "codeRva": 432746560
+    },
+    {
+      "class": "Object",
+      "name": "op_Implicit",
+      "parameters": 1,
+      "codeRva": 432746736
+    },
+    {
+      "class": "Object",
+      "name": "ThreadSafeCheckIsNull",
+      "parameters": 1,
+      "codeRva": 432746768
+    },
+    {
+      "class": "Object",
+      "name": "CompareBaseObjects",
+      "parameters": 2,
+      "codeRva": 432746672
+    },
+    {
+      "class": "Object",
+      "name": "LiveObjectEquals",
+      "parameters": 2,
+      "codeRva": 432746864
+    },
+    {
+      "class": "Object",
+      "name": "IsNativeObjectAliveNoEditorCheck",
+      "parameters": 1,
+      "codeRva": 432746800
+    },
+    {
+      "class": "Object",
+      "name": "IsNativeObjectAlive",
+      "parameters": 1,
+      "codeRva": 432746832
+    },
+    {
+      "class": "Object",
+      "name": "GetCachedPtr",
+      "parameters": 0,
+      "codeRva": 432746880
+    },
+    {
+      "class": "Object",
+      "name": "Instantiate",
+      "parameters": 3,
+      "codeRva": 432746896
+    },
+    {
+      "class": "Object",
+      "name": "Instantiate",
+      "parameters": 4,
+      "codeRva": 432747200
+    },
+    {
+      "class": "Object",
+      "name": "Instantiate",
+      "parameters": 1,
+      "codeRva": 432747376
+    },
+    {
+      "class": "Object",
+      "name": "Instantiate",
+      "parameters": 2,
+      "codeRva": 432747456
+    },
+    {
+      "class": "Object",
+      "name": "Instantiate",
+      "parameters": 3,
+      "codeRva": 432747568
+    },
+    {
+      "class": "Object",
+      "name": "CheckNullArgument",
+      "parameters": 2,
+      "codeRva": 432747136
+    },
+    {
+      "class": "Object",
+      "name": "FindObjectOfType",
+      "parameters": 1,
+      "codeRva": 432747664
+    },
+    {
+      "class": "Object",
+      "name": "op_Equality",
+      "parameters": 2,
+      "codeRva": 432740384
+    },
+    {
+      "class": "Object",
+      "name": "op_Inequality",
+      "parameters": 2,
+      "codeRva": 432747728
+    },
+    {
+      "class": "AssetBundleRequest",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432846624
+    },
+    {
+      "class": "AssetBundleRequest",
+      "name": "get_asset",
+      "parameters": 0,
+      "codeRva": 432846608
+    },
+    {
+      "class": "AsyncOperation",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432784624
+    },
+    {
+      "class": "AsyncOperation",
+      "name": "InternalDestroy",
+      "parameters": 0,
+      "codeRva": 432784256
+    },
+    {
+      "class": "AsyncOperation",
+      "name": "Finalize",
+      "parameters": 0,
+      "codeRva": 432784272
+    },
+    {
+      "class": "AsyncOperation",
+      "name": "get_isDone",
+      "parameters": 0,
+      "codeRva": 432784384
+    },
+    {
+      "class": "AsyncOperation",
+      "name": "InvokeCompletionEvent",
+      "parameters": 0,
+      "codeRva": 432784400
+    },
+    {
+      "class": "AsyncOperation",
+      "name": "add_completed",
+      "parameters": 1,
+      "codeRva": 432784448
+    },
+    {
+      "class": "AsyncOperation",
+      "name": "remove_completed",
+      "parameters": 1,
+      "codeRva": 432784560
+    },
+    {
+      "class": "YieldInstruction",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432739264
+    },
+    {
+      "class": "AssetBundleCreateRequest",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432846592
+    },
+    {
+      "class": "AssetBundleCreateRequest",
+      "name": "get_assetBundle",
+      "parameters": 0,
+      "codeRva": 432846576
+    },
+    {
+      "class": "AssetBundleInstanceRequest",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432589968
+    },
+    {
+      "class": "Transform",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432753520
+    },
+    {
+      "class": "Transform",
+      "name": "SetParent",
+      "parameters": 1,
+      "codeRva": 432763024
+    },
+    {
+      "class": "Transform",
+      "name": "SetParent",
+      "parameters": 2,
+      "codeRva": 432763040
+    },
+    {
+      "class": "Component",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432787104
+    },
+    {
+      "class": "GameObject",
+      "name": ".ctor",
+      "parameters": 1,
+      "codeRva": 432650768
+    },
+    {
+      "class": "GameObject",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432650800
+    },
+    {
+      "class": "GameObject",
+      "name": ".ctor",
+      "parameters": 2,
+      "codeRva": 432650816
+    },
+    {
+      "class": "GameObject",
+      "name": "SetActive",
+      "parameters": 1,
+      "codeRva": 432650240
+    },
+    {
+      "class": "GameObject",
+      "name": "Internal_AddComponentWithType",
+      "parameters": 1,
+      "codeRva": 432650704
+    },
+    {
+      "class": "GameObject",
+      "name": "AddComponent",
+      "parameters": 1,
+      "codeRva": 432650736
+    },
+    {
+      "class": "GameObject",
+      "name": "AddComponent",
+      "parameters": 1,
+      "codeRva": 432650752
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432645984
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "get_bones",
+      "parameters": 0,
+      "codeRva": 432645344
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "get_rootBone",
+      "parameters": 0,
+      "codeRva": 432645440
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "set_rootBone",
+      "parameters": 1,
+      "codeRva": 432645456
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "get_sharedMesh",
+      "parameters": 0,
+      "codeRva": 432645472
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "set_sharedMesh",
+      "parameters": 1,
+      "codeRva": 432645488
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "get_localBounds",
+      "parameters": 0,
+      "codeRva": 432645696
+    },
+    {
+      "class": "SkinnedMeshRenderer",
+      "name": "set_localBounds",
+      "parameters": 1,
+      "codeRva": 432645776
+    },
+    {
+      "class": "Renderer",
+      "name": ".ctor",
+      "parameters": 0,
+      "codeRva": 432876144
+    },
+    {
+      "class": "Renderer",
+      "name": "get_sharedMaterials",
+      "parameters": 0,
+      "codeRva": 432876000
+    },
+    {
+      "class": "Renderer",
+      "name": "set_sharedMaterials",
+      "parameters": 1,
+      "codeRva": 432876016
+    }
+  ],
+  "resourceLookupStatus": "resource-methods-observed",
+  "resourceClasses": [
+    {
+      "assembly": "UnityEngine.CoreModule.dll",
+      "name": "Resources",
+      "found": true
+    },
+    {
+      "assembly": "UnityEngine.CoreModule.dll",
+      "name": "AssetBundle",
+      "found": true
+    },
+    {
+      "assembly": "UnityEngine.CoreModule.dll",
+      "name": "AssetBundleRequest",
+      "found": true
+    },
+    {
+      "assembly": "UnityEngine.CoreModule.dll",
+      "name": "AssetBundleCreateRequest",
+      "found": true
+    },
+    {
+      "assembly": "UnityEngine.CoreModule.dll",
+      "name": "AssetBundleInstanceRequest",
+      "found": true
+    },
+    {
+      "assembly": "Assembly-CSharp.dll",
+      "name": "AssetBundleManager",
+      "found": false
+    },
+    {
+      "assembly": "Assembly-CSharp.dll",
+      "name": "CustomAssetBundle",
+      "found": false
+    },
+    {
+      "assembly": "Assembly-CSharp.dll",
+      "name": "UnityAssetBundle",
+      "found": false
+    }
+  ]
+}

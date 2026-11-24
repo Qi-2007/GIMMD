@@ -11,11 +11,11 @@ static const char* status="disabled";
 static void configure(uintptr_t base,const std::filesystem::path& directory) {
     requested=verified=captured=aborted=restored=false; dirty.store(false); identity=0; calls=attempts=0; exception=0; last=0; status="disabled";
     const auto path=directory/L"uid-text.txt";
-    if (!std::filesystem::exists(path)) return;
-    requested=true; gimmd::player_session::uid_state.store(1); status="uid-text-profile-unverified";
+    requested=std::filesystem::exists(path); gimmd::player_session::uid_state.store(1); status="uid-text-profile-unverified";
     if (!hierarchy::configured) return;
     get=reinterpret_cast<Getter>(hierarchy::entry("UITextGet",base)); set=reinterpret_cast<Setter>(hierarchy::entry("UITextSet",base));
     verified=get&&set&&hierarchy::entry("UITextStore",base)&&hierarchy::animator_observer::metadata::accessors_verified;
+    if (!requested) { status="disabled"; gimmd::player_session::uid_state.store(0); return; }
     std::ifstream input(path,std::ios::binary|std::ios::ate); const auto size=input ? input.tellg():std::streampos(-1);
     if (size<0||size>256) { verified=false; return; }
     std::memset(replacement,0,sizeof(replacement)); input.seekg(0); input.read(replacement,size);
@@ -35,7 +35,7 @@ static bool named_interface(void* component) {
     bool getter=false,setter=false;
     for (unsigned depth=0;klass&&depth<8;++depth) {
         uintptr_t table=0; uint16_t count=0;
-        if (!read_bytes(klass+0x58,&table,sizeof(table))||!table||!read_bytes(klass+0xc0,&count,sizeof(count))||count>384) return false;
+        if (!read_bytes(klass + gimmd::hierarchy_profile::ClassMethodTable,&table,sizeof(table))||!table||!read_bytes(klass + gimmd::hierarchy_profile::ClassMethodCount,&count,sizeof(count))||count>384) return false;
         for (unsigned i=0;i<count;++i) {
             uintptr_t method=0,info[8]{}; char name[64]{};
             if (!read_bytes(table+i*8,&method,sizeof(method))||!method||!read_bytes(method,info,sizeof(info))||info[0]!=klass) return false;
@@ -56,9 +56,12 @@ static bool write(void* component,const char* value) {
     return text(component,observed)&&!std::strcmp(value,observed);
 }
 static void tick() {
-    if (!requested||!verified) return;
-    const bool stopping=hierarchy::playback::stop_requested.load()||hierarchy::playback::done.load()||aborted;
-    if ((!dirty.load()&&stopping)||(!stopping&&!hierarchy::playback::started.load())) return;
+    bool enabled=false; char updated[257]{};
+    const bool live=gimmd::player_session::uid_snapshot(updated,&enabled);
+    if (live&&enabled) { requested=true; strcpy_s(replacement,updated); }
+    if ((!requested&&!dirty.load())||!verified) return;
+    const bool stopping=(gimmd::player_session::dynamic_session ? gimmd::player_session::exit_requested.load():(hierarchy::playback::stop_requested.load()||hierarchy::playback::done.load()))||aborted||(live&&!enabled);
+    if ((!dirty.load()&&stopping)||(!stopping&&(!gimmd::player_session::dynamic_session&&!hierarchy::playback::started.load()))) return;
     const auto now=GetTickCount64(); if (!stopping&&now-last<200) return; last=now;
     __try {
         // FufuLauncher's exact watermark path; profile/card UI is not targeted.
@@ -85,7 +88,7 @@ static void tick() {
         }
         char observed[257]{};
         if (text(component,observed)&&!std::strcmp(observed,replacement)) return;
-        dirty.store(true);
+        restored=false; dirty.store(true);
         if (write(component,replacement)) { status="uid-text-applied"; gimmd::player_session::uid_state.store(2); }
         else { aborted=true; status="uid-text-write-not-confirmed"; gimmd::player_session::uid_state.store(5); }
     } __except(EXCEPTION_EXECUTE_HANDLER) { exception=GetExceptionCode(); aborted=true; status="uid-text-interface-exception"; gimmd::player_session::uid_state.store(5); }

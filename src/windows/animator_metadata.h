@@ -31,7 +31,7 @@ static const char* known_text(uintptr_t address) {
     return nullptr;
 }
 static void reset(uintptr_t base) {
-    image_base = base; behaviour_slot = base + 0x56cf1b8;
+    image_base = base; behaviour_slot = base + gimmd::hierarchy_profile::BehaviourCache;
     profile_verified = entry("BehaviourClassRegistration", base) && entry("BehaviourClassCacheStore", base);
     text_count = method_count = parent_offset = 0; status = "not-attempted";
     parent_matches = false; method_queries = owner_mismatches = 0; declared_counts[0] = declared_counts[1] = 0;
@@ -64,14 +64,14 @@ static void observe_component(void* component) {
 static void capture_named_methods(const uintptr_t (&classes)[2]) {
     parent_matches = parent_get(classes[0]) == classes[1];
     if (!parent_matches) { status = "parent-accessor-mismatch-refused"; return; }
-    const auto deadline = GetTickCount64() + 20;
-    // The reviewed search loop uses class+0x58 and a uint16 count at +0xc0.
+    const auto deadline = GetTickCount64() + 48;
+    // The reviewed search loop uses class+0x98 and a uint16 count at +0xc2 (CN 7.2).
     // Behaviour first so the bounded Animator scan cannot starve its base class.
     for (unsigned order = 0; order < 2; ++order) {
         const unsigned type = 1 - order;
         uintptr_t table = 0; uint16_t length = 0;
-        if (!read_bytes(classes[type] + 0xc0, &length, sizeof(length)) || length > 1024 ||
-            !read_bytes(classes[type] + 0x58, &table, sizeof(table)) || (length && !table)) {
+        if (!read_bytes(classes[type] + gimmd::hierarchy_profile::ClassMethodCount, &length, sizeof(length)) || length > 1024 ||
+            !read_bytes(classes[type] + gimmd::hierarchy_profile::ClassMethodTable, &table, sizeof(table)) || (length && !table)) {
             status = "method-table-unavailable"; return;
         }
         declared_counts[type] = length;
@@ -86,7 +86,7 @@ static void capture_named_methods(const uintptr_t (&classes)[2]) {
             const char* name = known_text(reinterpret_cast<uintptr_t>(method_name(item)));
             if (!name || (std::strncmp(name, "get_", 4) && std::strncmp(name, "set_", 4)) || method_count >= 32) continue;
             auto& m = methods[method_count++]; m = {};
-            m.type = type; m.table_offset = 0x58; m.index = i; m.name_offset = 0x30; m.name = name;
+            m.type = type; m.table_offset = gimmd::hierarchy_profile::ClassMethodTable; m.index = i; m.name_offset = 0x30; m.name = name;
             m.parameter_count = reinterpret_cast<const uint8_t*>(info)[0x2e];
             for (unsigned n = 0; n < 8; ++n) if (executable(info[n], image_base)) {
                 m.code_offsets[m.code_count] = n * 8; m.code_rvas[m.code_count++] = info[n] - image_base;

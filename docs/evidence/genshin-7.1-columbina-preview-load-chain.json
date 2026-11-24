@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "safety": {
+    "engineException": 0,
+    "entryBytesRestored": true,
+    "traceEntriesRestored": true,
+    "activeCallbacks": 0
+  },
+  "pipelineHooks": [
+    {
+      "rva": 27102112,
+      "status": "restored"
+    },
+    {
+      "rva": 27103280,
+      "status": "restored"
+    },
+    {
+      "rva": 27104720,
+      "status": "restored"
+    },
+    {
+      "rva": 27104864,
+      "status": "restored"
+    },
+    {
+      "rva": 27105216,
+      "status": "restored"
+    },
+    {
+      "rva": 27141392,
+      "status": "restored"
+    },
+    {
+      "rva": 27213264,
+      "status": "restored"
+    },
+    {
+      "rva": 27105408,
+      "status": "restored"
+    },
+    {
+      "rva": 27143440,
+      "status": "restored"
+    },
+    {
+      "rva": 113370112,
+      "status": "restored"
+    },
+    {
+      "rva": 27134864,
+      "status": "restored"
+    }
+  ],
+  "counts": {
+    "bundle-file": 34,
+    "mhy-bundle-file": 34,
+    "role-provider": 2,
+    "instance-cache": 3,
+    "load-template-async": 2,
+    "template-ready": 10,
+    "template-clone": 16,
+    "template-finalize": 16,
+    "instance": 8,
+    "load-template": 1
+  },
+  "bufferTruncated": false,
+  "cacheChains": [
+    {
+      "hash": 716101243,
+      "hashHex": "0x2AAED67B",
+      "bundle": "",
+      "cacheThread": 25120,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1e67e",
+        "0x6de1b00",
+        "0x156766e0",
+        "0x701ebb9",
+        "0x53f5ac",
+        "0x4b2ec7",
+        "0x14cf9d3",
+        "0x14c32a0",
+        "0x14c352e",
+        "0x1691264",
+        "0x7047cf0",
+        "0x70496ad",
+        "0x53f5ac"
+      ],
+      "fileLoads": [],
+      "providers": [
+        {
+          "class": "LoadedBundle",
+          "handle": 64829
+        }
+      ],
+      "templateLoads": 1,
+      "templateReady": 1,
+      "templateClones": 1,
+      "finalizedModels": [
+        "Avatar_Boy_Sword_PlayerBoy_Manekin(Clone)"
+      ],
+      "instances": []
+    },
+    {
+      "hash": 1230741029,
+      "hashHex": "0x495B9E25",
+      "bundle": "",
+      "cacheThread": 25120,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1e67e",
+        "0x6de1b00",
+        "0x156766e0",
+        "0x701ebb9",
+        "0x53f5ac",
+        "0x4b2ec7",
+        "0x14cf9d3",
+        "0x14c32a0",
+        "0x14c352e",
+        "0x1691264",
+        "0x7047cf0",
+        "0x70496ad",
+        "0x53f5ac"
+      ],
+      "fileLoads": [],
+      "providers": [
+        {
+          "class": "LoadedBundle",
+          "handle": 64956
+        }
+      ],
+      "templateLoads": 1,
+      "templateReady": 1,
+      "templateClones": 1,
+      "finalizedModels": [
+        "Avatar_Girl_Catalyst_Columbina_Manekin(Clone)"
+      ],
+      "instances": []
+    },
+    {
+      "hash": 616180000,
+      "hashHex": "0x24BA2920",
+      "bundle": "781/6c7525b1069230a0.asb",
+      "cacheThread": 7044,
+      "callerRvas": [
+        "0x145b7ea",
+        "0x6c1d8e5",
+        "0x7014ebc",
+        "0x7018ab2",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc",
+        "0xeda8935",
+        "0x9b0fe52",
+        "0x97cbd63"
+      ],
+      "fileLoads": [
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16076595.blk",
+          "offset": 596693,
+          "option1": 0,
+          "option2": 16800,
+          "bundle": "781/6c7525b1069230a0.asb"
+        },
+        {
+          "path": "E:/Game/Genshin Impact Game/YuanShen_Data/StreamingAssets\\AssetBundles/blocks/00/16076595.blk",
+          "offset": 596693,
+          "option1": 0,
+          "option2": 16800,
+          "bundle": "781/6c7525b1069230a0.asb"
+        }
+      ],
+      "providers": [],
+      "templateLoads": 1,
+      "templateReady": 0,
+      "templateClones": 2,
+      "finalizedModels": [
+        "Eff_Avatar_Girl_Catalyst_Columbina_Show_02(Clone)",
+        "Eff_Avatar_Girl_Catalyst_Columbina_Show_02(Clone)"
+      ],
+      "instances": [
+        "Eff_Avatar_Girl_Catalyst_Columbina_Show_02(Clone)"
+      ]
+    }
+  ],
+  "unlinkedAsyncClones": [
+    {
+      "templateData": 2328394631056,
+      "objects": 335,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2328723608720,
+      "objects": 18,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x9a7bcc6",
+        "0x13d31b04",
+        "0x13d3309f",
+        "0x13d370e0",
+        "0xb9512c0",
+        "0x10c497ce",
+        "0xb950625"
+      ]
+    },
+    {
+      "templateData": 2328520858192,
+      "objects": 605,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2336017963024,
+      "objects": 34,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x9a7bcc6",
+        "0x13d31b04",
+        "0x13d3309f",
+        "0x13d370e0",
+        "0xb9512c0",
+        "0x10c497ce",
+        "0xb950625"
+      ]
+    },
+    {
+      "templateData": 2336017964944,
+      "objects": 143,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc"
+      ]
+    },
+    {
+      "templateData": 2336017964944,
+      "objects": 143,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2329117942928,
+      "objects": 59,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc774c53",
+        "0x9a92d9e",
+        "0x9a928dc"
+      ]
+    },
+    {
+      "templateData": 2329117942928,
+      "objects": 59,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2329117969488,
+      "objects": 43,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc76f0e5",
+        "0x9a87816",
+        "0x9b100a6"
+      ]
+    },
+    {
+      "templateData": 2329117969488,
+      "objects": 43,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2336368441872,
+      "objects": 44,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x11e486ef",
+        "0xf7146c1",
+        "0xc76bb68",
+        "0xc76a5ed",
+        "0xc76f0e5",
+        "0x9a87816",
+        "0x9b100a6"
+      ]
+    },
+    {
+      "templateData": 2336368441872,
+      "objects": 44,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2328394625296,
+      "objects": 685,
+      "thread": 19524,
+      "callerRvas": [
+        "0x19e0709",
+        "0x1693918",
+        "0x1693539",
+        "0x16556e8"
+      ]
+    },
+    {
+      "templateData": 2336017963024,
+      "objects": 34,
+      "thread": 7044,
+      "callerRvas": [
+        "0x19e0cd0",
+        "0x19d97f9",
+        "0x145b39a",
+        "0x6c1d675",
+        "0x6e354f6",
+        "0x7018af1",
+        "0x6d8aadd",
+        "0x9a7bcc6",
+        "0x13d31b04",
+        "0x13d3309f",
+        "0x13d370e0",
+        "0xb9512c0",
+        "0x10c497ce",
+        "0xb950625"
+      ]
+    }
+  ],
+  "note": "Same native identities and event order establish the links. Missing file/template events can reflect prior caching or unhooked asynchronous paths. option2 semantics are not yet fully verified."
+}

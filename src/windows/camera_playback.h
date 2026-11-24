@@ -1,4 +1,5 @@
 #pragma once
+#include "core/camera_front.h"
 // Main-thread only engine access. Each tick resolves the camera again; only its
 // native identity value and saved pose cross callbacks, never a callable pointer.
 namespace camera_playback {
@@ -31,6 +32,17 @@ static FovReader fov_read=native_fov;
 struct Trace { double seconds=0; uint64_t epoch=0; unsigned state=0; Vec3 position{}; float error=0,fov=0; uint64_t control_sequence=0; };
 static Trace traces[16]{}; static unsigned trace_count=0;
 static const char* status="disabled";
+static bool (*front_pose)(Vec3*,hierarchy::Quat*)=nullptr;
+static std::atomic<unsigned> front_state{0}; // 1 pending, 2 applied, 3 failed
+static bool front_active=false;
+static Vec3 front_position{};
+static hierarchy::Quat front_rotation{};
+static ULONGLONG front_deadline=0;
+static bool (*actor_position)(unsigned,Vec3*)=nullptr;
+static unsigned actor_target=0;
+static bool actor_follow=false;
+static Vec3 actor_origin{},actor_shift{};
+static void release_actor() { actor_target=0;actor_follow=false;actor_shift={}; }
 static bool sample(double seconds,cp::Pose* out) {
     if (manual_only) { *out={}; return true; }
     BetterEndfieldNext::Vmd::CameraSample value{};
@@ -38,7 +50,7 @@ static bool sample(double seconds,cp::Pose* out) {
         cp::evaluate(value,gimmd::fk_profile::RootMotionScale,{}, {},out);
 }
 static void configure(uintptr_t base,const std::filesystem::path& directory) {
-    manual_only=false; control={};
+    manual_only=false; control={};release_actor();front_active=false;front_state.store(0);
     keys.clear(); loaded=acquired=restored=aborted=false; dirty.store(false); owner=0;
     writes=retained=overwritten=attempts=0; exception=0; max_error=restore_error=0; sampled_seconds=0;
     trace_count=0; baseline_fov=applied_fov=max_fov_error=restore_fov_error=0; fov_read=native_fov;
@@ -71,6 +83,31 @@ static void configure(uintptr_t base,const std::filesystem::path& directory) {
     if (!sample(0,&zero)) return;
     loaded=true; gimmd::player_session::camera_enabled.store(true); status="waiting-for-main-camera";
 }
+static SRWLOCK pending_lock=SRWLOCK_INIT;
+static std::vector<BetterEndfieldNext::Vmd::CameraKey> pending_keys;
+static std::atomic<bool> pending_ready{false};
+static bool queue(const std::filesystem::path& path) {
+    if (!Enabled||!set_position||!set_rotation||!hierarchy::configured) return false;
+    std::vector<BetterEndfieldNext::Vmd::CameraKey> prepared;
+    if (std::filesystem::exists(path)) {
+        std::ifstream in(path,std::ios::binary|std::ios::ate); const auto size=in ? in.tellg():std::streampos(-1);
+        if (size<=0||size>16*1024*1024) return false;
+        std::vector<uint8_t> bytes(static_cast<size_t>(size)); in.seekg(0); in.read(reinterpret_cast<char*>(bytes.data()),size);
+        BetterEndfieldNext::Vmd::Motion motion; std::string error;
+        if (!in||!BetterEndfieldNext::Vmd::Parse(bytes,motion,error)||motion.cameras.empty()) return false;
+        for (const auto& key:motion.cameras) if (key.orthographic) return false;
+        prepared=std::move(motion.cameras);
+    }
+    AcquireSRWLockExclusive(&pending_lock); pending_keys=std::move(prepared); pending_ready.store(true); ReleaseSRWLockExclusive(&pending_lock);
+    return true;
+}
+static void consume_pending() {
+    if (!pending_ready.load()||!TryAcquireSRWLockExclusive(&pending_lock)) return;
+    keys=std::move(pending_keys); pending_ready.store(false); ReleaseSRWLockExclusive(&pending_lock);
+    manual_only=keys.empty(); zero={}; aborted=false; restored=false;
+    loaded=manual_only||sample(0,&zero);
+    gimmd::player_session::camera_enabled.store(loaded);
+}
 static bool read(void* transform,uintptr_t native,Vec3* p,hierarchy::Quat* q) {
     __try {
         if (!camera_experiment::identity(transform,native)) return false;
@@ -91,8 +128,10 @@ static bool write(void* transform,uintptr_t native,const Vec3* p,const hierarchy
 // Accept a validated camera only. The FOV callback additionally proves ownership
 // on acquisition; later message ticks require the very same native identity.
 static void apply(void* transform,uintptr_t camera_native,bool callback_match) {
-    const bool stopping=hierarchy::playback::stop_requested.load()||hierarchy::playback::done.load()||engine_error.load()||aborted;
-    if (!Enabled||!loaded||(!dirty.load()&&stopping)) return;
+    const bool stopping=(gimmd::player_session::dynamic_session ? (gimmd::player_session::exit_requested.load()||!gimmd::player_session::camera_requested.load()):(hierarchy::playback::stop_requested.load()||hierarchy::playback::done.load()))||engine_error.load()||aborted;
+    if (gimmd::player_session::dynamic_session) {
+        if (!Enabled||!loaded||(!dirty.load()&&(!gimmd::player_session::camera_requested.load()||gimmd::player_session::exit_requested.load()))) return;
+    } else if (!Enabled||!loaded||(!dirty.load()&&stopping)) return;
     if (acquired&&camera_native!=owner) return;
     if (!acquired&&!callback_match) return;
     uintptr_t native=0; Vec3 observed{}; hierarchy::Quat observed_q{}; float observed_fov=0;
@@ -104,29 +143,49 @@ static void apply(void* transform,uintptr_t camera_native,bool callback_match) {
         if (write(transform,native,&baseline,&baseline_q,camera_native,baseline_fov)&&read(transform,native,&observed,&observed_q)&&fov_read(camera_native,&observed_fov)) {
             restore_error=std::max(camera_experiment::error(baseline,observed),hierarchy::roundtrip::error(baseline_q,observed_q));
             restore_fov_error=std::abs(baseline_fov-observed_fov);
-            if (restore_error<0.0001f&&restore_fov_error<0.0001f) { dirty.store(false); restored=true; status=aborted ? "camera-aborted-restored":"camera-stopped-restored"; }
+            if (restore_error<0.0001f&&restore_fov_error<0.0001f) { dirty.store(false); restored=true; front_active=false; if (gimmd::player_session::dynamic_session) { acquired=false; owner=transform_owner=0; release_actor(); } status=aborted ? "camera-aborted-restored":"camera-stopped-restored"; }
         }
         return;
     }
-    const auto frame=gimmd::unpack_player_frame(gimmd::player_session::frame.load());
+    auto frame=gimmd::unpack_player_frame((gimmd::player_session::dynamic_session ? gimmd::player_session::camera_frame.load():gimmd::player_session::frame.load()));
+    if (gimmd::player_session::dynamic_session&&frame.state==gimmd::PlaybackState::Ready) frame.state=gimmd::PlaybackState::Paused;
     if (frame.state!=gimmd::PlaybackState::Playing&&frame.state!=gimmd::PlaybackState::Paused&&!(frame.state==gimmd::PlaybackState::Ended&&gimmd::player_session::holding_end.load())) return;
+    gimmd::CameraControl latest;
+    if (gimmd::player_session::camera_snapshot(&latest)) control=latest;
     cp::Pose pose{};
-    if (!sample(frame.seconds,&pose)) { aborted=true; hierarchy::playback::stop_requested.store(true); status="camera-sample-failed"; return; }
+    if (control.preview_override) pose=zero;
+    if (!control.preview_override&&!sample(frame.seconds,&pose)) { aborted=true; hierarchy::playback::stop_requested.store(true); status="camera-sample-failed"; return; }
     if (!acquired) {
         if (!fov_read(camera_native,&baseline_fov)) { status="camera-fov-read-refused"; return; }
-        baseline=observed; baseline_q=observed_q; owner=camera_native; transform_owner=native; acquired=true; }
+        baseline=observed; baseline_q=observed_q; owner=camera_native; transform_owner=native; acquired=true; restored=false; }
     else if (dirty.load()) {
         if (camera_experiment::error(applied,observed)<0.0001f&&hierarchy::roundtrip::error(applied_q,observed_q)<0.0001f) ++retained;
         else ++overwritten;
     }
-    const auto alignment=gimmd::rotation_preview::multiply({baseline_q.x,baseline_q.y,baseline_q.z,baseline_q.w},
+    const bool homing=front_state.load()==1;
+    if(homing) {
+        if(!front_pose||!front_pose(&front_position,&front_rotation)){
+            front_state.store(3);status="camera-front-target-unavailable";
+            if(!dirty.load()){acquired=false;owner=transform_owner=0;front_active=false;}return;
+        }
+        release_actor();front_active=true;
+    }
+    const auto& anchor_position=front_active?front_position:baseline;
+    const auto& anchor_rotation=front_active?front_rotation:baseline_q;
+    const auto alignment=gimmd::rotation_preview::multiply({anchor_rotation.x,anchor_rotation.y,anchor_rotation.z,anchor_rotation.w},
         {-zero.rotation.x,-zero.rotation.y,-zero.rotation.z,zero.rotation.w});
     const auto offset=gimmd::leg_ik::vector(gimmd::leg_ik::rotation(alignment),gimmd::leg_ik::sub(pose.position,zero.position));
-    applied={baseline.x+offset.x,baseline.y+offset.y,baseline.z+offset.z};
+    applied={anchor_position.x+offset.x,anchor_position.y+offset.y,anchor_position.z+offset.z};
+    if(actor_target) {
+        Vec3 target{};
+        if(!actor_position||!actor_position(actor_target,&target)) {
+            release_actor();gimmd::player_session::camera_requested.store(false);status="actor-camera-target-lost";return;
+        }
+        if(actor_follow) actor_shift={target.x-actor_origin.x,target.y-actor_origin.y,target.z-actor_origin.z};
+        applied={applied.x+actor_shift.x,applied.y+actor_shift.y,applied.z+actor_shift.z};
+    }
     const auto q=gimmd::rotation_preview::multiply(alignment,pose.rotation); applied_q={q.x,q.y,q.z,q.w};
-    gimmd::CameraControl latest;
-    if (gimmd::player_session::camera_snapshot(&latest)) control=latest;
-    const auto shift=gimmd::leg_ik::vector(gimmd::leg_ik::rotation({baseline_q.x,baseline_q.y,baseline_q.z,baseline_q.w}),
+    const auto shift=gimmd::leg_ik::vector(gimmd::leg_ik::rotation({anchor_rotation.x,anchor_rotation.y,anchor_rotation.z,anchor_rotation.w}),
         {control.right,control.up,control.forward});
     applied={applied.x+shift.x,applied.y+shift.y,applied.z+shift.z};
     constexpr float half_degree=3.14159265358979323846f/360;
@@ -135,13 +194,14 @@ static void apply(void* transform,uintptr_t camera_native,bool callback_match) {
         {0,std::sin(yaw),0,std::cos(yaw)},{std::sin(pitch),0,0,std::cos(pitch)}),{0,0,std::sin(roll),std::cos(roll)});
     const auto adjusted=gimmd::rotation_preview::multiply({applied_q.x,applied_q.y,applied_q.z,applied_q.w},turn);
     applied_q={adjusted.x,adjusted.y,adjusted.z,adjusted.w};
-    const float source_fov=control.fov ? control.fov:manual_only ? baseline_fov:pose.fov;
+    const float source_fov=control.fov ? control.fov:manual_only ? (front_active?45.0f:baseline_fov):pose.fov;
     applied_fov=std::clamp(source_fov*control.fov_multiplier,1.0f,179.0f);
     dirty.store(true); ++writes; sampled_seconds=frame.seconds;
     if (!write(transform,native,&applied,&applied_q,camera_native,applied_fov)||!read(transform,native,&observed,&observed_q)||!fov_read(camera_native,&observed_fov)) {
         aborted=true; hierarchy::playback::stop_requested.store(true); status="camera-write-failed"; return;
     }
     const float error=std::max(camera_experiment::error(applied,observed),hierarchy::roundtrip::error(applied_q,observed_q));
+    if(homing)front_state.store(error<.0001f&&std::abs(applied_fov-observed_fov)<.0001f?2:3);
     max_error=std::max(max_error,error);
     const float fov_error=std::abs(applied_fov-observed_fov); max_fov_error=std::max(max_fov_error,fov_error);
     if (trace_count<16&&(!trace_count||traces[trace_count-1].epoch!=frame.epoch||traces[trace_count-1].state!=unsigned(frame.state)||control.sequence!=gimmd::player_session::camera_acknowledged.load()))
@@ -153,7 +213,10 @@ static void apply(void* transform,uintptr_t camera_native,bool callback_match) {
     }
 }
 static void tick(void* target=nullptr) {
-    if (!Enabled||!loaded||(!dirty.load()&&(hierarchy::playback::done.load()||hierarchy::playback::stop_requested.load()))) return;
+    if (gimmd::player_session::dynamic_session) consume_pending();
+    if (gimmd::player_session::dynamic_session) {
+        if (!Enabled||!loaded||(!dirty.load()&&(!gimmd::player_session::camera_requested.load()||gimmd::player_session::exit_requested.load()))) return;
+    } else if (!Enabled||!loaded||(!dirty.load()&&(hierarchy::playback::done.load()||hierarchy::playback::stop_requested.load()))) return;
     __try {
         void* array=get_all(); uint64_t length=0;
         if (!array||!read_bytes(reinterpret_cast<uintptr_t>(array)+24,&length,sizeof(length))||length>16) return;
@@ -179,6 +242,7 @@ static void report(std::ostream& out) {
     out<<",\n  \"cameraPlayback\":{\"enabled\":"<<(Enabled ? "true":"false")<<",\"loaded\":"<<(loaded ? "true":"false")
         <<",\"status\":\""<<status<<"\",\"acquired\":"<<(acquired ? "true":"false")<<",\"restored\":"<<(restored ? "true":"false")
         <<",\"cleanupPending\":"<<(dirty.load() ? "true":"false")<<",\"aborted\":"<<(aborted ? "true":"false")
+        <<",\"frontState\":"<<front_state.load()<<",\"frontPosition\":["<<front_position.x<<','<<front_position.y<<','<<front_position.z<<']'
         <<",\"poseWrites\":"<<writes<<",\"retainedSamples\":"<<retained<<",\"gameOverwrites\":"<<overwritten
         <<",\"restoreAttempts\":"<<attempts<<",\"maxWriteError\":"<<max_error<<",\"restoreError\":"<<restore_error
         <<",\"exception\":"<<exception<<",\"lastSampleSeconds\":"<<sampled_seconds

@@ -1,0 +1,2740 @@
+{
+  "executableSha256": "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5",
+  "dumpSha256": "90A15B030AE7398419AD25F99A4F6780B3493E6AE052FDD452FF272F2C49BB6A",
+  "status": "offline-candidates-require-review",
+  "entries": [
+    {
+      "name": "MaterialShaderGet",
+      "oldRva": "0x143d9b0",
+      "candidates": [
+        {
+          "rva": "0x9773f0",
+          "methods": []
+        },
+        {
+          "rva": "0x977450",
+          "methods": []
+        },
+        {
+          "rva": "0x988a10",
+          "methods": []
+        },
+        {
+          "rva": "0x98b1c0",
+          "methods": []
+        },
+        {
+          "rva": "0x98b2a0",
+          "methods": []
+        },
+        {
+          "rva": "0x98bab0",
+          "methods": []
+        },
+        {
+          "rva": "0x98bb10",
+          "methods": []
+        },
+        {
+          "rva": "0x98d980",
+          "methods": []
+        },
+        {
+          "rva": "0x117bdd0",
+          "methods": []
+        },
+        {
+          "rva": "0x1197de0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b0f10",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1a40",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1af0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b3ff0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b4170",
+          "methods": []
+        },
+        {
+          "rva": "0x11b4220",
+          "methods": []
+        },
+        {
+          "rva": "0x11b45e0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5680",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5730",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5790",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5990",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5bf0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b60b0",
+          "methods": []
+        },
+        {
+          "rva": "0x1448b00",
+          "methods": []
+        },
+        {
+          "rva": "0x1449480",
+          "methods": []
+        },
+        {
+          "rva": "0x144a840",
+          "methods": []
+        },
+        {
+          "rva": "0x144dfb0",
+          "methods": []
+        },
+        {
+          "rva": "0x144e7a0",
+          "methods": []
+        },
+        {
+          "rva": "0x1467890",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "MaterialShaderGetNative",
+      "oldRva": "0x163dcc0",
+      "candidates": [
+        {
+          "rva": "0x164fb10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "GamePackageRetain",
+      "oldRva": "0x6e36b60",
+      "candidates": [
+        {
+          "rva": "0x6f608b0",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | public void IncreaseBundleUsageCount(int bundleHash, int times);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GamePackageRelease",
+      "oldRva": "0x6e372b0",
+      "candidates": [
+        {
+          "rva": "0x6f61030",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | public void DecreaseBundleUsageCount(int bundleHash);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GameDependencyList",
+      "oldRva": "0x6f36810",
+      "candidates": []
+    },
+    {
+      "name": "GameDependencyListReturn",
+      "oldRva": "0x6f368e0",
+      "candidates": [
+        {
+          "rva": "0x70628d0",
+          "methods": [
+            " | public struct DependencyBundleHolder // TypeDefIndex: 11149 | public virtual void Dispose();"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GameDependencyExpand",
+      "oldRva": "0x7011930",
+      "candidates": [
+        {
+          "rva": "0x713b050",
+          "methods": [
+            "MoleMole | public class AssetIndex : object // TypeDefIndex: 11100 | public virtual void GetDependencyBundleAbsolutePaths(int bundleNameHash, System.Collections.Generic.List<int> dependencies);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GameDependencyRecords",
+      "oldRva": "0x710e250",
+      "candidates": [
+        {
+          "rva": "0x7238450",
+          "methods": [
+            "MoleMole | public class ResourceIndex : MoleMole.AssetIndex // TypeDefIndex: 11099 | public virtual void GetDependencyBundleAbsolutePathsList(int bundleNameHash, System.Collections.Generic.List<int> dependenciesList);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GameEnsurePackage",
+      "oldRva": "0x7015f30",
+      "candidates": [
+        {
+          "rva": "0x713f650",
+          "methods": [
+            "MoleMole | public class AssetBundleExternalResourceProvider : MoleMole.ExternalResourceProvider // TypeDefIndex: 11132 | private bool SyncLoadBundle(int bundleHash);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GameBundleLookup",
+      "oldRva": "0x6e34e30",
+      "candidates": [
+        {
+          "rva": "0x6f5eb80",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | private MoleMole.LoadedBundle GetLoadedBundle(MoleMole.ResourceIdentifier resource);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GameResourceRoot",
+      "oldRva": "0x6de1ae0",
+      "candidates": []
+    },
+    {
+      "name": "GameProxyForward",
+      "oldRva": "0x7021590",
+      "candidates": []
+    },
+    {
+      "name": "GameResourceHashSplit",
+      "oldRva": "0x6e37aa0",
+      "candidates": [
+        {
+          "rva": "0x6f61730",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | public bool LoadInstanceCache(MoleMole.ResourceIdentifier resource);"
+          ]
+        },
+        {
+          "rva": "0x6f61840",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | public uint LoadInstanceCacheAsync(MoleMole.ResourceIdentifier resource);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BundleLoadFile",
+      "oldRva": "0x19cc6630",
+      "candidates": [
+        {
+          "rva": "0x19fda700",
+          "methods": [
+            "System.Xml.Schema | public class XmlSchemaValidationException : System.Xml.Schema.XmlSchemaException // TypeDefIndex: 3409 | public void .ctor();"
+          ]
+        },
+        {
+          "rva": "0x1a035dc0",
+          "methods": [
+            "System.Xml.Schema | public class XmlSchemaException : System.SystemException // TypeDefIndex: 3353 | public void .ctor();"
+          ]
+        },
+        {
+          "rva": "0x1a23a250",
+          "methods": [
+            "UnityEngine | public class AssetBundle : UnityEngine.Object // TypeDefIndex: 2230 | public static UnityEngine.AssetBundle LoadFromFile(string path);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BundleLoadBridge",
+      "oldRva": "0x145b450",
+      "candidates": [
+        {
+          "rva": "0x146c630",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "BundleLoadNative",
+      "oldRva": "0x19d8ba0",
+      "candidates": [
+        {
+          "rva": "0x19eccf0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "BundleLoadMHY",
+      "oldRva": "0x19f3dd0",
+      "candidates": [
+        {
+          "rva": "0x1a07f60",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "LoadInstanceCache",
+      "oldRva": "0x19cc6800",
+      "candidates": [
+        {
+          "rva": "0x583a30",
+          "methods": []
+        },
+        {
+          "rva": "0x583d10",
+          "methods": []
+        },
+        {
+          "rva": "0x583ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x587ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x588af0",
+          "methods": []
+        },
+        {
+          "rva": "0x589310",
+          "methods": []
+        },
+        {
+          "rva": "0x58a9a0",
+          "methods": []
+        },
+        {
+          "rva": "0x58aa60",
+          "methods": []
+        },
+        {
+          "rva": "0x58b760",
+          "methods": []
+        },
+        {
+          "rva": "0x58c250",
+          "methods": []
+        },
+        {
+          "rva": "0x58c6f0",
+          "methods": []
+        },
+        {
+          "rva": "0x58d650",
+          "methods": []
+        },
+        {
+          "rva": "0x58dbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x58dc00",
+          "methods": []
+        },
+        {
+          "rva": "0x58dd30",
+          "methods": []
+        },
+        {
+          "rva": "0x58eaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x58ec20",
+          "methods": []
+        },
+        {
+          "rva": "0x591280",
+          "methods": []
+        },
+        {
+          "rva": "0x591710",
+          "methods": []
+        },
+        {
+          "rva": "0x591870",
+          "methods": []
+        },
+        {
+          "rva": "0x592750",
+          "methods": []
+        },
+        {
+          "rva": "0x592e20",
+          "methods": []
+        },
+        {
+          "rva": "0x592ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x592f10",
+          "methods": []
+        },
+        {
+          "rva": "0x5931b0",
+          "methods": []
+        },
+        {
+          "rva": "0x593610",
+          "methods": []
+        },
+        {
+          "rva": "0x593650",
+          "methods": []
+        },
+        {
+          "rva": "0x593780",
+          "methods": []
+        },
+        {
+          "rva": "0x593c30",
+          "methods": []
+        },
+        {
+          "rva": "0x593c70",
+          "methods": []
+        },
+        {
+          "rva": "0x594140",
+          "methods": []
+        },
+        {
+          "rva": "0x5942a0",
+          "methods": []
+        },
+        {
+          "rva": "0x5949b0",
+          "methods": []
+        },
+        {
+          "rva": "0x595430",
+          "methods": []
+        },
+        {
+          "rva": "0x5954d0",
+          "methods": []
+        },
+        {
+          "rva": "0x595910",
+          "methods": []
+        },
+        {
+          "rva": "0x5967e0",
+          "methods": []
+        },
+        {
+          "rva": "0x596aa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970b0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970f0",
+          "methods": []
+        },
+        {
+          "rva": "0x597370",
+          "methods": []
+        },
+        {
+          "rva": "0x597fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5987b0",
+          "methods": []
+        },
+        {
+          "rva": "0x598830",
+          "methods": []
+        },
+        {
+          "rva": "0x5989c0",
+          "methods": []
+        },
+        {
+          "rva": "0x598b10",
+          "methods": []
+        },
+        {
+          "rva": "0x598cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x598fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x599010",
+          "methods": []
+        },
+        {
+          "rva": "0x599060",
+          "methods": []
+        },
+        {
+          "rva": "0x599400",
+          "methods": []
+        },
+        {
+          "rva": "0x5994b0",
+          "methods": []
+        },
+        {
+          "rva": "0x599b30",
+          "methods": []
+        },
+        {
+          "rva": "0x599c40",
+          "methods": []
+        },
+        {
+          "rva": "0x599df0",
+          "methods": []
+        },
+        {
+          "rva": "0x59a460",
+          "methods": []
+        },
+        {
+          "rva": "0x787150",
+          "methods": []
+        },
+        {
+          "rva": "0x788b60",
+          "methods": []
+        },
+        {
+          "rva": "0x789ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cae0",
+          "methods": []
+        },
+        {
+          "rva": "0x78d370",
+          "methods": []
+        },
+        {
+          "rva": "0x78d650",
+          "methods": []
+        },
+        {
+          "rva": "0x78db60",
+          "methods": []
+        },
+        {
+          "rva": "0x78ec10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "LoadInstanceCacheBridge",
+      "oldRva": "0x145b7c0",
+      "candidates": [
+        {
+          "rva": "0x146c9a0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "LoadInstanceCacheNative",
+      "oldRva": "0x19d95d0",
+      "candidates": [
+        {
+          "rva": "0x19ed720",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "LoadTemplate",
+      "oldRva": "0x19ca1ef0",
+      "candidates": [
+        {
+          "rva": "0x583a30",
+          "methods": []
+        },
+        {
+          "rva": "0x583d10",
+          "methods": []
+        },
+        {
+          "rva": "0x583ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x587ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x588af0",
+          "methods": []
+        },
+        {
+          "rva": "0x589310",
+          "methods": []
+        },
+        {
+          "rva": "0x58a9a0",
+          "methods": []
+        },
+        {
+          "rva": "0x58aa60",
+          "methods": []
+        },
+        {
+          "rva": "0x58b760",
+          "methods": []
+        },
+        {
+          "rva": "0x58c250",
+          "methods": []
+        },
+        {
+          "rva": "0x58c6f0",
+          "methods": []
+        },
+        {
+          "rva": "0x58d650",
+          "methods": []
+        },
+        {
+          "rva": "0x58dbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x58dc00",
+          "methods": []
+        },
+        {
+          "rva": "0x58dd30",
+          "methods": []
+        },
+        {
+          "rva": "0x58eaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x58ec20",
+          "methods": []
+        },
+        {
+          "rva": "0x591280",
+          "methods": []
+        },
+        {
+          "rva": "0x591710",
+          "methods": []
+        },
+        {
+          "rva": "0x591870",
+          "methods": []
+        },
+        {
+          "rva": "0x592750",
+          "methods": []
+        },
+        {
+          "rva": "0x592e20",
+          "methods": []
+        },
+        {
+          "rva": "0x592ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x592f10",
+          "methods": []
+        },
+        {
+          "rva": "0x5931b0",
+          "methods": []
+        },
+        {
+          "rva": "0x593610",
+          "methods": []
+        },
+        {
+          "rva": "0x593650",
+          "methods": []
+        },
+        {
+          "rva": "0x593780",
+          "methods": []
+        },
+        {
+          "rva": "0x593c30",
+          "methods": []
+        },
+        {
+          "rva": "0x593c70",
+          "methods": []
+        },
+        {
+          "rva": "0x594140",
+          "methods": []
+        },
+        {
+          "rva": "0x5942a0",
+          "methods": []
+        },
+        {
+          "rva": "0x5949b0",
+          "methods": []
+        },
+        {
+          "rva": "0x595430",
+          "methods": []
+        },
+        {
+          "rva": "0x5954d0",
+          "methods": []
+        },
+        {
+          "rva": "0x595910",
+          "methods": []
+        },
+        {
+          "rva": "0x5967e0",
+          "methods": []
+        },
+        {
+          "rva": "0x596aa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970b0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970f0",
+          "methods": []
+        },
+        {
+          "rva": "0x597370",
+          "methods": []
+        },
+        {
+          "rva": "0x597fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5987b0",
+          "methods": []
+        },
+        {
+          "rva": "0x598830",
+          "methods": []
+        },
+        {
+          "rva": "0x5989c0",
+          "methods": []
+        },
+        {
+          "rva": "0x598b10",
+          "methods": []
+        },
+        {
+          "rva": "0x598cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x598fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x599010",
+          "methods": []
+        },
+        {
+          "rva": "0x599060",
+          "methods": []
+        },
+        {
+          "rva": "0x599400",
+          "methods": []
+        },
+        {
+          "rva": "0x5994b0",
+          "methods": []
+        },
+        {
+          "rva": "0x599b30",
+          "methods": []
+        },
+        {
+          "rva": "0x599c40",
+          "methods": []
+        },
+        {
+          "rva": "0x599df0",
+          "methods": []
+        },
+        {
+          "rva": "0x59a460",
+          "methods": []
+        },
+        {
+          "rva": "0x787150",
+          "methods": []
+        },
+        {
+          "rva": "0x788b60",
+          "methods": []
+        },
+        {
+          "rva": "0x789ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cae0",
+          "methods": []
+        },
+        {
+          "rva": "0x78d370",
+          "methods": []
+        },
+        {
+          "rva": "0x78d650",
+          "methods": []
+        },
+        {
+          "rva": "0x78db60",
+          "methods": []
+        },
+        {
+          "rva": "0x78ec10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "LoadTemplateBridge",
+      "oldRva": "0x145b320",
+      "candidates": [
+        {
+          "rva": "0x97c800",
+          "methods": []
+        },
+        {
+          "rva": "0x97cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x1449e70",
+          "methods": []
+        },
+        {
+          "rva": "0x1453ac0",
+          "methods": []
+        },
+        {
+          "rva": "0x146c4a0",
+          "methods": []
+        },
+        {
+          "rva": "0x146c4d0",
+          "methods": []
+        },
+        {
+          "rva": "0x146c500",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "LoadTemplateNative",
+      "oldRva": "0x19d9660",
+      "candidates": [
+        {
+          "rva": "0x19ed7b0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SharedMaterialsGet",
+      "oldRva": "0x19cd29e0",
+      "candidates": [
+        {
+          "rva": "0x1a12cac0",
+          "methods": [
+            "System.Net.Sockets | public class Socket : object // TypeDefIndex: 1948 | private static void Disconnect_internal(nint sock, bool reuse, int& error);"
+          ]
+        },
+        {
+          "rva": "0x1a240880",
+          "methods": [
+            "UnityEngine | public class Light : UnityEngine.Behaviour // TypeDefIndex: 2323 | public void set_clipPlaneAlpha(float value);"
+          ]
+        },
+        {
+          "rva": "0x1a2464f0",
+          "methods": [
+            "UnityEngine | public class Renderer : UnityEngine.Component // TypeDefIndex: 2294 | public void set_materialToSubmeshIndices(int[] value);"
+          ]
+        },
+        {
+          "rva": "0x1a246550",
+          "methods": [
+            "UnityEngine | public class Renderer : UnityEngine.Component // TypeDefIndex: 2294 | public UnityEngine.Material[] get_materials();"
+          ]
+        },
+        {
+          "rva": "0x1a2465b0",
+          "methods": [
+            "UnityEngine | public class Renderer : UnityEngine.Component // TypeDefIndex: 2294 | public UnityEngine.Material[] get_sharedMaterials();"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SharedMaterialsGetBridge",
+      "oldRva": "0x982be0",
+      "candidates": [
+        {
+          "rva": "0x9758d0",
+          "methods": []
+        },
+        {
+          "rva": "0x98bd50",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SharedMaterialsSet",
+      "oldRva": "0x19cd29f0",
+      "candidates": [
+        {
+          "rva": "0x1a240890",
+          "methods": [
+            "UnityEngine | public class Light : UnityEngine.Behaviour // TypeDefIndex: 2323 | public void SetClipPlaneParamsList(System.Collections.Generic.List<UnityEngine.Vector4> clipPlaneParamsList);"
+          ]
+        },
+        {
+          "rva": "0x1a246500",
+          "methods": [
+            "UnityEngine | public class Renderer : UnityEngine.Component // TypeDefIndex: 2294 | private void SetMaterialArray(UnityEngine.Material[] m);"
+          ]
+        },
+        {
+          "rva": "0x1a246560",
+          "methods": [
+            "UnityEngine | public class Renderer : UnityEngine.Component // TypeDefIndex: 2294 | public void set_materials(UnityEngine.Material[] value);"
+          ]
+        },
+        {
+          "rva": "0x1a2465c0",
+          "methods": [
+            "UnityEngine | public class Renderer : UnityEngine.Component // TypeDefIndex: 2294 | public void set_sharedMaterials(UnityEngine.Material[] value);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SharedMaterialsSetBridge",
+      "oldRva": "0x982c70",
+      "candidates": [
+        {
+          "rva": "0x98bde0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "CloneWithParent",
+      "oldRva": "0x19cb2d00",
+      "candidates": [
+        {
+          "rva": "0x583a30",
+          "methods": []
+        },
+        {
+          "rva": "0x583d10",
+          "methods": []
+        },
+        {
+          "rva": "0x583ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x587ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x588af0",
+          "methods": []
+        },
+        {
+          "rva": "0x589310",
+          "methods": []
+        },
+        {
+          "rva": "0x58a9a0",
+          "methods": []
+        },
+        {
+          "rva": "0x58aa60",
+          "methods": []
+        },
+        {
+          "rva": "0x58b760",
+          "methods": []
+        },
+        {
+          "rva": "0x58c250",
+          "methods": []
+        },
+        {
+          "rva": "0x58c6f0",
+          "methods": []
+        },
+        {
+          "rva": "0x58d650",
+          "methods": []
+        },
+        {
+          "rva": "0x58dbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x58dc00",
+          "methods": []
+        },
+        {
+          "rva": "0x58dd30",
+          "methods": []
+        },
+        {
+          "rva": "0x58eaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x58ec20",
+          "methods": []
+        },
+        {
+          "rva": "0x591280",
+          "methods": []
+        },
+        {
+          "rva": "0x591710",
+          "methods": []
+        },
+        {
+          "rva": "0x591870",
+          "methods": []
+        },
+        {
+          "rva": "0x592750",
+          "methods": []
+        },
+        {
+          "rva": "0x592e20",
+          "methods": []
+        },
+        {
+          "rva": "0x592ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x592f10",
+          "methods": []
+        },
+        {
+          "rva": "0x5931b0",
+          "methods": []
+        },
+        {
+          "rva": "0x593610",
+          "methods": []
+        },
+        {
+          "rva": "0x593650",
+          "methods": []
+        },
+        {
+          "rva": "0x593780",
+          "methods": []
+        },
+        {
+          "rva": "0x593c30",
+          "methods": []
+        },
+        {
+          "rva": "0x593c70",
+          "methods": []
+        },
+        {
+          "rva": "0x594140",
+          "methods": []
+        },
+        {
+          "rva": "0x5942a0",
+          "methods": []
+        },
+        {
+          "rva": "0x5949b0",
+          "methods": []
+        },
+        {
+          "rva": "0x595430",
+          "methods": []
+        },
+        {
+          "rva": "0x5954d0",
+          "methods": []
+        },
+        {
+          "rva": "0x595910",
+          "methods": []
+        },
+        {
+          "rva": "0x5967e0",
+          "methods": []
+        },
+        {
+          "rva": "0x596aa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970b0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970f0",
+          "methods": []
+        },
+        {
+          "rva": "0x597370",
+          "methods": []
+        },
+        {
+          "rva": "0x597fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5987b0",
+          "methods": []
+        },
+        {
+          "rva": "0x598830",
+          "methods": []
+        },
+        {
+          "rva": "0x5989c0",
+          "methods": []
+        },
+        {
+          "rva": "0x598b10",
+          "methods": []
+        },
+        {
+          "rva": "0x598cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x598fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x599010",
+          "methods": []
+        },
+        {
+          "rva": "0x599060",
+          "methods": []
+        },
+        {
+          "rva": "0x599400",
+          "methods": []
+        },
+        {
+          "rva": "0x5994b0",
+          "methods": []
+        },
+        {
+          "rva": "0x599b30",
+          "methods": []
+        },
+        {
+          "rva": "0x599c40",
+          "methods": []
+        },
+        {
+          "rva": "0x599df0",
+          "methods": []
+        },
+        {
+          "rva": "0x59a460",
+          "methods": []
+        },
+        {
+          "rva": "0x787150",
+          "methods": []
+        },
+        {
+          "rva": "0x788b60",
+          "methods": []
+        },
+        {
+          "rva": "0x789ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cae0",
+          "methods": []
+        },
+        {
+          "rva": "0x78d370",
+          "methods": []
+        },
+        {
+          "rva": "0x78d650",
+          "methods": []
+        },
+        {
+          "rva": "0x78db60",
+          "methods": []
+        },
+        {
+          "rva": "0x78ec10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "CloneBridge",
+      "oldRva": "0x1438690",
+      "candidates": [
+        {
+          "rva": "0x14494c0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "CloneNative",
+      "oldRva": "0x18238a0",
+      "candidates": [
+        {
+          "rva": "0x18376e0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "DestroyImmediate",
+      "oldRva": "0x19cb2dd0",
+      "candidates": [
+        {
+          "rva": "0x19b0f910",
+          "methods": [
+            "System.Reflection | public class Assembly : object // TypeDefIndex: 532 | private string method_4881(bool escaped); // [name stripped]"
+          ]
+        },
+        {
+          "rva": "0x19b106c0",
+          "methods": [
+            "System.Reflection | public class Assembly : object // TypeDefIndex: 532 | private static System.Reflection.Assembly method_4906(string assemblyFile, bool refonly); // [name stripped]"
+          ]
+        },
+        {
+          "rva": "0x19c80780",
+          "methods": [
+            "System.Reflection | public class MonoMethod : System.Reflection.RuntimeMethodInfo // TypeDefIndex: 559 | internal static System.Reflection.MonoMethod method_5125(System.Reflection.MonoMethod method, bool definition); // [name stripped]"
+          ]
+        },
+        {
+          "rva": "0x1a1f23c0",
+          "methods": [
+            "UnityEngine.AI | public class NavMeshBuilder : object // TypeDefIndex: 8002 | private static UnityEngine.AsyncOperation INTERNAL_CALL_UpdateNavMeshDataAsyncListInternal(UnityEngine.AI.NavMeshData data, UnityEngine.AI.NavMeshBuildSettings& buildSettings, object sources, UnityEngine.Bounds& localBounds, int cullingAreaMask, bool bakeTerrainHoles, UnityEngine.AI.NavMeshPureCollisionMeshBuildStrategy pureColStrategy, bool bakeObstacles, UnityEngine.AI.NavMeshBuildWorkerThreadStrategy strategy, int threadNumber, bool use32bitsObstacleSet, bool autoCompactSpanExtend, bool fillTerrain, bool fillHollow, bool flexibleBoundNormal);"
+          ]
+        },
+        {
+          "rva": "0x1a1f76f0",
+          "methods": [
+            "UnityEngine | public class Animation : UnityEngine.Behaviour // TypeDefIndex: 2731 | internal UnityEngine.AnimationState GetState(string name);"
+          ]
+        },
+        {
+          "rva": "0x1a200450",
+          "methods": [
+            "UnityEngine | public class AudioSource : UnityEngine.Behaviour // TypeDefIndex: 6743 | public void Play(ulong delay);"
+          ]
+        },
+        {
+          "rva": "0x1a20a1a0",
+          "methods": [
+            "UnityEngine | public class Texture2D : UnityEngine.Texture // TypeDefIndex: 2363 | public UnityEngine.Color32[] GetPixels32(int miplevel);"
+          ]
+        },
+        {
+          "rva": "0x1a20a2e0",
+          "methods": [
+            "UnityEngine | public class Texture3D : UnityEngine.Texture // TypeDefIndex: 2365 | public UnityEngine.Color[] GetPixels(int miplevel);"
+          ]
+        },
+        {
+          "rva": "0x1a20f660",
+          "methods": [
+            "UnityEngine | public class GameObject : UnityEngine.Object // TypeDefIndex: 2276 | private static void Internal_CreateGameObject(UnityEngine.GameObject mono, string name);"
+          ]
+        },
+        {
+          "rva": "0x1a2170d0",
+          "methods": [
+            "UnityEngine | public class MassMeshletData : UnityEngine.Object // TypeDefIndex: 2488 | private static void Create_Internal(UnityEngine.MassMeshletData scriptObject, string name);"
+          ]
+        },
+        {
+          "rva": "0x1a219bc0",
+          "methods": [
+            "UnityEngine | public class AnimationCurve : object // TypeDefIndex: 2338 | private void Init(UnityEngine.Keyframe[] keys);"
+          ]
+        },
+        {
+          "rva": "0x1a219c70",
+          "methods": [
+            "UnityEngine | public class AnimationCurveVec3 : object // TypeDefIndex: 2340 | private void Init(UnityEngine.KeyframeVec3[] keys);"
+          ]
+        },
+        {
+          "rva": "0x1a2269c0",
+          "methods": [
+            "UnityEngine | public class Object : object // TypeDefIndex: 2374 | public static void DestroyImmediate(UnityEngine.Object obj, bool allowDestroyingAssets);"
+          ]
+        },
+        {
+          "rva": "0x1a23d9f0",
+          "methods": [
+            "UnityEngine | public class PlayerPrefs : object // TypeDefIndex: 2346 | public static int GetInt(string key, int defaultValue);"
+          ]
+        },
+        {
+          "rva": "0x1a23ea30",
+          "methods": [
+            "UnityEngine | public class SkinnedMeshTessellationData : UnityEngine.Object // TypeDefIndex: 2510 | private static void Create_Internal(UnityEngine.SkinnedMeshTessellationData scriptObject, string name);"
+          ]
+        },
+        {
+          "rva": "0x1a27b890",
+          "methods": [
+            "UnityEngine | public class PhysicMaterial : UnityEngine.Object // TypeDefIndex: 2882 | private static void Internal_CreateDynamicsMaterial(UnityEngine.PhysicMaterial mat, string name);"
+          ]
+        },
+        {
+          "rva": "0x1a28a560",
+          "methods": [
+            "UnityEngine | public class Font : UnityEngine.Object // TypeDefIndex: 2716 | private static void Internal_CreateFont(UnityEngine.Font _font, string name);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DestroyBridge",
+      "oldRva": "0x14388a0",
+      "candidates": [
+        {
+          "rva": "0x14496d0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "DestroyNative",
+      "oldRva": "0x14c8470",
+      "candidates": [
+        {
+          "rva": "0x14d96e0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SetActive",
+      "oldRva": "0x19c9b800",
+      "candidates": [
+        {
+          "rva": "0x583a30",
+          "methods": []
+        },
+        {
+          "rva": "0x583d10",
+          "methods": []
+        },
+        {
+          "rva": "0x583ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x587ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x588af0",
+          "methods": []
+        },
+        {
+          "rva": "0x589310",
+          "methods": []
+        },
+        {
+          "rva": "0x58a9a0",
+          "methods": []
+        },
+        {
+          "rva": "0x58aa60",
+          "methods": []
+        },
+        {
+          "rva": "0x58b760",
+          "methods": []
+        },
+        {
+          "rva": "0x58c250",
+          "methods": []
+        },
+        {
+          "rva": "0x58c6f0",
+          "methods": []
+        },
+        {
+          "rva": "0x58d650",
+          "methods": []
+        },
+        {
+          "rva": "0x58dbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x58dc00",
+          "methods": []
+        },
+        {
+          "rva": "0x58dd30",
+          "methods": []
+        },
+        {
+          "rva": "0x58eaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x58ec20",
+          "methods": []
+        },
+        {
+          "rva": "0x591280",
+          "methods": []
+        },
+        {
+          "rva": "0x591710",
+          "methods": []
+        },
+        {
+          "rva": "0x591870",
+          "methods": []
+        },
+        {
+          "rva": "0x592750",
+          "methods": []
+        },
+        {
+          "rva": "0x592e20",
+          "methods": []
+        },
+        {
+          "rva": "0x592ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x592f10",
+          "methods": []
+        },
+        {
+          "rva": "0x5931b0",
+          "methods": []
+        },
+        {
+          "rva": "0x593610",
+          "methods": []
+        },
+        {
+          "rva": "0x593650",
+          "methods": []
+        },
+        {
+          "rva": "0x593780",
+          "methods": []
+        },
+        {
+          "rva": "0x593c30",
+          "methods": []
+        },
+        {
+          "rva": "0x593c70",
+          "methods": []
+        },
+        {
+          "rva": "0x594140",
+          "methods": []
+        },
+        {
+          "rva": "0x5942a0",
+          "methods": []
+        },
+        {
+          "rva": "0x5949b0",
+          "methods": []
+        },
+        {
+          "rva": "0x595430",
+          "methods": []
+        },
+        {
+          "rva": "0x5954d0",
+          "methods": []
+        },
+        {
+          "rva": "0x595910",
+          "methods": []
+        },
+        {
+          "rva": "0x5967e0",
+          "methods": []
+        },
+        {
+          "rva": "0x596aa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970b0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970f0",
+          "methods": []
+        },
+        {
+          "rva": "0x597370",
+          "methods": []
+        },
+        {
+          "rva": "0x597fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5987b0",
+          "methods": []
+        },
+        {
+          "rva": "0x598830",
+          "methods": []
+        },
+        {
+          "rva": "0x5989c0",
+          "methods": []
+        },
+        {
+          "rva": "0x598b10",
+          "methods": []
+        },
+        {
+          "rva": "0x598cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x598fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x599010",
+          "methods": []
+        },
+        {
+          "rva": "0x599060",
+          "methods": []
+        },
+        {
+          "rva": "0x599400",
+          "methods": []
+        },
+        {
+          "rva": "0x5994b0",
+          "methods": []
+        },
+        {
+          "rva": "0x599b30",
+          "methods": []
+        },
+        {
+          "rva": "0x599c40",
+          "methods": []
+        },
+        {
+          "rva": "0x599df0",
+          "methods": []
+        },
+        {
+          "rva": "0x59a460",
+          "methods": []
+        },
+        {
+          "rva": "0x787150",
+          "methods": []
+        },
+        {
+          "rva": "0x788b60",
+          "methods": []
+        },
+        {
+          "rva": "0x789ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cae0",
+          "methods": []
+        },
+        {
+          "rva": "0x78d370",
+          "methods": []
+        },
+        {
+          "rva": "0x78d650",
+          "methods": []
+        },
+        {
+          "rva": "0x78db60",
+          "methods": []
+        },
+        {
+          "rva": "0x78ec10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SetActiveBridge",
+      "oldRva": "0x1452ee0",
+      "candidates": [
+        {
+          "rva": "0xc5e770",
+          "methods": []
+        },
+        {
+          "rva": "0xc5e810",
+          "methods": []
+        },
+        {
+          "rva": "0xc5e8c0",
+          "methods": []
+        },
+        {
+          "rva": "0x10ee350",
+          "methods": []
+        },
+        {
+          "rva": "0x10ee3d0",
+          "methods": []
+        },
+        {
+          "rva": "0x10ee410",
+          "methods": []
+        },
+        {
+          "rva": "0x11219a0",
+          "methods": []
+        },
+        {
+          "rva": "0x1121ec0",
+          "methods": []
+        },
+        {
+          "rva": "0x117e730",
+          "methods": []
+        },
+        {
+          "rva": "0x117e770",
+          "methods": []
+        },
+        {
+          "rva": "0x117e7e0",
+          "methods": []
+        },
+        {
+          "rva": "0x117eb40",
+          "methods": []
+        },
+        {
+          "rva": "0x117eb80",
+          "methods": []
+        },
+        {
+          "rva": "0x117ff40",
+          "methods": []
+        },
+        {
+          "rva": "0x117ff80",
+          "methods": []
+        },
+        {
+          "rva": "0x117ffc0",
+          "methods": []
+        },
+        {
+          "rva": "0x11805d0",
+          "methods": []
+        },
+        {
+          "rva": "0x11806d0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1130",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1a90",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1b40",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1e80",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1f30",
+          "methods": []
+        },
+        {
+          "rva": "0x11b2b20",
+          "methods": []
+        },
+        {
+          "rva": "0x11b4560",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5a90",
+          "methods": []
+        },
+        {
+          "rva": "0x12509b0",
+          "methods": []
+        },
+        {
+          "rva": "0x12509f0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d7160",
+          "methods": []
+        },
+        {
+          "rva": "0x12d7240",
+          "methods": []
+        },
+        {
+          "rva": "0x12d7280",
+          "methods": []
+        },
+        {
+          "rva": "0x12d72c0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d73c0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d7870",
+          "methods": []
+        },
+        {
+          "rva": "0x12d80d0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d81a0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d81f0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8a60",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8b30",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8bc0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8c50",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8ca0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8cf0",
+          "methods": []
+        },
+        {
+          "rva": "0x12d8d30",
+          "methods": []
+        },
+        {
+          "rva": "0x12d9a50",
+          "methods": []
+        },
+        {
+          "rva": "0x12d9ef0",
+          "methods": []
+        },
+        {
+          "rva": "0x12dbaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x12dbbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x12de1c0",
+          "methods": []
+        },
+        {
+          "rva": "0x12de430",
+          "methods": []
+        },
+        {
+          "rva": "0x12f86b0",
+          "methods": []
+        },
+        {
+          "rva": "0x12f87e0",
+          "methods": []
+        },
+        {
+          "rva": "0x12f8910",
+          "methods": []
+        },
+        {
+          "rva": "0x12f89e0",
+          "methods": []
+        },
+        {
+          "rva": "0x12f8ab0",
+          "methods": []
+        },
+        {
+          "rva": "0x12f8b20",
+          "methods": []
+        },
+        {
+          "rva": "0x12f8b90",
+          "methods": []
+        },
+        {
+          "rva": "0x12f8cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x12f8d30",
+          "methods": []
+        },
+        {
+          "rva": "0x12f9470",
+          "methods": []
+        },
+        {
+          "rva": "0x12f94e0",
+          "methods": []
+        },
+        {
+          "rva": "0x12faee0",
+          "methods": []
+        },
+        {
+          "rva": "0x12fafc0",
+          "methods": []
+        },
+        {
+          "rva": "0x14480b0",
+          "methods": []
+        },
+        {
+          "rva": "0x1448e10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SetParent",
+      "oldRva": "0x19cb70a0",
+      "candidates": [
+        {
+          "rva": "0x583a30",
+          "methods": []
+        },
+        {
+          "rva": "0x583d10",
+          "methods": []
+        },
+        {
+          "rva": "0x583ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x587ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x588af0",
+          "methods": []
+        },
+        {
+          "rva": "0x589310",
+          "methods": []
+        },
+        {
+          "rva": "0x58a9a0",
+          "methods": []
+        },
+        {
+          "rva": "0x58aa60",
+          "methods": []
+        },
+        {
+          "rva": "0x58b760",
+          "methods": []
+        },
+        {
+          "rva": "0x58c250",
+          "methods": []
+        },
+        {
+          "rva": "0x58c6f0",
+          "methods": []
+        },
+        {
+          "rva": "0x58d650",
+          "methods": []
+        },
+        {
+          "rva": "0x58dbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x58dc00",
+          "methods": []
+        },
+        {
+          "rva": "0x58dd30",
+          "methods": []
+        },
+        {
+          "rva": "0x58eaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x58ec20",
+          "methods": []
+        },
+        {
+          "rva": "0x591280",
+          "methods": []
+        },
+        {
+          "rva": "0x591710",
+          "methods": []
+        },
+        {
+          "rva": "0x591870",
+          "methods": []
+        },
+        {
+          "rva": "0x592750",
+          "methods": []
+        },
+        {
+          "rva": "0x592e20",
+          "methods": []
+        },
+        {
+          "rva": "0x592ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x592f10",
+          "methods": []
+        },
+        {
+          "rva": "0x5931b0",
+          "methods": []
+        },
+        {
+          "rva": "0x593610",
+          "methods": []
+        },
+        {
+          "rva": "0x593650",
+          "methods": []
+        },
+        {
+          "rva": "0x593780",
+          "methods": []
+        },
+        {
+          "rva": "0x593c30",
+          "methods": []
+        },
+        {
+          "rva": "0x593c70",
+          "methods": []
+        },
+        {
+          "rva": "0x594140",
+          "methods": []
+        },
+        {
+          "rva": "0x5942a0",
+          "methods": []
+        },
+        {
+          "rva": "0x5949b0",
+          "methods": []
+        },
+        {
+          "rva": "0x595430",
+          "methods": []
+        },
+        {
+          "rva": "0x5954d0",
+          "methods": []
+        },
+        {
+          "rva": "0x595910",
+          "methods": []
+        },
+        {
+          "rva": "0x5967e0",
+          "methods": []
+        },
+        {
+          "rva": "0x596aa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970b0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970f0",
+          "methods": []
+        },
+        {
+          "rva": "0x597370",
+          "methods": []
+        },
+        {
+          "rva": "0x597fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5987b0",
+          "methods": []
+        },
+        {
+          "rva": "0x598830",
+          "methods": []
+        },
+        {
+          "rva": "0x5989c0",
+          "methods": []
+        },
+        {
+          "rva": "0x598b10",
+          "methods": []
+        },
+        {
+          "rva": "0x598cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x598fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x599010",
+          "methods": []
+        },
+        {
+          "rva": "0x599060",
+          "methods": []
+        },
+        {
+          "rva": "0x599400",
+          "methods": []
+        },
+        {
+          "rva": "0x5994b0",
+          "methods": []
+        },
+        {
+          "rva": "0x599b30",
+          "methods": []
+        },
+        {
+          "rva": "0x599c40",
+          "methods": []
+        },
+        {
+          "rva": "0x599df0",
+          "methods": []
+        },
+        {
+          "rva": "0x59a460",
+          "methods": []
+        },
+        {
+          "rva": "0x787150",
+          "methods": []
+        },
+        {
+          "rva": "0x788b60",
+          "methods": []
+        },
+        {
+          "rva": "0x789ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cae0",
+          "methods": []
+        },
+        {
+          "rva": "0x78d370",
+          "methods": []
+        },
+        {
+          "rva": "0x78d650",
+          "methods": []
+        },
+        {
+          "rva": "0x78db60",
+          "methods": []
+        },
+        {
+          "rva": "0x78ec10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SetParentBridge",
+      "oldRva": "0x14376c0",
+      "candidates": [
+        {
+          "rva": "0x1448450",
+          "methods": []
+        },
+        {
+          "rva": "0x14484f0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "SetName",
+      "oldRva": "0x1438af0",
+      "candidates": [
+        {
+          "rva": "0x1449920",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "ComponentVectorRead",
+      "oldRva": "0x19c7f10",
+      "candidates": [
+        {
+          "rva": "0x19dc060",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "NativeToManaged",
+      "oldRva": "0x14c8d20",
+      "candidates": [
+        {
+          "rva": "0x14d9f90",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "Unwrap",
+      "oldRva": "0x144adc0",
+      "candidates": [
+        {
+          "rva": "0x145be60",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "RawTemplateClone",
+      "oldRva": "0x19e2510",
+      "candidates": [
+        {
+          "rva": "0x19f66a0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "FinishTemplateClone",
+      "oldRva": "0x19e2d10",
+      "candidates": [
+        {
+          "rva": "0x19f6ea0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "NativeVectorFree",
+      "oldRva": "0x1a1a410",
+      "candidates": [
+        {
+          "rva": "0x1a2e5a0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "TemplateInactiveWrite",
+      "oldRva": "0x1823967",
+      "candidates": [
+        {
+          "rva": "0x1837686",
+          "methods": []
+        },
+        {
+          "rva": "0x18377a7",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "TemplateCloneCaller",
+      "oldRva": "0x19e0c70",
+      "candidates": [
+        {
+          "rva": "0x19f4df0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "TemplateVectorLayout",
+      "oldRva": "0x19e0ca0",
+      "candidates": [
+        {
+          "rva": "0x19f4e20",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "TemplateVectorCleanup",
+      "oldRva": "0x19e0d22",
+      "candidates": [
+        {
+          "rva": "0x19f4ea2",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "RendererRootBoneGet",
+      "oldRva": "0x19c9a540",
+      "candidates": [
+        {
+          "rva": "0x583a30",
+          "methods": []
+        },
+        {
+          "rva": "0x583d10",
+          "methods": []
+        },
+        {
+          "rva": "0x583ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x587ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x588af0",
+          "methods": []
+        },
+        {
+          "rva": "0x589310",
+          "methods": []
+        },
+        {
+          "rva": "0x58a9a0",
+          "methods": []
+        },
+        {
+          "rva": "0x58aa60",
+          "methods": []
+        },
+        {
+          "rva": "0x58b760",
+          "methods": []
+        },
+        {
+          "rva": "0x58c250",
+          "methods": []
+        },
+        {
+          "rva": "0x58c6f0",
+          "methods": []
+        },
+        {
+          "rva": "0x58d650",
+          "methods": []
+        },
+        {
+          "rva": "0x58dbc0",
+          "methods": []
+        },
+        {
+          "rva": "0x58dc00",
+          "methods": []
+        },
+        {
+          "rva": "0x58dd30",
+          "methods": []
+        },
+        {
+          "rva": "0x58eaf0",
+          "methods": []
+        },
+        {
+          "rva": "0x58ec20",
+          "methods": []
+        },
+        {
+          "rva": "0x591280",
+          "methods": []
+        },
+        {
+          "rva": "0x591710",
+          "methods": []
+        },
+        {
+          "rva": "0x591870",
+          "methods": []
+        },
+        {
+          "rva": "0x592750",
+          "methods": []
+        },
+        {
+          "rva": "0x592e20",
+          "methods": []
+        },
+        {
+          "rva": "0x592ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x592f10",
+          "methods": []
+        },
+        {
+          "rva": "0x5931b0",
+          "methods": []
+        },
+        {
+          "rva": "0x593610",
+          "methods": []
+        },
+        {
+          "rva": "0x593650",
+          "methods": []
+        },
+        {
+          "rva": "0x593780",
+          "methods": []
+        },
+        {
+          "rva": "0x593c30",
+          "methods": []
+        },
+        {
+          "rva": "0x593c70",
+          "methods": []
+        },
+        {
+          "rva": "0x594140",
+          "methods": []
+        },
+        {
+          "rva": "0x5942a0",
+          "methods": []
+        },
+        {
+          "rva": "0x5949b0",
+          "methods": []
+        },
+        {
+          "rva": "0x595430",
+          "methods": []
+        },
+        {
+          "rva": "0x5954d0",
+          "methods": []
+        },
+        {
+          "rva": "0x595910",
+          "methods": []
+        },
+        {
+          "rva": "0x5967e0",
+          "methods": []
+        },
+        {
+          "rva": "0x596aa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970b0",
+          "methods": []
+        },
+        {
+          "rva": "0x5970f0",
+          "methods": []
+        },
+        {
+          "rva": "0x597370",
+          "methods": []
+        },
+        {
+          "rva": "0x597fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x5987b0",
+          "methods": []
+        },
+        {
+          "rva": "0x598830",
+          "methods": []
+        },
+        {
+          "rva": "0x5989c0",
+          "methods": []
+        },
+        {
+          "rva": "0x598b10",
+          "methods": []
+        },
+        {
+          "rva": "0x598cc0",
+          "methods": []
+        },
+        {
+          "rva": "0x598fa0",
+          "methods": []
+        },
+        {
+          "rva": "0x599010",
+          "methods": []
+        },
+        {
+          "rva": "0x599060",
+          "methods": []
+        },
+        {
+          "rva": "0x599400",
+          "methods": []
+        },
+        {
+          "rva": "0x5994b0",
+          "methods": []
+        },
+        {
+          "rva": "0x599b30",
+          "methods": []
+        },
+        {
+          "rva": "0x599c40",
+          "methods": []
+        },
+        {
+          "rva": "0x599df0",
+          "methods": []
+        },
+        {
+          "rva": "0x59a460",
+          "methods": []
+        },
+        {
+          "rva": "0x787150",
+          "methods": []
+        },
+        {
+          "rva": "0x788b60",
+          "methods": []
+        },
+        {
+          "rva": "0x789ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cac0",
+          "methods": []
+        },
+        {
+          "rva": "0x78cae0",
+          "methods": []
+        },
+        {
+          "rva": "0x78d370",
+          "methods": []
+        },
+        {
+          "rva": "0x78d650",
+          "methods": []
+        },
+        {
+          "rva": "0x78db60",
+          "methods": []
+        },
+        {
+          "rva": "0x78ec10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "RendererRootBoneBridge",
+      "oldRva": "0x982050",
+      "candidates": [
+        {
+          "rva": "0x9773f0",
+          "methods": []
+        },
+        {
+          "rva": "0x977450",
+          "methods": []
+        },
+        {
+          "rva": "0x988a10",
+          "methods": []
+        },
+        {
+          "rva": "0x98b1c0",
+          "methods": []
+        },
+        {
+          "rva": "0x98b2a0",
+          "methods": []
+        },
+        {
+          "rva": "0x98bab0",
+          "methods": []
+        },
+        {
+          "rva": "0x98bb10",
+          "methods": []
+        },
+        {
+          "rva": "0x98d980",
+          "methods": []
+        },
+        {
+          "rva": "0x117bdd0",
+          "methods": []
+        },
+        {
+          "rva": "0x1197de0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b0f10",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1a40",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1af0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b1ee0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b3ff0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b4170",
+          "methods": []
+        },
+        {
+          "rva": "0x11b4220",
+          "methods": []
+        },
+        {
+          "rva": "0x11b45e0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5680",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5730",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5790",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5990",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5ad0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b5bf0",
+          "methods": []
+        },
+        {
+          "rva": "0x11b60b0",
+          "methods": []
+        },
+        {
+          "rva": "0x1448b00",
+          "methods": []
+        },
+        {
+          "rva": "0x1449480",
+          "methods": []
+        },
+        {
+          "rva": "0x144a840",
+          "methods": []
+        },
+        {
+          "rva": "0x144dfb0",
+          "methods": []
+        },
+        {
+          "rva": "0x144e7a0",
+          "methods": []
+        },
+        {
+          "rva": "0x1467890",
+          "methods": []
+        }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 #include <cstdint>
 namespace gimmd::gi {
 struct Candidate { const char* name; uint32_t rva; const int* mask; size_t size; };
-inline constexpr char BuildSha256[] = "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E";
+inline constexpr char BuildSha256[] = "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5";
 inline constexpr int Mask0[] = {64,83,72,131,236,96,15,41,116,36,-1,72,139,217,15,40,241,232,-1,-1,-1,-1,72,133,192,15,132,-1,-1,-1,-1,232,-1,-1,-1,-1,72,139,200};
 inline constexpr int Mask1[] = {64,83,72,131,236,-1,72,137,76,36,-1,72,141,84,36,-1,72,141,76,36,-1,232,-1,-1,-1,-1,72,139,8,72,133,201,117,-1,72,141,72,-1,232,-1,-1,-1,-1,72,139,76,36,-1,72,139,216,72,133,201,116,-1,72,131,124,36,-1,0,118};
 inline constexpr int Mask2[] = {86,72,131,236,32,72,137,206,232,-1,-1,-1,-1,72,137,241,137,194,72,131,196,32,94,233,-1,-1,-1,-1,204,204,204,204};
@@ -18,18 +18,18 @@ inline constexpr int Mask8[] = {233,-1,-1,-1,-1,102,102,46,15,31,132,0,-1,-1,-1,
 inline constexpr int Mask9[] = {86,72,131,236,32,72,137,206,15,87,192,15,17,1,72,137,209,72,137,242,232,-1,-1,-1,-1,72,137,240,72,131,196,32,94,195,102,102,102,102,102,46,15,31,132,0,-1,-1,-1,-1,86,72,131,236,80};
 inline constexpr int Mask10[] = {86,72,131,236,32,72,137,206,199,65,-1,-1,-1,-1,0,72,199,1,0,0,0,0,72,137,209,72,137,242,232,-1,-1,-1,-1,72,137,240,72,131,196,32,94,195,102,15,31,68,0,0,233,-1,-1,-1,-1,102,102,46,15,31,132,-1,-1,-1,-1,0,233,-1,-1,-1,-1,102,102,46,15,31,132,-1,-1,-1,-1,0,233,-1,-1,-1,-1,102,102,46,15,31,132,-1,-1,-1,-1,0,233,-1,-1,-1,-1,102,102,46,15,31,132,-1,-1,-1,-1,0,233,-1,-1,-1,-1,102,102,46,15,31,132,-1,-1,-1,-1,0,86,72,131,236,32,72,137,206,199,65,-1,-1,-1,-1,0,72,199,1,0,0,0,0,72,137,209,68,137,194};
 inline constexpr Candidate Candidates[] = {
-    {"ChangeFOV", 0x199C8D0, Mask0, sizeof(Mask0)/sizeof(int)},
-    {"FindGameObject", 0x1453720, Mask1, sizeof(Mask1)/sizeof(int)},
-    {"FindString", 0x4B2F50, Mask2, sizeof(Mask2)/sizeof(int)},
-    {"GameUpdate", 0x194D68B0, Mask3, sizeof(Mask3)/sizeof(int)},
-    {"GetName", 0x14389F0, Mask4, sizeof(Mask4)/sizeof(int)},
-    {"GetName", 0x1438B70, Mask4, sizeof(Mask4)/sizeof(int)},
-    {"FreeCamCameraGetMain", 0x19CAC420, Mask5, sizeof(Mask5)/sizeof(int)},
-    {"FreeCamComponentGetTransform", 0x19CBC860, Mask6, sizeof(Mask6)/sizeof(int)},
-    {"FreeCamTransformSetPosition", 0x19CB62C0, Mask7, sizeof(Mask7)/sizeof(int)},
-    {"FreeCamTransformSetRotation", 0x19CB6730, Mask8, sizeof(Mask8)/sizeof(int)},
-    {"FreeCamTransformGetRotation", 0x19CB66A0, Mask9, sizeof(Mask9)/sizeof(int)},
-    {"FreeCamTransformGetRotation", 0x19CB6840, Mask9, sizeof(Mask9)/sizeof(int)},
-    {"FreeCamTransformGetPosition", 0x19CB6280, Mask10, sizeof(Mask10)/sizeof(int)}
+    {"ChangeFOV", 0x19B0A00, Mask0, sizeof(Mask0)/sizeof(int)},
+    {"FindGameObject", 0x1464800, Mask1, sizeof(Mask1)/sizeof(int)},
+    {"FindString", 0x4BBEC0, Mask2, sizeof(Mask2)/sizeof(int)},
+    {"GameUpdate", 0x19A4CC60, Mask3, sizeof(Mask3)/sizeof(int)},
+    {"GetName", 0x1449820, Mask4, sizeof(Mask4)/sizeof(int)},
+    {"GetName", 0x14499A0, Mask4, sizeof(Mask4)/sizeof(int)},
+    {"FreeCamCameraGetMain", 0x1A220050, Mask5, sizeof(Mask5)/sizeof(int)},
+    {"FreeCamComponentGetTransform", 0x1A230450, Mask6, sizeof(Mask6)/sizeof(int)},
+    {"FreeCamTransformSetPosition", 0x1A229EB0, Mask7, sizeof(Mask7)/sizeof(int)},
+    {"FreeCamTransformSetRotation", 0x1A22A320, Mask8, sizeof(Mask8)/sizeof(int)},
+    {"FreeCamTransformGetRotation", 0x1A22A290, Mask9, sizeof(Mask9)/sizeof(int)},
+    {"FreeCamTransformGetRotation", 0x1A22A430, Mask9, sizeof(Mask9)/sizeof(int)},
+    {"FreeCamTransformGetPosition", 0x1A229E70, Mask10, sizeof(Mask10)/sizeof(int)}
 };
 }

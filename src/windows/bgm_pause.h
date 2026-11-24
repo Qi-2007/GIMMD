@@ -43,14 +43,14 @@ static void refresh() {
 static void tick() {
     if (!gimmd::player_session::pause_bgm||!configured) return;
     __try {
-        const bool stopping=hierarchy::playback::stop_requested.load()||hierarchy::playback::done.load();
+        const bool stopping=(gimmd::player_session::dynamic_session ? gimmd::player_session::exit_requested.load():(hierarchy::playback::stop_requested.load()||hierarchy::playback::done.load()));
         if (stopping) {
             if (!dirty.load()||restore_attempts>=8) return;
             ++restore_attempts; ++calls; pause(category,before);
             if (paused(category)==before) { dirty.store(false); restored=true; status="bgm-restored"; gimmd::player_session::bgm_state.store(4); }
             return;
         }
-        if (!hierarchy::playback::started.load()) return;
+        if ((!gimmd::player_session::dynamic_session&&!hierarchy::playback::started.load())) return;
         if (!attempted) {
             attempted=true;
             if (!ready()) { status="audio-engine-not-initialized"; gimmd::player_session::bgm_state.store(3); return; }

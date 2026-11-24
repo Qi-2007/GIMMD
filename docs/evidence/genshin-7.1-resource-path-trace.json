@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "status": "no-path-calls-observed",
+  "calls": 0,
+  "entryRestored": true,
+  "activeCallbacks": 0,
+  "records": [],
+  "hashStatus": "no-hash-loads-observed",
+  "hashCalls": 0,
+  "hashRecords": []
+}

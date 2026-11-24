@@ -1,0 +1,1036 @@
+{
+  "executableSha256": "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5",
+  "dumpSha256": "90A15B030AE7398419AD25F99A4F6780B3493E6AE052FDD452FF272F2C49BB6A",
+  "status": "offline-candidates-require-review",
+  "entries": [
+    {
+      "name": "R0x14cfa10",
+      "oldRva": "0x14cfa10",
+      "candidates": [
+        {
+          "rva": "0x9ed9e0",
+          "methods": []
+        },
+        {
+          "rva": "0x14e0c80",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x14c6760",
+      "oldRva": "0x14c6760",
+      "candidates": [
+        {
+          "rva": "0x14d79d0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x4b2210",
+      "oldRva": "0x4b2210",
+      "candidates": [
+        {
+          "rva": "0x13c340",
+          "methods": []
+        },
+        {
+          "rva": "0x13c810",
+          "methods": []
+        },
+        {
+          "rva": "0x13c8c0",
+          "methods": []
+        },
+        {
+          "rva": "0x13c8e0",
+          "methods": []
+        },
+        {
+          "rva": "0x2276d0",
+          "methods": []
+        },
+        {
+          "rva": "0x4bb0c0",
+          "methods": []
+        },
+        {
+          "rva": "0x4bb160",
+          "methods": []
+        },
+        {
+          "rva": "0x4bb180",
+          "methods": []
+        },
+        {
+          "rva": "0x4bb220",
+          "methods": []
+        },
+        {
+          "rva": "0x4bbaa0",
+          "methods": []
+        },
+        {
+          "rva": "0x501b70",
+          "methods": []
+        },
+        {
+          "rva": "0x531370",
+          "methods": []
+        },
+        {
+          "rva": "0x8c23c0",
+          "methods": []
+        },
+        {
+          "rva": "0x8c6520",
+          "methods": []
+        },
+        {
+          "rva": "0x8d6fe0",
+          "methods": []
+        },
+        {
+          "rva": "0x971a20",
+          "methods": []
+        },
+        {
+          "rva": "0x973bb0",
+          "methods": []
+        },
+        {
+          "rva": "0x973bd0",
+          "methods": []
+        },
+        {
+          "rva": "0x973bf0",
+          "methods": []
+        },
+        {
+          "rva": "0x973c10",
+          "methods": []
+        },
+        {
+          "rva": "0x973c30",
+          "methods": []
+        },
+        {
+          "rva": "0x973c50",
+          "methods": []
+        },
+        {
+          "rva": "0x973c70",
+          "methods": []
+        },
+        {
+          "rva": "0x973cd0",
+          "methods": []
+        },
+        {
+          "rva": "0x973cf0",
+          "methods": []
+        },
+        {
+          "rva": "0x973d10",
+          "methods": []
+        },
+        {
+          "rva": "0x973d30",
+          "methods": []
+        },
+        {
+          "rva": "0x973d50",
+          "methods": []
+        },
+        {
+          "rva": "0x973d70",
+          "methods": []
+        },
+        {
+          "rva": "0x973d90",
+          "methods": []
+        },
+        {
+          "rva": "0x973db0",
+          "methods": []
+        },
+        {
+          "rva": "0x973dd0",
+          "methods": []
+        },
+        {
+          "rva": "0x973df0",
+          "methods": []
+        },
+        {
+          "rva": "0x973e10",
+          "methods": []
+        },
+        {
+          "rva": "0x973e30",
+          "methods": []
+        },
+        {
+          "rva": "0x973e50",
+          "methods": []
+        },
+        {
+          "rva": "0x973e70",
+          "methods": []
+        },
+        {
+          "rva": "0x973e90",
+          "methods": []
+        },
+        {
+          "rva": "0x973eb0",
+          "methods": []
+        },
+        {
+          "rva": "0x973ed0",
+          "methods": []
+        },
+        {
+          "rva": "0x973ef0",
+          "methods": []
+        },
+        {
+          "rva": "0x973f10",
+          "methods": []
+        },
+        {
+          "rva": "0x973f30",
+          "methods": []
+        },
+        {
+          "rva": "0x973f50",
+          "methods": []
+        },
+        {
+          "rva": "0x975d70",
+          "methods": []
+        },
+        {
+          "rva": "0x979b80",
+          "methods": []
+        },
+        {
+          "rva": "0x979ba0",
+          "methods": []
+        },
+        {
+          "rva": "0x979c80",
+          "methods": []
+        },
+        {
+          "rva": "0x979ca0",
+          "methods": []
+        },
+        {
+          "rva": "0x97a020",
+          "methods": []
+        },
+        {
+          "rva": "0x97b250",
+          "methods": []
+        },
+        {
+          "rva": "0x97cb40",
+          "methods": []
+        },
+        {
+          "rva": "0x97cbd0",
+          "methods": []
+        },
+        {
+          "rva": "0x97cbf0",
+          "methods": []
+        },
+        {
+          "rva": "0x97d410",
+          "methods": []
+        },
+        {
+          "rva": "0x97d430",
+          "methods": []
+        },
+        {
+          "rva": "0x982ce0",
+          "methods": []
+        },
+        {
+          "rva": "0x982d10",
+          "methods": []
+        },
+        {
+          "rva": "0x982dd0",
+          "methods": []
+        },
+        {
+          "rva": "0x9845e0",
+          "methods": []
+        },
+        {
+          "rva": "0x984600",
+          "methods": []
+        },
+        {
+          "rva": "0x984650",
+          "methods": []
+        },
+        {
+          "rva": "0x984860",
+          "methods": []
+        },
+        {
+          "rva": "0x984880",
+          "methods": []
+        },
+        {
+          "rva": "0x9848a0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x14c48c0",
+      "oldRva": "0x14c48c0",
+      "candidates": [
+        {
+          "rva": "0x14d5b30",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x52f450",
+      "oldRva": "0x52f450",
+      "candidates": [
+        {
+          "rva": "0x538230",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19ccad20",
+      "oldRva": "0x19ccad20",
+      "candidates": [
+        {
+          "rva": "0xa720370",
+          "methods": []
+        },
+        {
+          "rva": "0x16d5c680",
+          "methods": []
+        },
+        {
+          "rva": "0x1a23e950",
+          "methods": [
+            "UnityEngine | public class Resources : object // TypeDefIndex: 2350 | public static UnityEngine.Object[] FindObjectsOfTypeAll(System.Type type);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0x1441cc0",
+      "oldRva": "0x1441cc0",
+      "candidates": [
+        {
+          "rva": "0x1452ab0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x14c90e0",
+      "oldRva": "0x14c90e0",
+      "candidates": [
+        {
+          "rva": "0x14da350",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19febc0",
+      "oldRva": "0x19febc0",
+      "candidates": [
+        {
+          "rva": "0x1a12d50",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x145bbf0",
+      "oldRva": "0x145bbf0",
+      "candidates": [
+        {
+          "rva": "0x146cdd0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x14c7690",
+      "oldRva": "0x14c7690",
+      "candidates": [
+        {
+          "rva": "0x14d8900",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x98f830",
+      "oldRva": "0x98f830",
+      "candidates": [
+        {
+          "rva": "0x998e50",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19fe800",
+      "oldRva": "0x19fe800",
+      "candidates": [
+        {
+          "rva": "0x1a12990",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19fe8a0",
+      "oldRva": "0x19fe8a0",
+      "candidates": [
+        {
+          "rva": "0x1a12a30",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x1438a36",
+      "oldRva": "0x1438a36",
+      "candidates": [
+        {
+          "rva": "0x1449866",
+          "methods": []
+        },
+        {
+          "rva": "0x14499e6",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x182aa7c",
+      "oldRva": "0x182aa7c",
+      "candidates": [
+        {
+          "rva": "0x183e8bc",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x182aac3",
+      "oldRva": "0x182aac3",
+      "candidates": [
+        {
+          "rva": "0x183e903",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19cb2fe0",
+      "oldRva": "0x19cb2fe0",
+      "candidates": [
+        {
+          "rva": "0x8429b0",
+          "methods": []
+        },
+        {
+          "rva": "0x19c8b810",
+          "methods": [
+            "System.Threading | public class Thread : System.Runtime.ConstrainedExecution.CriticalFinalizerObject // TypeDefIndex: 785 | private static void Abort_internal(System.Threading.InternalThread thread, object stateInfo);"
+          ]
+        },
+        {
+          "rva": "0x1a1f0b20",
+          "methods": [
+            "UnityEngine.AI | public class NavMesh : object // TypeDefIndex: 7985 | internal static UnityEngine.Vector3[] GetCornersNonAllocInAsyncPathRequest(nint request);"
+          ]
+        },
+        {
+          "rva": "0x1a226bd0",
+          "methods": [
+            "UnityEngine | public class Object : object // TypeDefIndex: 2374 | public static UnityEngine.Object FindObjectFromInstanceID(int instanceID);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0x1439120",
+      "oldRva": "0x1439120",
+      "candidates": [
+        {
+          "rva": "0x1449f50",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x1439146",
+      "oldRva": "0x1439146",
+      "candidates": [
+        {
+          "rva": "0x974713",
+          "methods": []
+        },
+        {
+          "rva": "0x975396",
+          "methods": []
+        },
+        {
+          "rva": "0x97b327",
+          "methods": []
+        },
+        {
+          "rva": "0x9888e7",
+          "methods": []
+        },
+        {
+          "rva": "0x98d8e7",
+          "methods": []
+        },
+        {
+          "rva": "0xb4ec57",
+          "methods": []
+        },
+        {
+          "rva": "0xb50b57",
+          "methods": []
+        },
+        {
+          "rva": "0xb74b64",
+          "methods": []
+        },
+        {
+          "rva": "0xb7a824",
+          "methods": []
+        },
+        {
+          "rva": "0xb7dd26",
+          "methods": []
+        },
+        {
+          "rva": "0xb85854",
+          "methods": []
+        },
+        {
+          "rva": "0xb8cc65",
+          "methods": []
+        },
+        {
+          "rva": "0xb8d617",
+          "methods": []
+        },
+        {
+          "rva": "0xb91513",
+          "methods": []
+        },
+        {
+          "rva": "0xbb0827",
+          "methods": []
+        },
+        {
+          "rva": "0xbb92c3",
+          "methods": []
+        },
+        {
+          "rva": "0xbc12e4",
+          "methods": []
+        },
+        {
+          "rva": "0xbc1833",
+          "methods": []
+        },
+        {
+          "rva": "0xbc1bb6",
+          "methods": []
+        },
+        {
+          "rva": "0xbc1cc5",
+          "methods": []
+        },
+        {
+          "rva": "0xbc2273",
+          "methods": []
+        },
+        {
+          "rva": "0xc32993",
+          "methods": []
+        },
+        {
+          "rva": "0xc37877",
+          "methods": []
+        },
+        {
+          "rva": "0xc378f3",
+          "methods": []
+        },
+        {
+          "rva": "0xc45617",
+          "methods": []
+        },
+        {
+          "rva": "0xc456a6",
+          "methods": []
+        },
+        {
+          "rva": "0xc5dd43",
+          "methods": []
+        },
+        {
+          "rva": "0xc5df13",
+          "methods": []
+        },
+        {
+          "rva": "0xd128e3",
+          "methods": []
+        },
+        {
+          "rva": "0xd12c45",
+          "methods": []
+        },
+        {
+          "rva": "0xd19fd3",
+          "methods": []
+        },
+        {
+          "rva": "0xd2ab55",
+          "methods": []
+        },
+        {
+          "rva": "0xd74874",
+          "methods": []
+        },
+        {
+          "rva": "0xd7d376",
+          "methods": []
+        },
+        {
+          "rva": "0xdcf1b4",
+          "methods": []
+        },
+        {
+          "rva": "0xddad27",
+          "methods": []
+        },
+        {
+          "rva": "0xe1a0f6",
+          "methods": []
+        },
+        {
+          "rva": "0xe1c944",
+          "methods": []
+        },
+        {
+          "rva": "0x10f2f14",
+          "methods": []
+        },
+        {
+          "rva": "0x10f3067",
+          "methods": []
+        },
+        {
+          "rva": "0x1106987",
+          "methods": []
+        },
+        {
+          "rva": "0x110b0b7",
+          "methods": []
+        },
+        {
+          "rva": "0x110f5d5",
+          "methods": []
+        },
+        {
+          "rva": "0x110faf3",
+          "methods": []
+        },
+        {
+          "rva": "0x112deb7",
+          "methods": []
+        },
+        {
+          "rva": "0x113eed4",
+          "methods": []
+        },
+        {
+          "rva": "0x11979f7",
+          "methods": []
+        },
+        {
+          "rva": "0x1202094",
+          "methods": []
+        },
+        {
+          "rva": "0x120fd16",
+          "methods": []
+        },
+        {
+          "rva": "0x1216693",
+          "methods": []
+        },
+        {
+          "rva": "0x122ef56",
+          "methods": []
+        },
+        {
+          "rva": "0x124fbf4",
+          "methods": []
+        },
+        {
+          "rva": "0x1250d63",
+          "methods": []
+        },
+        {
+          "rva": "0x12a4fb7",
+          "methods": []
+        },
+        {
+          "rva": "0x12a50f3",
+          "methods": []
+        },
+        {
+          "rva": "0x12a5343",
+          "methods": []
+        },
+        {
+          "rva": "0x12a53b4",
+          "methods": []
+        },
+        {
+          "rva": "0x12a5437",
+          "methods": []
+        },
+        {
+          "rva": "0x12a54a7",
+          "methods": []
+        },
+        {
+          "rva": "0x12a5594",
+          "methods": []
+        },
+        {
+          "rva": "0x12a5844",
+          "methods": []
+        },
+        {
+          "rva": "0x12a5fd3",
+          "methods": []
+        },
+        {
+          "rva": "0x12a6123",
+          "methods": []
+        },
+        {
+          "rva": "0x12c7363",
+          "methods": []
+        },
+        {
+          "rva": "0x12c74a3",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x182a690",
+      "oldRva": "0x182a690",
+      "candidates": [
+        {
+          "rva": "0x183e4d0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x182a6c3",
+      "oldRva": "0x182a6c3",
+      "candidates": [
+        {
+          "rva": "0x183e503",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x143a790",
+      "oldRva": "0x143a790",
+      "candidates": [
+        {
+          "rva": "0x144b5c0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x143a7a8",
+      "oldRva": "0x143a7a8",
+      "candidates": [
+        {
+          "rva": "0x144b5d8",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19e0b90",
+      "oldRva": "0x19e0b90",
+      "candidates": [
+        {
+          "rva": "0x19f4d10",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19e2573",
+      "oldRva": "0x19e2573",
+      "candidates": [
+        {
+          "rva": "0x19f6703",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19e2781",
+      "oldRva": "0x19e2781",
+      "candidates": [
+        {
+          "rva": "0x19f6911",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19e2908",
+      "oldRva": "0x19e2908",
+      "candidates": [
+        {
+          "rva": "0x19f6a98",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19e0bb0",
+      "oldRva": "0x19e0bb0",
+      "candidates": [
+        {
+          "rva": "0x19f4d30",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x12a8fb0",
+      "oldRva": "0x12a8fb0",
+      "candidates": [
+        {
+          "rva": "0x12b9cc0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x976970",
+      "oldRva": "0x976970",
+      "candidates": [
+        {
+          "rva": "0x97fac0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19ff790",
+      "oldRva": "0x19ff790",
+      "candidates": [
+        {
+          "rva": "0x1a13920",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19e8b20",
+      "oldRva": "0x19e8b20",
+      "candidates": [
+        {
+          "rva": "0x19fccb0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x1599270",
+      "oldRva": "0x1599270",
+      "candidates": [
+        {
+          "rva": "0x15aabb0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x1599870",
+      "oldRva": "0x1599870",
+      "candidates": []
+    },
+    {
+      "name": "R0x15999eb",
+      "oldRva": "0x15999eb",
+      "candidates": []
+    },
+    {
+      "name": "R0x1599b67",
+      "oldRva": "0x1599b67",
+      "candidates": []
+    },
+    {
+      "name": "R0x15a7030",
+      "oldRva": "0x15a7030",
+      "candidates": [
+        {
+          "rva": "0x15b8940",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19ebd70",
+      "oldRva": "0x19ebd70",
+      "candidates": [
+        {
+          "rva": "0x19fff00",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19ebe30",
+      "oldRva": "0x19ebe30",
+      "candidates": [
+        {
+          "rva": "0x19fffc0",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x19ec43e",
+      "oldRva": "0x19ec43e",
+      "candidates": [
+        {
+          "rva": "0x1a005ce",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x145bb50",
+      "oldRva": "0x145bb50",
+      "candidates": [
+        {
+          "rva": "0x146cd30",
+          "methods": []
+        }
+      ]
+    },
+    {
+      "name": "R0x6de1ae0",
+      "oldRva": "0x6de1ae0",
+      "candidates": []
+    },
+    {
+      "name": "R0x7021590",
+      "oldRva": "0x7021590",
+      "candidates": []
+    },
+    {
+      "name": "R0x6e37aa0",
+      "oldRva": "0x6e37aa0",
+      "candidates": [
+        {
+          "rva": "0x6f61730",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | public bool LoadInstanceCache(MoleMole.ResourceIdentifier resource);"
+          ]
+        },
+        {
+          "rva": "0x6f61840",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | public uint LoadInstanceCacheAsync(MoleMole.ResourceIdentifier resource);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0x6e34e30",
+      "oldRva": "0x6e34e30",
+      "candidates": [
+        {
+          "rva": "0x6f5eb80",
+          "methods": [
+            "MoleMole | public class LoadedResourcesCollection : object // TypeDefIndex: 11123 | private MoleMole.LoadedBundle GetLoadedBundle(MoleMole.ResourceIdentifier resource);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0x7015f30",
+      "oldRva": "0x7015f30",
+      "candidates": [
+        {
+          "rva": "0x713f650",
+          "methods": [
+            "MoleMole | public class AssetBundleExternalResourceProvider : MoleMole.ExternalResourceProvider // TypeDefIndex: 11132 | private bool SyncLoadBundle(int bundleHash);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0x710aa60",
+      "oldRva": "0x710aa60",
+      "candidates": [
+        {
+          "rva": "0x7234f10",
+          "methods": [
+            "MoleMole | public class ResourceIndex : MoleMole.AssetIndex // TypeDefIndex: 11099 | public virtual bool GetBlockInfo(int bundleNameHash, MoleMole.BlockInfo& info);"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "R0x710ac70",
+      "oldRva": "0x710ac70",
+      "candidates": [
+        {
+          "rva": "0x7235120",
+          "methods": [
+            "MoleMole | public class ResourceIndex : MoleMole.AssetIndex // TypeDefIndex: 11099 | public virtual MoleMole.BlockFile GetBlockFile(int id);"
+          ]
+        }
+      ]
+    }
+  ]
+}

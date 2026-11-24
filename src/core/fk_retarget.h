@@ -20,4 +20,11 @@ inline BetterEndfieldNext::Vmd::Quaternion evaluate(const Binding& binding, Bett
     // Delta is expressed in the target parent's reference coordinates.
     return rotation_preview::multiply(delta,binding.rest);
 }
+// Shared by loaded actors and the current character. The axis convention stays
+// the same, while each character supplies its own reference rotation.
+inline BetterEndfieldNext::Vmd::Quaternion evaluate_at_rest(Binding binding,
+    BetterEndfieldNext::Vmd::Quaternion rest, BetterEndfieldNext::Vmd::Quaternion source) {
+    binding.rest=rest;
+    return evaluate(binding,source);
+}
 }

@@ -130,13 +130,13 @@ static void capture_renderer(int model_node, const wchar_t* skin_name = L"Body")
         if (body_matches != 1) return;
         uintptr_t klass = 0, name_pointer = 0; char class_name[64]{};
         if (!read_bytes(reinterpret_cast<uintptr_t>(component), &klass, sizeof(klass)) || !klass ||
-            !read_bytes(klass+0x28, &name_pointer, sizeof(name_pointer)) ||
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassName, &name_pointer, sizeof(name_pointer)) ||
             !read_bytes(name_pointer, class_name, sizeof(class_name)) || !std::memchr(class_name,0,sizeof(class_name)) ||
             std::strcmp(class_name, "SkinnedMeshRenderer")) { renderer_status = "renderer-class-refused"; return; }
         uintptr_t table = 0; uint16_t length = 0;
-        if (!read_bytes(klass+0x58, &table, sizeof(table)) || !table ||
-            !read_bytes(klass+0xc0, &length, sizeof(length)) || length > 384) { renderer_status = "renderer-method-table-refused"; return; }
-        const auto deadline = GetTickCount64()+12;
+        if (!read_bytes(klass + gimmd::hierarchy_profile::ClassMethodTable, &table, sizeof(table)) || !table ||
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassMethodCount, &length, sizeof(length)) || length > 384) { renderer_status = "renderer-method-table-refused"; return; }
+        const auto deadline = GetTickCount64()+48; // Bounded one-time scan; allow loaded clients the actor capture budget.
         for (unsigned i = 0; i < length; ++i) {
             if (GetTickCount64() >= deadline) { renderer_status = "renderer-method-scan-partial"; return; }
             uintptr_t item = 0, info[8]{}; char method_name[64]{};
@@ -146,10 +146,10 @@ static void capture_renderer(int model_node, const wchar_t* skin_name = L"Body")
             const auto address = reinterpret_cast<uintptr_t>(metadata::method_name(item));
             if (!address || !read_bytes(address, method_name, sizeof(method_name)) || !std::memchr(method_name,0,sizeof(method_name))) continue;
             if (std::strcmp(method_name, "get_sharedMesh") && std::strcmp(method_name, "get_bones")) continue;
-            if (renderer_method_count >= 16 || !executable(info[1],metadata::image_base) || !executable(info[4],metadata::image_base)) return;
+            if (renderer_method_count >= 16 || !executable(info[1],metadata::image_base) || !executable(info[gimmd::hierarchy_profile::MethodInvokerIndex],metadata::image_base)) return;
             auto& method = renderer_methods[renderer_method_count++]; method = {}; strcpy_s(method.name, method_name);
             method.parameters = reinterpret_cast<const uint8_t*>(info)[0x2e]; method.code = info[1]-metadata::image_base;
-            method.invoker = info[4]-metadata::image_base;
+            method.invoker = info[gimmd::hierarchy_profile::MethodInvokerIndex]-metadata::image_base;
         }
         renderer_status = "renderer-named-methods-observed";
         uintptr_t bones_code = 0, mesh_code = 0;
@@ -183,9 +183,9 @@ static void capture_renderer(int model_node, const wchar_t* skin_name = L"Body")
             bone_nodes[bone_count++] = node;
         }
         if (!read_bytes(reinterpret_cast<uintptr_t>(mesh),&klass,sizeof(klass)) || !klass ||
-            !read_bytes(klass+0x28,&name_pointer,sizeof(name_pointer)) || !read_bytes(name_pointer,class_name,sizeof(class_name)) ||
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassName,&name_pointer,sizeof(name_pointer)) || !read_bytes(name_pointer,class_name,sizeof(class_name)) ||
             !std::memchr(class_name,0,sizeof(class_name)) || std::strcmp(class_name,"Mesh")) { renderer_status = "mesh-class-refused"; return; }
-        if (!read_bytes(klass+0x58,&table,sizeof(table)) || !table || !read_bytes(klass+0xc0,&length,sizeof(length)) || length > 384) {
+        if (!read_bytes(klass + gimmd::hierarchy_profile::ClassMethodTable,&table,sizeof(table)) || !table || !read_bytes(klass + gimmd::hierarchy_profile::ClassMethodCount,&length,sizeof(length)) || length > 384) {
             renderer_status = "mesh-method-table-refused"; return;
         }
         for (unsigned i = 0; i < length; ++i) {
@@ -194,9 +194,9 @@ static void capture_renderer(int model_node, const wchar_t* skin_name = L"Body")
             const auto address = reinterpret_cast<uintptr_t>(metadata::method_name(item));
             if (!address || !read_bytes(address,method_name,sizeof(method_name)) || !std::memchr(method_name,0,sizeof(method_name)) ||
                 std::strcmp(method_name,"get_bindposes")) continue;
-            if (mesh_method.name[0] || !executable(info[1],metadata::image_base) || !executable(info[4],metadata::image_base)) return;
+            if (mesh_method.name[0] || !executable(info[1],metadata::image_base) || !executable(info[gimmd::hierarchy_profile::MethodInvokerIndex],metadata::image_base)) return;
             strcpy_s(mesh_method.name,method_name); mesh_method.parameters = reinterpret_cast<const uint8_t*>(info)[0x2e];
-            mesh_method.code = info[1]-metadata::image_base; mesh_method.invoker = info[4]-metadata::image_base;
+            mesh_method.code = info[1]-metadata::image_base; mesh_method.invoker = info[gimmd::hierarchy_profile::MethodInvokerIndex]-metadata::image_base;
         }
         renderer_status = "mesh-bindpose-method-observed";
         const auto bind_code = entry("MeshBindPosesGet",metadata::image_base);
@@ -209,7 +209,7 @@ static void capture_renderer(int model_node, const wchar_t* skin_name = L"Body")
         }
         uintptr_t array_class = 0;
         if (!read_bytes(reinterpret_cast<uintptr_t>(bind_array),&array_class,sizeof(array_class)) || !array_class ||
-            !read_bytes(array_class+0x28,&name_pointer,sizeof(name_pointer)) || !read_bytes(name_pointer,class_name,sizeof(class_name)) ||
+            !read_bytes(array_class + gimmd::hierarchy_profile::ClassName,&name_pointer,sizeof(name_pointer)) || !read_bytes(name_pointer,class_name,sizeof(class_name)) ||
             !std::memchr(class_name,0,sizeof(class_name)) || std::strcmp(class_name,"Matrix4x4[]")) {
             renderer_status = "bindpose-array-class-refused"; return;
         }
@@ -267,17 +267,17 @@ static void capture(void* animator) {
         uintptr_t klass = 0, native = 0, name_pointer = 0; char class_name[64]{};
         if (!read_bytes(reinterpret_cast<uintptr_t>(avatar), &klass, sizeof(klass)) || !klass ||
             !read_bytes(reinterpret_cast<uintptr_t>(avatar)+16, &native, sizeof(native)) || !native ||
-            !read_bytes(klass+0x28, &name_pointer, sizeof(name_pointer)) ||
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassName, &name_pointer, sizeof(name_pointer)) ||
             !read_bytes(name_pointer, class_name, sizeof(class_name)) || !std::memchr(class_name, 0, sizeof(class_name)) ||
             std::strcmp(class_name, "Avatar")) {
             status = "avatar-class-unverified"; return;
         }
         available = true;
         uintptr_t table = 0; uint16_t length = 0;
-        if (!read_bytes(klass+0x58, &table, sizeof(table)) || !table ||
-            !read_bytes(klass+0xc0, &length, sizeof(length)) || length > 384) { status = "avatar-method-table-refused"; return; }
+        if (!read_bytes(klass + gimmd::hierarchy_profile::ClassMethodTable, &table, sizeof(table)) || !table ||
+            !read_bytes(klass + gimmd::hierarchy_profile::ClassMethodCount, &length, sizeof(length)) || length > 384) { status = "avatar-method-table-refused"; return; }
         declared_methods = length;
-        const auto deadline = GetTickCount64()+12;
+        const auto deadline = GetTickCount64()+48; // Bounded one-time scan; allow loaded clients the actor capture budget.
         for (unsigned i = 0; i < length; ++i) {
             if (GetTickCount64() >= deadline) { status = "avatar-method-scan-partial"; return; }
             uintptr_t item = 0, info[8]{};
@@ -290,12 +290,12 @@ static void capture(void* animator) {
             bool printable = true;
             for (unsigned n = 0; name[n]; ++n) if (name[n] < 32 || name[n] > 126 || name[n] == '"' || name[n] == '\\') printable = false;
             if (!printable) continue;
-            if (!executable(info[1], metadata::image_base) || !executable(info[4], metadata::image_base)) {
+            if (!executable(info[1], metadata::image_base) || !executable(info[gimmd::hierarchy_profile::MethodInvokerIndex], metadata::image_base)) {
                 status = "avatar-method-code-refused"; return;
             }
             auto& method = methods[method_count++]; method = {}; strcpy_s(method.name, name);
             method.parameters = reinterpret_cast<const uint8_t*>(info)[0x2e]; method.code = info[1]-metadata::image_base;
-            method.invoker = info[4]-metadata::image_base;
+            method.invoker = info[gimmd::hierarchy_profile::MethodInvokerIndex]-metadata::image_base;
         }
         if (avatar_get(animator) != avatar || human_get(animator) != is_human) { status = "avatar-changed-during-read"; return; }
         status = "avatar-named-methods-observed";

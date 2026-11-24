@@ -25,13 +25,122 @@ class TransportTests(unittest.TestCase):
         gc.collect()  # Destroy withdrawn Tk fixtures on their owning thread.
         assert self.directory.resolve().is_relative_to((ROOT/'build-studio').resolve())
         self.temporary.cleanup()
+
+    def test_gaze_only_motion_rejected_before_session_or_asset_changes(self):
+        from unittest.mock import patch
+        from session import reject_gaze_only_motion
+        summary={'boneTracks':1,'durationSeconds':27.2333,
+                 'bones':[{'nameCp932Hex':'両目'.encode('cp932').hex()}]}
+        with patch('session.run_tool',return_value=summary):
+            with self.assertRaisesRegex(ValueError,'目线 VMD'):
+                stage_session(ROOT/'build-studio',Path('gaze.vmd'),None,self.directory/'sessions')
+            self.assertFalse((self.directory/'sessions').exists())
+            self.status.update(dynamicSession=True,mmdPhase=0)
+            self.write();self.controller.poll()
+            for name in ('multi-track.vmd','multi-track.wav','actor-motion.vmd'):
+                (self.directory/name).write_bytes(b'keep existing asset')
+            with self.assertRaisesRegex(ValueError,'目线 VMD'):
+                self.controller.load_motion(Path('gaze.vmd'))
+            with self.assertRaisesRegex(ValueError,'目线 VMD'):
+                self.controller.prepare_actor_motion(Path('gaze.vmd'))
+            for name in ('multi-track.vmd','multi-track.wav','actor-motion.vmd'):
+                self.assertEqual((self.directory/name).read_bytes(),b'keep existing asset')
+        mixed={**summary,'boneTracks':2,'bones':summary['bones']+[{'nameCp932Hex':'センター'.encode('cp932').hex()}]}
+        reject_gaze_only_motion(mixed)  # A normal motion may include ignored eye tracks.
     def write(self): atomic_json(self.directory/'player.status.json',self.status)
+
+    def test_face_opt_in_requires_capability_and_preserves_disabled_flag_on_error(self):
+        atomic_json(self.directory/'build-manifest.json',{})
+        self.controller.prepare_face(False)
+        flag=self.directory/'face-disabled.flag'
+        self.assertTrue(flag.exists())
+        with self.assertRaisesRegex(ValueError,'不支持表情'):
+            self.controller.prepare_face(True)
+        self.assertTrue(flag.exists())
+        atomic_json(self.directory/'build-manifest.json',{'faceMotion':True})
+        self.controller.prepare_face(True)
+        self.assertFalse(flag.exists())
+        self.controller.prepare_face(False)
+        self.assertTrue(flag.exists())
+
+    def test_atomic_command_retries_transient_windows_reader(self):
+        from unittest.mock import patch
+        from session import atomic_text
+        replace=os.replace;attempts=[]
+        def interrupted(source,target):
+            attempts.append(1)
+            if len(attempts)<3:raise PermissionError('temporary command reader')
+            return replace(source,target)
+        with patch('session.os.replace',side_effect=interrupted),patch('session.time.sleep'):
+            atomic_text(self.directory/'actors.command','1 motion-play 1')
+        self.assertEqual((self.directory/'actors.command').read_text(),'1 motion-play 1')
+        self.assertEqual(len(attempts),3)
+
+    def test_actor_motion_requires_capability_and_valid_slot(self):
+        self.status['dynamicSession']=True;self.write();self.controller.poll()
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True})
+        with self.assertRaises(ValueError):self.controller.actors('motion-play','1')
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True,'actorMotion':True})
+        with self.assertRaises(ValueError):self.controller.actors('motion-play','4')
+        self.assertEqual(self.controller.actors('motion-play','2'),1)
+        self.assertEqual((self.directory/'actors.command').read_text(),'1 motion-play 2')
 
     def test_commands_wait_for_acknowledgement(self):
         c=self.controller; c.enqueue('pause'); self.assertEqual(c.pump(),'1 pause')
         c.enqueue('play'); self.assertIsNone(c.pump())
         self.status.update(acknowledgedSequence=1,commandSequence=1); self.write(); c.poll()
         self.assertEqual(c.pump(),'2 play')
+
+    def test_front_camera_can_recenter_active_camera_and_rejects_old_build(self):
+        self.status.update(dynamicSession=True,cameraEnabled=True,cameraActive=True)
+        self.write();self.controller.poll()
+        atomic_json(self.directory/'build-manifest.json',{'cameraFront':True})
+        self.controller.prepare_front_camera(True)
+        self.assertEqual((self.directory/'camera-front.flag').read_text(),'1')
+        self.assertEqual((self.directory/'camera.command').read_text().split()[1:],['0']*7)
+        self.controller.prepare_front_camera(False)
+        self.assertFalse((self.directory/'camera-front.flag').exists())
+        atomic_json(self.directory/'build-manifest.json',{})
+        with self.assertRaises(ValueError):self.controller.prepare_front_camera(True)
+        self.assertFalse((self.directory/'camera-front.flag').exists())
+
+    def test_actor_commands_wait_for_creation_and_require_supported_session(self):
+        c=self.controller
+        self.status.update(dynamicSession=True,mmdPhase=0); self.write(); c.poll()
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True})
+        self.assertEqual(c.actors('spawn','Ambor'),1)
+        self.assertEqual((self.directory/'actors.command').read_text(),'1 spawn Ambor')
+        with self.assertRaises(ValueError): c.actors('spawn')
+        atomic_json(self.directory/'actors.status.json',{'schemaVersion':1,'acknowledgedSequence':1,'slots':[]})
+        self.assertEqual(c.actors('clear'),2)
+        with self.assertRaises(ValueError): c.actors('spawn','Ambor\nclear')
+        self.status['mmdPhase']=2; self.write(); c.poll()
+        with self.assertRaises(ValueError): c.actors('spawn')
+
+    def test_actor_inspection_rejects_legacy_build_without_queuing(self):
+        self.status.update(dynamicSession=True,mmdPhase=0); self.write(); self.controller.poll()
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True})
+        with self.assertRaises(ValueError): self.controller.actors('check')
+        self.assertFalse((self.directory/'actors.command').exists())
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True,'actorInspection':True})
+        self.assertEqual(self.controller.actors('check'),1)
+        self.assertEqual((self.directory/'actors.command').read_text(),'1 check')
+
+    def test_template_operations_require_experimental_capability(self):
+        self.status.update(dynamicSession=True,mmdPhase=0); self.write(); self.controller.poll()
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True})
+        for operation in ('spawn-template','load-template'):
+            with self.assertRaises(ValueError): self.controller.actors(operation,'Columbina')
+        self.assertFalse((self.directory/'actors.command').exists())
+        atomic_json(self.directory/'build-manifest.json',{'localActors':True,'actorTemplateLoading':True})
+        with self.assertRaises(ValueError): self.controller.actors('load-template')
+        self.assertEqual(self.controller.actors('load-template','Columbina'),1)
+        self.assertEqual((self.directory/'actors.command').read_text(),'1 load-template Columbina')
+
+    def test_old_build_rejects_actor_commands(self):
+        self.status.update(dynamicSession=True,mmdPhase=0); self.write(); self.controller.poll()
+        atomic_json(self.directory/'build-manifest.json',{'localActors':False})
+        with self.assertRaises(ValueError): self.controller.actors('spawn')
 
     def test_stop_overrides_unacknowledged_queue(self):
         c=self.controller; c.enqueue('pause'); c.pump(); c.enqueue('play'); c.enqueue('stop')
@@ -132,13 +241,53 @@ class TransportTests(unittest.TestCase):
         root=tk.Tk(); root.withdraw()
         try:
             app=Studio(root,test=True); app.camera_values[0].set('2'); app.fov_multiplier.set('.75'); app.hold_at_end.set(True)
+            self.assertFalse(app.face_enabled.get()); app.face_enabled.set(True)
             path=self.directory/'adjust-project.json'
             with patch('player_gui.filedialog.asksaveasfilename',return_value=str(path)): app.save_project()
+            app.face_enabled.set(False)
             self.assertFalse(app.last_error); app.camera_values[0].set('0'); app.fov_multiplier.set('1'); app.hold_at_end.set(False); app.load_project(path)
             self.assertTrue(app.hold_at_end.get())
+            self.assertTrue(app.face_enabled.get())
             self.assertEqual(float(app.camera_values[0].get()),2); self.assertEqual(float(app.fov_multiplier.get()),.75)
             project=json.loads(path.read_text(encoding='utf-8')); project['fovMultiplier']=0; atomic_json(path,project); app.load_project(path)
             self.assertEqual(float(app.fov_multiplier.get()),.75); self.assertTrue(app.last_error)
+        finally: root.destroy()
+
+    def test_live_author_preview_and_uid_without_vmd_export(self):
+        from camera_authoring import sample_keys
+        keys=[{'seconds':0,'values':[0,0,0,0,0,0,40]}, {'seconds':2,'values':[2,4,6,20,10,0,60]}]
+        self.assertEqual(sample_keys(keys,1),[1,2,3,10,5,0,50])
+        self.status.update(cameraEnabled=True,cameraAcknowledgedSequence=0,state=3,holdingEnd=True); self.write(); self.controller.poll()
+        manifest=json.loads((ROOT/'build-studio-live/build-manifest.json').read_text(encoding='utf-8-sig')); atomic_json(self.directory/'build-manifest.json',manifest)
+        import tkinter as tk
+        from player_gui import Studio
+        root=tk.Tk(); root.withdraw()
+        try:
+            app=Studio(root,test=True); app.controller=self.controller; app.camera_keys=keys; app.key_time.set('1'); app.preview_author_frame()
+            self.assertFalse(app.last_error); self.assertEqual((self.directory/'camera.command').read_text(),'1 1 2 3 10 5 0 50 1 1')
+            self.assertFalse(list(self.directory.glob('*.vmd')))
+            app.uid_enabled.set(True); app.uid_text.set('预览文字'); app.apply_uid()
+            self.assertEqual((self.directory/'uid-command.txt').read_text(encoding='utf-8'),'1 预览文字')
+            app.uid_enabled.set(False); app.apply_uid(); self.assertEqual((self.directory/'uid-command.txt').read_text(),'0')
+            app.stop_author_preview(); self.assertEqual((self.directory/'camera.command').read_text(),'2 0 0 0 0 0 0 0')
+            self.assertTrue(app.hold_at_end.get())
+        finally: root.destroy()
+
+    def test_dynamic_standby_and_independent_commands(self):
+        directory=stage_session(ROOT/'build-studio-dynamic',None,None,self.directory/'sessions',manual_camera=True,dynamic_session=True)
+        self.assertTrue((directory/'dynamic-session.flag').exists()); self.assertFalse((directory/'multi-track.vmd').exists())
+        self.status.update(dynamicSession=True,mmdPhase=0,cameraEnabled=True,cameraActive=False); atomic_json(directory/'player.status.json',self.status)
+        controller=Controller(directory); controller.poll(); controller.load_motion(ROOT/'build-studio/multi-track.vmd')
+        self.assertTrue((directory/'multi-track.vmd').exists())
+        import tkinter as tk
+        from player_gui import Studio
+        root=tk.Tk(); root.withdraw()
+        try:
+            app=Studio(root,test=True); app.controller=controller
+            for sequence,operation,expected in [(1,'stop','restore'),(2,'camera-on','camera-on'),(3,'camera-off','camera-off'),(4,'exit','exit')]:
+                app.send(operation); self.assertFalse(app.last_error)
+                self.assertEqual((directory/'player.command').read_text(),f'{sequence} {expected}')
+                self.status.update(acknowledgedSequence=sequence,commandSequence=sequence); atomic_json(directory/'player.status.json',self.status); controller.poll()
         finally: root.destroy()
 
     def test_hold_end_session_flag_and_status(self):

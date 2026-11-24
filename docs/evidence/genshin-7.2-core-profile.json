@@ -1,0 +1,387 @@
+{
+  "executableSha256": "8B014F64B5DC12FBC476E0C362B053ABFDD7A1378CD282E4AD81057621DBD6B5",
+  "dumpSha256": "90A15B030AE7398419AD25F99A4F6780B3493E6AE052FDD452FF272F2C49BB6A",
+  "liveValidated": false,
+  "entries": [
+    {
+      "name": "UITextGet",
+      "rva": "0x1a30dd80",
+      "bytes": "488b81e0000000c30f1f84000000000056574883ec284889ce4885d20f84c200"
+    },
+    {
+      "name": "UITextSet",
+      "rva": "0x1a30dd90",
+      "bytes": "56574883ec284889ce4885d20f84c20000004889d78b4210488b8ee000000085"
+    },
+    {
+      "name": "UITextStore",
+      "rva": "0x1a30ddda",
+      "bytes": "4889bee0000000488b064889f131d2ff90d00100004889f1e8498315e784c00f"
+    },
+    {
+      "name": "NameA",
+      "rva": "0x1449820",
+      "bytes": "40534881ec80000000488bd94885c90f84dc000000e8262601004885c00f84ce"
+    },
+    {
+      "name": "NameB",
+      "rva": "0x14499a0",
+      "bytes": "40534881ec80000000488bd94885c90f84dc000000e8a62401004885c00f84ce"
+    },
+    {
+      "name": "ChildCount",
+      "rva": "0x1448b40",
+      "bytes": "40534883ec20488bd94885c97416e80d3301004885c0740c8b80900000004883"
+    },
+    {
+      "name": "GetChild",
+      "rva": "0x1448ea0",
+      "bytes": "48895c2410574883ec204863fa488bd94885c97439e8a62f01004885c0742f85"
+    },
+    {
+      "name": "GetParent",
+      "rva": "0x14482e0",
+      "bytes": "40534883ec20488bd94885c97424e86d3b01004885c0741a488b90a000000048"
+    },
+    {
+      "name": "GameObjectTransform",
+      "rva": "0x1463520",
+      "bytes": "48895c2408574883ec20488b4240488bf9488b580833c0660f1f840000000000"
+    },
+    {
+      "name": "ComponentGameObject",
+      "rva": "0x1464d40",
+      "bytes": "40534883ec20488bd94885c9744ae80d71ffff4885c0744048897c2438488b78"
+    },
+    {
+      "name": "GetActive",
+      "rva": "0x1463f90",
+      "bytes": "40534883ec20488bd94885c97417e8bd7effff4885c0740d488bc84883c4205b"
+    },
+    {
+      "name": "RotationWorldCandidate",
+      "rva": "0x1a22a290",
+      "bytes": "564883ec204889ce0f57c00f11014889d14889f2e807da21e74889f04883c420"
+    },
+    {
+      "name": "RotationLocalCandidate",
+      "rva": "0x1a22a430",
+      "bytes": "564883ec204889ce0f57c00f11014889d14889f2e8b7d821e74889f04883c420"
+    },
+    {
+      "name": "SetLocalRotation",
+      "rva": "0x1448000",
+      "bytes": "48895c2408574883ec20488bfa488bd94885c9741fe8463e01004885c0741548"
+    },
+    {
+      "name": "SetLocalRotationNative",
+      "rva": "0x15d70f0",
+      "bytes": "40534883ec400f104148488bd94533c00f101a488d542420488d4c24300f2944"
+    },
+    {
+      "name": "LocalRotationStore",
+      "rva": "0x1209ea0",
+      "bytes": "48895c24080f1012498bd88b41080f28ca0f59ca4c8bc14c8d1440488b0149c1"
+    },
+    {
+      "name": "TimeScaleGet",
+      "rva": "0x1447a00",
+      "bytes": "4883ec28e847dd2b00f30f1080040100004883c428c3cccccccccccccccccccc"
+    },
+    {
+      "name": "TimeScaleSet",
+      "rva": "0x1447a20",
+      "bytes": "4883ec380f297424200f28f0e81fdd2b00488bc80f28ce0f287424204883c438"
+    },
+    {
+      "name": "TimeScaleSetNative",
+      "rva": "0x1706360",
+      "bytes": "4883ec58f30f100520e8ac000f2fc172150f57c00f2fc8720df30f1189040100"
+    },
+    {
+      "name": "TimeManagerGet",
+      "rva": "0x1705750",
+      "bytes": "b907000000e9a6472d00cccccccccccc488d0529c9ea03c3cccccccccccccccc"
+    },
+    {
+      "name": "ComponentGetByName",
+      "rva": "0x1464eb0",
+      "bytes": "40534883ec50488bd94889542460488d542420488d4c2460e8e3e106004885db"
+    },
+    {
+      "name": "ComponentGetByNameNative",
+      "rva": "0x14d98d0",
+      "bytes": "48894c240856415441554883ec704c8be1498bf0498b084c8bea4885c9750449"
+    },
+    {
+      "name": "AnimatorClassRegistration",
+      "rva": "0x1b1e501",
+      "bytes": "4c8d0de0cdfd014c8d05f90c0002488d15ba0aff01488d4c2440e870ed9bff4c"
+    },
+    {
+      "name": "AnimatorClassCacheStore",
+      "rva": "0x1b1e535",
+      "bytes": "488b08488b059957c90348894850488d4c2440e843ed9bff4c8d0dacebfd014c"
+    },
+    {
+      "name": "BehaviourClassRegistration",
+      "rva": "0x1c25e37",
+      "bytes": "4c8d0d1249ed014c8d05c393ef01488d158c92ee01488b08488b05c2edb80348"
+    },
+    {
+      "name": "BehaviourClassCacheStore",
+      "rva": "0x1c25e7b",
+      "bytes": "488b08488b0593edb80348898808010000488d4d10e8fb738bff488b08488b05"
+    },
+    {
+      "name": "ClassParentGet",
+      "rva": "0x4bb2c0",
+      "bytes": "8b81b00000004885c0740b488b0dfed77005480301c331c0c3cccccccccccccc"
+    },
+    {
+      "name": "MethodNameGet",
+      "rva": "0x4bbb60",
+      "bytes": "488b51304885d2741148b8262a6489f397c0ba480342087401c3e9d1620700cc"
+    },
+    {
+      "name": "MethodNameInitialize",
+      "rva": "0x531e50",
+      "bytes": "555657534883ec28488d6c242048c74500feffffff4889ce488b0d39776905ff"
+    },
+    {
+      "name": "ClassMethodSearch",
+      "rva": "0x51aa40",
+      "bytes": "5541574156415541545657534883ec38488d6c243048c74500feffffff4885c9"
+    },
+    {
+      "name": "ClassMethodSearchCompare",
+      "rva": "0x51ab38",
+      "bytes": "488b46304885c0744a488b50084c01fa744183ffff740c0fb6462e39f80f8535"
+    },
+    {
+      "name": "ClassMethodSearchParent",
+      "rva": "0x51aba0",
+      "bytes": "8b9bb00000004885db7410488b051edf6a054803180f85c5feffff31f64889f0"
+    },
+    {
+      "name": "BehaviourEnabledGet",
+      "rva": "0x1a2008b0",
+      "bytes": "e95bdaeee666662e0f1f840000000000e98bdaeee666662e0f1f840000000000"
+    },
+    {
+      "name": "BehaviourEnabledGetNative",
+      "rva": "0x10ee310",
+      "bytes": "40534883ec20488bd94885c9741ce83ddb36004885c07412488b10488bc84883"
+    },
+    {
+      "name": "BehaviourEnabledSet",
+      "rva": "0x1a2008c0",
+      "bytes": "e98bdaeee666662e0f1f840000000000e96b5826e766662e0f1f840000000000"
+    },
+    {
+      "name": "BehaviourEnabledSetNative",
+      "rva": "0x10ee350",
+      "bytes": "48895c2408574883ec200fb6fa488bd94885c97427e8f6da36004885c0741d4c"
+    },
+    {
+      "name": "AnimatorUpdateModeGet",
+      "rva": "0x1a1fa480",
+      "bytes": "e95b7afbe666662e0f1f840000000000e99b7afbe666662e0f1f840000000000"
+    },
+    {
+      "name": "AnimatorUpdateModeGetNative",
+      "rva": "0x11b1ee0",
+      "bytes": "40534883ec20488bd94885c9742be86d9f2a004885c07421488bc8e870b30600"
+    },
+    {
+      "name": "AnimatorIsHumanGet",
+      "rva": "0x1a1f9d70",
+      "bytes": "e96b7cfbe666662e0f1f840000000000e98b7cfbe666662e0f1f840000000000"
+    },
+    {
+      "name": "AnimatorIsHumanGetNative",
+      "rva": "0x11b19e0",
+      "bytes": "40534883ec20488bd94885c97417e86da42a004885c0740d488bc84883c4205b"
+    },
+    {
+      "name": "AnimatorAvatarGet",
+      "rva": "0x1a1fc4d0",
+      "bytes": "e90b81fbe666662e0f1f840000000000e95b81fbe666662e0f1f840000000000"
+    },
+    {
+      "name": "AnimatorAvatarGetNative",
+      "rva": "0x11b45e0",
+      "bytes": "40534883ec20488bd94885c9743de86d782a004885c07433488bc8e8708c0600"
+    },
+    {
+      "name": "RendererBonesGet",
+      "rva": "0x1a20e120",
+      "bytes": "e93bf124e766662e0f1f840000000000e99bf124e766662e0f1f840000000000"
+    },
+    {
+      "name": "RendererBonesGetNative",
+      "rva": "0x145d260",
+      "bytes": "40534883ec20488bd94885c97455e8edebffff4885c0744b48897c2430488db8"
+    },
+    {
+      "name": "RendererMeshGet",
+      "rva": "0x1a20e1a0",
+      "bytes": "e9fbd077e666662e0f1f840000000000e94bd177e666662e0f1f840000000000"
+    },
+    {
+      "name": "RendererMeshGetNative",
+      "rva": "0x98b2a0",
+      "bytes": "40534883ec20488bd94885c97428e8ad0bad004885c0741e488bc8e84001da00"
+    },
+    {
+      "name": "MeshBindPosesGet",
+      "rva": "0x1a213e60",
+      "bytes": "e9fb1577e666662e0f1f840000000000e91b1977e666662e0f1f840000000000"
+    },
+    {
+      "name": "MeshBindPosesGetNative",
+      "rva": "0x985460",
+      "bytes": "40534883ec20488bd94885c97420e8ed69ad004885c07416488bd0488d4c2430"
+    },
+    {
+      "name": "MeshBindPosesArrayCopy",
+      "rva": "0x1737720",
+      "bytes": "48895c240848896c24104889742418574883ec20488b424833db488bf18bfb8b"
+    },
+    {
+      "name": "AvatarBoneIndexGet",
+      "rva": "0x1a1fd090",
+      "bytes": "e9bb90fbe666662e0f1f840000000000e9ab90fbe666662e0f1f840000000000"
+    },
+    {
+      "name": "AvatarBoneIndexGetNative",
+      "rva": "0x11b6150",
+      "bytes": "40534883ec50488bd94889542460488d542420488d4c2460e843cf31004885db"
+    },
+    {
+      "name": "AvatarBoneIndexLookup",
+      "rva": "0x120a5c0",
+      "bytes": "4883ec284c8b5978488bcae8a0c1ffff458b4318448bd033c04585c0741c4d8b"
+    },
+    {
+      "name": "AvatarDefaultPoseStorage",
+      "rva": "0x120a640",
+      "bytes": "4c8bca488b51784885d275270f28050de35304498bc1410f11010f280d0fe353"
+    },
+    {
+      "name": "AvatarDefaultPositionWalk",
+      "rva": "0x120a6b0",
+      "bytes": "4881ec980000004c8b49784d63d04d85c97531f30f100505785604488bc2f30f"
+    },
+    {
+      "name": "LocalPositionGet",
+      "rva": "0x1a2273b0",
+      "bytes": "564883ec204889cec741080000000048c701000000004889d14889f2e8ef0722"
+    },
+    {
+      "name": "LocalPositionGetNative",
+      "rva": "0x1447bc0",
+      "bytes": "48895c2408574883ec30488bfa488bd94885c97430e8864201004885c0742648"
+    },
+    {
+      "name": "LocalPositionRead",
+      "rva": "0x15d7d20",
+      "bytes": "8b41504c8d0440488b41484d03c0488b4808488bc2420f1014c1660f70c255f3"
+    },
+    {
+      "name": "LocalPositionSet",
+      "rva": "0x1a227470",
+      "bytes": "e99b0722e766662e0f1f840000000000e93bda22e766662e0f1f840000000000"
+    },
+    {
+      "name": "LocalPositionSetNative",
+      "rva": "0x1447c10",
+      "bytes": "48895c2408574883ec20488bfa488bd94885c9741fe8364201004885c0741548"
+    },
+    {
+      "name": "LocalPositionStore",
+      "rva": "0x15d72a0",
+      "bytes": "40534883ec30f20f1012488bd90f1041488b41500f29442420f30f104208488d"
+    },
+    {
+      "name": "LocalScaleGet",
+      "rva": "0x1a22aa80",
+      "bytes": "564883ec204889cec741080000000048c701000000004889d14889f2e8ffd221"
+    },
+    {
+      "name": "LocalScaleGetNative",
+      "rva": "0x1447da0",
+      "bytes": "48895c2408574883ec30488bfa488bd94885c97430e8a64001004885c0742648"
+    },
+    {
+      "name": "LocalScaleRead",
+      "rva": "0x15d7db0",
+      "bytes": "8b41504c8d0440488b41484d03c0488b4808488bc2420f1054c120660f70c255"
+    },
+    {
+      "name": "WorldPositionGet",
+      "rva": "0x1a229e70",
+      "bytes": "564883ec204889cec741080000000048c701000000004889d14889f2e89fdc21"
+    },
+    {
+      "name": "WorldPositionSet",
+      "rva": "0x1a229eb0",
+      "bytes": "e9cbdc21e766662e0f1f840000000000e9bbdc21e766662e0f1f840000000000"
+    },
+    {
+      "name": "WorldPositionGetNative",
+      "rva": "0x1447b30",
+      "bytes": "48895c2408574883ec30488bfa488bd94885c97430e8164301004885c0742648"
+    },
+    {
+      "name": "WorldPositionSetNative",
+      "rva": "0x1447b80",
+      "bytes": "48895c2408574883ec20488bfa488bd94885c9741fe8c64201004885c0741548"
+    },
+    {
+      "name": "WorldPositionRead",
+      "rva": "0x15d7d60",
+      "bytes": "40534883ec400f104148488bda488d4c2430488d5424200f29442420e8ef5fc2"
+    },
+    {
+      "name": "WorldPositionStore",
+      "rva": "0x15d7390",
+      "bytes": "40534883ec400f104148488bd9488d4c2430f20f10120f29442430f30f104208"
+    },
+    {
+      "name": "WorldRotationSet",
+      "rva": "0x1a22a320",
+      "bytes": "e99bdc21e766662e0f1f840000000000564883ec504889d04889ce0f57c00f29"
+    },
+    {
+      "name": "WorldRotationSetNative",
+      "rva": "0x1447fc0",
+      "bytes": "48895c2408574883ec20488bfa488bd94885c9741fe8863e01004885c0741548"
+    },
+    {
+      "name": "WorldRotationRead",
+      "rva": "0x15d7c70",
+      "bytes": "40534883ec400f104148488bda488d4c2430488d5424200f29442420e87f62c2"
+    },
+    {
+      "name": "WorldRotationStore",
+      "rva": "0x15d7170",
+      "bytes": "40534883ec4083795000488bd90f101a0f295c243074360f1049488b49506648"
+    },
+    {
+      "name": "CameraFovNative",
+      "rva": "0x19b0a00",
+      "bytes": "40534883ec600f29742450488bd90f28f1e8fafcd4ff4885c00f8499000000e8"
+    },
+    {
+      "name": "CameraFovStore",
+      "rva": "0x19b0ab8",
+      "bytes": "f30f1005b09683000f2fc6770cf30f1005bb678600f30f5dc60f28742450f30f"
+    },
+    {
+      "name": "CameraFovStoreWrite",
+      "rva": "0x19b0ad6",
+      "bytes": "f30f1183580a000066c783c00e000001014883c4605bc3cccccc40534883ec20"
+    }
+  ]
+}

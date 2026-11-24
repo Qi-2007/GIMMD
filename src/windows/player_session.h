@@ -24,6 +24,18 @@ inline uint64_t session_token = 0;
 inline double duration_seconds = 0;
 inline std::atomic<bool> loop_enabled{false};
 inline bool legacy_resolver = false;
+inline SRWLOCK uid_lock=SRWLOCK_INIT;
+inline char uid_value[257]{};
+inline bool uid_valid=false,uid_enabled=false;
+inline bool uid_snapshot(char (&out)[257],bool* enabled) {
+    if (!TryAcquireSRWLockShared(&uid_lock)) return false;
+    const bool valid=uid_valid; *enabled=uid_enabled; std::memcpy(out,uid_value,sizeof(out));
+    ReleaseSRWLockShared(&uid_lock); return valid;
+}
+inline bool dynamic_session=false;
+inline std::atomic<bool> exit_requested{false},mmd_requested{false},rearm_pending{false},camera_requested{false};
+inline std::atomic<unsigned> mmd_phase{0};
+inline std::atomic<uint64_t> camera_frame{0};
 inline bool hold_at_end=false;
 inline std::atomic<bool> holding_end{false};
 inline bool stabilize_cloth=false,stabilize_braid=false,pause_bgm=false;
@@ -90,16 +102,26 @@ inline void close_audio() {
     if (error) { audio_error = error; audio_closed = false; return; }
     device = nullptr; audio_closed = true;
 }
+inline bool reload_audio() {
+    close_audio(); if (!audio_closed) return false;
+    audio_error=0; audio_state=PlaybackState::Ready; audio_epoch=UINT64_MAX; audio_base=0;
+    audio_loaded=load_pcm(directory/L"multi-track.wav");
+    if (audio_loaded) { audio_error=waveOutOpen(&device,WAVE_MAPPER,&format,0,0,CALLBACK_NULL); audio_closed=device==nullptr; }
+    return !audio_error;
+}
 // Worker only: no audio API or filesystem access is made on the game thread.
 inline void initialize(const std::filesystem::path& path) {
     directory = path; command.store(0); frame.store(0); acknowledged.store(0); commands_read = audio_requeues = position_checks = 0;
+    uid_valid=uid_enabled=false; uid_value[0]=0;
     camera_control={}; camera_acknowledged.store(0); camera_enabled.store(false);
     closed = false; duration_seconds = 0; loop_enabled.store(false);
     session_token = (uint64_t(GetCurrentProcessId()) << 32) | (GetTickCount64() & 0xffffffff);
     audio_error = 0; max_audio_offset_ms = 0; audio_epoch = UINT64_MAX; audio_state = PlaybackState::Ready;
     if (!Enabled) return;
     active = true;
-    hold_at_end=std::filesystem::exists(directory/L"hold-end.flag"); holding_end.store(false);
+    dynamic_session=std::filesystem::exists(directory/L"dynamic-session.flag");
+    camera_frame.store(0); exit_requested.store(false); mmd_requested.store(false); rearm_pending.store(false); camera_requested.store(false); mmd_phase.store(0);
+    hold_at_end=dynamic_session||std::filesystem::exists(directory/L"hold-end.flag"); holding_end.store(false);
     stabilize_cloth=std::filesystem::exists(directory/L"cloth-static.flag");
     stabilize_braid=std::filesystem::exists(directory/L"braid-static.flag");
     pause_bgm=std::filesystem::exists(directory/L"pause-bgm.flag");
@@ -125,6 +147,8 @@ inline void write_status() {
     const auto temporary=directory / L"player.status.tmp";
     std::ofstream out(temporary, std::ios::trunc);
     out << "{\"schemaVersion\":2,\"sessionToken\":" << session_token << ",\"closed\":" << (closed ? "true":"false")
+        << ",\"dynamicSession\":" << (dynamic_session ? "true":"false") << ",\"mmdPhase\":" << mmd_phase.load()
+        << ",\"cameraActive\":" << (camera_requested.load() ? "true":"false")
         << ",\"holdAtEnd\":" << (hold_at_end ? "true":"false") << ",\"holdingEnd\":" << (holding_end.load() ? "true":"false")
         << ",\"durationSeconds\":" << duration_seconds << ",\"loop\":" << (loop_enabled.load() ? "true":"false")
         << ",\"seconds\":" << f.seconds << ",\"state\":" << static_cast<unsigned>(f.state)
@@ -150,6 +174,16 @@ inline void worker_tick() {
             AcquireSRWLockExclusive(&camera_lock);
             if (parsed.sequence>camera_control.sequence) camera_control=parsed;
             ReleaseSRWLockExclusive(&camera_lock);
+        }
+    }
+    std::ifstream uid_in(directory/L"uid-command.txt",std::ios::binary|std::ios::ate);
+    if (uid_in&&uid_in.tellg()>=1&&uid_in.tellg()<=258) {
+        const auto size=static_cast<size_t>(uid_in.tellg()); char text[259]{}; uid_in.seekg(0); uid_in.read(text,size);
+        wchar_t checked[129]{};
+        if (uid_in&&(text[0]=='0'||(text[0]=='1'&&text[1]==' '))&&
+            (size<=2||MultiByteToWideChar(CP_UTF8,MB_ERR_INVALID_CHARS,text+2,int(size-2),checked,128)>0)) {
+            AcquireSRWLockExclusive(&uid_lock); uid_valid=true; uid_enabled=text[0]=='1';
+            strcpy_s(uid_value,size>2 ? text+2:""); ReleaseSRWLockExclusive(&uid_lock);
         }
     }
     const auto f = unpack_player_frame(frame.load());

@@ -1,0 +1,143 @@
+{
+  "source": "sessions\\actor-survey-20261015-202305-923\\resources.json",
+  "engineException": 0,
+  "entryBytesRestored": true,
+  "managerDirectory": {
+    "status": "actual-keys-observed",
+    "entries": [
+      {
+        "index": 282,
+        "lookupKey": 0,
+        "hash": 908794384,
+        "resourceId": 3903242158068465946,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 176,
+        "lookupKey": 0,
+        "hash": 2515555397,
+        "resourceId": 10804228161391296688,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 110,
+        "lookupKey": 0,
+        "hash": 848932393,
+        "resourceId": 3646136864450019438,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 157,
+        "lookupKey": 0,
+        "hash": 2679993590,
+        "resourceId": 11510484822539632797,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 66555,
+        "lookupKey": 1114,
+        "hash": 716101243,
+        "resourceId": 3075631419309950042,
+        "found": true,
+        "matched": true,
+        "bundle": "66555/4d09c3889af115cc.asb",
+        "resourceIdHex": "0x2AAED67B0000045A"
+      },
+      {
+        "index": 66628,
+        "lookupKey": 0,
+        "hash": 3240794491,
+        "resourceId": 13919106351902032964,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 156,
+        "lookupKey": 0,
+        "hash": 1210123519,
+        "resourceId": 5197440938225434780,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 531,
+        "lookupKey": 1179503,
+        "hash": 350073614,
+        "resourceId": 1503554723323707247,
+        "found": true,
+        "matched": true,
+        "bundle": "531/49b93d843d36f52a.asb",
+        "resourceIdHex": "0x14DDB30E0011FF6F"
+      },
+      {
+        "index": 808,
+        "lookupKey": 1126875,
+        "hash": 1230741029,
+        "resourceId": 5285992469401514459,
+        "found": true,
+        "matched": true,
+        "bundle": "808/7036fc2916a17582.asb",
+        "resourceIdHex": "0x495B9E25001131DB"
+      },
+      {
+        "index": 149,
+        "lookupKey": 1383073,
+        "hash": 4070601497,
+        "resourceId": 17483100304665025185,
+        "found": true,
+        "matched": true,
+        "bundle": "149/cfa45cac2daa00ed.asb",
+        "resourceIdHex": "0xF2A0731900151AA1"
+      },
+      {
+        "index": 822,
+        "lookupKey": 0,
+        "hash": 24239954,
+        "resourceId": 104109809686545206,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 127,
+        "lookupKey": 1300049,
+        "hash": 1441974073,
+        "resourceId": 6193231485216216657,
+        "found": true,
+        "matched": true,
+        "bundle": "127/11b1c4628af8c5bd.asb",
+        "resourceIdHex": "0x55F2C7390013D651"
+      },
+      {
+        "index": 134,
+        "lookupKey": 0,
+        "hash": 3350402512,
+        "resourceId": 14389869217476247686,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      },
+      {
+        "index": 956,
+        "lookupKey": 0,
+        "hash": 4143750977,
+        "resourceId": 17797274928983049148,
+        "found": false,
+        "matched": false,
+        "bundle": ""
+      }
+    ]
+  },
+  "resourceIdFormula": "(assetHash << 32) | actualLoadedBundleLookupKey",
+  "note": "Bundle keys verified by matching full bundle names in the actual dictionary. Directory prefixes were disproved as lookup keys. Unloaded bundle loading has not yet been demonstrated."
+}

@@ -8,6 +8,7 @@ static Bone bones[Limit]; static unsigned size=0,writes=0,overwrites=0;
 static const char* status="disabled";
 static void reset() { for (auto& bone:bones) bone={}; size=writes=overwrites=0; status="disabled"; }
 static bool bind(int model) {
+    if(adaptive_reference){status="character-cloth-not-calibrated";return true;}
     if (!gimmd::player_session::stabilize_cloth&&!gimmd::player_session::stabilize_braid) return true;
     status="cloth-binding-refused";
     namespace bp=animator_observer::bind_pose;

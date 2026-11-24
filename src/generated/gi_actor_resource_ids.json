@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "executableSha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "roles": [
+    {
+      "selector": "PlayerBoy",
+      "model": "Avatar_Boy_Sword_PlayerBoy_Manekin",
+      "assetHash": "0x2aaed67b",
+      "packageKey": 1114,
+      "bundle": "66555/4d09c3889af115cc.asb"
+    },
+    {
+      "selector": "Linnea",
+      "model": "Avatar_Girl_Bow_Linnea_Manekin",
+      "assetHash": "0x14ddb30e",
+      "packageKey": 1179503,
+      "bundle": "531/49b93d843d36f52a.asb"
+    },
+    {
+      "selector": "Yoimiya",
+      "model": "Avatar_Girl_Bow_Yoimiya_Manekin",
+      "assetHash": "0x9f4a5265",
+      "packageKey": 84242,
+      "bundle": "514/476c7721101a824b.asb"
+    },
+    {
+      "selector": "Columbina",
+      "model": "Avatar_Girl_Catalyst_Columbina_Manekin",
+      "assetHash": "0x495b9e25",
+      "packageKey": 1126875,
+      "bundle": "808/7036fc2916a17582.asb"
+    },
+    {
+      "selector": "Vodyanitsa",
+      "model": "Avatar_Girl_Catalyst_Vodyanitsa_Manekin",
+      "assetHash": "0xf2a07319",
+      "packageKey": 1383073,
+      "bundle": "149/cfa45cac2daa00ed.asb"
+    },
+    {
+      "selector": "MarionetteNew",
+      "model": "Avatar_Girl_Claymore_MarionetteNew_Manekin",
+      "assetHash": "0x171df52",
+      "packageKey": 1282629,
+      "bundle": "822/721e5600a4960632.asb"
+    },
+    {
+      "selector": "Odette",
+      "model": "Avatar_Girl_Sword_Odette_Manekin",
+      "assetHash": "0x55f2c739",
+      "packageKey": 1300049,
+      "bundle": "127/11b1c4628af8c5bd.asb"
+    },
+    {
+      "selector": "Nahida",
+      "model": "Avatar_Loli_Catalyst_Nahida_Manekin",
+      "assetHash": "0x6976fdb2",
+      "packageKey": 84763,
+      "bundle": "595/529bdf92c8b1ca1c.asb"
+    },
+    {
+      "selector": "Nahida_Show01",
+      "model": "Avatar_Loli_Catalyst_Nahida_Show01_Manekin",
+      "assetHash": "0x1727fa83",
+      "packageKey": 206643,
+      "bundle": "693/6046503989d715e0.asb"
+    },
+    {
+      "selector": "Prune",
+      "model": "Avatar_Loli_Catalyst_Prune_Manekin",
+      "assetHash": "0xf0bc3a96",
+      "packageKey": 1200296,
+      "bundle": "129/b38b5228e120537e.asb"
+    },
+    {
+      "selector": "Kachina",
+      "model": "Avatar_Loli_Pole_Kachina_Manekin",
+      "assetHash": "0x8f8c3c87",
+      "packageKey": 717629,
+      "bundle": "117/a358f4607ef258d1.asb"
+    }
+  ]
+}

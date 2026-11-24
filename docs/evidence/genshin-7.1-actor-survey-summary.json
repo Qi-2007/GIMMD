@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 1,
+  "snapshotComplete": true,
+  "executableSha256": "7F89938DA606C1281659607D464702CDDB9A09A7D4320A196630F60A811EC38E",
+  "activeRootCount": 1,
+  "actors": [
+    {
+      "snapshotNode": 1,
+      "name": "Avatar_Boy_Sword_PlayerBoy(Clone)",
+      "upstreamActive": false,
+      "nodeCount": 191,
+      "pelvisNodes": [
+        119
+      ],
+      "modelNodes": [
+        1,
+        28,
+        26
+      ],
+      "skinCandidates": [
+        {
+          "node": 54,
+          "name": "Face"
+        },
+        {
+          "node": 50,
+          "name": "Body"
+        }
+      ],
+      "renderingIdentityVerified": false,
+      "spawnSourceApproved": false
+    },
+    {
+      "snapshotNode": 2,
+      "name": "Avatar_Girl_Bow_AmborCostumeWic(Clone)",
+      "upstreamActive": false,
+      "nodeCount": 249,
+      "pelvisNodes": [
+        127
+      ],
+      "modelNodes": [
+        2,
+        38,
+        36
+      ],
+      "skinCandidates": [
+        {
+          "node": 77,
+          "name": "Face"
+        },
+        {
+          "node": 73,
+          "name": "Body"
+        }
+      ],
+      "renderingIdentityVerified": false,
+      "spawnSourceApproved": false
+    },
+    {
+      "snapshotNode": 3,
+      "name": "Avatar_Boy_Sword_PlayerBoy(Clone)",
+      "upstreamActive": true,
+      "nodeCount": 273,
+      "pelvisNodes": [
+        133
+      ],
+      "modelNodes": [
+        3,
+        48,
+        46
+      ],
+      "skinCandidates": [
+        {
+          "node": 98,
+          "name": "Face"
+        },
+        {
+          "node": 94,
+          "name": "Body"
+        }
+      ],
+      "renderingIdentityVerified": false,
+      "spawnSourceApproved": false
+    }
+  ],
+  "creationCandidates": {
+    "enabled": true,
+    "status": "read-only-candidates-observed",
+    "complete": true,
+    "methodAbiVerified": false,
+    "spawnEnabled": false,
+    "rendererQueries": 6,
+    "renderersObserved": 6,
+    "methods": [
+      {
+        "class": "Transform",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 432753520
+      },
+      {
+        "class": "Transform",
+        "name": "SetParent",
+        "parameters": 1,
+        "codeRva": 432763024
+      },
+      {
+        "class": "Transform",
+        "name": "SetParent",
+        "parameters": 2,
+        "codeRva": 432763040
+      },
+      {
+        "class": "Component",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 432787104
+      },
+      {
+        "class": "Object",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 432747792
+      },
+      {
+        "class": "Object",
+        "name": "Internal_CloneSingle",
+        "parameters": 1,
+        "codeRva": 432745712
+      },
+      {
+        "class": "Object",
+        "name": "Internal_CloneSingleWithParent",
+        "parameters": 3,
+        "codeRva": 432745728
+      },
+      {
+        "class": "Object",
+        "name": "Destroy",
+        "parameters": 2,
+        "codeRva": 432745840
+      },
+      {
+        "class": "Object",
+        "name": "Destroy",
+        "parameters": 1,
+        "codeRva": 432745856
+      },
+      {
+        "class": "Object",
+        "name": "DestroyImmediate",
+        "parameters": 2,
+        "codeRva": 432745936
+      },
+      {
+        "class": "Object",
+        "name": "DestroyImmediate",
+        "parameters": 1,
+        "codeRva": 432745952
+      },
+      {
+        "class": "Object",
+        "name": "GetInstanceID",
+        "parameters": 0,
+        "codeRva": 432746480
+      },
+      {
+        "class": "Object",
+        "name": "op_Implicit",
+        "parameters": 1,
+        "codeRva": 432746736
+      },
+      {
+        "class": "Object",
+        "name": "Instantiate",
+        "parameters": 3,
+        "codeRva": 432746896
+      },
+      {
+        "class": "Object",
+        "name": "Instantiate",
+        "parameters": 4,
+        "codeRva": 432747200
+      },
+      {
+        "class": "Object",
+        "name": "Instantiate",
+        "parameters": 1,
+        "codeRva": 432747376
+      },
+      {
+        "class": "Object",
+        "name": "Instantiate",
+        "parameters": 2,
+        "codeRva": 432747456
+      },
+      {
+        "class": "Object",
+        "name": "Instantiate",
+        "parameters": 3,
+        "codeRva": 432747568
+      },
+      {
+        "class": "Object",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 425211696
+      },
+      {
+        "class": "GameObject",
+        "name": ".ctor",
+        "parameters": 1,
+        "codeRva": 432650768
+      },
+      {
+        "class": "GameObject",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 432650800
+      },
+      {
+        "class": "GameObject",
+        "name": ".ctor",
+        "parameters": 2,
+        "codeRva": 432650816
+      },
+      {
+        "class": "GameObject",
+        "name": "SetActive",
+        "parameters": 1,
+        "codeRva": 432650240
+      },
+      {
+        "class": "GameObject",
+        "name": "Internal_AddComponentWithType",
+        "parameters": 1,
+        "codeRva": 432650704
+      },
+      {
+        "class": "GameObject",
+        "name": "AddComponent",
+        "parameters": 1,
+        "codeRva": 432650736
+      },
+      {
+        "class": "GameObject",
+        "name": "AddComponent",
+        "parameters": 1,
+        "codeRva": 432650752
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 432645984
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "get_bones",
+        "parameters": 0,
+        "codeRva": 432645344
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "get_rootBone",
+        "parameters": 0,
+        "codeRva": 432645440
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "set_rootBone",
+        "parameters": 1,
+        "codeRva": 432645456
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "get_sharedMesh",
+        "parameters": 0,
+        "codeRva": 432645472
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "set_sharedMesh",
+        "parameters": 1,
+        "codeRva": 432645488
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "get_localBounds",
+        "parameters": 0,
+        "codeRva": 432645696
+      },
+      {
+        "class": "SkinnedMeshRenderer",
+        "name": "set_localBounds",
+        "parameters": 1,
+        "codeRva": 432645776
+      },
+      {
+        "class": "Renderer",
+        "name": ".ctor",
+        "parameters": 0,
+        "codeRva": 432876144
+      },
+      {
+        "class": "Renderer",
+        "name": "get_sharedMaterials",
+        "parameters": 0,
+        "codeRva": 432876000
+      },
+      {
+        "class": "Renderer",
+        "name": "set_sharedMaterials",
+        "parameters": 1,
+        "codeRva": 432876016
+      }
+    ]
+  },
+  "spawnEnabled": false
+}

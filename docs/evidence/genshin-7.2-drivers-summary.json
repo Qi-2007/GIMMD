@@ -1,0 +1,57 @@
+{
+  "session": "E:\\code\\gimmd\\sessions\\20261124-104827-904894dd",
+  "build": "build-studio-7.2-drivers",
+  "userVisualConfirmation": "已不再抽搐",
+  "auxiliaryDrivers": {
+    "status": "drivers-restored",
+    "count": 5,
+    "checks": 12385,
+    "restored": 5,
+    "components": [
+      {
+        "class": "MonoAnimationIKEventHelper",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      },
+      {
+        "class": "DynamicBoneArray",
+        "before": true,
+        "cleanupPending": false
+      }
+    ]
+  },
+  "animatorLease": {
+    "enabled": true,
+    "setterCallCount": 2,
+    "cleanupPending": false,
+    "profileVerified": true,
+    "bound": true,
+    "before": true,
+    "acquired": true,
+    "restored": true,
+    "refused": false,
+    "disabledChecks": 2476,
+    "enabledOverrideCount": 0,
+    "resolveFailureCount": 0,
+    "restoreAttempts": 1,
+    "exception": 0
+  },
+  "engineException": 0,
+  "entryBytesRestored": true,
+  "messageHookRemoved": true
+}

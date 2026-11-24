@@ -1,0 +1,320 @@
+{
+  "cameraPlayback": {
+    "enabled": true,
+    "loaded": false,
+    "status": "no-camera-track",
+    "acquired": false,
+    "restored": false,
+    "cleanupPending": false,
+    "aborted": false,
+    "poseWrites": 0,
+    "retainedSamples": 0,
+    "gameOverwrites": 0,
+    "restoreAttempts": 0,
+    "maxWriteError": 0,
+    "restoreError": 0,
+    "exception": 0,
+    "lastSampleSeconds": 0,
+    "manualOnly": false,
+    "controlSequence": 0,
+    "fovMultiplier": 1,
+    "positionOffset": [
+      0,
+      0,
+      0
+    ],
+    "baselineFov": 0,
+    "lastFov": 0,
+    "maxFovWriteError": 0,
+    "fovRestoreError": 0,
+    "anchor": "initial-camera-pose",
+    "fovWritten": false,
+    "finalRenderVerified": false,
+    "timelineSamples": []
+  },
+  "session": "E:\\code\\gimmd\\sessions\\20261123-225247-a7d87816",
+  "passed": true,
+  "events": [
+    {
+      "schemaVersion": 2,
+      "sessionToken": 96842924390692,
+      "closed": false,
+      "dynamicSession": false,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": false,
+      "holdingEnd": false,
+      "durationSeconds": 23.4667,
+      "loop": false,
+      "seconds": 0.702,
+      "state": 1,
+      "epoch": 0,
+      "commandSequence": 0,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": false,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 0
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 96842924390692,
+      "closed": false,
+      "dynamicSession": false,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": false,
+      "holdingEnd": false,
+      "durationSeconds": 23.4667,
+      "loop": false,
+      "seconds": 0.78,
+      "state": 2,
+      "epoch": 0,
+      "commandSequence": 1,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": false,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 1
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 96842924390692,
+      "closed": false,
+      "dynamicSession": false,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": false,
+      "holdingEnd": false,
+      "durationSeconds": 23.4667,
+      "loop": false,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 2,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": false,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 2
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 96842924390692,
+      "closed": false,
+      "dynamicSession": false,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": false,
+      "holdingEnd": false,
+      "durationSeconds": 23.4667,
+      "loop": true,
+      "seconds": 1.5,
+      "state": 2,
+      "epoch": 1,
+      "commandSequence": 3,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": false,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 3
+    },
+    {
+      "schemaVersion": 2,
+      "sessionToken": 96842924390692,
+      "closed": false,
+      "dynamicSession": false,
+      "mmdPhase": 0,
+      "cameraActive": false,
+      "holdAtEnd": false,
+      "holdingEnd": false,
+      "durationSeconds": 23.4667,
+      "loop": true,
+      "seconds": 1.561,
+      "state": 1,
+      "epoch": 1,
+      "commandSequence": 4,
+      "bgmState": 0,
+      "uidTextState": 0,
+      "cameraEnabled": false,
+      "cameraAcknowledgedSequence": 0,
+      "acknowledgedSequence": 4
+    }
+  ],
+  "finalStatus": {
+    "schemaVersion": 2,
+    "sessionToken": 96842924390692,
+    "closed": true,
+    "dynamicSession": false,
+    "mmdPhase": 0,
+    "cameraActive": false,
+    "holdAtEnd": false,
+    "holdingEnd": false,
+    "durationSeconds": 23.4667,
+    "loop": true,
+    "seconds": 0,
+    "state": 0,
+    "epoch": 0,
+    "commandSequence": 5,
+    "bgmState": 0,
+    "uidTextState": 0,
+    "cameraEnabled": false,
+    "cameraAcknowledgedSequence": 0,
+    "acknowledgedSequence": 5
+  },
+  "probeReport": "E:\\code\\gimmd\\sessions\\20261123-225247-a7d87816\\gimmd-22548.probe.json",
+  "cameraSamples": [
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      }
+    ],
+    [
+      {
+        "main": true,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "UICamera",
+        "position": [
+          0,
+          0,
+          -2
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": false,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "CaptureSkyBoxCamera",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      },
+      {
+        "main": false,
+        "fovCallbackTarget": true,
+        "nameValidated": true,
+        "positionReadable": true,
+        "name": "MainCamera(Clone)",
+        "position": [
+          5.9691534,
+          197.061569,
+          45.4352989
+        ]
+      }
+    ]
+  ]
+}

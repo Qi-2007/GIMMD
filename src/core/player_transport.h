@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string>
 namespace gimmd {
-enum class PlayerOp : uint8_t { None, Play, Pause, Seek, LoopOn, LoopOff, Stop };
+enum class PlayerOp : uint8_t { None, Play, Pause, Seek, LoopOn, LoopOff, Stop, Restore, Exit, CameraOn, CameraOff };
 // Single atomic mailbox: operation, milliseconds and monotonic sequence.
 inline uint64_t parse_player_command(const std::string& text) {
     std::istringstream in(text); uint64_t sequence = 0; std::string name, extra;
@@ -18,6 +18,10 @@ inline uint64_t parse_player_command(const std::string& text) {
     } else if (name == "loop-on") op = PlayerOp::LoopOn;
     else if (name == "loop-off") op = PlayerOp::LoopOff;
     else if (name == "stop") op = PlayerOp::Stop;
+    else if (name == "restore") op = PlayerOp::Restore;
+    else if (name == "exit") op = PlayerOp::Exit;
+    else if (name == "camera-on") op = PlayerOp::CameraOn;
+    else if (name == "camera-off") op = PlayerOp::CameraOff;
     else return 0;
     if (in >> extra) return 0;
     return (sequence << 36) | (static_cast<uint64_t>(seconds * 1000) << 4) | static_cast<uint8_t>(op);

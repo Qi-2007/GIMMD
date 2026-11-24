@@ -28,7 +28,7 @@ static void configure(uintptr_t base) {
     get_component = Enabled ? reinterpret_cast<GetComponentFn>(entry("ComponentGetByName", base)) : nullptr;
     verified = get_component && entry("ComponentGetByNameNative", base) &&
         entry("AnimatorClassRegistration", base) && entry("AnimatorClassCacheStore", base);
-    cache_slot = base + 0x56ce298; // Reviewed named class registration; read-only.
+    cache_slot = base + gimmd::hierarchy_profile::AnimatorCache; // Reviewed named class registration; read-only.
 }
 static void capture() {
     if (!Enabled || !verified || ready.load()) return;
