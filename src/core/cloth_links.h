@@ -1,8 +1,64 @@
 #pragma once
+#include <string_view>
 #include "body_collision.h"
 namespace gimmd::cloth_links {
 namespace bc=body_collision;
 struct Vertex {unsigned index=0;float angle=0,height=0;};
+enum class RingRegion { Other, Front, Rear };
+inline RingRegion ring_region(bool closed,float front_weight) {
+    if(closed&&front_weight>=.8f)return RingRegion::Front;
+    if(closed&&front_weight<=.2f)return RingRegion::Rear;
+    return RingRegion::Other;
+}
+inline float panel_half_width(bc::Vec center,bc::Vec left,bc::Vec right,bc::Vec hip_right) {
+    const float a=std::abs(bc::dot(bc::sub(left,center),hip_right));
+    const float b=std::abs(bc::dot(bc::sub(right,center),hip_right));
+    return .25f*(a+b);
+}
+inline float upper_neighbor_lift(float direct,float neighbor,bool fitted_rear,float padding) {
+    const float carried=.55f*neighbor;
+    return std::max(direct,fitted_rear?std::min(padding,carried):carried);
+}
+inline float rear_support_radius(float rest_radius,float parent_expansion,float support_percent) {
+    // The waist can clear a bent hip without forcing the entire back panel
+    // to inherit the same bulge. Direct leg contacts still run afterwards.
+    return (rest_radius+.25f*std::max(0.f,parent_expansion))*support_percent*.01f;
+}
+inline std::wstring_view skirt_strip(std::wstring_view name) {
+    if(!name.empty()&&name.front()==L'+')name.remove_prefix(1);
+    for(const std::wstring_view prefix:{L"SkirtF CF ",L"SkirtF L ",L"SkirtF R ",L"SkirtS L ",L"SkirtS R ",L"SkirtB L ",L"SkirtB R "})
+        if(name.substr(0,prefix.size())==prefix)return prefix;
+    return {};
+}
+// A missing strip must be a single, wholly unowned chain. A native array
+// can start at B02, so checking ownership of the root alone is insufficient.
+template<class Path,class Particle>
+inline unsigned missing_skirt_chain(const Path* paths,unsigned count,unsigned root,
+                                    const Particle* particles,unsigned particle_count,unsigned (&chain)[12]) {
+    const auto strip=skirt_strip(paths[root].name);
+    const int parent=paths[root].parent_node;
+    if(strip.empty()||(parent>=0&&!skirt_strip(paths[parent].name).empty()))return 0;
+    unsigned current=root,length=0;
+    for(;;){
+        if(length==12||skirt_strip(paths[current].name)!=strip)return 0;
+        for(unsigned p=0;p<particle_count;++p)
+            if(particles[p].real&&particles[p].path==current)return 0;
+        chain[length++]=current;
+        int next=-1;
+        for(unsigned i=0;i<count;++i)if(paths[i].parent_node==int(current)){
+            if(next>=0)return 0;
+            next=int(i);
+        }
+        if(next<0)break;
+        current=unsigned(next);
+    }
+    if(length>=3&&strip.starts_with(L"SkirtF "))return length;
+    // Two-bone panels such as Collei's have no separate hem joint. Their
+    // terminal rotation is driven by the solver's existing virtual tip.
+    if(length!=2||parent<0)return 0;
+    const std::wstring_view attachment=paths[parent].name;
+    return attachment==L"Bip001 Spine"||attachment==L"Bip001 Spine1"||attachment==L"Bip001 Pelvis"?length:0;
+}
 // Conservative geometric fallback for closed skirts. Open capes/petals and
 // sparse or duplicate directions are deliberately not joined into a ring.
 inline bool closed_ring(Vertex* vertices,unsigned count,float height_tolerance) {

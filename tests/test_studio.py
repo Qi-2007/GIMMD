@@ -93,8 +93,13 @@ class TransportTests(unittest.TestCase):
         atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True,'secondaryPhysicsControls':True,'extendedFrontAngle':True})
         self.controller.prepare_physics(True,extended)
         self.assertEqual(path.read_text(),'GIMMD_PHYSICS_V1\n80 10 1.5 0.4 60 220 94\n')
+        both={**settings,'frontAngle':180,'rearAngle':180}
+        with self.assertRaisesRegex(ValueError,'旧构建'): self.controller.prepare_physics(True,both)
+        atomic_json(self.directory/'build-manifest.json',{'secondaryPhysics':True,'secondaryPhysicsControls':True,'fullSkirtAngleRange':True})
+        self.controller.prepare_physics(True,both)
+        self.assertEqual(path.read_text(),'GIMMD_PHYSICS_V1\n180 180 1.5 0.4 60 220 94\n')
         before=path.read_bytes()
-        for invalid in [{'frontAngle':81},{'rearPaddingCm':-1},{'frontResponseMs':0},{'rearResponseMs':math.inf},{'skirtSupportPercent':True},{'frontAngle':math.nan},{'typo':1},[]]:
+        for invalid in [{'frontAngle':181},{'rearAngle':181},{'rearPaddingCm':-1},{'frontResponseMs':0},{'rearResponseMs':math.inf},{'skirtSupportPercent':True},{'frontAngle':math.nan},{'typo':1},[]]:
             with self.assertRaises(ValueError): self.controller.prepare_physics(True,invalid)
             self.assertEqual(path.read_bytes(),before)
         self.status.update(mmdPhase=1);self.write();self.controller.poll()
@@ -282,7 +287,7 @@ class TransportTests(unittest.TestCase):
             app=Studio(root,test=True); app.camera_values[0].set('2'); app.fov_multiplier.set('.75'); app.hold_at_end.set(True)
             self.assertFalse(app.face_enabled.get()); app.face_enabled.set(True)
             self.assertFalse(app.physics_enabled.get()); app.physics_enabled.set(True)
-            app.physics_values['frontAngle'].set('25');app.physics_values['rearResponseMs'].set('220')
+            app.physics_values['frontAngle'].set('135');app.physics_values['rearAngle'].set('155');app.physics_values['rearResponseMs'].set('220')
             path=self.directory/'adjust-project.json'
             with patch('player_gui.filedialog.asksaveasfilename',return_value=str(path)): app.save_project()
             app.face_enabled.set(False)
@@ -291,7 +296,8 @@ class TransportTests(unittest.TestCase):
             self.assertTrue(app.hold_at_end.get())
             self.assertTrue(app.face_enabled.get())
             self.assertTrue(app.physics_enabled.get())
-            self.assertEqual(app.physics_controls()['frontAngle'],25);self.assertEqual(app.physics_controls()['rearResponseMs'],220)
+            self.assertEqual(app.physics_controls()['frontAngle'],135);self.assertEqual(app.physics_controls()['rearAngle'],155)
+            self.assertEqual(app.physics_controls()['rearResponseMs'],220)
             app.reset_physics_controls();self.assertEqual(app.physics_controls()['frontAngle'],24)
             self.assertEqual(app.physics_controls()['rearResponseMs'],160)
             self.assertEqual(float(app.camera_values[0].get()),2); self.assertEqual(float(app.fov_multiplier.get()),.75)
@@ -421,6 +427,21 @@ class TransportTests(unittest.TestCase):
             root.update_idletasks()
             self.assertLessEqual(root.winfo_reqheight(),690)
             self.assertFalse(app.last_error)
+        finally: root.destroy()
+
+    def test_closed_session_reports_startup_and_cleanup_failures(self):
+        import tkinter as tk
+        from player_gui import Studio
+        root=tk.Tk(); root.withdraw()
+        try:
+            app=Studio(root,test=True); app.controller=Controller(self.directory)
+            self.status.update(closed=True,state=0); self.write()
+            for failure,expected in [('runtime-contract-mismatch','启动校验失败'),
+                                     ('playback-cleanup-pending-hook-retained','未完成恢复')]:
+                atomic_json(self.directory/'gimmd-100.probe.json',{'status':failure,
+                            'singleTrackPlayback':{'status':'waiting-for-fixture'}})
+                app.poll()
+                self.assertIn(expected,app.state.get())
         finally: root.destroy()
 
     def test_close_during_startup_waits_then_sends_stop(self):

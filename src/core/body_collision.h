@@ -149,4 +149,56 @@ inline bool limit_direction(Vec reference,Vec& direction,float radians) {
     tangent=scale(tangent,1/std::max(t,1e-6f));
     direction=scale(add(scale(from,std::cos(radians)),scale(tangent,std::sin(radians))),d);return true;
 }
+
+// Near the pinned end, moving a contact by 2 mm at 5% of the link can
+// displace its free end by 4 cm. Retract along the proposed bend, keeping
+// the clearance already achieved at the tip and over the outer two thirds.
+template<unsigned N>
+inline Vec relax_rear_bend(Vec anchor,Vec rest,Vec proposed,
+                           const Capsule (&capsules)[N],const float (&tip_radius)[N],const float (&segment_radius)[N]) {
+    const float span=length(rest);
+    if(span<1e-6f||length(sub(rest,proposed))<.0005f)return proposed;
+    struct Clearance {float tip,whole,outer;};
+    Clearance required[N]{};
+    const auto measure=[&](Vec end,unsigned i,float start){
+        const auto pair=closest_segment(anchor,end,capsules[i],start);
+        return length(sub(pair.point,pair.axis));
+    };
+    const auto full=add(anchor,proposed);
+    for(unsigned i=0;i<N;++i){
+        if(tip_radius[i]>0)required[i].tip=std::min(tip_radius[i],distance(capsules[i],full));
+        if(segment_radius[i]>0){
+            required[i].whole=std::min(segment_radius[i],measure(full,i,.05f));
+            required[i].outer=std::min(segment_radius[i],measure(full,i,1.f/3));
+        }
+    }
+    const float seam_allowance=std::min(.003f,.025f*span);
+    const auto clears=[&](Vec bend){
+        const auto end=add(anchor,bend);
+        for(unsigned i=0;i<N;++i){
+            if(required[i].tip>0&&distance(capsules[i],end)+.0001f<required[i].tip)return false;
+            if(segment_radius[i]<=0)continue;
+            if(measure(end,i,1.f/3)+.0001f<required[i].outer)return false;
+            const auto hit=closest_segment(anchor,end,capsules[i],.05f);
+            const float allowance=seam_allowance*std::max(0.f,1.f-3.f*hit.fraction);
+            if(length(sub(hit.point,hit.axis))+allowance+.0001f<required[i].whole)return false;
+        }
+        return true;
+    };
+    if(clears(rest))return rest;
+    const auto delta=sub(proposed,rest);
+    const auto bend_at=[&](float t){
+        const auto v=add(rest,scale(delta,t));
+        const float size=length(v);
+        return size>1e-6f?scale(v,span/size):proposed;
+    };
+    float low=0,high=1;
+    Vec best=proposed;
+    for(unsigned step=0;step<7;++step){
+        const float mid=.5f*(low+high);
+        const auto bend=bend_at(mid);
+        if(clears(bend)){best=bend;high=mid;}else low=mid;
+    }
+    return best;
+}
 }

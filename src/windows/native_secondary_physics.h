@@ -4,7 +4,9 @@ namespace secondary_physics {
 namespace motion=hierarchy::playback;
 namespace position=hierarchy::playback::multi::root_motion;
 namespace contact=gimmd::body_collision;
+namespace skin=gimmd::skinned_cloth;
 constexpr unsigned BodyCapsules=13;
+constexpr unsigned skirt_capsule_count(bool fitted_rear){return fitted_rear?11:BodyCapsules;}
 using Quat=hierarchy::Quat;
 using Method=void(__fastcall*)(void*);
 using StepMethod=void(__fastcall*)(void*,float);
@@ -19,15 +21,23 @@ struct Array {Component component;unsigned count=0,first=0,collider_count=0,coll
     float scale_before=0;position::Vec move_before{},reference_move_before{};bool controls_dirty=false;};
 struct Particle {uintptr_t token=0,bone=0;unsigned path=0;bool real=false;int parent_index=-1,parent_global=-1;float parameters[4]{},rest_length=0;
     bool synthetic=false,front_flap_tip=false;contact::Vec current{},previous{},end_local{};
+    int short_panel_upper=-1;
     unsigned bone_index=0;double maximum_world_error=0,last_world_error=0;
-    bool cloth=false,skirt=false;float skirt_radius=0,skirt_right=0,skirt_forward=0;
+    bool cloth=false,skirt=false,rear_skirt=false,fitted_rear=false;float skirt_radius=0,skirt_right=0,skirt_forward=0,front_half_width=0;
     contact::Vec rest_direction{},last_direction{};float radii[BodyCapsules]{},segment_radii[BodyCapsules]{};
     contact::Vec normals[BodyCapsules]{},segment_normals[BodyCapsules]{};};
 struct Bone {unsigned path=0;Quat rotation{},last_rotation{};position::Vec local{},last_local{};bool dirty=false;double maximum_step_angle=0,maximum_reference_angle=0;};
 struct UpperSkirt {unsigned bone=0,child_path=0;float radius[BodyCapsules]{},segment_radius[BodyCapsules]{};
-    bool front_flap=false;
+    int front_neighbor=-1;
+    int hem_segment=-1,seam_neighbor=-1;
+    skin::HemBend hem_bend{};
+    float short_shift=0,short_target=0;
+    contact::Vec short_outward{};
+    bool front_flap=false,fitted_rear=false;
+    float neighbor_lift=0,rear_retraction=0;
     bool mobile_root=false;
     int side_panel=-1;
+    Quat before_side_bend{};bool side_bent=false;
     float root_lift=0,max_root_lift=0;
     float front_weight=0,angle_limit=0,padding=0,step_limit=0,response=0,azimuth=0,height=0,requested_lift=0;int left=-1,right=-1;};
 struct ClothLink {unsigned a=0,b=0;float length=0,radii[BodyCapsules]{};};
@@ -162,10 +172,11 @@ static bool bind(void* model,void* const* body,unsigned body_count) {
             particle.parent_global=parent_node<0?-1:int(a.first)+parent_node;
             for(unsigned k=0;k<4;++k){const unsigned offset[]={0x11c,0x104,0x170,0x1c8};
                 if(!read_bytes(particle.token+offset[k],particle.parameters+k,4)||!std::isfinite(particle.parameters[k]))return false;}
-            if(!real)continue;
+            if(!real){particle.rear_skirt=s.particles[particle.parent_global].rear_skirt;continue;}
             particle.bone=identity(bone);const int bone_path=find_path(particle.bone);if(bone_path<0)return false;particle.path=unsigned(bone_path);
             const auto* bone_name=s.paths[particle.path].name;
             particle.skirt=std::wcsstr(bone_name,L"Skirt")!=nullptr;
+            particle.rear_skirt=std::wcsstr(bone_name,L"SkirtB")!=nullptr;
             particle.cloth=std::wcsstr(bone_name,L"Skirt")||std::wcsstr(bone_name,L"Amice")||std::wcsstr(bone_name,L"Coat");
             // Native application rotates particle parents too. Refuse any overlap
             // with the 52 MMD body targets instead of weakening overwrite checks.
@@ -184,30 +195,25 @@ static bool bind(void* model,void* const* body,unsigned body_count) {
             s.colliders[s.collider_count++]={identity(collider),identity(go),unsigned(owner_path)};
         }
     }
-    // Barbara's central front panel is skinned to a separate CF chain that is
-    // absent from DynamicBoneArray. Leaving it at rest creates a stationary dent
-    // between the two simulated front panels. Own the complete missing chain.
+    // Supplement unowned front strips and short waist panels. The virtual
+    // end drives the last real bone even when a panel has just two bones.
     s.synthetic_first=s.particle_count;
     if(s.collisions)for(unsigned path=0;path<s.path_count;++path){
-        if(!std::wcsstr(s.paths[path].name,L"SkirtF CF"))continue;
-        const int parent_path=s.paths[path].parent_node;
-        if(parent_path>=0&&std::wcsstr(s.paths[parent_path].name,L"SkirtF CF"))continue;
-        unsigned chain[12]{path},length=1,current=path;
-        for(;;){int next=-1;for(unsigned i=0;i<s.path_count;++i)if(s.paths[i].parent_node==int(current)){
-                if(next>=0)return false;next=int(i);}
-            if(next<0)break;if(length>=12||!std::wcsstr(s.paths[next].name,L"SkirtF CF"))return false;
-            chain[length++]=unsigned(next);current=unsigned(next);}
-        if(length<3)continue;bool present=false;
-        for(unsigned p=0;p<s.particle_count;++p)for(unsigned i=0;i<length;++i)present=present||(s.particles[p].real&&s.particles[p].path==chain[i]);
-        if(present)continue;if(s.particle_count+length>512||s.bone_count+length>512)return false;
+        unsigned chain[12]{};
+        const unsigned length=gimmd::cloth_links::missing_skirt_chain(s.paths,s.path_count,path,s.particles,s.synthetic_first,chain);
+        if(!length)continue;
+        if(s.particle_count+length>512||s.bone_count+length>512)return false;
         const unsigned first=s.particle_count;
+        const bool rear=std::wcsstr(s.paths[path].name,L"SkirtB")!=nullptr;
         for(unsigned i=1;i<length;++i){auto& p=s.particles[s.particle_count++];p.synthetic=p.real=p.skirt=p.cloth=true;p.path=chain[i];p.bone=s.paths[p.path].identity;
+            p.rear_skirt=rear;
             for(unsigned k=0;k<body_count;++k)if(identity(body[k])==p.bone)return false;
             p.parent_index=p.parent_global=i==1?-1:int(s.particle_count)-2;p.bone_index=s.bone_count;
             auto& b=s.bones[s.bone_count++];b.path=p.path;void* bone=tree[p.path].transform;
             if(!motion::read_local(bone,&b.rotation)||!position::read(position::get,bone,&b.local))return false;
         }
         auto& end=s.particles[s.particle_count++];end.synthetic=end.skirt=end.cloth=true;end.parent_index=end.parent_global=int(s.particle_count)-2;
+        end.rear_skirt=rear;
         const auto& last=s.bones[s.particles[end.parent_global].bone_index];end.end_local={last.local.x,last.local.y,last.local.z};
         s.synthetic_count+=s.particle_count-first;
     }
@@ -334,9 +340,17 @@ static contact::Vec lift_front_flap(contact::Vec anchor,contact::Vec direction,f
     return contact::scale(contact::add(contact::scale(s.hip_up,y),
                          contact::scale(lateral,std::sqrt(1-y*y)/span)),segment_length);
 }
+static contact::Vec fit_front_strip(contact::Vec anchor,contact::Vec direction,float half_width,const contact::Capsule (&capsules)[BodyCapsules]){
+    if(half_width<=0||s.settings.front_angle<=0)return direction;
+    for(unsigned thigh:{6u,8u})direction=gimmd::cloth_surface::fit_over_knee(anchor,direction,s.hip_up,s.hip_right,s.hip_forward,
+        half_width,capsules[thigh],capsules[thigh+1],s.settings.front_padding_cm*.01f);
+    return direction;
+}
 static bool upper_skirt_contacts(void* model,void* const* bones,const contact::Capsule (&capsules)[BodyCapsules],bool calibrate) {
     namespace rp=gimmd::rotation_preview;namespace ik=gimmd::leg_ik;void* cache[768]{};
     float lift_history[32]{};for(unsigned i=0;i<s.upper_count;++i)lift_history[i]=s.upper_skirt[i].requested_lift;
+    float root_history[32]{};
+    for(unsigned i=0;i<s.upper_count;++i)root_history[i]=s.upper_skirt[i].root_lift;
     Quat model_rotation{};contact::Vec facing{};
     if(calibrate){hierarchy::rotation_world(&model_rotation,model);if(!hierarchy::unit_quat(model_rotation))return false;
         const auto forward=ik::vector(ik::rotation({model_rotation.x,model_rotation.y,model_rotation.z,model_rotation.w}),{0,0,1});
@@ -349,6 +363,7 @@ static bool upper_skirt_contacts(void* model,void* const* bones,const contact::C
     for(unsigned i=0;i<s.upper_count;++i){auto& upper=s.upper_skirt[i];const auto& saved=s.bones[upper.bone];
         void* bone=bones[upper.bone],*child=resolve_path(upper.child_path,model,cache);if(!child)return false;
         Quat previous_local{};if(!motion::read_local(bone,&previous_local)||!put_pose(bone,saved))return false;
+        if(upper.side_bent){previous_local=upper.before_side_bend;upper.side_bent=false;}
         Vec3 origin{},end{};position_get(&origin,bone);position_get(&end,child);
         const contact::Vec anchor{origin.x,origin.y,origin.z},original{end.x,end.y,end.z};
         const auto reference=contact::sub(original,anchor);const float segment_length=contact::length(reference);
@@ -374,7 +389,8 @@ static bool upper_skirt_contacts(void* model,void* const* bones,const contact::C
             continue;}
         auto point=original,previous=original;auto outward=contact::radial(s.hip_origin,s.hip_up,original);
         if(contact::length(outward)<1e-6f)continue;
-        const bool front_flap=!s.upper_ring&&upper.front_weight>.7f;
+        const float strip_width=upper.hem_segment>=0?s.particles[upper.hem_segment].front_half_width:0;
+        const bool front_flap=(!s.upper_ring&&upper.front_weight>.7f)||strip_width>0;
         const auto left=front_flap?contact::flap_contact_direction(outward,s.hip_up,capsules[6]):outward;
         const auto right=front_flap?contact::flap_contact_direction(outward,s.hip_up,capsules[8]):outward;
         for(unsigned iteration=0;iteration<6;++iteration){contact::length_constraint(anchor,segment_length,point,reference);
@@ -384,13 +400,50 @@ static bool upper_skirt_contacts(void* model,void* const* bones,const contact::C
                 if(c==8||c==9||c==12)push=right;
                 if(contact::project_outward(capsules[c],upper.radius[c],point,previous,push))++s.upper_contacts;
                 if(contact::project_segment_outward(capsules[c],upper.segment_radius[c],anchor,anchor,point,previous,push,.05f))++s.upper_contacts;}}
+        if(upper.fitted_rear){
+            contact::length_constraint(anchor,segment_length,point,reference);
+            auto proposed=contact::sub(point,anchor);
+            contact::limit_direction(reference,proposed,upper.angle_limit);
+            const auto fitted=contact::relax_rear_bend(anchor,reference,proposed,capsules,upper.radius,upper.segment_radius);
+            upper.rear_retraction=contact::length(contact::sub(proposed,fitted));
+            point=contact::add(anchor,fitted);
+        }
         const auto outward_unit=contact::scale(outward,1/contact::length(outward));
         upper.requested_lift=std::max(0.0f,contact::dot(contact::sub(point,original),outward_unit));
-        if(upper.left>=0&&upper.right>=0){const float shared=std::max({upper.requested_lift,lift_history[upper.left]*.55f,lift_history[upper.right]*.55f});
-            point=contact::add(point,contact::scale(outward_unit,shared-upper.requested_lift));}
+        upper.neighbor_lift=0;
+        if(upper.left>=0&&upper.right>=0){
+            const float neighbor=std::max(lift_history[upper.left],lift_history[upper.right]);
+            const float shared=gimmd::cloth_links::upper_neighbor_lift(upper.requested_lift,neighbor,upper.fitted_rear,upper.padding);
+            upper.neighbor_lift=shared-upper.requested_lift;
+            point=contact::add(point,contact::scale(outward_unit,upper.neighbor_lift));}
         auto direction=contact::sub(point,anchor);
         if(upper.front_flap)direction=lift_front_flap(anchor,direction,segment_length,capsules);
+        if(upper.hem_segment>=0){
+            auto bend=upper.hem_bend;
+            for(int neighbor:{upper.left,upper.right,upper.seam_neighbor})
+                if(neighbor>=0)bend=skin::share_hem_bend(bend,s.upper_skirt[neighbor].hem_bend);
+            direction=skin::follow_hem(direction,s.hip_up,outward_unit,bend,s.particles[upper.hem_segment].rest_length);
+        }
+        contact::Vec distributed_shift{};
+        if(upper.hem_segment>=0&&s.particles[upper.hem_segment].short_panel_upper>=0){
+            upper.short_outward=contact::add(contact::scale(s.hip_right,std::cos(upper.azimuth)),
+                                             contact::scale(s.hip_forward,std::sin(upper.azimuth)));
+            const float step=segment_length*upper.step_limit;
+            upper.short_shift+=std::clamp((upper.short_target-upper.short_shift)*upper.response,-step,step);
+            distributed_shift=contact::scale(upper.short_outward,upper.short_shift);
+        }
+        if(upper.side_panel>=0){
+            const auto& panel=s.side_panels[upper.side_panel];
+            distributed_shift=contact::add(contact::scale(s.hip_right,panel.current.x),
+                contact::add(contact::scale(s.hip_up,panel.current.y),contact::scale(s.hip_forward,panel.current.z)));
+        }
         contact::limit_direction(reference,direction,upper.angle_limit);
+        if(strip_width>0){
+            auto trial_tip=contact::add(anchor,direction);
+            contact::length_constraint(anchor,segment_length,trial_tip,reference);
+            direction=fit_front_strip(anchor,contact::sub(trial_tip,anchor),strip_width,capsules);
+            contact::limit_direction(reference,direction,upper.angle_limit);
+        }
         Quat world{};hierarchy::rotation_world(&world,bone);if(!hierarchy::unit_quat(world))return false;
         const auto delta=ik::from_to({reference.x,reference.y,reference.z},{direction.x,direction.y,direction.z});
         const auto local_delta=rp::multiply(rp::multiply({-world.x,-world.y,-world.z,world.w},delta),{world.x,world.y,world.z,world.w});
@@ -413,13 +466,43 @@ static bool upper_skirt_contacts(void* model,void* const* bones,const contact::C
             // Measure the remaining overlap there, so offsets never accumulate.
             const float required=std::max(inner_clearance(actual,capsules),s.front_seam.shared_root_target);
             upper.root_lift=next_root_lift(upper,required,segment_length);
-            translation=contact::scale(s.hip_up,upper.root_lift);
-            upper.max_root_lift=std::max(upper.max_root_lift,upper.root_lift);
         }
-        if(upper.side_panel>=0){
-            const auto shift=s.side_panels[upper.side_panel].current;
-            translation=contact::add(translation,contact::add(contact::scale(s.hip_right,shift.x),
-                contact::add(contact::scale(s.hip_up,shift.y),contact::scale(s.hip_forward,shift.z))));
+        else if(upper.front_neighbor>=0&&upper.angle_limit>0){
+            // C21 lies between the lifted E21 and the back attachment.
+            // Taper the lift using the fitted azimuth profile. Read the last
+            // complete step so left and right behave alike in either bind order.
+            const auto index=unsigned(upper.front_neighbor);
+            const float fraction=std::clamp(upper.front_weight/s.upper_skirt[index].front_weight,0.f,1.f);
+            const float required=std::min(.02f,root_history[index]*fraction);
+            upper.root_lift=next_root_lift(upper,required,segment_length);
+        }
+        translation=contact::scale(s.hip_up,upper.root_lift);
+        upper.max_root_lift=std::max(upper.max_root_lift,upper.root_lift);
+        if(upper.hem_segment>=0&&upper.root_lift>0){
+            // Keep half of the calibrated lift at the attachment. Share the
+            // rest like a side shift while preserving the cleared joint target.
+            translation=contact::scale(translation,.5f);
+            distributed_shift=contact::add(distributed_shift,translation);
+        }
+        if(contact::length(distributed_shift)>1e-6f){
+            // Split the shift using the actual eased rotation for this step.
+            // Keep its unshifted local pose for the next response calculation.
+            const auto unshifted=contact::sub(actual,anchor);
+            auto tilted=unshifted;
+            distributed_shift=skin::share_panel_shift(reference,tilted,distributed_shift,upper.angle_limit);
+            if(contact::length(contact::sub(tilted,unshifted))>1e-7f){
+                const auto turn=ik::from_to({unshifted.x,unshifted.y,unshifted.z},{tilted.x,tilted.y,tilted.z});
+                Quat base{};hierarchy::rotation_world(&base,bone);if(!hierarchy::unit_quat(base))return false;
+                const auto q=rp::multiply(turn,{base.x,base.y,base.z,base.w});
+                const Quat rotated{q.x,q.y,q.z,q.w};
+                rotation_set(bone,&rotated);upper.before_side_bend=observed;upper.side_bent=true;
+                position_get(&end,child);actual={end.x,end.y,end.z};
+                if(!contact::finite(actual))return false;
+                // A scaled parent can turn the child by a slightly different
+                // amount. Preserve the joint target using its measured motion.
+                distributed_shift=contact::add(distributed_shift,contact::sub(tilted,contact::sub(actual,anchor)));
+            }
+            translation=contact::add(translation,distributed_shift);
         }
         if(contact::length(translation)>.00001f){
             solved_anchor=contact::add(anchor,translation);
@@ -452,8 +535,28 @@ static bool upper_skirt_contacts(void* model,void* const* bones,const contact::C
                 }
             }
         }
-        if(s.upper_ring)for(unsigned i=0;i<s.upper_count;++i){auto& upper=s.upper_skirt[vertices[i].index];
-            upper.left=int(vertices[(i+s.upper_count-1)%s.upper_count].index);upper.right=int(vertices[(i+1)%s.upper_count].index);}}
+        if(s.upper_ring){
+            for(unsigned i=0;i<s.upper_count;++i){
+                auto& upper=s.upper_skirt[vertices[i].index];
+                upper.left=int(vertices[(i+s.upper_count-1)%s.upper_count].index);
+                upper.right=int(vertices[(i+1)%s.upper_count].index);
+                upper.fitted_rear=gimmd::cloth_links::ring_region(true,upper.front_weight)==gimmd::cloth_links::RingRegion::Rear;
+                // Back panels use the hip and full thighs. Disable the two
+                // extra thigh-root guards only after the ring is identified.
+                for(unsigned c=skirt_capsule_count(upper.fitted_rear);c<BodyCapsules;++c)
+                    upper.radius[c]=upper.segment_radius[c]=0;
+            }
+            // Native particle parents and supplemental parents precede their children.
+            for(unsigned p=0;p<s.particle_count;++p){
+                auto& particle=s.particles[p];
+                if(particle.parent_global>=0){
+                    particle.fitted_rear=s.particles[particle.parent_global].fitted_rear&&(!particle.real||particle.skirt);
+                }else if(particle.real&&particle.skirt){
+                    for(unsigned u=0;u<s.upper_count;++u)if(s.upper_skirt[u].child_path==particle.path)
+                        particle.fitted_rear=s.upper_skirt[u].fitted_rear;
+                }
+            }
+        }}
     return true;
 }
 static bool calibrate_links(const contact::Capsule (&capsules)[BodyCapsules]) {
@@ -474,13 +577,29 @@ static bool calibrate_links(const contact::Capsule (&capsules)[BodyCapsules]) {
             if(duplicate)continue;if(s.link_count>=256)return false;auto& link=s.links[s.link_count++];link.a=p;link.b=nearest;
             const auto a=collision_frame.points[link.a],b=collision_frame.points[link.b];link.length=contact::length(contact::sub(b,a));
             if(link.length<.001f)return false;
-            for(unsigned c=0;c<BodyCapsules;++c){const auto pair=contact::closest_segment(a,b,capsules[c]);
+            const bool rear=s.particles[p].fitted_rear||s.particles[nearest].fitted_rear;
+            for(unsigned c=0;c<skirt_capsule_count(rear);++c){const auto pair=contact::closest_segment(a,b,capsules[c]);
                 link.radii[c]=std::min(capsules[c].radius+.008f,std::max(0.0f,contact::length(contact::sub(pair.point,pair.axis))-.002f));}}
     }
-    for(unsigned p=s.synthetic_first;p<s.particle_count;++p){if(s.particles[p].parent_global<0)continue;unsigned neighbors[2]{},count=0;
+    for(unsigned p=0;p<s.particle_count;++p){if(branches[p]<0)continue;
+        // Unequal strip lengths can link two rows on one side to the same
+        // vertex. Fit the arch to the closest linked row on each side.
+        const auto& upper=s.upper_skirt[branches[p]];
+        const bool front=gimmd::cloth_links::ring_region(true,upper.front_weight)==gimmd::cloth_links::RingRegion::Front;
+        if(!front&&!s.particles[p].synthetic)continue;
+        int neighbors[2]={-1,-1};
         for(unsigned i=0;i<s.link_count;++i){const auto& link=s.links[i];if(link.a!=p&&link.b!=p)continue;
-            if(count>=2)return false;neighbors[count++]=link.a==p?link.b:link.a;}
-        if(count!=2)continue;if(s.arch_count>=32)return false;auto& arch=s.arches[s.arch_count++];arch.center=p;arch.left=neighbors[0];arch.right=neighbors[1];
+            const unsigned q=link.a==p?link.b:link.a;
+            const unsigned side=branches[q]==upper.left?0:1;
+            const int old=neighbors[side];
+            if(old<0||std::abs(heights[q]-heights[p])<std::abs(heights[old]-heights[p]))neighbors[side]=int(q);
+        }
+        if(neighbors[0]<0||neighbors[1]<0)continue;
+        const auto& points=collision_frame.points;
+        if(front)s.particles[p].front_half_width=gimmd::cloth_links::panel_half_width(points[p],points[neighbors[0]],points[neighbors[1]],s.hip_right);
+        if(!s.particles[p].synthetic)continue;
+        if(s.arch_count>=32)return false;
+        auto& arch=s.arches[s.arch_count++];arch.center=p;arch.left=unsigned(neighbors[0]);arch.right=unsigned(neighbors[1]);
         const auto center=collision_frame.points[p],midpoint=contact::scale(contact::add(collision_frame.points[arch.left],collision_frame.points[arch.right]),.5f);
         auto outward=contact::radial(s.hip_origin,s.hip_up,center);outward=contact::scale(outward,1/std::max(contact::length(outward),1e-6f));arch.rest=contact::dot(contact::sub(center,midpoint),outward);}
     for(unsigned i=0;i<s.link_count;++i){const auto& link=s.links[i];
@@ -489,7 +608,8 @@ static bool calibrate_links(const contact::Capsule (&capsules)[BodyCapsules]) {
         const unsigned triangles[2][3]={{unsigned(pa),unsigned(pb),link.b},{unsigned(pa),link.b,link.a}};
         for(const auto& nodes:triangles){if(s.panel_count>=512)return false;auto& panel=s.panels[s.panel_count++];
             contact::Vec triangle[3]{};for(unsigned k=0;k<3;++k){panel.nodes[k]=nodes[k];triangle[k]=collision_frame.points[nodes[k]];}
-            for(unsigned c=6;c<BodyCapsules;++c){const auto nearest=gimmd::cloth_surface::nearest_capsule(triangle,capsules[c]);
+            const bool rear=s.particles[nodes[0]].fitted_rear||s.particles[nodes[1]].fitted_rear||s.particles[nodes[2]].fitted_rear;
+            for(unsigned c=6;c<skirt_capsule_count(rear);++c){const auto nearest=gimmd::cloth_surface::nearest_capsule(triangle,capsules[c]);
                 panel.radii[c]=std::min(capsules[c].radius+.02f,std::max(0.0f,contact::length(contact::sub(nearest.point,nearest.axis))-.001f));}}}
     return true;
 }
@@ -557,6 +677,8 @@ static bool calibrate_front_seam(void* const* bones) {
         }
     }
     seam.bound=true;
+    s.upper_skirt[seam.upper_index[0]].seam_neighbor=int(seam.upper_index[1]);
+    s.upper_skirt[seam.upper_index[1]].seam_neighbor=int(seam.upper_index[0]);
     for(unsigned i=0;i<2;++i){
         auto& front=s.upper_skirt[seam.upper_index[i]];
         const bool left=!std::wcscmp(s.paths[s.bones[front.bone].path].name,L"+SkirtS L E21");
@@ -574,10 +696,25 @@ static bool calibrate_front_seam(void* const* bones) {
                 panel.nodes[2]=unsigned(lower.parent_global);panel.nodes[3]=p;
                 panel.sign=left?-1.f:1.f;panel.thigh=left?6:8;panel.bound=true;
                 front.side_panel=flank.side_panel=int(slot);
+                flank.front_neighbor=int(seam.upper_index[i]);
             }
         }
     }
     return true;
+}
+static void measure_skirt_bends(){
+    for(unsigned i=0;i<s.upper_count;++i){
+        auto& upper=s.upper_skirt[i];
+        if(upper.hem_segment<0)continue;
+        const auto& tip=s.particles[upper.hem_segment];
+        const auto& f=collision_frame;
+        const auto base=f.original[tip.parent_global];
+        auto radial=contact::radial(s.hip_origin,s.hip_up,base);
+        const float radius=contact::length(radial);
+        radial=radius>.001f?contact::scale(radial,1/radius):contact::Vec{};
+        upper.hem_bend=skin::hem_bend(contact::sub(f.original[upper.hem_segment],base),
+            contact::sub(f.points[upper.hem_segment],f.points[tip.parent_global]),s.hip_up,radial,tip.rest_length);
+    }
 }
 static void measure_side_panels(const contact::Capsule (&capsules)[BodyCapsules]){
     for(auto& panel:s.side_panels)if(panel.bound){
@@ -651,13 +788,10 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
     const unsigned count=s.particle_count;
     auto& particles=collision_frame.objects;auto& points=collision_frame.points;auto& previous=collision_frame.previous;
     auto& offsets=collision_frame.offsets;auto& original=collision_frame.original;auto& native_lengths=collision_frame.native_lengths;
-    contact::Vec synthetic_targets[32]{};
-    if(s.synthetic_count>32)return false;
     for(unsigned p=s.synthetic_first;p<count;++p){auto& particle=s.particles[p];contact::Vec target{};
         if(particle.real){Vec3 world{};position_get(&world,bones[particle.bone_index]);target={world.x,world.y,world.z};}
         else {gimmd::skinned_cloth::Frame matrix{};if(!skin_proxy::frame(bones[s.particles[particle.parent_global].bone_index],matrix))return false;
             target=gimmd::skinned_cloth::point(matrix,particle.end_local);}
-        synthetic_targets[p-s.synthetic_first]=target;
         collision_frame.reference[p]=target;
         if(calibrate||reset_history||particle.parent_global<0)particle.current=particle.previous=target;
         else {
@@ -666,7 +800,7 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
             particle.current=next;
         }
         points[p]=original[p]=particle.current;previous[p]=particle.previous;offsets[p]={};
-        if(particle.parent_global>=0){const auto direction=contact::sub(target,synthetic_targets[particle.parent_global-s.synthetic_first]);
+        if(particle.parent_global>=0){const auto direction=contact::sub(target,collision_frame.reference[particle.parent_global]);
             if(calibrate)particle.rest_length=contact::length(direction);native_lengths[p]=particle.rest_length;
             if(calibrate||reset_history)particle.last_direction=direction;}
     }
@@ -686,10 +820,12 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
             if(particle.skirt){const auto radial=contact::radial(s.hip_origin,s.hip_up,points[p]);particle.skirt_radius=contact::length(radial);
                 particle.skirt_right=contact::dot(radial,s.hip_right);particle.skirt_forward=contact::dot(radial,s.hip_forward);}
             if(parent_index>=0){particle.rest_direction=contact::sub(points[p],points[parent_index]);particle.rest_length=contact::length(particle.rest_direction);}
-            for(unsigned c=0;c<BodyCapsules;++c){particle.normals[c]=contact::sub(points[p],contact::nearest(capsules[c],points[p]));
+            const bool rear=particle.fitted_rear;
+            for(unsigned c=0;c<skirt_capsule_count(rear);++c){particle.normals[c]=contact::sub(points[p],contact::nearest(capsules[c],points[p]));
                 // Preserve the model's fitted neutral pose; a coarse body proxy
                 // must not push clothing outward merely because it starts inside.
-                const float margin=particle.cloth&&c>=6?s.cloth_margin:.002f;
+                const float cloth_margin=(rear||particle.rear_skirt)?s.settings.rear_padding_cm*.01f:s.cloth_margin;
+                const float margin=particle.cloth&&c>=6?cloth_margin:.002f;
                 particle.radii[c]=std::min(capsules[c].radius+margin,std::max(0.0f,contact::length(particle.normals[c])-.002f));
                 if(parent_index>=0){const auto pair=contact::closest_segment(points[parent_index],points[p],capsules[c],.2f);
                     particle.segment_normals[c]=contact::sub(pair.point,pair.axis);
@@ -700,11 +836,26 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
         const auto radial=contact::radial(s.hip_origin,s.hip_up,points[p]);particle.skirt_radius=contact::length(radial);
         particle.skirt_right=contact::dot(radial,s.hip_right);particle.skirt_forward=contact::dot(radial,s.hip_forward);
         if(parent_index>=0)particle.rest_direction=contact::sub(points[p],points[parent_index]);
-        for(unsigned c=0;c<BodyCapsules;++c){particle.normals[c]=contact::sub(points[p],contact::nearest(capsules[c],points[p]));
-            particle.radii[c]=std::min(capsules[c].radius+(c>=6?.015f:.002f),std::max(0.0f,contact::length(particle.normals[c])-.002f));
+        for(unsigned c=0;c<skirt_capsule_count(particle.fitted_rear);++c){particle.normals[c]=contact::sub(points[p],contact::nearest(capsules[c],points[p]));
+            const float garment_margin=particle.rear_skirt?s.settings.rear_padding_cm*.01f:.015f;
+            const float margin=c>=6?garment_margin:.002f;
+            particle.radii[c]=std::min(capsules[c].radius+margin,std::max(0.0f,contact::length(particle.normals[c])-.002f));
             if(parent_index>=0){const auto pair=contact::closest_segment(points[parent_index],points[p],capsules[c],.2f);particle.segment_normals[c]=contact::sub(pair.point,pair.axis);
-                particle.segment_radii[c]=std::min(capsules[c].radius+(c>=6?.015f:.002f),std::max(0.0f,contact::length(particle.segment_normals[c])-.002f));}}}
-    if(calibrate)return calibrate_links(capsules)&&calibrate_front_seam(bones);
+                particle.segment_radii[c]=std::min(capsules[c].radius+margin,std::max(0.0f,contact::length(particle.segment_normals[c])-.002f));}}}
+    if(calibrate){
+        for(unsigned i=0;i<s.upper_count;++i){
+            auto& upper=s.upper_skirt[i];
+            upper.hem_segment=skin::hem_segment(s.particles,count,upper.child_path);
+            if(s.upper_ring&&upper.hem_segment>=0&&upper.angle_limit>0){
+                auto& tip=s.particles[upper.hem_segment];
+                if(tip.synthetic&&!tip.real){
+                    tip.short_panel_upper=int(i);
+                    s.particles[tip.parent_global].short_panel_upper=int(i);
+                }
+            }
+        }
+        return calibrate_links(capsules)&&calibrate_front_seam(bones);
+    }
     if(reset_history)return true;
     s.current_penetration=0;
     unsigned hits=0,segment_hits=0;
@@ -719,7 +870,9 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
         float support_radius=particle.skirt_radius*s.settings.support_percent*.01f;
         if(s.upper_ring&&particle.skirt&&s.settings.support_percent>0){const auto& parent_particle=s.particles[particle.parent_global];
             const float parent_radius=contact::length(contact::radial(s.hip_origin,s.hip_up,points[particle.parent_global]));
-            support_radius=std::max(support_radius,particle.skirt_radius+std::max(0.0f,parent_radius-parent_particle.skirt_radius)*.85f);}
+            const float expansion=parent_radius-parent_particle.skirt_radius;
+            if(particle.fitted_rear||particle.rear_skirt)support_radius=gimmd::cloth_links::rear_support_radius(particle.skirt_radius,expansion,s.settings.support_percent);
+            else support_radius=std::max(support_radius,particle.skirt_radius+std::max(0.f,expansion)*.85f);}
         if(particle.skirt&&contact::support_radius(s.hip_origin,s.hip_up,support_radius,rest_outward,points[p],previous[p]))++s.skirt_supports;
         auto outward=contact::radial(s.hip_origin,s.hip_up,points[p]);
         if(contact::length(outward)<1e-6f)outward=rest_outward;
@@ -746,6 +899,13 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
         // cone; neither path permits a strand to reverse direction in one solve.
         const bool connected_child=s.upper_ring&&particle.skirt&&s.particles[particle.parent_global].parent_global>=0;
         if(contact::limit_direction(reference,direction,connected_child?.34906585f:particle.cloth?.78539816f:.20943951f))++s.contact_limits;
+        if(particle.front_half_width>0&&s.settings.front_angle>0){
+            auto fitted=fit_front_strip(points[particle.parent_global],direction,particle.front_half_width,capsules);
+            if(contact::length(contact::sub(fitted,direction))>1e-6f){
+                contact::limit_direction(reference,fitted,s.settings.front_angle*.017453293f);
+                direction=fitted;
+            }
+        }
         // Bound actual consecutive simulation steps as well as the native-pose
         // correction. A contact changing side must not snap the skirt back.
         if(particle.cloth&&contact::limit_direction(particle.last_direction,direction,.17453293f))++s.temporal_limits;
@@ -776,10 +936,34 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
     for(unsigned i=0;i<s.link_count;++i){const auto& link=s.links[i];
         s.maximum_link_stretch=std::max(s.maximum_link_stretch,double(std::abs(contact::length(contact::sub(points[link.a],points[link.b]))/link.length-1)));}
     s.current_panel_penetration=0;
+    for(unsigned u=0;u<s.upper_count;++u)s.upper_skirt[u].short_target=0;
     for(unsigned i=0;i<s.panel_count;++i){const auto& panel=s.panels[i];contact::Vec triangle[3]{};
         for(unsigned k=0;k<3;++k)triangle[k]=points[panel.nodes[k]];
-        for(unsigned c=6;c<BodyCapsules;++c){const auto nearest=gimmd::cloth_surface::nearest_capsule(triangle,capsules[c]);
-            s.current_panel_penetration=std::max(s.current_panel_penetration,double(panel.radii[c]-contact::length(contact::sub(nearest.point,nearest.axis))));}}
+        float clearance[BodyCapsules]{};
+        for(unsigned c=6;c<BodyCapsules;++c){if(panel.radii[c]<=0)continue;
+            const auto nearest=gimmd::cloth_surface::nearest_capsule(triangle,capsules[c]);
+            clearance[c]=contact::length(contact::sub(nearest.point,nearest.axis))-panel.radii[c];
+            s.current_panel_penetration=std::max(s.current_panel_penetration,-double(clearance[c]));}
+        // A two-bone strip has a single mobile tip. Rotating it cannot clear
+        // contact on the edge joining the two pinned joints of a panel.
+        contact::Vec base[3],outward[3];float limit=.04f,applied=0;
+        int owners[3];
+        for(unsigned k=0;k<3;++k){
+            owners[k]=s.particles[panel.nodes[k]].short_panel_upper;
+            if(owners[k]<0){limit=0;break;}
+            const auto& upper=s.upper_skirt[owners[k]];
+            outward[k]=upper.short_outward;
+            base[k]=contact::sub(triangle[k],contact::scale(outward[k],upper.short_shift));
+            applied=std::max(applied,upper.short_shift);
+            limit=std::min(limit,.45f*s.particles[upper.hem_segment].rest_length);
+        }
+        if(limit<=0)continue;
+        float target=0;
+        // Removing an applied shift can reduce clearance by at most its length.
+        for(unsigned c=6;c<BodyCapsules;++c)if(panel.radii[c]>0&&clearance[c]<applied)
+            target=std::max(target,gimmd::cloth_surface::short_panel_shift(base,outward,capsules[c],panel.radii[c],limit));
+        for(int owner:owners)s.upper_skirt[owner].short_target=std::max(s.upper_skirt[owner].short_target,target);
+    }
     s.contacts+=hits;s.segment_contacts+=segment_hits;return true;
 }
 static bool apply_synthetic(void* const* bones){
@@ -883,8 +1067,9 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
     if(plan.reset){
         s.front_seam.applied=false;s.front_seam.shared_root_target=0;
         for(auto& panel:s.side_panels){panel.current={};panel.target={};}
+        for(unsigned u=0;u<s.upper_count;++u)s.upper_skirt[u].short_shift=s.upper_skirt[u].short_target=0;
         for(float& angle:s.front_seam.twist)angle=0;
-        for(unsigned i=0;i<s.upper_count;++i){s.upper_skirt[i].requested_lift=0;s.upper_skirt[i].root_lift=0;}
+        for(unsigned i=0;i<s.upper_count;++i){s.upper_skirt[i].requested_lift=0;s.upper_skirt[i].root_lift=0;s.upper_skirt[i].side_bent=false;s.upper_skirt[i].hem_bend={};}
         for(unsigned b=0;b<s.bone_count;++b)if(!put_pose(bones[b],s.bones[b]))return false;
         // Seed particles from the same native rest transforms used by the next
         // integration step, not from the Avatar reference snapshot. Mixing the
@@ -914,6 +1099,7 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
             for(unsigned d=0;d<s.array_count;++d){apply_particles(arrays[d]);flush_pose(arrays[d]);}
             if(!apply_synthetic(bones))return false;
             if(!support_front_seam(bones,capsules))return false;
+            measure_skirt_bends();
             measure_side_panels(capsules);
             if(!skin_proxy::validate_frames(bones))return false;
             s.current_particle_error=0;
@@ -1024,7 +1210,12 @@ static void report(std::ostream& out) {
         hierarchy::json_string(out,s.paths[s.bones[upper.bone].path].name);
         out<<",\"frontWeight\":"<<upper.front_weight<<",\"angleLimitDegrees\":"<<upper.angle_limit*57.2957795
            <<",\"padding\":"<<upper.padding<<",\"stepLimitDegrees\":"<<upper.step_limit*57.2957795<<",\"response\":"<<upper.response
-           <<",\"mobileRoot\":"<<(upper.mobile_root?"true":"false")<<",\"rootLift\":"<<upper.root_lift<<",\"maximumRootLift\":"<<upper.max_root_lift<<"}";}
+           <<",\"fittedRear\":"<<(upper.fitted_rear?"true":"false")<<",\"directOutward\":"<<upper.requested_lift<<",\"neighborOutward\":"<<upper.neighbor_lift
+           <<",\"shortPanelShift\":"<<upper.short_shift
+           <<",\"rearRetraction\":"<<upper.rear_retraction
+           <<",\"frontHalfWidth\":"<<(upper.hem_segment>=0?s.particles[upper.hem_segment].front_half_width:0.f)
+           <<",\"mobileRoot\":"<<(upper.mobile_root?"true":"false")<<",\"rootLift\":"<<upper.root_lift<<",\"maximumRootLift\":"<<upper.max_root_lift
+           <<",\"hemSegment\":"<<upper.hem_segment<<",\"hemRiseRatio\":"<<upper.hem_bend.rise<<",\"hemOutwardRatio\":"<<upper.hem_bend.outward<<"}";}
     out<<"],\"particleBoneErrors\":[";bool first=true;
     for(unsigned p=0;p<s.particle_count;++p){const auto& particle=s.particles[p];if(!particle.real)continue;
         out<<(first?"":",")<<"{\"name\":";first=false;hierarchy::json_string(out,s.paths[particle.path].name);

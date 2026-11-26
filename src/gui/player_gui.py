@@ -367,8 +367,9 @@ class Studio:
         for button in [self.camera_apply,self.camera_reset]: button.state(['!disabled'] if camera_active else ['disabled'])
         try: self.controller.pump()
         except (OSError, ValueError) as exc: self.state.set('命令尚未发送：' + str(exc))
-        if self.loader and self.loader.poll() is not None:
-            if self.loader.returncode: self.state.set('加载失败，请查看会话目录中的 loader.log')
+        loader_finished=self.loader and self.loader.poll() is not None
+        if loader_finished or (status and status['closed']):
+            if loader_finished and self.loader.returncode: self.state.set('加载失败，请查看会话目录中的 loader.log')
             if self.controller:
                 reports = list(self.controller.directory.glob('gimmd-*.probe.json'))
                 if reports:
@@ -376,7 +377,11 @@ class Studio:
                         report = json.loads(reports[0].read_text(encoding='utf-8-sig'))
                         result = report.get('singleTrackPlayback', {})
                         camera = report.get('cameraPlayback', {})
-                        if result.get('status')=='multi-track-source-rejected':
+                        if report.get('status')=='runtime-contract-mismatch':
+                            self.state.set('会话启动校验失败。请完全退出游戏并重启，再刷新进程列表、选择新进程后连接。若仍失败，请检查游戏版本和所选构建。')
+                        elif report.get('status')=='playback-cleanup-pending-hook-retained':
+                            self.state.set('会话退出时未完成恢复。请完全退出游戏并重启，再连接新会话。')
+                        elif result.get('status')=='multi-track-source-rejected':
                             reason=result.get('multiTrackPreview',{}).get('status','未知原因')
                             root=result.get('multiTrackPreview',{}).get('rootMotion',{}).get('status','')
                             if root=='rotated-root-controls-unsupported': reason='该旧构建不支持根旋转，请选择 build-studio-center-yaw'

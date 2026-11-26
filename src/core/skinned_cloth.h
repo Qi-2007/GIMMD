@@ -13,6 +13,54 @@ inline bc::Vec predict_tip(bc::Vec current,bc::Vec previous,bc::Vec target,float
     return bc::add(bc::add(current,velocity),bc::add({0,-.0004f,0},spring));
 }
 struct Frame {bc::Vec axis[3]{{1,0,0},{0,1,0},{0,0,1}},position{};};
+// Share the hem correction across both links in proportion to their lever
+// arms. Leave half for the lower joint so it can still clear a bent knee.
+struct HemBend {float rise=0,outward=0;}; // relative displacement per unit of lower-link length
+template<class Particle>
+inline int hem_segment(const Particle* particles,unsigned count,unsigned root_path) {
+    int root=-1,child=-1;
+    for(unsigned i=0;i<count;++i){
+        const auto& p=particles[i];
+        if(!p.real||!p.skirt||p.parent_global>=0||p.path!=root_path)continue;
+        if(root>=0)return -1;
+        root=int(i);
+    }
+    if(root<0)return -1;
+    for(unsigned i=0;i<count;++i)if(particles[i].parent_global==root){
+        if(child>=0||!particles[i].skirt)return -1;
+        child=int(i);
+    }
+    return child;
+}
+inline HemBend hem_bend(bc::Vec original,bc::Vec solved,bc::Vec up,bc::Vec outward,float length) {
+    if(length<.001f)return {};
+    const auto change=bc::scale(bc::sub(solved,original),1/length);
+    return {std::clamp(bc::dot(change,up),0.f,1.f),std::clamp(bc::dot(change,outward),0.f,1.f)};
+}
+inline HemBend share_hem_bend(HemBend own,HemBend neighbor) {
+    return {std::max(own.rise,.30f*neighbor.rise),std::max(own.outward,.30f*neighbor.outward)};
+}
+inline bc::Vec follow_hem(bc::Vec direction,bc::Vec up,bc::Vec outward,HemBend bend,float lower_length) {
+    const float upper_length=bc::length(direction);
+    if(lower_length<.001f||upper_length<1e-6f)return direction;
+    const float lever=.5f*lower_length*upper_length/(upper_length+lower_length);
+    return bc::add(direction,bc::scale(bc::add(bc::scale(up,bend.rise),bc::scale(outward,bend.outward)),lever));
+}
+// Rotate the upper panel into a lateral shift and translate its attachment
+// by the residual. Rotation plus translation preserves the requested joint
+// position, even when the angular limit prevents sharing the entire shift.
+inline bc::Vec share_panel_shift(bc::Vec reference,bc::Vec& direction,bc::Vec shift,float limit) {
+    const float length=bc::length(direction);
+    if(length<1e-6f||bc::length(shift)<1e-6f)return shift;
+    auto tilted=bc::add(direction,bc::scale(shift,.6f));
+    const float span=bc::length(tilted);
+    if(span<1e-6f)return shift;
+    tilted=bc::scale(tilted,length/span);
+    bc::limit_direction(reference,tilted,limit);
+    const auto residual=bc::sub(shift,bc::sub(tilted,direction));
+    direction=tilted;
+    return residual;
+}
 // Centerline samples from low hem to upper panel, in symmetric E21/E22
 // pairs. The published dress has 40/40/10/10 at the hem and 20/20/30/30
 // higher up. Each row sums to one across both sides.
@@ -42,24 +90,35 @@ inline float front_overlap(const FrontPose& pose,const float (&angle)[4],bc::Vec
 }
 inline void support_front(const FrontPose& pose,bc::Vec up,const bc::Capsule& left,const bc::Capsule& right,
                           float limit,float (&angle)[4]){
-    // Bounded coordinate descent on the maximum residual across the seam.
-    // Penalize rotation so a clear/standing pose returns to zero twist.
+    // Search adjacent joints together. With independent updates a clear
+    // crease can persist: unwinding either joint alone loses contact, even
+    // when moving some of that turn to its neighbour preserves clearance.
     const auto score=[&](){
         const float worst=front_overlap(pose,angle,up,left,right);
         float cost=0;
         for(float value:angle)cost+=value*value;
-        return worst+.0005f*cost;
+        float mismatch=0;
+        for(unsigned b:{0u,2u}){
+            const auto relative=bc::sub(bc::scale(pose.axis[b],angle[b]),bc::scale(pose.axis[b+1],angle[b+1]));
+            mismatch+=bc::dot(relative,relative);
+        }
+        return worst+.0005f*cost+.004f*mismatch;
     };
     float best=score();
-    for(unsigned b=0;b<4;++b){
-        const float start=angle[b];float chosen=start;
-        for(float change:{-.035f,.035f}){
-            const float trial=std::clamp(start+change,-limit,limit);
-            angle[b]=(start*trial<0)?0:trial;
+    const auto bounded=[&](float start,float change){
+        const float trial=std::clamp(start+change,-limit,limit);
+        return start*trial<0?0.f:trial;
+    };
+    for(unsigned b:{0u,2u}){
+        const float upper=angle[b],lower=angle[b+1];
+        float chosen_upper=upper,chosen_lower=lower;
+        for(float du:{0.f,-.035f,.035f})for(float dl:{0.f,-.035f,.035f}){
+            if(du==0&&dl==0)continue;
+            angle[b]=bounded(upper,du);angle[b+1]=bounded(lower,dl);
             const float candidate=score();
-            if(candidate<best){chosen=angle[b];best=candidate;}
+            if(candidate<best){chosen_upper=angle[b];chosen_lower=angle[b+1];best=candidate;}
         }
-        angle[b]=chosen;
+        angle[b]=chosen_upper;angle[b+1]=chosen_lower;
     }
 }
 inline bc::Vec vector(const Frame& f,bc::Vec p){return bc::add(bc::add(bc::scale(f.axis[0],p.x),bc::scale(f.axis[1],p.y)),bc::scale(f.axis[2],p.z));}

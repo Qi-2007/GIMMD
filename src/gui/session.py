@@ -14,7 +14,7 @@ import uuid
 
 PHYSICS_DEFAULTS = {'frontAngle':24, 'rearAngle':10, 'frontPaddingCm':1.5, 'rearPaddingCm':.4,
                     'frontResponseMs':60, 'rearResponseMs':160, 'skirtSupportPercent':95}
-PHYSICS_RANGES = {'frontAngle':(0,80), 'rearAngle':(0,45), 'frontPaddingCm':(0,5), 'rearPaddingCm':(0,5),
+PHYSICS_RANGES = {'frontAngle':(0,180), 'rearAngle':(0,180), 'frontPaddingCm':(0,5), 'rearPaddingCm':(0,5),
                   'frontResponseMs':(20,1000), 'rearResponseMs':(20,1000), 'skirtSupportPercent':(0,100)}
 
 def validate_physics_controls(value=None):
@@ -305,8 +305,10 @@ class Controller:
         settings=validate_physics_controls(controls)
         if enabled and controls is not None and not manifest.get('secondaryPhysicsControls'):
             raise ValueError('当前构建不支持物理参数调整，请使用新版物理构建重新连接会话')
-        if enabled and settings['frontAngle']>45 and not manifest.get('extendedFrontAngle'):
-            raise ValueError('当前构建前侧角度上限为 45°，请使用新版物理构建重新连接会话')
+        if enabled and not manifest.get('fullSkirtAngleRange'):
+            front_limit=80 if manifest.get('extendedFrontAngle') else 45
+            if settings['frontAngle']>front_limit or settings['rearAngle']>45:
+                raise ValueError(f'此旧构建支持前侧 0–{front_limit}°、后侧 0–45°，请用新版物理构建重新连接会话')
         if enabled and self.status.get('mmdPhase') in (1,2,4): raise ValueError('请先恢复游戏动画，再应用物理参数')
         if enabled and any((self.directory/name).exists() for name in ('cloth-static.flag','braid-static.flag')):
             raise ValueError('动态物理与静态稳定冲突，请取消披风/辫子静态稳定后重新连接会话')

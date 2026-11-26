@@ -29,6 +29,30 @@ inline Contact nearest_capsule(const bc::Vec (&triangle)[3],const bc::Capsule& c
         Contact candidate{pair.point,pair.axis,{0,0,0}};candidate.weights[i]=1-pair.fraction;candidate.weights[j]=pair.fraction;consider(candidate);}
     return result;
 }
+// Find the smallest shared outward shift that clears a short panel.
+// Each corner follows its own attachment around the circumference of the skirt.
+inline float short_panel_shift(const bc::Vec (&base)[3],const bc::Vec (&outward)[3],
+                               const bc::Capsule& capsule,float radius,float limit) {
+    if(radius<=0||limit<=0)return 0;
+    const auto clearance=[&](float shift){
+        bc::Vec triangle[3];
+        for(unsigned i=0;i<3;++i)triangle[i]=bc::add(base[i],bc::scale(outward[i],shift));
+        const auto hit=nearest_capsule(triangle,capsule);
+        return bc::length(bc::sub(hit.point,hit.axis))-radius;
+    };
+    const float start=clearance(0);
+    if(start>=-.0003f)return 0;
+    const float end=clearance(limit);
+    if(end<=start)return 0;
+    if(end<0)return limit;
+    float low=0,high=limit;
+    for(unsigned i=0;i<7;++i){
+        const float mid=(low+high)*.5f;
+        if(clearance(mid)<0)low=mid;
+        else high=mid;
+    }
+    return high;
+}
 // Two triangles approximate the fabric between the front and side chains.
 // Resolve along the outward normal of the extended thigh, so a sliding
 // contact does not push the dress all the way along the leg to the knee.
@@ -41,6 +65,45 @@ inline float side_depth(const bc::Vec (&panel)[4],const bc::Capsule& thigh,bc::V
         depth=std::max(depth,thigh.radius-bc::length(bc::sub(hit.point,hit.axis)));
     }
     return depth;
+}
+// Check the mobile part of a front strip against both sides of the bent
+// knee. The preceding link controls the attachment. Turn toward hip-up
+// while preserving link length and the horizontal direction of the pleat.
+inline bc::Vec fit_over_knee(bc::Vec anchor,bc::Vec direction,bc::Vec up,bc::Vec right,bc::Vec forward,
+                            float half_width,const bc::Capsule& thigh,const bc::Capsule& shin,float padding){
+    const auto axis=bc::sub(thigh.b,thigh.a);
+    const float leg=bc::length(axis),span=bc::length(direction);
+    if(leg<.001f||span<.001f||half_width<=0||bc::dot(axis,up)<=-.3f*leg||bc::dot(axis,forward)<.35f*leg)return direction;
+    const auto end=bc::add(anchor,direction);
+    const auto near_link=[&](const bc::Capsule& body){
+        const auto hit=bc::closest_segment(anchor,end,body);
+        return bc::length(bc::sub(hit.point,hit.axis))<=body.radius+padding+half_width;
+    };
+    if(!near_link(thigh)&&!near_link(shin))return direction;
+    const auto edge=bc::scale(right,half_width);
+    const auto depth=[&](bc::Vec v){
+        const auto middle=bc::add(anchor,bc::scale(v,.35f)),tip=bc::add(anchor,v);
+        const bc::Vec strip[]={bc::sub(middle,edge),bc::sub(tip,edge),bc::add(middle,edge),bc::add(tip,edge)};
+        return std::max(side_depth(strip,{thigh.a,thigh.b,thigh.radius+padding}),
+                        side_depth(strip,{shin.a,shin.b,shin.radius+padding}));
+    };
+    float best=depth(direction);
+    if(best<.001f)return direction;
+    const float height=bc::dot(up,direction);
+    const auto lateral=bc::sub(direction,bc::scale(up,height));
+    const float width=bc::length(lateral);
+    if(width<1e-6f)return direction;
+    const float start=std::atan2(height,width);
+    const float sweep=std::min(1.22173f,1.5707963f-start);
+    bc::Vec result=direction;
+    for(unsigned i=1;i<=12;++i){
+        const float angle=start+sweep*float(i)/12;
+        const auto trial=bc::add(bc::scale(lateral,span*std::cos(angle)/width),bc::scale(up,span*std::sin(angle)));
+        const float overlap=depth(trial);
+        if(overlap+.0001f<best){best=overlap;result=trial;}
+        if(best<.001f)break;
+    }
+    return result;
 }
 inline bc::Vec side_offset(const bc::Vec (&panel)[4],const bc::Capsule& thigh,bc::Vec outward,bc::Vec up,float limit) {
     const auto axis=bc::sub(thigh.b,thigh.a);

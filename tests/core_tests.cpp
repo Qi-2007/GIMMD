@@ -149,6 +149,92 @@ int wmain(int argc, wchar_t** argv) {
         }
         {
             namespace cloth=gimmd::cloth_links;namespace bc=gimmd::body_collision;
+            {
+                // Barbara and Lumine have this fitted ring; their front
+                // strips have different owners but the same orientations.
+                const float weights[]={1,1,1,.54f,.54f,0,0};
+                unsigned fronts=0,backs=0;
+                for(float weight:weights){
+                    const auto region=cloth::ring_region(true,weight);
+                    if(region==cloth::RingRegion::Front)++fronts;
+                    if(region==cloth::RingRegion::Rear)++backs;
+                }
+                check(fronts==3&&backs==2,"closed skirt regions did not follow the fitted branches");
+                check(cloth::ring_region(true,.89f)==cloth::RingRegion::Front&&
+                      cloth::ring_region(true,.12f)==cloth::RingRegion::Rear&&
+                      cloth::ring_region(false,.90f)==cloth::RingRegion::Other&&
+                      cloth::ring_region(false,0)==cloth::RingRegion::Other,"uncalibrated or open skirt acquired a ring profile");
+                check(near(cloth::panel_half_width({0,0,1},{0,.01f,.9f},{0,.02f,1.2f},{0,0,1}),.075f),
+                      "rotated skirt row measured width on the wrong axis");
+            }
+            // Lumine's last frame: left rear waist expands by 7.3 cm.
+            check(near(cloth::rear_support_radius(.166265f,.073f,95),.17528925f)&&
+                  near(cloth::rear_support_radius(.166265f,.073f,0),0),"rear waist forced the hem outward or ignored disabled support");
+            {
+                // Lumine at 23.467 s. Probe four cm radially inward from
+                // the measured left rear joint, holding its height fixed.
+                const bc::Vec joint{-.119787f,.083993f,-.147884f},outward{-.62941f,0,-.77707f};
+                const auto probe=bc::sub(joint,bc::scale(outward,.04f));
+                const bc::Capsule thigh{{-.076054f,.002189f,0},{.026261f,-.158883f,.346323f},.079083f};
+                const bc::Capsule guard{{-.088331f,.021511f,-.041558f},{-.040243f,-.054194f,.121213f},.110728f};
+                check(bc::distance(thigh,probe)>thigh.radius+.004f&&bc::distance(guard,probe)<guard.radius,
+                      "end-pose fixture no longer isolates the upper-thigh guard");
+                check(near(cloth::upper_neighbor_lift(0,.10f,true,.004f),.004f)&&
+                      near(cloth::upper_neighbor_lift(.03f,.10f,true,.004f),.03f)&&
+                      near(cloth::upper_neighbor_lift(0,.10f,false,.004f),.055f),
+                      "rear neighbor displaced a clear waist or suppressed a direct contact");
+                // A small overlap at the stitch should release; the same
+                // bend still needs to clear a second capsule mid-panel.
+                const bc::Vec rest{0,-.12f,0},proposed{.048f,-.10998182f,0};
+                bc::Capsule bodies[2]={{{-.0095f,-.006f,0},{-.0095f,-.006f,0},.011f},
+                                       {{-.003f,-.09f,0},{-.003f,-.09f,0},.024f}};
+                const float tips[2]={.011f,.024f};
+                float segments[2]={.011f,0};
+                const auto released=bc::relax_rear_bend({},rest,proposed,bodies,tips,segments);
+                check(bc::length(bc::sub(rest,released))<1e-6f,"pinned contact held the free rear hem outward");
+                segments[1]=.024f;
+                const auto held=bc::relax_rear_bend({},rest,proposed,bodies,tips,segments);
+                const auto mid=bc::closest_segment({},held,bodies[1],1.f/3);
+                check(held.x>0&&held.x<proposed.x&&near(bc::length(held),bc::length(rest))&&
+                      bc::length(bc::sub(mid.point,mid.axis))>=segments[1]-.00011f,"rear retraction lost mid-panel clearance or changed length");
+            }
+            {
+                // Lumine's recorded front: three waist attachments, each
+                // with two descendants, all absent from the native arrays.
+                struct Path {const wchar_t* name;int parent_node;};
+                const Path paths[]={{L"Bip001 Spine",-1},{L"+SkirtF CF B01",0},{L"+SkirtF L B01",0},{L"+SkirtF R B01",0},
+                    {L"+SkirtF CF B02",1},{L"+SkirtF L B02",2},{L"+SkirtF R B02",3},
+                    {L"+SkirtF CF B03",4},{L"+SkirtF L B03",5},{L"+SkirtF R B03",6},{L"+SkirtS L B02",0}};
+                struct Owned {bool real;unsigned path;};
+                const Owned owned[]={{true,10},{true,5},{true,6}};
+                unsigned chain[12]{},strips=0;
+                for(unsigned i=0;i<11;++i){
+                    const auto length=cloth::missing_skirt_chain(paths,11,i,owned,1,chain);
+                    if(length){check(length==3&&chain[0]==i&&chain[1]==i+3&&chain[2]==i+6,"front strip mixed bone rows");++strips;}
+                }
+                check(strips==3,"Lumine did not acquire all three missing front strips");
+                check(cloth::missing_skirt_chain(paths,11,1,owned,3,chain)==3&&
+                      cloth::missing_skirt_chain(paths,11,2,owned,3,chain)==0&&cloth::missing_skirt_chain(paths,11,3,owned,3,chain)==0,
+                      "native lateral strips were bound twice");
+                const Path fork[]={{L"+SkirtF L B01",-1},{L"+SkirtF L B02",0},{L"+SkirtF L B03",1},{L"decoration",1}};
+                check(cloth::missing_skirt_chain(fork,4,0,owned,0,chain)==0,"branched decoration acquired skirt physics");
+                // Collei's six waist panels end at their second joint.
+                const Path collei[]={{L"Bip001 Spine",-1},
+                    {L"+SkirtF L F01",0},{L"+SkirtF R F01",0},{L"+SkirtS L I01",0},
+                    {L"+SkirtS R I01",0},{L"+SkirtB L F01",0},{L"+SkirtB R F01",0},
+                    {L"+SkirtF L F02",1},{L"+SkirtF R F02",2},{L"+SkirtS L I02",3},
+                    {L"+SkirtS R I02",4},{L"+SkirtB L F02",5},{L"+SkirtB R F02",6},
+                    {L"+LegBagS L E01",0},{L"+LegBagS L E02",13}};
+                for(unsigned i=0;i<15;++i){
+                    const auto length=cloth::missing_skirt_chain(collei,15,i,owned,0,chain);
+                    if(i>=1&&i<=6)check(length==2&&chain[0]==i&&chain[1]==i+6,"missing or crossed Collei skirt panel");
+                    else check(length==0,"duplicate or unrelated Collei panel");
+                }
+                const Owned native_tip[]={{true,8}};
+                check(cloth::missing_skirt_chain(collei,15,2,native_tip,1,chain)==0,"native short skirt tip was acquired twice");
+                const Path shoulder[]={{L"Bip001 L Clavicle",-1},{L"+SkirtS L I01",0},{L"+SkirtS L I02",1}};
+                check(cloth::missing_skirt_chain(shoulder,3,1,owned,0,chain)==0,"shoulder accessory acquired waist physics");
+            }
             cloth::Vertex ring[7]{};for(unsigned i=0;i<7;++i)ring[i]={i,float(i)*6.283185307f/7,0};
             check(cloth::closed_ring(ring,7,.1f),"closed seven-panel skirt was not recognized");
             check(!cloth::closed_ring(ring,5,.1f),"open sparse petals were joined");
@@ -215,17 +301,57 @@ int wmain(int argc, wchar_t** argv) {
             check(bc::project_outward(raised,raised.radius,flap,history,push)&&flap.y>.08f&&bc::distance(raised,flap)>=raised.radius,"front flap failed to lift above a horizontal thigh");
             check(bc::flap_contact_direction(outward,up,{{},{0,-1,0},.06f}).y==0,"standing thigh lifted the flap");
             gimmd::physics_controls::Settings settings;
-            std::istringstream extended("GIMMD_PHYSICS_V1 80 45 3 3 20 20 95");
-            check(gimmd::physics_controls::read(extended,settings),"extended front angle refused");
+            std::istringstream extended("GIMMD_PHYSICS_V1 180 180 3 3 20 20 95");
+            check(gimmd::physics_controls::read(extended,settings)&&near(settings.front_angle,180)&&near(settings.rear_angle,180),"full skirt angle range refused");
             std::istringstream valid("GIMMD_PHYSICS_V1\n25 9 1.6 .3 80 220 94\n");
             check(gimmd::physics_controls::read(valid,settings)&&near(settings.front_angle,25)&&near(settings.rear_response_ms,220)&&near(settings.support_percent,94),"custom physics controls were not read");
-            for(const char* input:{"GIMMD_PHYSICS_V2 24 10 1.5 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10", "GIMMD_PHYSICS_V1 81 10 1.5 .4 60 160 95",
+            for(const char* input:{"GIMMD_PHYSICS_V2 24 10 1.5 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10", "GIMMD_PHYSICS_V1 181 10 1.5 .4 60 160 95","GIMMD_PHYSICS_V1 24 181 1.5 .4 60 160 95",
                 "GIMMD_PHYSICS_V1 24 10 -1 .4 60 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 0 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 60 160 101",
                 "GIMMD_PHYSICS_V1 24 10 nan .4 60 160 95", "GIMMD_PHYSICS_V1 24 10 1.5 .4 60 160 95 extra"}){
                 std::istringstream invalid_controls(input);check(!gimmd::physics_controls::read(invalid_controls,settings)&&near(settings.front_angle,25)&&near(settings.support_percent,94),"invalid physics controls partially replaced settings");}
         }
         {
             namespace surface=gimmd::cloth_surface;namespace bc=gimmd::body_collision;
+            {
+                // Collei at 23.467 s: the right front-to-side panel crosses
+                // the thigh guard on its fixed edge. Use 2 cm of overlap.
+                const bc::Vec panel[3]={{.097368f,.019956f,.115762f},{.151543f,.021851f,-.004378f},{.224935f,-.019714f,.029052f}};
+                const bc::Vec outward[3]={{.64f,0,.768375f},{1,0,0},{1,0,0}};
+                const bc::Capsule guard={{.075775f,.044844f,-.005988f},{.076888f,-.139515f,.017465f},.110728f};
+                const auto hit=surface::nearest_capsule(panel,guard);
+                const float radius=bc::length(bc::sub(hit.point,hit.axis))+.02f;
+                check(hit.weights[2]<.001f,"Collei fixture missed the pinned edge");
+                const float shift=surface::short_panel_shift(panel,outward,guard,radius,.04f);
+                bc::Vec moved[3];
+                for(unsigned i=0;i<3;++i)moved[i]=bc::add(panel[i],bc::scale(outward[i],shift));
+                const auto clear=surface::nearest_capsule(moved,guard);
+                check(shift>0&&shift<.04f&&bc::length(bc::sub(clear.point,clear.axis))>=radius-.00001f,
+                      "Collei pinned-edge contact persisted after moving both attachments");
+                check(surface::short_panel_shift(moved,outward,guard,radius,.04f)==0&&
+                      surface::short_panel_shift(panel,outward,guard,radius,.005f)==.005f,
+                      "clear panel kept expanding or exceeded its travel limit");
+            }
+            {
+                // Lumine's saved central front B02/B03 and left leg near
+                // the 14.73 s seek. Adjacent strips bracket the central row.
+                const bc::Vec joint{.005421f,.109494f,.215804f},end{.015566f,.108529f,.348871f};
+                const auto link=bc::sub(end,joint);
+                const bc::Capsule thigh{{-.076087f,.001023f,-.000012f},{.008430f,.113805f,.369439f},.079083f};
+                const bc::Capsule shin{thigh.b,{-.004105f,-.248557f,.170141f},.082746f};
+                const auto fitted=surface::fit_over_knee(joint,link,{0,1,0},{1,0,0},{0,0,1},.075f,thigh,shin,.01f);
+                const auto before=bc::distance(thigh,end),after=bc::distance(thigh,bc::add(joint,fitted));
+                check(before<thigh.radius-.05f&&after>=thigh.radius&&fitted.y>link.y&&near(bc::length(fitted),bc::length(link)),
+                      "captured front joint remained inside the raised knee or stretched");
+                const auto overlap=[&](bc::Vec v){
+                    const auto a=bc::add(joint,bc::scale(v,.35f)),b=bc::add(joint,v);const bc::Vec edge{.075f,0,0};
+                    const bc::Vec panel[]{bc::sub(a,edge),bc::sub(b,edge),bc::add(a,edge),bc::add(b,edge)};
+                    return std::max(surface::side_depth(panel,thigh),surface::side_depth(panel,shin));
+                };
+                check(overlap(fitted)+.025f<overlap(link),"raising the front joint did not improve the cloth surface");
+                const bc::Capsule standing{thigh.a,bc::add(thigh.a,{0,-.4f,0}),thigh.radius};
+                check(bc::length(bc::sub(surface::fit_over_knee(joint,link,{0,1,0},{1,0,0},{0,0,1},.075f,standing,shin,.01f),link))==0,
+                      "standing thigh raised the front hem");
+            }
             {
                 // Nahida at 19.075 s: the extended leg crosses the middle
                 // of the left side panel, without touching any corner.
@@ -262,6 +388,52 @@ int wmain(int argc, wchar_t** argv) {
         {
             namespace skin=gimmd::skinned_cloth;namespace bc=gimmd::body_collision;
             {
+                // Measured front flap at 19.042 s, in the hip frame.
+                const bc::Vec joint{-.129902f,.018478f,.063461f};
+                const bc::Vec native_tip{-.177807f,-.045677f,.164343f};
+                const bc::Vec cleared_tip{-.193281f,.004706f,.174736f};
+                const auto lower=bc::sub(native_tip,joint);
+                const bc::Vec upper{-.02f,-.12f,.07f},up{0,1,0};
+                const bc::Vec outward{-1,0,0};
+                const auto hem=skin::hem_bend(lower,bc::sub(cleared_tip,joint),up,outward,bc::length(lower));
+                const auto followed=skin::follow_hem(upper,up,outward,hem,bc::length(lower));
+                const auto moved_lower=bc::transport_direction(upper,followed,lower);
+                auto aimed=bc::scale(followed,bc::length(upper)/bc::length(followed));
+                const auto carried=bc::add(bc::sub(aimed,upper),bc::sub(moved_lower,lower));
+                check(carried.y>.005f&&carried.y<cleared_tip.y-native_tip.y,"upper link did not share the measured hem rise");
+                const auto released=skin::hem_bend(lower,bc::add(lower,{.02f,-.03f,0}),up,outward,bc::length(lower));
+                check(bc::length(bc::sub(skin::follow_hem(upper,up,outward,released,bc::length(lower)),upper))==0,"released hem left a bend at the waist");
+                const auto shared=skin::share_hem_bend({},hem);
+                check(followed.x<upper.x&&shared.outward>0&&near(shared.rise,.3f*hem.rise),"front flap did not distribute outward and upward contact");
+                const auto same=skin::follow_hem(bc::scale(upper,2),up,outward,hem,bc::length(lower)*2);
+                check(bc::length(bc::sub(same,bc::scale(followed,2)))<1e-6f,"hem feedback depends on avatar size");
+                // A representative 4.95 cm side shift, with the measured
+                // thigh and panel corner. The joint must keep its clearance.
+                const bc::Vec shift{-.04f,.027f,-.011f};
+                const bc::Capsule thigh{{-.101267f,.000159f,-.060732f},{-.285595f,-.213265f,.082146f},.063226f};
+                const auto unshifted=aimed;
+                const auto residual=skin::share_panel_shift(upper,aimed,shift,.55f);
+                const auto placed=bc::add(joint,bc::sub(bc::add(bc::sub(aimed,unshifted),residual),shift));
+                check(bc::length(residual)<bc::length(shift)&&bc::length(bc::sub(aimed,unshifted))>.01f,"upper joint stayed parallel during lateral clearance");
+                check(bc::length(bc::sub(placed,joint))<1e-6f&&near(bc::length(aimed),bc::length(upper))&&bc::distance(thigh,placed)>thigh.radius,"sharing side correction moved the cleared joint or stretched the link");
+                aimed=upper;
+                const auto locked_shift=skin::share_panel_shift(upper,aimed,shift,0);
+                check(bc::length(bc::sub(locked_shift,shift))<1e-6f&&bc::length(bc::sub(aimed,upper))<1e-6f,"angle limit lost side clearance");
+                const auto half_lift=bc::scale(up,.025f);
+                aimed=upper;
+                const auto rest_shift=skin::share_panel_shift(upper,aimed,half_lift,.55f);
+                check(bc::length(bc::sub(aimed,upper))>.001f&&bc::length(bc::sub(bc::add(bc::sub(aimed,upper),bc::add(half_lift,rest_shift)),bc::scale(half_lift,2)))<1e-6f,"sharing front lift changed the cleared joint height");
+            }
+            {
+                struct Node {bool real,skirt;int parent_global;unsigned path;};
+                Node nodes[]={{true,true,-1,5},{false,true,0,0},{true,true,-1,9},{true,true,2,10},{true,true,3,11}};
+                check(skin::hem_segment(nodes,5,5)==1&&skin::hem_segment(nodes,5,9)==3,"short open flap or long skirt chain missed automatic binding");
+                nodes[4].parent_global=2;
+                check(skin::hem_segment(nodes,5,9)<0,"branched skirt acquired an arbitrary lower link");
+                nodes[1].skirt=false;
+                check(skin::hem_segment(nodes,5,5)<0&&skin::hem_segment(nodes,5,99)<0,"non-skirt or missing link acquired hem feedback");
+            }
+            {
                 // Reconstruct front-center samples between the measured flap
                 // chains at 14.797 s. Both centerlines clear the raised thigh.
                 skin::FrontPose pose{};
@@ -285,6 +457,12 @@ int wmain(int argc, wchar_t** argv) {
                 for(unsigned step=0;step<30;++step)skin::support_front(pose,{0,1,0},knee,down,.523599f,angles);
                 check(deficit()<.005f,"paired axial support did not clear the centerline");
                 for(unsigned i=0;i<4;++i)check(bc::length(bc::sub(skin::axial_turn(pose.axis[i],pose.axis[i],angles[i]),pose.axis[i]))<1e-5f,"seam support displaced a joint endpoint");
+                // Enter the same lift from an uneven fold. Previously contact
+                // was clear but the adjacent joints stayed 24 and 12 deg apart.
+                angles[0]=.35f;angles[1]=-.14f;angles[2]=-.07f;angles[3]=-.28f;
+                for(unsigned step=0;step<30;++step)skin::support_front(pose,{0,1,0},knee,down,.523599f,angles);
+                check(std::abs(angles[0]-angles[1])<.37f&&std::abs(angles[2]-angles[3])<.07f&&deficit()<.001f,
+                      "front flap retained an isolated twist or lost knee clearance");
                 for(unsigned step=0;step<30;++step)skin::support_front(pose,{0,1,0},down,down,.523599f,angles);
                 for(float angle:angles)check(std::abs(angle)<1e-5f,"front seam twist did not release");
             }
