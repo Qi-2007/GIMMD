@@ -16,7 +16,7 @@ static unsigned checks = 0, overrides = 0, resolve_failures = 0, restore_attempt
 static DWORD exception = 0;
 static std::atomic<bool> dirty{false};
 static std::atomic<unsigned> setter_calls{0};
-static bool (*aux_begin)(void*)=nullptr;
+static bool (*aux_begin)(void*,bool& changed)=nullptr;
 static bool (*aux_release)()=nullptr;
 static void configure(uintptr_t base) {
     model = nullptr; aux_begin=nullptr;aux_release=nullptr; component_identity = 0; bound = before = acquired = restored = refused = false;
@@ -25,9 +25,7 @@ static void configure(uintptr_t base) {
     set = Enabled ? reinterpret_cast<Setter>(entry("BehaviourEnabledSet", base)) : nullptr;
     verified = set && entry("BehaviourEnabledSetNative", base);
 }
-static void* resolve(bool* active) {
-    if (!model) return nullptr;
-    void* owner_transform = model(active);
+static void* resolve_component(void* owner_transform) {
     if (!owner_transform) return nullptr;
     namespace ao = animator_observer;
     void* component = ao::get_component(owner_transform, find_string("Animator"));
@@ -39,6 +37,9 @@ static void* resolve(bool* active) {
         (component_identity && native != component_identity) ||
         !same_object(component_game_object(component), component_game_object(owner_transform))) return nullptr;
     return component;
+}
+static void* resolve(bool* active) {
+    return model ? resolve_component(model(active)) : nullptr;
 }
 static bool bind(ModelFn resolve_model) {
     if (!Enabled) return true;
@@ -55,29 +56,34 @@ static bool bind(ModelFn resolve_model) {
         return bound;
     } __except (EXCEPTION_EXECUTE_HANDLER) { exception = GetExceptionCode(); return false; }
 }
-static bool begin() {
+template<class ResolveModel>
+static bool begin(ResolveModel locate,bool& drivers_changed) {
     if (!Enabled) return true;
-    if (!bound || refused) { refused = true; return false; }
+    if (!bound || !model || refused) { refused = true; return false; }
     if (message_callback_count.load() < 3) return false;
     __try {
-        bool active = true; void* component = resolve(&active);
+        bool active = true;
+        void* owner=locate(&active);
+        void* component=resolve_component(owner);
         if (!component || !active) { ++resolve_failures; refused = true; return false; }
         const bool enabled = animator_observer::metadata::enabled_get(component);
         if (acquired) {
             ++checks;
-            if (!enabled) { if(!aux_begin||aux_begin(model(&active)))return true;refused=true;return false; }
+            if (!enabled) { if(!aux_begin||aux_begin(owner,drivers_changed))return true;refused=true;return false; }
             ++overrides; refused = true; return false;
         }
         before = enabled;
         if (!before) { refused = true; return false; }
         dirty.store(true); setter_calls.fetch_add(1); set(component, false);
-        component = resolve(&active);
+        owner=model(&active); // Revalidate after changing the Animator.
+        component=resolve_component(owner);
         acquired = component && active && !animator_observer::metadata::enabled_get(component);
-        if(acquired&&aux_begin&&!aux_begin(model(&active)))acquired=false;
+        if(acquired&&aux_begin&&!aux_begin(owner,drivers_changed))acquired=false;
         refused = !acquired;
         return acquired;
     } __except (EXCEPTION_EXECUTE_HANDLER) { exception = GetExceptionCode(); refused = true; return false; }
 }
+static bool begin() {bool drivers_changed=false;return begin(model,drivers_changed);}
 static bool release() {
     if (!dirty.load()) return true;
     if(aux_release&&!aux_release())return false;

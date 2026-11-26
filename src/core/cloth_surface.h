@@ -4,6 +4,18 @@
 namespace gimmd::cloth_surface {
 namespace bc=body_collision;
 struct Contact {bc::Vec point{},axis{};float weights[3]{1,0,0};};
+// Reject only disjoint bounds. Intersections and tangencies still go through
+// the exact solver, using this panel's fitted radius.
+inline bool panel_in_range(const bc::Vec (&triangle)[3],const bc::Capsule& capsule,float radius) {
+    const auto separated=[radius](float a,float b,float c,float start,float end){
+        return std::max({a,b,c})<std::min(start,end)-radius||
+               std::min({a,b,c})>std::max(start,end)+radius;
+    };
+    return radius>0&&
+        !separated(triangle[0].x,triangle[1].x,triangle[2].x,capsule.a.x,capsule.b.x)&&
+        !separated(triangle[0].y,triangle[1].y,triangle[2].y,capsule.a.y,capsule.b.y)&&
+        !separated(triangle[0].z,triangle[1].z,triangle[2].z,capsule.a.z,capsule.b.z);
+}
 inline Contact nearest_point(const bc::Vec (&triangle)[3],bc::Vec point) {
     const auto ab=bc::sub(triangle[1],triangle[0]),ac=bc::sub(triangle[2],triangle[0]),ap=bc::sub(point,triangle[0]);
     const float aa=bc::dot(ab,ab),bb=bc::dot(ac,ac),abac=bc::dot(ab,ac),denominator=aa*bb-abac*abac;
@@ -61,6 +73,7 @@ inline float side_depth(const bc::Vec (&panel)[4],const bc::Capsule& thigh,bc::V
     for(const auto indices:{std::array<unsigned,3>{0,1,2},std::array<unsigned,3>{2,1,3}}){
         bc::Vec triangle[3];
         for(unsigned i=0;i<3;++i)triangle[i]=bc::add(panel[indices[i]],translation);
+        if(!panel_in_range(triangle,thigh,thigh.radius))continue;
         const auto hit=nearest_capsule(triangle,thigh);
         depth=std::max(depth,thigh.radius-bc::length(bc::sub(hit.point,hit.axis)));
     }
@@ -215,6 +228,7 @@ inline bc::Vec side_offset(const bc::Vec (&panel)[4],const bc::Capsule& thigh,bc
     return bc::scale(push,high*activation);
 }
 inline bool project(const bc::Capsule& capsule,float radius,bc::Vec (&points)[3],bc::Vec (&previous)[3],const bool (&movable)[3],bc::Vec outward) {
+    if(!panel_in_range(points,capsule,radius))return false;
     const auto contact=nearest_capsule(points,capsule);float denominator=0;bc::Vec old{};
     for(unsigned i=0;i<3;++i){old=bc::add(old,bc::scale(previous[i],contact.weights[i]));if(movable[i])denominator+=contact.weights[i]*contact.weights[i];}
     // Contacts almost entirely on a pinned waist cannot be resolved by a huge

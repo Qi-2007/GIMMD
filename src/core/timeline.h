@@ -12,6 +12,12 @@ struct ClockFrame {
     PlaybackState state = PlaybackState::Ready;
 };
 
+// Transport commands wake a held pose at normal cadence. Keep checking the
+// applied pose periodically even after its secondary motion has settled.
+inline bool wait_for_held_pose(uint64_t since_batch_ms,bool settled,bool command_pending) {
+    return settled&&!command_pending&&since_batch_ms<125;
+}
+
 // Caller supplies monotonic seconds. All consumers use the returned snapshot.
 class Timeline {
 public:

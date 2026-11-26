@@ -1400,7 +1400,6 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
     if(!playing&&s.settle_remaining){const unsigned settle=std::min(4u,s.settle_remaining);
         plan.steps+=settle;s.settle_remaining-=settle;s.seek_settle_steps+=settle;}
     void* arrays[32]{},*bones[512]{};if(!resolve(model,arrays,bones))return false;
-    contact::Capsule capsules[BodyCapsules]{};if(s.collisions&&!body_capsules(body,count,capsules))return false;
     const bool end_hold=gimmd::player_session::holding_end.load();
     if(end_hold){++s.end_hold_samples;if(plan.reset)++s.end_hold_resets;}
     if(!plan.reset&&!plan.steps){
@@ -1409,6 +1408,7 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
             if(!motion::read_local(bones[b],&rotation)||!position::read(position::get,bones[b],&local))return false;
             s.maximum_hold_error=std::max(s.maximum_hold_error,std::max(double(hierarchy::roundtrip::error(rotation,s.bones[b].last_rotation)),double(position::error(local,s.bones[b].last_local))));}
         s.status=playing?"waiting-for-step":"paused";return true;}
+    contact::Capsule capsules[BodyCapsules]{};if(s.collisions&&!body_capsules(body,count,capsules))return false;
     s.dirty=true;for(unsigned b=0;b<s.bone_count;++b)s.bones[b].dirty=true;
     if(plan.reset){
         for(unsigned i=0;i<s.mount_count;++i){
@@ -1493,7 +1493,7 @@ static bool tick(void* model,double seconds,uint64_t epoch,bool playing,void* co
     if(!s.requested)return true;LARGE_INTEGER start{},end{},freq{};QueryPerformanceCounter(&start);QueryPerformanceFrequency(&freq);bool ok=false;
     const unsigned steps_before=s.steps,resets_before=s.resets;
     __try {ok=run(model,seconds,epoch,playing,body,count);}__except(EXCEPTION_EXECUTE_HANDLER){ok=false;}
-    for(auto& node:tree)node={};tree_count=0;
+    for(unsigned i=0;i<tree_count;++i)tree[i]={};tree_count=0;
     QueryPerformanceCounter(&end);const double ms=double(end.QuadPart-start.QuadPart)*1000/freq.QuadPart;
     ++s.samples;s.total_ms+=ms;s.max_ms=std::max(s.max_ms,ms);
     // Exclude seeks, initialization and paused/held samples from playback cost.

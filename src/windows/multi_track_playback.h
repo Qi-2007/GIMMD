@@ -32,8 +32,11 @@ static bool clock_started = false;
 static double entry_blend_seconds = 0;
 static ULONGLONG blend_last = 0;
 static bool blend_was_playing = false;
+static bool hold_settled = false;
 struct Performance {
     unsigned batches = 0, unique_nodes = 0, reused_prefixes = 0;
+    unsigned paused_batches = 0, unchanged_writes_skipped = 0;
+    double lease_ms = 0, playing_ms = 0, playing_max_ms = 0;
     double total_ms = 0, max_ms = 0, resolve_ms = 0, write_ms = 0;
 };
 static Performance performance;
@@ -54,7 +57,7 @@ static void reset() {
     source_tracks = source_morphs = source_cameras = source_ik = 0; last_frame = 0;
     state = MultiEnabled ? "not-loaded" : "disabled";
     clock = gimmd::Timeline(0); clock_started = false; applied_command = 0; commands_applied = 0;
-    performance = {};
+    performance = {}; hold_settled = false;
     entry_blend_seconds = 0; blend_last = 0; blend_was_playing = false;
 }
 static bool prepare(const vmd::Motion& motion) {
@@ -196,12 +199,31 @@ static void restore_all() {
 }
 static void tick(ULONGLONG now) {
     const ULONGLONG cadence = full_mode && !gimmd::player_session::legacy_resolver ? 16 : 33;
-    // Check the lease at pose cadence, including paused poses; urgent cleanup is never throttled.
-    if (!gimmd::player_session::legacy_resolver && !stop_requested.load() && result.samples && now-result.last < cadence) return;
-    if (!stop_requested.load() && !animator_lease::begin()) {
-        if (!animator_lease::refused) return;
-        stop_requested.store(true);
+    if (!gimmd::player_session::legacy_resolver && !stop_requested.load() && result.samples) {
+        const auto since_batch=now-result.last;
+        if(since_batch<cadence)return;
+        if(hold_settled&&gimmd::player_session::active){
+            const bool pending=gimmd::command_sequence(gimmd::player_session::command.load())>gimmd::command_sequence(applied_command);
+            if(gimmd::wait_for_held_pose(since_batch,hold_settled,pending))return;
+        }
     }
+    const double lease_start=precise_ms();
+    ResolutionBatch batch{};
+    if (!stop_requested.load()) {
+        // An already acquired Animator and this pose share the same model path.
+        // Initial acquisition can change the rig, so begin its pose with a fresh batch.
+        const bool share=animator_lease::acquired&&!gimmd::player_session::legacy_resolver;
+        bool drivers_changed=false;
+        const bool ready=share?animator_lease::begin([&batch](bool* active){
+            return resolve_batch_steps(&batch,active,path,model_path_size);
+        },drivers_changed):animator_lease::begin();
+        if(drivers_changed)batch={};
+        if(!ready){
+            if(!animator_lease::refused)return;
+            stop_requested.store(true);
+        }
+    }
+    const double lease_cost=precise_ms()-lease_start;
     if (!result.began) result.began = now;
     result.elapsed = now >= result.began ? now - result.began : 2000;
     double source_seconds = double(result.elapsed)/1000;
@@ -237,7 +259,6 @@ static void tick(ULONGLONG now) {
     if (result.samples && now - result.last < cadence) return;
     if(!reference_pose::initialize()){stop_requested.store(true);restore_all();return;}
     const double batch_start = precise_ms();
-    ResolutionBatch batch{};
     void* bones[Capacity]{}; Quat sampled[Capacity]{}, current[Capacity]{}; vmd::Quaternion desired[Capacity]{};
     // Resolve and read every target before writing any of this batch.
     for (unsigned i = 0; i < TrackCount; ++i) {
@@ -297,7 +318,12 @@ static void tick(ULONGLONG now) {
     }
     const double write_start = precise_ms();
     for (unsigned i = 0; i < TrackCount; ++i) {
-        auto& track = tracks[i]; track.applied = sampled[i]; track.dirty = true; dirty.store(true);
+        auto& track = tracks[i];
+        if(track.dirty&&roundtrip::error(sampled[i],current[i])==0){
+            ++performance.unchanged_writes_skipped;
+            continue;
+        }
+        track.applied = sampled[i]; track.dirty = true; dirty.store(true);
         Quat observed{};
         if (!write_local(bones[i], &track.applied, &observed)) {
             stop_requested.store(true); restore_all(); return;
@@ -307,10 +333,23 @@ static void tick(ULONGLONG now) {
     if (!pelvis_helper::apply(&batch,{desired[0].x,desired[0].y,desired[0].z,desired[0].w},entry_blend_seconds/0.5)) { stop_requested.store(true); restore_all(); return; }
     if (!root_motion::apply(&batch)) { dirty.store(root_motion::dirty || dirty.load()); stop_requested.store(true); restore_all(); return; }
     if (!cloth_stabilizer::apply(&batch,entry_blend_seconds/0.5)) { stop_requested.store(true); restore_all(); return; }
-    if(gimmd::face_bridge::tick){bool active=true;if(!gimmd::face_bridge::tick(false,resolve_model(&active),source_seconds)){stop_requested.store(true);restore_all();return;}}
-    if(gimmd::physics_bridge::tick){bool active=true;const auto frame=gimmd::unpack_player_frame(gimmd::player_session::frame.load());
-        if(!gimmd::physics_bridge::tick(resolve_model(&active),source_seconds,frame.epoch,timeline_playing,bones,TrackCount)){stop_requested.store(true);restore_all();return;}}
+    void* model=nullptr;
+    if(gimmd::face_bridge::tick||gimmd::physics_bridge::tick){
+        bool active=true;
+        model=gimmd::player_session::legacy_resolver?resolve_model(&active):resolve_batch_steps(&batch,&active,path,model_path_size);
+    }
+    if(gimmd::face_bridge::tick&&!gimmd::face_bridge::tick(false,model,source_seconds)){stop_requested.store(true);restore_all();return;}
+    if(gimmd::physics_bridge::tick){const auto frame=gimmd::unpack_player_frame(gimmd::player_session::frame.load());
+        if(!gimmd::physics_bridge::tick(model,source_seconds,frame.epoch,timeline_playing,bones,TrackCount)){stop_requested.store(true);restore_all();return;}}
+    hold_settled=!timeline_playing&&(!gimmd::physics_bridge::hold_settled||gimmd::physics_bridge::hold_settled());
+    if(!timeline_playing)++performance.paused_batches;
+    performance.lease_ms+=lease_cost;
     const double batch_end = precise_ms(); ++performance.batches;
+    if(timeline_playing){
+        const double elapsed=batch_end-lease_start;
+        performance.playing_ms+=elapsed;
+        performance.playing_max_ms=std::max(performance.playing_max_ms,elapsed);
+    }
     performance.total_ms += batch_end-batch_start; performance.max_ms = std::max(performance.max_ms,batch_end-batch_start);
     performance.resolve_ms += write_start-batch_start; performance.write_ms += batch_end-write_start;
     performance.unique_nodes += batch.count; performance.reused_prefixes += batch.reused;
@@ -344,9 +383,14 @@ static void report(std::ostream& out, bool complete) {
         pelvis_helper::report(out);
         cloth_stabilizer::report(out);
         out << ",\"legIk\":"; leg_playback::report(out);
+        const unsigned playing_batches=performance.batches-performance.paused_batches;
         out << ",\"performance\":{\"sharedPathResolution\":" << (gimmd::player_session::legacy_resolver ? "false" : "true")
             << ",\"batches\":" << performance.batches << ",\"averageBatchMs\":" << (performance.batches ? performance.total_ms/performance.batches : 0)
             << ",\"maxBatchMs\":" << performance.max_ms << ",\"totalResolveAndSampleMs\":" << performance.resolve_ms
+            << ",\"averageLeaseMs\":" << (performance.batches?performance.lease_ms/performance.batches:0)
+            << ",\"averagePlayingUpdateMs\":" << (playing_batches?performance.playing_ms/playing_batches:0)
+            << ",\"maxPlayingUpdateMs\":" << performance.playing_max_ms
+            << ",\"pausedBatches\":" << performance.paused_batches << ",\"unchangedWritesSkipped\":" << performance.unchanged_writes_skipped
             << ",\"totalWriteMs\":" << performance.write_ms << ",\"uniqueNodesValidated\":" << performance.unique_nodes
             << ",\"sharedPrefixesReused\":" << performance.reused_prefixes << '}';
     }

@@ -361,6 +361,7 @@ extern "C" __declspec(dllexport) DWORD WINAPI GimmdProbe(void*) {
             gimmd::face_bridge::prepare=local_actors::face_motion::prepare;gimmd::face_bridge::tick=local_actors::face_motion::tick;
             gimmd::face_bridge::restore=local_actors::face_motion::restore;gimmd::face_bridge::matched=local_actors::face_motion::matched;
             gimmd::physics_bridge::prepare=local_actors::secondary_physics::prepare;gimmd::physics_bridge::tick=local_actors::secondary_physics::tick;
+            gimmd::physics_bridge::hold_settled=[] {return local_actors::secondary_physics::s.settle_remaining==0;};
             gimmd::physics_bridge::restore=local_actors::secondary_physics::restore;gimmd::physics_bridge::release_ready=local_actors::secondary_physics::release_ready;
         }
         if(local_actors::Enabled&&local_actors::configured) {
@@ -841,7 +842,8 @@ static void __fastcall mock_time_set(float value) {
     if (time_fault == 1) { time_fault = 0; RaiseException(0xe0040001, 0, 0, nullptr); }
 }
 #endif
-static void* __fastcall mock_find_root(void*) { return &mock_nodes[0]; }
+static unsigned mock_root_lookups=0;
+static void* __fastcall mock_find_root(void*) { ++mock_root_lookups;return &mock_nodes[0]; }
 static void __fastcall mock_play_local(hierarchy::Quat* out, void* object) {
     *out = static_cast<MockNode*>(object)->local;
 }
@@ -1368,12 +1370,12 @@ int wmain(int argc,wchar_t** argv) {
             "Animator lease duration end did not restore bone and component");
         mock_play_fixture();
         static bool aux_restored=false;aux_restored=false;
-        al::aux_begin=+[](void*)->bool {return false;};
+        al::aux_begin=+[](void*,bool&)->bool {return false;};
         al::aux_release=+[]()->bool {aux_restored=true;return true;};
         p::tick(1000);
         check(aux_restored&&al::restored&&mock_lease_enabled&&!p::setter_calls.load(),"auxiliary pause failure did not restore Animator before pose writes");
         mock_play_fixture();
-        al::aux_begin=+[](void*)->bool {return true;};
+        al::aux_begin=+[](void*,bool&)->bool {return true;};
         al::aux_release=+[]()->bool {return false;};
         p::tick(1000);p::stop_requested.store(true);p::tick(1100);
         check(al::dirty.load()&&!mock_lease_enabled&&!p::done.load(),"auxiliary restore failure released the Animator prematurely");
@@ -1475,7 +1477,10 @@ int wmain(int argc,wchar_t** argv) {
         namespace mp = hierarchy::playback;
         mock_multi_fixture();
         check(mp::started.load() && mp::multi::tracks[9].length == 3, "multi-track binding failed");
-        mp::tick(1000); mp::tick(2000); mp::tick(2040);
+        mp::tick(1000);
+        mock_root_lookups=0;
+        mp::tick(2000); mp::tick(2040);
+        check(mock_root_lookups==2,"steady pose resolved the scene root more than once per update");
         check(mp::result.samples == 3 && mp::setter_calls.load() == 30 && mp::result.persisted == 20,
             "multi-track batching or retention failed");
         mp::tick(3000);
@@ -1485,6 +1490,12 @@ int wmain(int argc,wchar_t** argv) {
             const auto& track = mp::multi::tracks[i];
             check(track.restored && !track.dirty && track.attempts == 1, "multi-track target restoration incomplete");
         }
+        mock_multi_fixture();mp::tick(1000);
+        hierarchy::animator_lease::aux_begin=+[](void*,bool& changed){changed=true;return true;};
+        mock_root_lookups=0;mp::tick(1040);
+        check(mock_root_lookups==2&&mp::result.samples==2,"pose reused the model path after a driver change");
+        hierarchy::animator_lease::aux_begin=nullptr;
+        mp::stop_requested.store(true);mp::tick(1080);
         mock_multi_fixture(); playback_fault = 3; mp::tick(1000);
         check(mp::done.load() && mp::result.exception && !mp::dirty.load() && hierarchy::animator_lease::restored,
             "partial batch exception left target states dirty");
@@ -1966,6 +1977,13 @@ int wmain(int argc,wchar_t** argv) {
         mock_nodes[1].count=2; mock_nodes[1].children[0]=&mock_nodes[2]; mock_nodes[1].children[1]=&mock_nodes[3];
         mock_nodes[2].parent=mock_nodes[3].parent=&mock_nodes[1];
         mock_nodes[2].name=L"Body"; mock_nodes[3].name=L"Bip001";
+        local_actors::tree[1].parent=0;
+        local_actors::tree[2].parent=local_actors::tree[3].parent=1;
+        local_actors::driver_lease::Item hint{};
+        local_actors::driver_lease::remember_owner(hint,3);
+        check(hint.depth==2&&hint.child_from_leaf[0]==1&&hint.child_from_leaf[1]==0,"driver owner hint lost a sibling index");
+        local_actors::driver_lease::remember_owner(hint,0);
+        check(hint.depth==0,"driver owner hint retained its old path");
         check(local_actors::model_root(&mock_nodes[0]), "nested preview skeleton rejected");
         mock_nodes[3].parent=&mock_nodes[0];
         check(!local_actors::model_root(&mock_nodes[0]), "inconsistent preview hierarchy admitted");

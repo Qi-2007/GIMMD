@@ -66,8 +66,9 @@ inline float inner_flap_lift(Vec at,Vec inner_edge,Vec up,const Capsule& thigh) 
 // Project a secondary particle out of a capsule. Preserve tangential velocity,
 // but remove inward normal velocity so contact does not continually inject energy.
 inline bool project(const Capsule& capsule,float allowed_radius,Vec& point,Vec& previous,Vec rest_direction) {
+    if(allowed_radius<=0)return false;
     const auto center=nearest(capsule,point);auto normal=sub(point,center);const float d=length(normal);
-    if(allowed_radius<=0||d>=allowed_radius)return false;
+    if(d>=allowed_radius)return false;
     if(d>1e-6f)normal=scale(normal,1/d);
     else {const auto axis=sub(capsule.b,capsule.a);const float axis_length=dot(axis,axis);
         normal=rest_direction;if(axis_length>1e-10f)normal=sub(normal,scale(axis,dot(normal,axis)/axis_length));
@@ -81,6 +82,7 @@ inline bool project(const Capsule& capsule,float allowed_radius,Vec& point,Vec& 
 // its fitted position cannot be corrected by moving the child a bounded amount.
 inline bool project_segment(const Capsule& capsule,float radius,Vec anchor,Vec previous_anchor,
                             Vec& point,Vec& previous,Vec rest_direction) {
+    if(radius<=0)return false;
     const auto pair=closest_segment(anchor,point,capsule,.2f);
     auto position=pair.point;
     auto old=add(previous_anchor,scale(sub(previous,previous_anchor),pair.fraction));
@@ -104,6 +106,7 @@ inline bool project_outward(const Capsule& capsule,float radius,Vec& point,Vec& 
 }
 inline bool project_segment_outward(const Capsule& capsule,float radius,Vec anchor,Vec previous_anchor,
                                     Vec& point,Vec& previous,Vec outward,float minimum_fraction=.2f) {
+    if(radius<=0)return false;
     const auto pair=closest_segment(anchor,point,capsule,std::clamp(minimum_fraction,.05f,1.0f));auto position=pair.point;
     auto old=add(previous_anchor,scale(sub(previous,previous_anchor),pair.fraction));const auto original_old=old;
     if(!project_outward(capsule,radius,position,old,outward))return false;

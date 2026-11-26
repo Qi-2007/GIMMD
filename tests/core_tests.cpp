@@ -573,6 +573,19 @@ int wmain(int argc, wchar_t** argv) {
             bc::Vec triangle[3]{{-1,-1,.05f},{1,-1,.05f},{0,1,.05f}};
             const bc::Capsule leg{{0,-.3f,0},{0,.3f,0},.2f};
             const auto nearest=surface::nearest_capsule(triangle,leg);
+            check(surface::panel_in_range(triangle,leg,.05f)&&!surface::panel_in_range(triangle,leg,.04f),
+                  "panel bounds lost a tangent or used the body radius instead of the fitted radius");
+            unsigned culled=0,intersections=0;bool all_contacts_kept=true;
+            for(int x=-8;x<=8;++x)for(int z=-8;z<=8;++z){
+                const bc::Capsule limb{{x*.12f,-.3f,z*.12f},{x*.12f+.2f,.4f,z*.12f-.1f},.2f};
+                const auto hit=surface::nearest_capsule(triangle,limb);
+                const bool overlaps=bc::length(bc::sub(hit.point,hit.axis))<limb.radius;
+                const bool in_range=surface::panel_in_range(triangle,limb,limb.radius);
+                if(overlaps)++intersections;
+                if(!in_range)++culled;
+                if(overlaps&&!in_range)all_contacts_kept=false;
+            }
+            check(intersections&&culled&&all_contacts_kept,"panel broad phase discarded an exact contact");
             check(near(bc::length(bc::sub(nearest.point,nearest.axis)),.05)&&near(nearest.weights[0]+nearest.weights[1]+nearest.weights[2],1),"triangle interior contact was missed");
             const auto crossing=surface::nearest_capsule(triangle,{{0,0,-1},{0,0,1},.2f});
             check(near(bc::length(bc::sub(crossing.point,crossing.axis)),0),"capsule axis crossing a panel was missed");
@@ -725,6 +738,15 @@ int wmain(int argc, wchar_t** argv) {
         check(near(clock.sample(100.5).seconds,0.5),"clock advance wrong");
         clock.pause(100.5);
         check(near(clock.sample(110).seconds,0.5),"pause advanced");
+        unsigned held_batches=0;
+        uint64_t last_batch=0;
+        for(uint64_t ms=16;ms<=10000;ms+=16){
+            if(gimmd::wait_for_held_pose(ms-last_batch,true,false))continue;
+            ++held_batches;last_batch=ms;
+        }
+        check(held_batches==78,"settled pose verification cadence changed");
+        check(!gimmd::wait_for_held_pose(16,true,true),"held pose delayed a transport command");
+        check(!gimmd::wait_for_held_pose(16,false,false),"held pose delayed physics settlement or playback");
         clock.seek(1.5,110);
         check(clock.sample(110).epoch==1,"seek epoch wrong");
         clock.play(110);
