@@ -22,11 +22,23 @@ struct Array {Component component;unsigned count=0,first=0,collider_count=0,coll
 struct Particle {uintptr_t token=0,bone=0;unsigned path=0;bool real=false;int parent_index=-1,parent_global=-1;float parameters[4]{},rest_length=0;
     bool synthetic=false,front_flap_tip=false;contact::Vec current{},previous{},end_local{};
     int short_panel_upper=-1;
+    unsigned drape_depth=0; // native root is attached to the simulated upper joint
+    bool cape=false;
     unsigned bone_index=0;double maximum_world_error=0,last_world_error=0;
     bool cloth=false,skirt=false,rear_skirt=false,fitted_rear=false;float skirt_radius=0,skirt_right=0,skirt_forward=0,front_half_width=0;
     contact::Vec rest_direction{},last_direction{};float radii[BodyCapsules]{},segment_radii[BodyCapsules]{};
     contact::Vec normals[BodyCapsules]{},segment_normals[BodyCapsules]{};};
 struct Bone {unsigned path=0;Quat rotation{},last_rotation{};position::Vec local{},last_local{};bool dirty=false;double maximum_step_angle=0,maximum_reference_angle=0;};
+struct AccessoryMount {
+    gimmd::collei_shoulder::ContactDamping offset_damping{};
+    unsigned bone=0;
+    bool cape=false;
+    contact::Vec seam{},tip{},cover_offset{};
+    skin::Frame solved_frame{};
+    contact::Vec local_tip{};
+    float max_angle=0,radii[BodyCapsules]{};
+    skin::AttachmentSwing swing{};
+};
 struct UpperSkirt {unsigned bone=0,child_path=0;float radius[BodyCapsules]{},segment_radius[BodyCapsules]{};
     int front_neighbor=-1;
     int hem_segment=-1,seam_neighbor=-1;
@@ -41,6 +53,15 @@ struct UpperSkirt {unsigned bone=0,child_path=0;float radius[BodyCapsules]{},seg
     float root_lift=0,max_root_lift=0;
     float front_weight=0,angle_limit=0,padding=0,step_limit=0,response=0,azimuth=0,height=0,requested_lift=0;int left=-1,right=-1;};
 struct ClothLink {unsigned a=0,b=0;float length=0,radii[BodyCapsules]{};};
+struct ShoulderCover {
+    gimmd::collei_shoulder::ContactDamping turn_damping{};
+    unsigned mounts[4]{},count=0,contacts=0;
+    unsigned trim_pair[2][2]{}; // front/back, then flap/side
+    unsigned trim_contacts[2]{};
+    contact::Vec front_piece_turn{};
+    float seam_release=0;
+    float overlap=0,remaining=0;
+};
 struct ClothPanel {unsigned nodes[3]{};float radii[BodyCapsules]{};};
 struct ClothArch {unsigned center=0,left=0,right=0;float rest=0;};
 struct FrontSeam {
@@ -57,7 +78,27 @@ struct SidePanel {
     float sign=0,depth=0;
     contact::Vec current{},target{}; // hip-local offsets, applied to both roots
 };
-struct SettledSample {double seconds=0,penetration=0,panel_penetration=0,particle_error=0;};
+struct SettledSample {
+    double seconds=0,penetration=0,panel_penetration=0,particle_error=0;
+    bool shoulder_sampled[2]{};
+    float shoulder_depth[2][3]{}; // front trim, middle rim, back trim
+};
+// Skinning joints influencing Collei's upper-arm and shoulder triangles.
+// Capture only on a settled pause so the arm and garment share a pose.
+constexpr const wchar_t* shoulder_pose_names[]={
+    L"Bip001 Spine",L"Bip001 Spine1",L"Bip001 Spine2",L"Bip001 Neck",L"+HatB CB B01",
+    L"Bip001 L Clavicle",L"Bip001 R Clavicle",L"Bip001 L Forearm",L"Bip001 R Forearm",
+    L"+UpperArmTwist L A01",L"+UpperArmTwist R A01",L"+UpperArmTwist L A02",L"+UpperArmTwist R A02",
+    L"+HatB L C01",L"+HatB R C01",L"+AmiceB L A11",L"+AmiceB R A11",
+    L"+AmiceB L A12",L"+AmiceB R A12",L"+AmiceB L A13",L"+AmiceB R A13",
+    L"+AmiceF L A21",L"+AmiceF R A21",L"+AmiceF L A31",L"+AmiceF R A31",
+    L"+AmiceS L A21",L"+AmiceS R A21",L"+AmiceS L A31",L"+AmiceS R A31"
+};
+struct ShoulderPose {
+    double seconds=-1;
+    skin::Frame frames[std::size(shoulder_pose_names)]{};
+    bool valid[std::size(shoulder_pose_names)]{};
+};
 struct CollisionFrame {void* objects[512]{};contact::Vec points[512]{},previous[512]{},offsets[512]{},original[512]{},reference[512]{};float native_lengths[512]{};};
 static CollisionFrame collision_frame{};
 static contact::Capsule diagnostic_capsules[BodyCapsules]{};
@@ -72,6 +113,11 @@ struct Context {
     unsigned synthetic_first=0,synthetic_count=0;
     Component colliders[256]{};unsigned collider_count=0;
     Bone bones[512]{};unsigned bone_count=0,restores=0;
+    AccessoryMount mounts[11]{};unsigned mount_count=0;
+    gimmd::cloth_surface::CapeArm cape_arms[2]{};
+    ShoulderCover shoulders[2]{};
+    ShoulderPose last_shoulder_pose{};
+    unsigned cape_mount_contacts=0,cape_ribbon_contacts=0;
     UpperSkirt upper_skirt[32]{};unsigned upper_count=0,upper_writes=0,upper_contacts=0;bool upper_calibrated=false;
     double maximum_upper_correction=0,maximum_upper_penetration=0;
     ClothLink links[256]{};unsigned link_count=0,link_contacts=0,link_iterations=0;bool upper_ring=false;
@@ -99,6 +145,7 @@ static Context s{};
 namespace skin_proxy {static void reset();}
 static const Context empty_context{};
 static void reset_context(){s=empty_context;}
+static bool bind_accessory_mounts();
 static bool prepare() {
     if(s.dirty)return false;reset_context();skin_proxy::reset();
     s.requested=std::filesystem::exists(gimmd::player_session::directory/L"physics-enabled.flag");
@@ -170,11 +217,19 @@ static bool bind(void* model,void* const* body,unsigned body_count) {
             if(!item(values,p,value)||!particle_fields(value,bone,parent_node,real)||parent_node>=int(p)||parent_node< -1||(!real&&parent_node<0))return false;
             auto& particle=s.particles[s.particle_count++];particle.token=reinterpret_cast<uintptr_t>(value);particle.real=real;particle.parent_index=parent_node;
             particle.parent_global=parent_node<0?-1:int(a.first)+parent_node;
+            if(particle.parent_global>=0&&s.particles[particle.parent_global].drape_depth){
+                particle.drape_depth=s.particles[particle.parent_global].drape_depth+1;
+                particle.cape=s.particles[particle.parent_global].cape;
+            }
             for(unsigned k=0;k<4;++k){const unsigned offset[]={0x11c,0x104,0x170,0x1c8};
                 if(!read_bytes(particle.token+offset[k],particle.parameters+k,4)||!std::isfinite(particle.parameters[k]))return false;}
             if(!real){particle.rear_skirt=s.particles[particle.parent_global].rear_skirt;continue;}
             particle.bone=identity(bone);const int bone_path=find_path(particle.bone);if(bone_path<0)return false;particle.path=unsigned(bone_path);
             const auto* bone_name=s.paths[particle.path].name;
+            if(parent_node<0&&!std::wcscmp(s.paths[0].name,L"Avatar_Girl_Bow_Collei")&&
+               (!std::wcscmp(bone_name,L"+AmiceB L A12")||!std::wcscmp(bone_name,L"+AmiceB R A12")||
+                !std::wcscmp(bone_name,L"+LegBagS L E03")))
+                {particle.drape_depth=1;particle.cape=std::wcsstr(bone_name,L"Amice")!=nullptr;}
             particle.skirt=std::wcsstr(bone_name,L"Skirt")!=nullptr;
             particle.rear_skirt=std::wcsstr(bone_name,L"SkirtB")!=nullptr;
             particle.cloth=std::wcsstr(bone_name,L"Skirt")||std::wcsstr(bone_name,L"Amice")||std::wcsstr(bone_name,L"Coat");
@@ -232,6 +287,7 @@ static bool bind(void* model,void* const* body,unsigned body_count) {
         auto& bone=s.bones[s.bone_count++];bone.path=unsigned(parent_path);
         if(!motion::read_local(parent_bone,&bone.rotation)||!position::read(position::get,parent_bone,&bone.local))return false;
     }
+    if(s.collisions&&!std::wcscmp(s.paths[0].name,L"Avatar_Girl_Bow_Collei")&&!bind_accessory_mounts())return false;
     if(!s.array_count||!s.bone_count)return false;s.bound=true;s.status="bound";return true;
 }
 // A skirt tip drives the orientation of its last real bone. On an open
@@ -248,7 +304,7 @@ static bool skirt_tip_contact(unsigned index) {
     return true;
 }
 static bool surface_particle(unsigned p) {
-    return s.particles[p].real||s.particles[p].skirt;
+    return s.particles[p].real||s.particles[p].skirt||s.particles[p].drape_depth>1;
 }
 static void* resolve_path(unsigned index,void* model,void* (&cache)[768]) {
     if(index>=s.path_count)return nullptr;if(cache[index])return cache[index];const auto& path=s.paths[index];void* target=model;
@@ -293,6 +349,10 @@ static bool body_capsules(void* const* body,unsigned count,contact::Capsule (&ca
     constexpr unsigned endpoints[BodyCapsules][2]={{0,3},{5,5},{7,8},{8,9},{30,31},{31,32},{10,11},{11,12},{33,34},{34,35},{10,33},{10,11},{33,34}};
     contact::Vec world[52]{};bool needed[52]{};needed[4]=true;
     for(const auto& e:endpoints){needed[e[0]]=true;needed[e[1]]=true;}
+    // The body profile has five finger chains per hand, in thumb-to-pinky order.
+    constexpr unsigned first_knuckle[]={14,37};
+    if(s.mount_count)for(unsigned first:first_knuckle)for(unsigned finger=0;finger<5;++finger)
+        needed[first+finger*3]=needed[first+finger*3+2]=true;
     for(unsigned i=0;i<52;++i)if(needed[i]){if(identity(body[i])!=s.body_ids[i])return false;Vec3 value{};position_get(&value,body[i]);
         world[i]={value.x,value.y,value.z};if(!contact::finite(world[i]))return false;}
     const float shoulder_width=contact::length(contact::sub(world[7],world[30]));
@@ -310,6 +370,15 @@ static bool body_capsules(void* const* body,unsigned count,contact::Capsule (&ca
         if(!s.contacts_calibrated){const float segment=contact::length(contact::sub(capsule.b,capsule.a));
             s.body_radii[c]=c==0?shoulder_width*.34f:c==1?head_length*.8f:c==10?hip_width*.38f:c>=11?segment/.47f*.28f:segment*(c>=6?.2f:.16f);}
         capsule.radius=s.body_radii[c];
+    }
+    if(s.mount_count)for(unsigned hand=0;hand<2;++hand){
+        contact::Vec knuckles[5],distal[5];
+        for(unsigned finger=0;finger<5;++finger){
+            const unsigned index=first_knuckle[hand]+3*finger;
+            knuckles[finger]=world[index];distal[finger]=world[index+2];
+        }
+        const unsigned arm=2+hand*2;
+        s.cape_arms[hand]=gimmd::cloth_surface::cape_arm(capsules[arm],capsules[arm+1],capsules[arm+1].b,knuckles,distal);
     }
     return true;
 }
@@ -645,6 +714,263 @@ static void solve_links(const contact::Capsule (&capsules)[BodyCapsules]) {
         ++s.link_iterations;}
 }
 #include "skinned_cloth_proxy.h"
+static bool bind_accessory_mounts(){
+    struct Spec {
+        const wchar_t* name;
+        const wchar_t* attachment;
+        const wchar_t* child;
+        float degrees;
+        contact::Vec edge_local{};
+        int trim_slot=-1;
+    };
+    // Parent before child. E02 also owns the pendant; rotate their common
+    // attachment so the pouch and strap stay connected.
+    constexpr Spec specs[]={
+        {L"+AmiceB L A11",L"Bip001 L Clavicle",L"+AmiceB L A12",40,{},2},
+        {L"+AmiceB R A11",L"Bip001 R Clavicle",L"+AmiceB R A12",40,{},2},
+        {L"+AmiceF L A21",L"Bip001 L Clavicle",L"+AmiceF L A31",32,{},0},
+        {L"+AmiceF R A21",L"Bip001 R Clavicle",L"+AmiceF R A31",32,{},0},
+        // Inverse-bind-space centroids of the outer shoulder fabric, weighted
+        // by each side joint's skin influence. These four joints have no child.
+        {L"+AmiceS L A21",L"Bip001 L Clavicle",nullptr,25,{-.105704f,.000543f,.010390f},1},
+        {L"+AmiceS L A31",L"Bip001 L Clavicle",nullptr,25,{-.118848f,.006786f,.019216f},3},
+        {L"+AmiceS R A21",L"Bip001 R Clavicle",nullptr,25,{-.105704f,.000543f,-.010391f},1},
+        {L"+AmiceS R A31",L"Bip001 R Clavicle",nullptr,25,{-.118848f,.006786f,-.019216f},3},
+        {L"+LegBagS L E01",L"Bip001 Spine",L"+LegBagS L E02",35},
+        {L"+LegBagS L E02",L"+LegBagS L E01",L"+LegBagS L E03",45},
+        {L"+LegBagS R E01",L"Bip001 Spine",nullptr,35}};
+    static_assert(std::size(specs)==std::size(empty_context.mounts));
+    for(const auto& spec:specs)for(unsigned p=1;p<s.path_count;++p){
+        const int ancestor=s.paths[p].parent_node;
+        if(ancestor<0||std::wcscmp(s.paths[p].name,spec.name)||std::wcscmp(s.paths[ancestor].name,spec.attachment))continue;
+        bool owned=false;for(unsigned b=0;b<s.bone_count;++b)if(s.bones[b].path==p)owned=true;
+        if(owned)break;
+        if(s.bone_count>=std::size(s.bones))return false;
+        skin::Frame basis{};void* bone=tree[p].transform;
+        if(!skin_proxy::frame(bone,basis))return false;
+        Vec3 pivot{};position_get(&pivot,tree[ancestor].transform);
+        auto lever=contact::sub(basis.position,{pivot.x,pivot.y,pivot.z});
+        if(spec.child){
+            unsigned child=0;
+            for(unsigned j=0;j<s.path_count;++j)if(s.paths[j].parent_node==int(p)&&!std::wcscmp(s.paths[j].name,spec.child)){child=j;break;}
+            if(!child)break;
+            Vec3 tip{};position_get(&tip,tree[child].transform);
+            const auto offset=contact::sub({tip.x,tip.y,tip.z},basis.position);
+            if(contact::length(offset)>.005f)lever=offset;
+        }
+        const float span=contact::length(lever);
+        if(!contact::finite(lever))return false;
+        // Leaf joints have no particle tip. Use the attachment direction for
+        // a short virtual lever, even when its origin coincides with the seam.
+        lever=span>.005f?contact::scale(lever,std::clamp(span,.05f,.16f)/span):contact::Vec{0,-.075f,0};
+        auto& mount=s.mounts[s.mount_count++];
+        if(contact::length(spec.edge_local)>0)mount.local_tip=spec.edge_local;
+        else if(!skin::inverse(basis,contact::add(basis.position,lever),mount.local_tip))return false;
+        mount.bone=s.bone_count;mount.max_angle=spec.degrees*.017453293f;
+        mount.cape=spec.trim_slot>=0;
+        if(mount.cape){
+            auto& shoulder=s.shoulders[std::wcscmp(spec.attachment,L"Bip001 R Clavicle")==0?1:0];
+            if(shoulder.count>=std::size(shoulder.mounts))return false;
+            shoulder.mounts[shoulder.count++]=s.mount_count-1;
+            shoulder.trim_pair[spec.trim_slot/2][spec.trim_slot%2]=s.mount_count-1;
+        }
+        auto& saved=s.bones[s.bone_count++];saved.path=p;
+        if(!motion::read_local(bone,&saved.rotation)||!position::read(position::get,bone,&saved.local))return false;
+        break;
+    }
+    return true;
+}
+static contact::Vec fit_cape(contact::Vec anchor,contact::Vec rest,contact::Vec direction,float angle,unsigned& corrections){
+    const auto normal=contact::radial(s.hip_origin,s.hip_up,anchor);
+    const float width=std::clamp(contact::length(rest)*.30f,.012f,.045f);
+    const auto fitted=gimmd::cloth_surface::fit_cape_panel(anchor,rest,direction,normal,width,angle,s.cape_arms);
+    if(contact::length(contact::sub(fitted,direction))>.00001f)++corrections;
+    return fitted;
+}
+static void support_shoulder_covers(void* const* bones,const contact::Capsule (&capsules)[BodyCapsules],bool calibrate){
+    for(unsigned side=0;side<2;++side){
+        auto& cover=s.shoulders[side];
+        if(cover.count!=4)continue;
+        if(calibrate){
+            // Connect chest to back in fitted order once, not by the changing
+            // positions of tips as the character turns or raises an arm.
+            std::sort(cover.mounts,cover.mounts+cover.count,[&](unsigned a,unsigned b){
+                const auto& first=s.mounts[a];const auto& second=s.mounts[b];
+                return contact::dot(contact::sub(first.tip,second.tip),s.hip_forward)>0;
+            });
+            continue;
+        }
+        const auto& arm=capsules[2+2*side]; // full shoulder-to-elbow capsule
+        contact::Vec targets[std::size(empty_context.mounts)]{};
+        cover.overlap=cover.remaining=0;
+        for(unsigned i=1;i<cover.count;++i){
+            const auto& a=s.mounts[cover.mounts[i-1]];const auto& b=s.mounts[cover.mounts[i]];
+            const contact::Vec panel[]={a.seam,a.tip,b.seam,b.tip};
+            const auto shift=gimmd::cloth_surface::shoulder_cover_shift(panel,arm,s.hip_up);
+            const float size=contact::length(shift);
+            if(size>0){
+                ++cover.contacts;
+                for(unsigned j:{i-1,i}){
+                    auto& target=targets[cover.mounts[j]];
+                    if(size>contact::length(target))target=shift;
+                }
+            }
+            cover.overlap=std::max(cover.overlap,gimmd::cloth_surface::side_depth(panel,arm));
+        }
+        const auto target_frame=[&](unsigned mount){
+            auto frame=s.mounts[mount].solved_frame;
+            frame.position=contact::add(frame.position,targets[mount]);
+            return frame;
+        };
+        const unsigned side_front=cover.trim_pair[0][1],side_back=cover.trim_pair[1][1];
+        contact::Vec rim_points[6];
+        gimmd::collei_shoulder::sample(gimmd::collei_shoulder::rim,side==1,target_frame(side_front),
+                                       target_frame(side_back),target_frame(cover.trim_pair[0][0]),rim_points);
+        const auto support=gimmd::collei_shoulder::rim_support(rim_points,arm,s.hip_up,s.hip_forward);
+        for(unsigned mount:{side_front,side_back})targets[mount]=contact::add(targets[mount],support);
+        const auto front_frame=target_frame(side_front);
+        for(unsigned edge=0;edge<2;++edge){
+            const unsigned flap=cover.trim_pair[edge][0],rim=cover.trim_pair[edge][1];
+            const auto a=target_frame(flap),b=target_frame(rim);
+            contact::Vec panel[4];
+            const auto& vertices=gimmd::collei_shoulder::trim[edge];
+            gimmd::collei_shoulder::sample(vertices,side==1,a,b,front_frame,panel);
+            const auto facing=contact::scale(s.hip_forward,edge==0?1.f:-1.f);
+            const auto extra=gimmd::collei_shoulder::trim_shift(vertices,panel,arm,s.hip_up,facing);
+            if(contact::length(extra)>0)++cover.trim_contacts[edge];
+            targets[flap]=contact::add(targets[flap],extra);
+        }
+        // These are sibling garment mounts on the clavicle. Each gets one
+        // absolute offset from its restored pose; shared edges stay joined.
+        for(unsigned i=0;i<cover.count;++i){
+            auto& mount=s.mounts[cover.mounts[i]];
+            const auto target=targets[cover.mounts[i]];
+            const auto gain=mount.offset_damping.response(mount.cover_offset,target,.35f,.008f);
+            mount.cover_offset=contact::add(mount.cover_offset,contact::scale(contact::sub(target,mount.cover_offset),gain));
+            if(contact::length(mount.cover_offset)<.00005f){mount.cover_offset={};continue;}
+            const auto shifted=contact::add(mount.seam,mount.cover_offset);
+            const Vec3 requested{shifted.x,shifted.y,shifted.z};position_set(bones[mount.bone],&requested);
+        }
+        for(unsigned i=1;i<cover.count;++i){
+            const auto& a=s.mounts[cover.mounts[i-1]];const auto& b=s.mounts[cover.mounts[i]];
+            const contact::Vec panel[]={contact::add(a.seam,a.cover_offset),contact::add(a.tip,a.cover_offset),
+                                        contact::add(b.seam,b.cover_offset),contact::add(b.tip,b.cover_offset)};
+            cover.remaining=std::max(cover.remaining,gimmd::cloth_surface::side_depth(panel,arm));
+        }
+    }
+}
+static void capture_shoulder_pose(void* model,double seconds){
+    if(s.shoulders[0].count!=4||s.shoulders[1].count!=4)return;
+    auto& pose=s.last_shoulder_pose;
+    pose.seconds=seconds;
+    void* cache[768]{};
+    const auto project=[](contact::Vec v){
+        return contact::Vec{contact::dot(v,s.hip_right),contact::dot(v,s.hip_up),contact::dot(v,s.hip_forward)};
+    };
+    for(unsigned j=0;j<std::size(shoulder_pose_names);++j){
+        pose.valid[j]=false;
+        for(unsigned p=1;p<s.path_count;++p){
+            if(std::wcscmp(s.paths[p].name,shoulder_pose_names[j]))continue;
+            auto* joint=resolve_path(p,model,cache);
+            auto& frame=pose.frames[j];
+            if(joint&&skin_proxy::frame(joint,frame)){
+                for(auto& axis:frame.axis)axis=project(axis);
+                frame.position=project(contact::sub(frame.position,s.hip_origin));
+                pose.valid[j]=true;
+            }
+            break;
+        }
+    }
+}
+static void measure_settled_shoulders(SettledSample& sample,void* const* bones,const contact::Capsule (&capsules)[BodyCapsules]){
+    namespace shoulder=gimmd::collei_shoulder;
+    for(unsigned side=0;side<2;++side){
+        const auto& cover=s.shoulders[side];
+        if(cover.count!=4)continue;
+        skin::Frame frames[2][2];
+        bool valid=true;
+        for(unsigned edge=0;edge<2;++edge)for(unsigned joint=0;joint<2;++joint){
+            const auto& mount=s.mounts[cover.trim_pair[edge][joint]];
+            if(!skin_proxy::frame(bones[mount.bone],frames[edge][joint]))valid=false;
+        }
+        if(!valid)continue;
+        const auto& arm=capsules[2+2*side];
+        auto& depths=sample.shoulder_depth[side];
+        for(unsigned edge=0;edge<2;++edge){
+            contact::Vec panel[4];
+            shoulder::sample(shoulder::trim[edge],side==1,frames[edge][0],frames[edge][1],frames[0][1],panel);
+            depths[edge*2]=shoulder::patch_depth(panel,arm);
+        }
+        contact::Vec rim[6];
+        shoulder::sample(shoulder::rim,side==1,frames[0][1],frames[1][1],frames[0][0],rim);
+        for(unsigned row:{0u,2u}){
+            const contact::Vec panel[]={rim[row],rim[row+1],rim[row+2],rim[row+3]};
+            depths[1]=std::max(depths[1],shoulder::patch_depth(panel,arm));
+        }
+        sample.shoulder_sampled[side]=true;
+    }
+}
+static bool swing_accessory_mounts(void* const* bones,const contact::Capsule (&capsules)[BodyCapsules],bool calibrate){
+    namespace ik=gimmd::leg_ik;
+    for(unsigned i=0;i<s.mount_count;++i){
+        auto& mount=s.mounts[i];void* bone=bones[mount.bone];skin::Frame basis{};
+        if(!put_pose(bone,s.bones[mount.bone])||!skin_proxy::frame(bone,basis))return false;
+        const auto rest=skin::vector(basis,mount.local_tip);
+        mount.seam=basis.position;mount.tip=contact::add(basis.position,rest);
+        if(calibrate){
+            const auto tip=contact::add(basis.position,rest);
+            for(unsigned c=0;c<BodyCapsules;++c)
+                mount.radii[c]=std::min(capsules[c].radius,std::max(0.f,contact::distance(capsules[c],tip)-.002f));
+            continue;
+        }
+        const auto prior=mount.swing.initialized?contact::sub(mount.swing.current,basis.position):rest;
+        auto direction=mount.swing.advance(basis.position,rest,mount.max_angle,
+            float(gimmd::secondary_physics::Clock::Step),capsules,mount.radii);
+        if(mount.cape){
+            auto fitted=fit_cape(basis.position,rest,direction,mount.max_angle,s.cape_mount_contacts);
+            if(contact::length(contact::sub(fitted,direction))>.00001f){
+                contact::limit_direction(prior,fitted,.17453293f);
+                contact::limit_direction(rest,fitted,mount.max_angle);
+                const auto delta=contact::sub(fitted,direction);
+                mount.swing.current=contact::add(basis.position,fitted);
+                mount.swing.previous=contact::add(mount.swing.previous,delta);
+                direction=fitted;
+            }
+        }
+        if(!contact::finite(direction))return false;
+        if(mount.cape)mount.solved_frame=skin::aim(basis,rest,direction,basis.position);
+        mount.tip=contact::add(basis.position,direction);
+        const auto delta=ik::from_to({rest.x,rest.y,rest.z},{direction.x,direction.y,direction.z});
+        Quat world{};hierarchy::rotation_world(&world,bone);if(!hierarchy::unit_quat(world))return false;
+        const auto q=gimmd::rotation_preview::multiply(delta,{world.x,world.y,world.z,world.w});
+        const Quat requested{q.x,q.y,q.z,q.w};rotation_set(bone,&requested);
+    }
+    support_shoulder_covers(bones,capsules,calibrate);
+    if(!calibrate)for(unsigned side=0;side<2;++side){
+        auto& cover=s.shoulders[side];if(cover.count!=4)continue;
+        const auto& front=s.mounts[cover.trim_pair[0][0]];
+        auto frame=front.solved_frame;frame.position=contact::add(frame.position,front.cover_offset);
+        const auto outward=contact::scale(s.hip_right,side?1.f:-1.f);
+        const auto fit=gimmd::collei_shoulder::fit_front_drape(frame,side==1,capsules[2+2*side],outward,s.hip_forward,front.cover_offset);
+        const auto change=contact::sub(fit.turn,cover.front_piece_turn);
+        const float response=cover.turn_damping.response(cover.front_piece_turn,fit.turn,.45f,.12f);
+        cover.front_piece_turn=contact::add(cover.front_piece_turn,contact::scale(change,response));
+        cover.seam_release+=(fit.release-cover.seam_release)*response;
+        const auto shift=gimmd::collei_shoulder::front_seam_shift(front.cover_offset,cover.seam_release);
+        if(contact::length(shift)>.00005f){
+            const auto seam=contact::add(frame.position,shift);
+            const Vec3 requested{seam.x,seam.y,seam.z};position_set(bones[front.bone],&requested);
+        }
+        const float angle=contact::length(cover.front_piece_turn);
+        if(angle<.0001f){cover.front_piece_turn={};continue;}
+        const auto v=contact::scale(cover.front_piece_turn,std::sin(angle*.5f)/angle);
+        void* bone=bones[front.bone];Quat world{};hierarchy::rotation_world(&world,bone);
+        if(!hierarchy::unit_quat(world))return false;
+        const auto q=gimmd::rotation_preview::multiply({v.x,v.y,v.z,std::cos(angle*.5f)},{world.x,world.y,world.z,world.w});
+        const Quat requested{q.x,q.y,q.z,q.w};rotation_set(bone,&requested);
+    }
+    return true;
+}
 static bool calibrate_front_seam(void* const* bones) {
     auto& seam=s.front_seam;
     if(s.settings.front_angle<=0)return true;
@@ -775,7 +1101,7 @@ static contact::Vec transported_reference(unsigned p,const CollisionFrame& f) {
     // Native arrays carry their own bending stiffness. Supplemental chains must
     // use the reset reference shape; using their already integrated positions
     // here would accept a collapsed/inverted bend as the next step's baseline.
-    const auto& reference=s.particles[p].synthetic?f.reference:f.original;
+    const auto& reference=(s.particles[p].synthetic||s.particles[p].drape_depth)?f.reference:f.original;
     auto direction=contact::sub(reference[p],reference[parent_index]);
     const int grandparent=s.particles[parent_index].parent_global;
     if(s.particles[parent_index].skirt&&grandparent>=0)
@@ -813,6 +1139,8 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
         if(!read_bytes(address+0x108,offsets+p,12)||!read_bytes(address+0x160,&local,12)||!read_bytes(address+0x150,&old,12))return false;
         points[p]=contact::add(local,offsets[p]);previous[p]=contact::add(old,offsets[p]);original[p]=points[p];
         if(!contact::finite(points[p])||!contact::finite(previous[p]))return false;
+        if(expected.drape_depth&&(calibrate||reset_history))
+            s.particles[p].current=s.particles[p].previous=points[p];
         if(expected.parent_global>=0)native_lengths[p]=contact::length(contact::sub(points[p],points[expected.parent_global]));
         if((calibrate||reset_history)&&expected.parent_global>=0)s.particles[p].last_direction=contact::sub(points[p],points[expected.parent_global]);
         if(calibrate){auto& particle=s.particles[p];const int parent_index=particle.parent_global;
@@ -857,6 +1185,21 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
         return calibrate_links(capsules)&&calibrate_front_seam(bones);
     }
     if(reset_history)return true;
+    // Keep native roots at the shoulders. Predict the two ribbons before
+    // contacts, so both length and body clearance act on the hanging shape.
+    for(unsigned p=0;p<s.synthetic_first;++p){
+        const auto& particle=s.particles[p];
+        if(!particle.drape_depth)continue;
+        if(particle.drape_depth>1){
+            const int parent_index=particle.parent_global;
+            const auto native_direction=contact::sub(original[p],original[parent_index]);
+            native_lengths[p]=particle.rest_length;
+            points[p]=skin::predict_drape(particle.current,particle.previous,points[parent_index],native_direction,
+                particle.rest_length,particle.drape_depth-1,float(gimmd::secondary_physics::Clock::Step));
+            previous[p]=particle.current;
+        }
+        collision_frame.reference[p]=points[p];
+    }
     s.current_penetration=0;
     unsigned hits=0,segment_hits=0;
     for(unsigned iteration=0;iteration<8;++iteration){solve_links(capsules);solve_panels(capsules);for(unsigned p=0;p<count;++p){const auto& particle=s.particles[p];
@@ -908,14 +1251,16 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
         }
         // Bound actual consecutive simulation steps as well as the native-pose
         // correction. A contact changing side must not snap the skirt back.
-        if(particle.cloth&&contact::limit_direction(particle.last_direction,direction,.17453293f))++s.temporal_limits;
+        if(particle.cape)direction=fit_cape(points[particle.parent_global],reference,direction,.78539816f,s.cape_ribbon_contacts);
+        if((particle.cloth||particle.drape_depth)&&contact::limit_direction(particle.last_direction,direction,.17453293f))++s.temporal_limits;
         const auto constrained=contact::add(points[particle.parent_global],direction);
         previous[p]=contact::add(previous[p],contact::sub(constrained,points[p]));points[p]=constrained;
         s.particles[p].last_direction=direction;
     }
     // All corrections are checked before the first managed particle write.
     for(unsigned p=0;p<count;++p){const auto& particle=s.particles[p];if(particle.parent_global<0)continue;
-        const float correction=contact::length(contact::sub(points[p],original[p]));
+        const auto predicted=particle.drape_depth?collision_frame.reference[p]:original[p];
+        const float correction=contact::length(contact::sub(points[p],predicted));
         if(!contact::finite(points[p])||!contact::finite(previous[p])||correction>std::max(.3f,particle.rest_length*4))return false;
         s.maximum_contact=std::max(s.maximum_contact,double(correction));
         if(native_lengths[p]>1e-5f)s.maximum_stretch=std::max(s.maximum_stretch,double(std::abs(contact::length(contact::sub(points[p],points[particle.parent_global]))/native_lengths[p]-1)));
@@ -929,6 +1274,7 @@ static bool collision_pass(void* const* arrays,void* const* bones,const contact:
                 remaining(particle.segment_radii[c]-contact::length(contact::sub(pair.point,pair.axis)),true);}}
     }
     for(unsigned p=0;p<count&&!s.reapply_only;++p){if(s.particles[p].parent_global<0)continue;
+        if(s.particles[p].drape_depth){s.particles[p].current=points[p];s.particles[p].previous=previous[p];}
         if(s.particles[p].synthetic){s.particles[p].current=points[p];s.particles[p].previous=previous[p];continue;}
         const auto local=contact::sub(points[p],offsets[p]),old=contact::sub(previous[p],offsets[p]);
         auto* address=static_cast<uint8_t*>(particles[p]);std::memcpy(address+0x160,&local,12);std::memcpy(address+0x150,&old,12);
@@ -1065,6 +1411,10 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
         s.status=playing?"waiting-for-step":"paused";return true;}
     s.dirty=true;for(unsigned b=0;b<s.bone_count;++b)s.bones[b].dirty=true;
     if(plan.reset){
+        for(unsigned i=0;i<s.mount_count;++i){
+            auto& mount=s.mounts[i];mount.swing={};mount.cover_offset={};mount.offset_damping={};
+        }
+        for(auto& cover:s.shoulders){cover.front_piece_turn={};cover.seam_release=0;cover.turn_damping={};}
         s.front_seam.applied=false;s.front_seam.shared_root_target=0;
         for(auto& panel:s.side_panels){panel.current={};panel.target={};}
         for(unsigned u=0;u<s.upper_count;++u)s.upper_skirt[u].short_shift=s.upper_skirt[u].short_target=0;
@@ -1076,7 +1426,10 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
         // two can inject a large apparent velocity after a paused seek.
         for(unsigned d=0;d<s.array_count;++d){reset_transforms(arrays[d]);reset_particles(arrays[d]);}++s.resets;
     }
-    if(s.collisions&&!s.upper_calibrated){if(!upper_skirt_contacts(model,bones,capsules,true))return false;s.upper_calibrated=true;}
+    if(s.collisions&&!s.upper_calibrated){
+        if(!swing_accessory_mounts(bones,capsules,true)||!upper_skirt_contacts(model,bones,capsules,true))return false;
+        s.upper_calibrated=true;
+    }
     if(s.collisions&&!s.contacts_calibrated){if(!collision_pass(arrays,bones,capsules,true))return false;s.contacts_calibrated=true;}
     else if(s.collisions&&plan.reset){if(!collision_pass(arrays,bones,capsules,false,true))return false;}
     if(s.collisions&&!skin_proxy::calibrate(model,bones,capsules))return false;
@@ -1090,7 +1443,7 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
             }
             s.front_seam.applied=false;
         }
-        if(s.collisions&&!upper_skirt_contacts(model,bones,capsules,false))return false;
+        if(s.collisions&&(!swing_accessory_mounts(bones,capsules,false)||!upper_skirt_contacts(model,bones,capsules,false)))return false;
         for(unsigned p=s.synthetic_first;p<s.particle_count;++p)if(s.particles[p].real){const unsigned b=s.particles[p].bone_index;if(!put_pose(bones[b],s.bones[b]))return false;}
         for(unsigned d=0;d<s.array_count;++d){reset_transforms(arrays[d]);
             if(s.collisions){if(!integrate_with_contacts(arrays[d],s.arrays[d]))return false;}
@@ -1111,7 +1464,16 @@ static bool run(void* model,double seconds,uint64_t epoch,bool playing,void* con
             s.maximum_particle_error=std::max(s.maximum_particle_error,s.current_particle_error);}
         ++s.steps;
     }
-    if(!playing&&plan.steps&&!s.settle_remaining&&s.settled_count<16)s.settled_samples[s.settled_count++]={seconds,s.current_penetration,s.current_panel_penetration,s.current_particle_error};
+    if(!playing&&plan.steps&&!s.settle_remaining){
+        const unsigned capacity=unsigned(std::size(s.settled_samples));
+        const unsigned index=s.settled_count<capacity?s.settled_count++:capacity-1;
+        auto& sample=s.settled_samples[index];
+        sample={seconds,s.current_penetration,s.current_panel_penetration,s.current_particle_error};
+        if(s.collisions){
+            measure_settled_shoulders(sample,bones,capsules);
+            capture_shoulder_pose(model,seconds);
+        }
+    }
     for(unsigned b=0;b<s.bone_count;++b){Quat rotation{};position::Vec current{};
         if(!motion::read_local(bones[b],&rotation)||!position::read(position::get,bones[b],&current))return false;
         const double distance=position::error(current,s.bones[b].local);
@@ -1166,6 +1528,12 @@ static void report(std::ostream& out) {
        <<",\"reapplyOnly\":"<<(s.reapply_only?"true":"false")
        <<",\"bodyCapsules\":"<<(s.contacts_calibrated?BodyCapsules:0)<<",\"contacts\":"<<s.contacts<<",\"contactLimits\":"<<s.contact_limits<<",\"maximumContactCorrection\":"<<s.maximum_contact<<",\"maximumRelativeStretch\":"<<s.maximum_stretch
        <<",\"segmentContacts\":"<<s.segment_contacts<<",\"clothMargin\":"<<s.cloth_margin<<",\"maximumRemainingPenetration\":"<<s.maximum_remaining_penetration
+       <<",\"capeMountArmCorrections\":"<<s.cape_mount_contacts<<",\"capeRibbonArmCorrections\":"<<s.cape_ribbon_contacts
+       <<",\"shoulderPanelContactsLR\":["<<s.shoulders[0].contacts<<','<<s.shoulders[1].contacts<<']'
+       <<",\"shoulderPanelOverlapLR\":["<<s.shoulders[0].overlap<<','<<s.shoulders[1].overlap<<']'
+       <<",\"shoulderPanelRemainingLR\":["<<s.shoulders[0].remaining<<','<<s.shoulders[1].remaining<<']'
+       <<",\"shoulderFrontTrimContactsLR\":["<<s.shoulders[0].trim_contacts[0]<<','<<s.shoulders[1].trim_contacts[0]<<']'
+       <<",\"shoulderBackTrimContactsLR\":["<<s.shoulders[0].trim_contacts[1]<<','<<s.shoulders[1].trim_contacts[1]<<']'
        <<",\"temporalLimits\":"<<s.temporal_limits
        <<",\"skirtSupports\":"<<s.skirt_supports<<",\"minimumSkirtRadiusRatio\":"<<s.minimum_skirt_radius_ratio
        <<",\"upperSkirtBones\":"<<s.upper_count<<",\"upperSkirtWrites\":"<<s.upper_writes<<",\"upperSkirtContacts\":"<<s.upper_contacts
@@ -1201,8 +1569,33 @@ static void report(std::ostream& out) {
     for(unsigned b=0;b<s.bone_count;++b){const auto& bone=s.bones[b];out<<(b?",":"")<<"{\"name\":";hierarchy::json_string(out,s.paths[bone.path].name);
         out<<",\"step\":"<<bone.maximum_step_angle<<",\"reference\":"<<bone.maximum_reference_angle<<"}";}
     out<<"],\"settledSamples\":[";
-    for(unsigned i=0;i<s.settled_count;++i)out<<(i?",":"")<<"{\"seconds\":"<<s.settled_samples[i].seconds<<",\"penetration\":"<<s.settled_samples[i].penetration<<",\"panelPenetration\":"<<s.settled_samples[i].panel_penetration<<",\"particleBoneError\":"<<s.settled_samples[i].particle_error<<"}";
-    out<<"],\"settings\":{\"frontAngle\":"<<s.settings.front_angle<<",\"rearAngle\":"<<s.settings.rear_angle
+    for(unsigned i=0;i<s.settled_count;++i){
+        const auto& sample=s.settled_samples[i];
+        out<<(i?",":"")<<"{\"seconds\":"<<sample.seconds<<",\"penetration\":"<<sample.penetration
+           <<",\"panelPenetration\":"<<sample.panel_penetration<<",\"particleBoneError\":"<<sample.particle_error;
+        for(unsigned side=0;side<2;++side)if(sample.shoulder_sampled[side]){
+            const auto& depth=sample.shoulder_depth[side];
+            out<<(side?",\"rightShoulderFrontRimBackDepth\":[":",\"leftShoulderFrontRimBackDepth\":[")
+               <<depth[0]<<','<<depth[1]<<','<<depth[2]<<']';
+        }
+        out<<'}';
+    }
+    out<<']';
+    const auto& pose=s.last_shoulder_pose;
+    if(pose.seconds>=0){
+        out<<",\"lastShoulderPose\":{\"seconds\":"<<pose.seconds<<",\"hipSpaceBoneColumns\":{";
+        bool first=true;
+        for(unsigned j=0;j<std::size(shoulder_pose_names);++j)if(pose.valid[j]){
+            if(!first)out<<',';first=false;
+            hierarchy::json_string(out,shoulder_pose_names[j]);
+            const auto& frame=pose.frames[j];
+            out<<":[";
+            for(auto axis:frame.axis)out<<axis.x<<','<<axis.y<<','<<axis.z<<',';
+            out<<frame.position.x<<','<<frame.position.y<<','<<frame.position.z<<']';
+        }
+        out<<"}}";
+    }
+    out<<",\"settings\":{\"frontAngle\":"<<s.settings.front_angle<<",\"rearAngle\":"<<s.settings.rear_angle
        <<",\"frontPaddingCm\":"<<s.settings.front_padding_cm<<",\"rearPaddingCm\":"<<s.settings.rear_padding_cm
        <<",\"frontResponseMs\":"<<s.settings.front_response_ms<<",\"rearResponseMs\":"<<s.settings.rear_response_ms
        <<",\"skirtSupportPercent\":"<<s.settings.support_percent<<"},\"upperSkirtProfiles\":[";

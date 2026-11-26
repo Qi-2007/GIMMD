@@ -66,6 +66,93 @@ inline float side_depth(const bc::Vec (&panel)[4],const bc::Capsule& thigh,bc::V
     }
     return depth;
 }
+// Two palm lanes cover the width of the hand without a spherical wrist.
+// Finger capsules end at the last tracked joint; their rounded caps cover
+// the distal end without extending a straight finger through a closed fist.
+using CapeArm=std::array<bc::Capsule,9>;
+// Neighboring shoulder bones share a single piece of fabric. Its center can
+// intersect the arm even when both edge strips, including their tips, clear it.
+inline bc::Vec shoulder_cover_shift(const bc::Vec (&panel)[4],const bc::Capsule& upper,bc::Vec up){
+    const auto axis=bc::sub(upper.b,upper.a);
+    const float span=bc::length(axis);
+    if(upper.radius<=0||span<.001f)return {};
+    const auto unit=bc::scale(axis,1/span);
+    const float elevation=bc::dot(unit,up);
+    const float active=std::clamp((elevation+.95f)/.22f,0.f,1.f);
+    if(active<=0)return {};
+    const auto push=bc::sub(up,bc::scale(unit,elevation));
+    const float size=bc::length(push);
+    if(size<.001f)return {};
+    const auto outward=bc::scale(push,1/size);
+    const float overlap=side_depth(panel,upper);
+    if(overlap<.0003f)return {};
+    float low=0,high=1.8f*upper.radius;
+    const float at_limit=side_depth(panel,upper,bc::scale(outward,high));
+    if(at_limit>=overlap)return {};
+    if(at_limit<.0001f)for(unsigned i=0;i<8;++i){
+        const float mid=(low+high)*.5f;
+        if(side_depth(panel,upper,bc::scale(outward,mid))>.0001f)low=mid;else high=mid;
+    }
+    return bc::scale(outward,active*high);
+}
+inline CapeArm cape_arm(bc::Capsule upper,bc::Capsule forearm,bc::Vec wrist,
+                        const bc::Vec (&knuckles)[5],const bc::Vec (&distal)[5]){
+    CapeArm arm{};
+    upper.a=bc::add(upper.a,bc::scale(bc::sub(upper.b,upper.a),.15f));
+    arm[0]=upper;arm[1]=forearm;
+    const auto across=bc::sub(knuckles[4],knuckles[1]);
+    const float width=bc::length(across);
+    for(unsigned i=0;i<2;++i){
+        const float sign=i?1.f:-1.f;
+        const auto middle=bc::scale(bc::add(knuckles[1],knuckles[4]),.5f);
+        arm[2+i]={bc::add(wrist,bc::scale(across,sign*.13f)),
+                  bc::add(middle,bc::scale(across,sign*.26f)),width*.29f};
+    }
+    for(unsigned i=0;i<5;++i)arm[4+i]={knuckles[i],distal[i],width*.145f};
+    return arm;
+}
+inline float cape_panel_depth(bc::Vec anchor,bc::Vec direction,bc::Vec normal,float width,const bc::Capsule& limb){
+    const auto start=bc::add(anchor,bc::scale(direction,.2f)),end=bc::add(anchor,direction);
+    const auto closest=bc::closest_segment(start,end,limb);
+    if(bc::length(bc::sub(closest.point,closest.axis))>=limb.radius+width)return 0;
+    auto side=bc::cross(normal,direction);
+    if(bc::length(side)<1e-6f)side=bc::cross(std::abs(direction.y)<.8f*bc::length(direction)?bc::Vec{0,1,0}:bc::Vec{1,0,0},direction);
+    side=bc::scale(side,width/std::max(1e-6f,bc::length(side)));
+    const auto seam=bc::scale(side,.65f);
+    const bc::Vec corners[]={bc::sub(start,seam),bc::sub(end,side),bc::add(start,seam),bc::add(end,side)};
+    return side_depth(corners,limb);
+}
+inline bc::Vec fit_cape_panel(bc::Vec anchor,bc::Vec reference,bc::Vec direction,bc::Vec normal,float width,
+                              float angle_limit,const CapeArm (&arms)[2]){
+    const float span=bc::length(direction);
+    if(span<.001f||width<=0)return direction;
+    const bc::Capsule* nearby[18]{};unsigned count=0;
+    for(const auto& arm:arms)for(const auto& limb:arm)
+        if(limb.radius>0&&bc::distance(limb,anchor)<=span+width+limb.radius)nearby[count++]=&limb;
+    const auto depth=[&](bc::Vec trial){
+        float worst=0;
+        for(unsigned i=0;i<count;++i)worst=std::max(worst,cape_panel_depth(anchor,trial,normal,width,*nearby[i]));
+        return worst;
+    };
+    float best=depth(direction);
+    if(best<.0005f)return direction;
+    const auto unit=bc::scale(direction,1/span);
+    auto tangent=bc::sub(normal,bc::scale(unit,bc::dot(unit,normal)));
+    if(bc::length(tangent)<.001f)tangent=bc::cross(unit,std::abs(unit.y)<.8f?bc::Vec{0,1,0}:bc::Vec{1,0,0});
+    tangent=bc::scale(tangent,1/bc::length(tangent));
+    const auto side=bc::cross(unit,tangent);
+    auto result=direction;
+    for(float angle:{.10f,.24f,.45f,.75f}){
+        for(const auto axis:{tangent,bc::scale(tangent,-1),side,bc::scale(side,-1)}){
+            auto trial=bc::scale(bc::add(bc::scale(unit,std::cos(angle)),bc::scale(axis,std::sin(angle))),span);
+            bc::limit_direction(reference,trial,angle_limit);
+            const float overlap=depth(trial);
+            if(overlap+.0001f<best){result=trial;best=overlap;}
+            if(best<.0005f)return result;
+        }
+    }
+    return result;
+}
 // Check the mobile part of a front strip against both sides of the bent
 // knee. The preceding link controls the attachment. Turn toward hip-up
 // while preserving link length and the horizontal direction of the pleat.

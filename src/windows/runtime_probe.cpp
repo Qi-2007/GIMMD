@@ -23,6 +23,7 @@
 #include "core/cloth_links.h"
 #include "core/cloth_surface.h"
 #include "core/skinned_cloth.h"
+#include "core/collei_shoulder.h"
 #include "core/rotation_preview.h"
 #include "generated/fk_profile.h"
 #include "core/root_translation.h"

@@ -13,6 +13,41 @@ inline bc::Vec predict_tip(bc::Vec current,bc::Vec previous,bc::Vec target,float
     return bc::add(bc::add(current,velocity),bc::add({0,-.0004f,0},spring));
 }
 struct Frame {bc::Vec axis[3]{{1,0,0},{0,1,0},{0,0,1}},position{};};
+// Free shoulder ribbons retain the attachment's shape near the seam and
+// progressively yield to world gravity toward the tip.
+inline bc::Vec predict_drape(bc::Vec current,bc::Vec previous,bc::Vec anchor,
+                                      bc::Vec native_direction,float span,unsigned link,float step) {
+    if(!link||span<1e-6f)return anchor;
+    const float shape_stiffness=58.f/float(link);
+    const auto target=bc::add(anchor,native_direction);
+    const auto acceleration=bc::add(bc::scale(bc::sub(target,current),shape_stiffness),{0,-9.81f,0});
+    auto point=bc::add(current,bc::add(bc::scale(bc::sub(current,previous),std::exp(-8.f*step)),
+                                      bc::scale(acceleration,step*step)));
+    bc::length_constraint(anchor,span,point,native_direction);
+    return point;
+}
+// A sewn seam or belt mount can swivel but keeps its original attachment.
+// Preserve the fitted clearance where a coarse body capsule overlaps at rest.
+struct AttachmentSwing {
+    bc::Vec current{},previous{};
+    bool initialized=false;
+    template<unsigned N>
+    bc::Vec advance(bc::Vec anchor,bc::Vec rest,float max_angle,float dt,
+                    const bc::Capsule (&body)[N],const float (&radii)[N]){
+        const float span=bc::length(rest);
+        if(!initialized){previous=current=bc::add(anchor,rest);initialized=true;}
+        auto point=predict_drape(current,previous,anchor,rest,span,1,dt);
+        auto history=current;
+        for(unsigned i=0;i<N;++i)if(radii[i]>0)
+            bc::project(body[i],radii[i],point,history,rest);
+        bc::length_constraint(anchor,span,point,rest);
+        auto direction=bc::sub(point,anchor);
+        bc::limit_direction(rest,direction,max_angle);
+        current=bc::add(anchor,direction);
+        previous=bc::add(history,bc::sub(current,point));
+        return direction;
+    }
+};
 // Share the hem correction across both links in proportion to their lever
 // arms. Leave half for the lower joint so it can still clear a bent knee.
 struct HemBend {float rise=0,outward=0;}; // relative displacement per unit of lower-link length

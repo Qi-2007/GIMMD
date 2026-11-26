@@ -6,6 +6,7 @@
 #include "core/cloth_links.h"
 #include "core/cloth_surface.h"
 #include "core/skinned_cloth.h"
+#include "core/collei_shoulder.h"
 #include <sstream>
 #include "vmd.h"
 #include "core/timeline.h"
@@ -313,6 +314,202 @@ int wmain(int argc, wchar_t** argv) {
         {
             namespace surface=gimmd::cloth_surface;namespace bc=gimmd::body_collision;
             {
+                // Recorded right upper arm at 23.466 s. Place guide strips
+                // either side of it so only the fabric connecting them hits.
+                const bc::Capsule arm{{.091444f,.379601f,-.209846f},{.259732f,.455731f,-.105431f},.033948f};
+                const bc::Vec up{0,1,0};
+                const auto axis=bc::sub(arm.b,arm.a),along=bc::scale(axis,.45f);
+                const auto lateral=bc::cross(up,axis);
+                const auto edge=bc::scale(lateral,.065f/bc::length(lateral));
+                const auto seam=bc::add(arm.a,bc::scale(axis,.12f));
+                const auto a=bc::sub(seam,edge),b=bc::add(seam,edge);
+                const bc::Vec panel[]={a,bc::add(a,along),b,bc::add(b,along)};
+                check(surface::cape_panel_depth(a,along,up,.012f,arm)==0&&surface::cape_panel_depth(b,along,up,.012f,arm)==0&&
+                      surface::side_depth(panel,arm)>.033f,"upper arm fixture did not isolate the gap between cape strips");
+                const auto shift=surface::shoulder_cover_shift(panel,arm,up);
+                check(bc::dot(shift,up)>0&&std::abs(bc::dot(shift,axis))<1e-6f&&bc::length(shift)<.035f&&
+                      surface::side_depth(panel,arm,shift)<.0002f,"connected cape did not clear the raised upper arm");
+                const bc::Capsule distant{bc::add(arm.a,up),bc::add(arm.b,up),arm.radius};
+                const bc::Capsule lowered{arm.a,bc::add(arm.a,{0,-.20f,0}),arm.radius};
+                check(bc::length(surface::shoulder_cover_shift(panel,distant,up))==0&&
+                      bc::length(surface::shoulder_cover_shift(panel,lowered,up))==0,"relaxed shoulder cover lifted without a raised arm contact");
+            }
+            {
+                namespace shoulder=gimmd::collei_shoulder;
+                const bc::Capsule arm{{0,0,0},{.212f,0,0},.034f};
+                for(unsigned edge=0;edge<2;++edge){
+                    const float sign=edge?-1.f:1.f;
+                    const bc::Vec facing{0,0,sign},up{0,1,0};
+                    const auto& vertices=shoulder::trim[edge];
+                    bc::Vec panel[]={{.07f,-.01f,sign*.037f},{.13f,-.01f,sign*.037f},
+                                     {.07f,.01f,sign*.037f},{.13f,.01f,sign*.037f}};
+                    check(surface::side_depth(panel,arm)==0&&surface::side_depth(panel,shoulder::cuff(arm))>.003f,
+                          "cuff fixture did not isolate the front/back trim");
+                    const auto shift=shoulder::trim_shift(vertices,panel,arm,up,facing);
+                    check(bc::dot(shift,facing)>0&&bc::length(shift)<.025f,"trim pushed through the arm opening");
+                    for(unsigned i=0;i<4;++i)panel[i]=bc::add(panel[i],bc::scale(shift,vertices[i].flap_weight));
+                    check(surface::side_depth(panel,shoulder::cuff(arm))<.00015f,"weighted trim left inside cuff");
+                    const bc::Capsule away{{0,1,0},{.212f,1,0},.034f};
+                    check(bc::length(shoulder::trim_shift(vertices,panel,away,up,facing))==0,"distant arm moved trim");
+                }
+            }
+            {
+                namespace shoulder=gimmd::collei_shoulder;
+                // Left arm from the last reported pose. Probe the two flanks
+                // of the forward reach, both at the cuff and near the shoulder.
+                const bc::Capsule arm{{-.100991f,.359912f,-.071714f},{-.128192f,.428103f,.127356f},.033948f};
+                const bc::Vec up{0,1,0};
+                const auto axis=bc::sub(arm.b,arm.a),tangent=bc::cross(up,axis);
+                const auto side=bc::scale(tangent,1/bc::length(tangent));
+                const auto vertical=bc::scale(bc::cross(axis,side),1/bc::length(axis));
+                for(bool proximal:{false,true})for(unsigned edge=0;edge<2;++edge){
+                    const float sign=edge?-1.f:1.f;
+                    const auto offset=bc::scale(side,sign*(proximal?.030f:.036f));
+                    const auto base=bc::add(arm.a,offset);
+                    const auto a=bc::add(base,bc::scale(axis,proximal?.01f:.35f));
+                    const auto b=bc::add(base,bc::scale(axis,proximal?.07f:.55f));
+                    const auto half=bc::scale(vertical,.007f);
+                    bc::Vec patch[]={bc::sub(a,half),bc::sub(b,half),bc::add(a,half),bc::add(b,half)};
+                    const auto sleeve=shoulder::cuff(arm);
+                    check(proximal?(surface::side_depth(patch,arm)>.003f&&surface::side_depth(patch,sleeve)==0):
+                                   surface::side_depth(patch,sleeve)>.004f,"forward reach fixture missed its contact");
+                    const auto& vertices=shoulder::trim[edge];
+                    const auto shift=shoulder::trim_shift(vertices,patch,arm,up,{0,0,sign});
+                    check(sign*bc::dot(shift,side)>.003f&&std::abs(bc::dot(shift,axis))<1e-6f,"forward arm lost its lateral escape direction");
+                    for(unsigned i=0;i<4;++i)patch[i]=bc::add(patch[i],bc::scale(shift,vertices[i].flap_weight));
+                    check(std::max(surface::side_depth(patch,sleeve),surface::side_depth(patch,arm))<.00015f,
+                          "forward upper arm remained inside weighted shoulder trim");
+                }
+            }
+            {
+                namespace shoulder=gimmd::collei_shoulder;
+                // Alternate real contact with one or two missed fixed steps.
+                // Exercise the position and angle response in their own units.
+                for(bool angular:{false,true}){
+                    const float gain=angular?.45f:.35f,limit=angular?.12f:.008f;
+                    const bc::Vec target{angular?.8f:.025f,0,0};
+                    shoulder::ContactDamping damping{};
+                    bc::Vec value{};
+                    const auto advance=[&](bc::Vec request){
+                        const float response=damping.response(value,request,gain,limit);
+                        value=bc::add(value,bc::scale(bc::sub(request,value),response));
+                    };
+                    advance(target);
+                    check(near(value.x,std::min(gain*target.x,limit)),"initial shoulder contact lagged");
+                    for(unsigned i=0;i<70;++i)advance(target);
+                    float dropout_error=0;
+                    for(unsigned i=0;i<30;++i){
+                        advance(i%3==0?target:bc::Vec{});
+                        dropout_error=std::max(dropout_error,std::abs(value.x-target.x));
+                    }
+                    check(dropout_error<.00001f,"intermittent shoulder contact chattered");
+                    advance({});
+                    check(value.x<target.x&&value.x>0,"confirmed shoulder separation did not release");
+                    for(unsigned i=0;i<60;++i)advance({});
+                    check(value.x<.00001f,"shoulder correction remained after sustained separation");
+                    for(unsigned i=0;i<70;++i)advance(target);
+                    const float noise=limit*.4f;
+                    for(unsigned i=0;i<50;++i)advance({target.x+(i%2?-noise:noise),0,0});
+                    const float low=value.x;
+                    advance({target.x+noise,0,0});
+                    const float previous_ripple=2*noise*gain/(2-gain);
+                    check(value.x-low<.75f*previous_ripple,"shoulder damping did not attenuate alternating nonzero contacts");
+                }
+            }
+            {
+                // Recorded pose at 10.938 s. These front-piece vertices are
+                // fully weighted to AmiceF A21 and its child A31.
+                const gimmd::skinned_cloth::Frame frame{{{.756653f,.642135f,-.123043f},{-.038131f,.231211f,.972157f},
+                                                        {.652704f,-.730894f,.199431f}},{-.064363f,.460576f,-.049547f}};
+                const bc::Capsule arm{{-.104676f,.361793f,-.074870f},{-.148082f,.397240f,.129776f},.033948f};
+                const bc::Vec caught[]={{-.118093f,.383485f,-.020316f},{-.118369f,.343426f,-.001348f},{-.139343f,.383380f,-.023551f}};
+                const auto turn=gimmd::collei_shoulder::front_piece_turn(frame,false,arm,{-1,0,0},{0,0,1});
+                const auto angle=bc::length(turn);
+                check(angle>.01f&&angle<=.96f,"front piece ignored the recorded arm crossing");
+                const auto axis=bc::scale(turn,1/angle);
+                for(auto p:caught){
+                    const auto moved=bc::add(frame.position,gimmd::skinned_cloth::axial_turn(bc::sub(p,frame.position),axis,angle));
+                    check(bc::distance(arm,p)<arm.radius&&bc::distance(arm,moved)>arm.radius,"front cloth vertex remained inside arm");
+                }
+                namespace shoulder=gimmd::collei_shoulder;
+                const bc::Vec lift{-.008482f,.068238f,-.019974f};
+                const auto fit=shoulder::fit_front_drape(frame,false,arm,{-1,0,0},{0,0,1},lift);
+                check(fit.release>.99f,"lifted front seam did not settle");
+                const auto shift=shoulder::front_seam_shift(lift,fit.release);
+                const float target_angle=bc::length(fit.turn);
+                const auto target_axis=bc::scale(fit.turn,1/target_angle);
+                bc::Vec offsets[6],settled[6];shoulder::front_offsets(frame,false,offsets);
+                float old_gap=0,new_gap=0;
+                for(unsigned i=0;i<6;++i){
+                    const auto old=bc::add(frame.position,gimmd::skinned_cloth::axial_turn(offsets[i],axis,angle));
+                    settled[i]=bc::add(bc::add(frame.position,shift),gimmd::skinned_cloth::axial_turn(offsets[i],target_axis,target_angle));
+                    old_gap+=bc::distance(arm,old)-arm.radius;
+                    new_gap+=bc::distance(arm,settled[i])-arm.radius;
+                }
+                check(new_gap<old_gap*.65f,"fitted front sheet still stands away from the arm");
+                for(unsigned row:{0u,2u}){
+                    const bc::Vec panel[]={settled[row],settled[row+1],settled[row+2],settled[row+3]};
+                    check(shoulder::patch_depth(panel,arm)<.0003f,"lowered seam crossed the sleeve");
+                }
+                auto clear=frame;clear.position.y+=.2f;
+                check(shoulder::fit_front_drape(clear,false,arm,{-1,0,0},{0,0,1},lift).release==0,"clear front seam moved");
+                check(bc::length(gimmd::collei_shoulder::front_piece_turn(clear,false,arm,{-1,0,0},{0,0,1}))==0,
+                      "front piece with clearance received a correction");
+            }
+            {
+                // At 10.057 s the left arm points forward. The middle scallop
+                // can touch its cuff while the front and back edges are clear.
+                namespace shoulder=gimmd::collei_shoulder;
+                const bc::Capsule arm{{-.108520f,.355030f,-.061036f},{-.205419f,.411004f,.119233f},.033948f};
+                const bc::Vec up{0,1,0},forward{0,0,1};
+                const auto axis=bc::sub(arm.b,arm.a),cross=bc::cross(up,axis);
+                const auto side=bc::scale(cross,1/bc::length(cross));
+                const auto top=bc::scale(bc::cross(axis,side),1/bc::length(axis));
+                bc::Vec rim[6];
+                for(unsigned row=0;row<3;++row)for(unsigned column=0;column<2;++column){
+                    const auto center=bc::add(arm.a,bc::scale(axis,column?.57f:.33f));
+                    rim[2*row+column]=bc::add(center,bc::add(bc::scale(side,(float(row)-1)*.055f),bc::scale(top,.034f)));
+                }
+                const auto shift=shoulder::rim_support(rim,arm,up,forward);
+                check(bc::dot(shift,top)>.006f&&bc::length(shift)<.010f,"forward cuff missed central scallop");
+                for(unsigned i=0;i<6;++i)rim[i]=bc::add(rim[i],bc::scale(shift,1-shoulder::rim[i].side_front_weight));
+                for(unsigned i:{0u,2u}){
+                    const bc::Vec patch[]={rim[i],rim[i+1],rim[i+2],rim[i+3]};
+                    check(shoulder::patch_depth(patch,arm)<.00015f,"settled central rim still intersects cuff");
+                }
+                check(bc::length(shoulder::rim_support(rim,arm,up,forward))<.00001f,"clear central rim lifted twice");
+            }
+            {
+                // The palm meets the edge of a cape halfway down a sewn link:
+                // both the centerline and the existing tip-only contact miss.
+                const bc::Vec direction{0,-.12f,0},normal{0,0,1};
+                surface::CapeArm arms[2]{};
+                for(unsigned hand=0;hand<2;++hand){
+                    const float x=hand?.033f:-.033f;
+                    const bc::Capsule palm{{x,-.06f,-.006f},{x,-.06f,.006f},.012f};
+                    arms[hand][2]=palm;
+                    const auto pair=bc::closest_segment({},direction,palm);
+                    check(bc::length(bc::sub(pair.point,pair.axis))>palm.radius&&
+                          surface::cape_panel_depth({},direction,normal,.04f,palm)>.008f,"cape edge fixture missed palm overlap");
+                    const auto fitted=surface::fit_cape_panel({},direction,direction,normal,.04f,.7f,arms);
+                    check(surface::cape_panel_depth({},fitted,normal,.04f,palm)<.0005f&&
+                          near(bc::length(fitted),bc::length(direction)),"palm penetrated fitted cape or stretched the seam");
+                    arms[hand]={};
+                }
+                const auto free=surface::fit_cape_panel({},direction,direction,normal,.04f,.7f,arms);
+                check(bc::length(bc::sub(free,direction))==0,"clear cape pose changed");
+                const bc::Vec wrist{},knuckles[]={{-.045f,0,.035f},{-.03f,0,.07f},{0,0,.08f},{.015f,0,.075f},{.03f,0,.065f}};
+                bc::Vec distal[5];for(unsigned i=0;i<5;++i)distal[i]=bc::add(knuckles[i],{0,-.03f,.02f});
+                const auto arm=surface::cape_arm({}, {},wrist,knuckles,distal);
+                for(const auto& joint:knuckles){
+                    bool covered=false;
+                    for(unsigned i=2;i<arm.size();++i)covered=covered||bc::distance(arm[i],joint)<=arm[i].radius;
+                    check(covered,"finger root on bent hand lacks coverage");
+                }
+                check(arm[2].radius>0&&bc::distance(arm[2],{0,0,.04f})<arm[2].radius&&
+                      bc::distance(arm[8],distal[4])<.0001f,"palm center or bent pinky is uncovered");
+            }
+            {
                 // Collei at 23.467 s: the right front-to-side panel crosses
                 // the thigh guard on its fixed edge. Use 2 cm of overlap.
                 const bc::Vec panel[3]={{.097368f,.019956f,.115762f},{.151543f,.021851f,-.004378f},{.224935f,-.019714f,.029052f}};
@@ -465,6 +662,48 @@ int wmain(int argc, wchar_t** argv) {
                       "front flap retained an isolated twist or lost knee clearance");
                 for(unsigned step=0;step<30;++step)skin::support_front(pose,{0,1,0},down,down,.523599f,angles);
                 for(float angle:angles)check(std::abs(angle)<1e-5f,"front seam twist did not release");
+            }
+            {
+                // Collei's right shoulder ribbon at the recorded paused pose,
+                // replayed in upright coordinates with the shoulder stationary.
+                const std::array<bc::Vec,6> native={{{.162636f,.313063f,-.101773f},{.279618f,.254980f,-.086521f},
+                    {.396018f,.196449f,-.070620f},{.514408f,.133696f,-.051400f},
+                    {.641912f,.051382f,-.022105f},{.745530f,-.053682f,.024126f}}};
+                auto current=native,previous=native;
+                float stretch=0;
+                for(unsigned frame=0;frame<180;++frame){
+                    const auto old=current;
+                    for(unsigned j=1;j<native.size();++j){
+                        const auto rest=bc::sub(native[j],native[j-1]);
+                        const float span=bc::length(rest);
+                        current[j]=skin::predict_drape(old[j],previous[j],current[j-1],rest,span,j,1.f/60);
+                        stretch=std::max(stretch,std::abs(bc::length(bc::sub(current[j],current[j-1]))-span));
+                    }
+                    previous=old;
+                }
+                check(stretch<1e-5f&&bc::length(bc::sub(current[0],native[0]))==0,"draped shoulder seam moved or ribbon stretched");
+                check(current[4].x-current[0].x<.24f&&current[4].y<native[4].y-.15f,"Collei ribbon stayed splayed in the held shoulder pose");
+                check(bc::length(bc::sub(current.back(),previous.back()))<.0002f,"draped ribbon failed to settle");
+            }
+            {
+                // E03 to E04 in the saved Collei pose. An accessory mount
+                // models a rotating belt or shoulder joint with a fixed seam.
+                const bc::Vec rest{-.052097f,-.087110f,-.026027f};
+                const bc::Capsule body[]={{{},{},.01f}};
+                const float radii[]={0.f},step=1.f/60;
+                const float span=bc::length(rest);
+                skin::AttachmentSwing swing{};bc::Vec direction{};
+                for(unsigned i=0;i<120;++i)direction=swing.advance({},rest,.61f,step,body,radii);
+                check(direction.y<rest.y-.006f&&near(bc::length(direction),span),"pouch did not lower around its attachment");
+                check(bc::dot(rest,direction)>=span*span*std::cos(.61f)-1e-6f,"accessory passed its seam angle limit");
+                const auto settled=direction;
+                direction=swing.advance({.025f,0,0},rest,.61f,step,body,radii);
+                check(direction.x<settled.x-.005f&&near(bc::length(direction),span),"attachment failed to lag a moving seam");
+                swing={};
+                const auto reset=swing.advance({2,1,3},rest,.61f,step,body,radii);
+                skin::AttachmentSwing fresh{};
+                const auto start=fresh.advance({},rest,.61f,step,body,radii);
+                check(bc::length(bc::sub(reset,start))<1e-5f,"seek carried the old accessory velocity");
             }
             // Barbara's B04 failure at 6 s: a roughly 13 cm segment predicted
             // more than four metres of travel after a contact correction.
